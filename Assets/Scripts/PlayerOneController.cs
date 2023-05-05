@@ -22,7 +22,7 @@ public class PlayerOneController : MonoBehaviour
     /*movement variables, change in inspector, don't change here
      * smaller speed value = faster lerp
      */
-    [SerializeField] float moveDist = 0.5f;
+    [SerializeField] public float moveDist = 0.5f;
     [SerializeField] float moveSpeed = 5f;
 
     //repair variables
@@ -32,12 +32,8 @@ public class PlayerOneController : MonoBehaviour
     bool signOnLeft, signOnRight;
     GameObject signToFix;
 
-    [SerializeField] float ladderHeight;
-    [SerializeField] float heightChanges;
-    //Set ladderHeight
+    //ladder
     GameObject ladder;
-
-
 
 
     public enum DrillType
@@ -54,7 +50,7 @@ public class PlayerOneController : MonoBehaviour
         //standard starting drill
         currentDrill = DrillType.SpiralDrill;
         ladder = GameObject.FindWithTag("Ladder");
-        ladderHeight = ladder.transform.localScale.y;
+        
     }
 
     #region Update Methods
@@ -64,7 +60,8 @@ public class PlayerOneController : MonoBehaviour
         CheckLeftRail();
         CheckRightRail();
         FixSign();
-        LadderFunction();
+
+        this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
 
     }
 
@@ -87,15 +84,9 @@ public class PlayerOneController : MonoBehaviour
         CheckLeftHand();
         CheckRightHand();
         ClimbUp();
+     
 
-        if (this.transform.position.y <= ladderHeight - 2.0f)
-        {
-            moveDist = 0.5f;
-        }
-        else
-        {
-            moveDist = 0f;
-        }
+
     }
     #endregion
 
@@ -170,39 +161,6 @@ public class PlayerOneController : MonoBehaviour
         }
     }
 
-    void LadderFunction()
-    {
-        if (Keyboard.current[Key.Z].wasPressedThisFrame)
-        {
-            heightChanges = 5;
-            Debug.Log("5");
-        }
-        if (Keyboard.current[Key.X].wasPressedThisFrame)
-        {
-            heightChanges = 4;
-            Debug.Log("4");
-        }
-        if (Keyboard.current[Key.C].wasPressedThisFrame)
-        {
-            heightChanges = 3;
-            Debug.Log("3");
-
-        }
-        if (Keyboard.current[Key.V].wasPressedThisFrame)
-        {
-            heightChanges = 2;
-            Debug.Log("2");
-
-        }
-        if (Keyboard.current[Key.Space].wasPressedThisFrame)
-        {
-            heightChanges = 1;
-            Debug.Log("1");
-
-        }
-        ladder.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
-        ladderHeight = heightChanges;
-    }
     
     void CheckRightRail()
     {
@@ -268,6 +226,7 @@ public class PlayerOneController : MonoBehaviour
     #endregion
 
     #region Movement
+
     void ClimbUp()
     {
         if (!performed04)
@@ -358,5 +317,5 @@ public class PlayerOneController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
-    #endregion
+    #endregion  
 }
