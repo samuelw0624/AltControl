@@ -61,7 +61,12 @@ public class PlayerOneController : MonoBehaviour
         CheckRightRail();
         FixSign();
 
+        //player's position and rotation follows to the ladder
         this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
+        
+        Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
+        transform.rotation = newRotation;
+        
 
     }
 

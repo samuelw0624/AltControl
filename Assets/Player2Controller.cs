@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Player2Controller : MonoBehaviour
 {
     //ladder variables
-    [SerializeField] float ladderHeight;
+    [SerializeField] float ladderHeight = 10f;
     [SerializeField] float heightChanges;
     //Set ladderHeight
     //height rate changes
@@ -21,6 +21,7 @@ public class Player2Controller : MonoBehaviour
     Rigidbody rb;
 
     Vector3 movement;
+    Vector3 rotation;
 
     // Start is called before the first frame update
     void Start()
@@ -39,23 +40,7 @@ public class Player2Controller : MonoBehaviour
         SpeedAdjust();
 
         movement.x = Input.GetAxisRaw("HorizontalInput");
-
-        /*
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            Debug.Log("moveLadderSpeed =" + moveLadderSpeed);
-            Vector3 movement = new Vector3(this.transform.position.x * -moveLadderSpeed, this.transform.position.y, this.transform.position.z);
-            this.transform.position = movement;
-            Debug.Log("Left");
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            Debug.Log("moveLadderSpeed =" + moveLadderSpeed);
-            Vector3 movement = new Vector3(this.transform.position.x * moveLadderSpeed, this.transform.position.y, this.transform.position.z);
-            this.transform.position = movement;
-            Debug.Log("Right");
-        }
-        */
+        rotation.z = Input.GetAxisRaw("Rotation");
 
     }
 
@@ -71,7 +56,11 @@ public class Player2Controller : MonoBehaviour
             player1.moveDist = 0f;
         }
 
+        //ladder movement at axis.x
         rb.MovePosition(rb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
+
+        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, 0f, rotation.z*moveLadderSpeed) * Time.fixedDeltaTime);
+        rb.MoveRotation(rb.rotation * deltaRotation);
     }
 
     #region Ladder
@@ -80,23 +69,23 @@ public class Player2Controller : MonoBehaviour
         // five stages of ladder heitgh adjustment
         if (Keyboard.current[Key.Z].wasPressedThisFrame)
         {
-            heightChanges = 5;
+            heightChanges = 15;
         }
         if (Keyboard.current[Key.X].wasPressedThisFrame)
         {
-            heightChanges = 4;
+            heightChanges = 13;
         }
         if (Keyboard.current[Key.C].wasPressedThisFrame)
         {
-            heightChanges = 3;
+            heightChanges = 10;
         }
         if (Keyboard.current[Key.V].wasPressedThisFrame)
         {
-            heightChanges = 2;
+            heightChanges = 7;
         }
         if (Keyboard.current[Key.Space].wasPressedThisFrame)
         {
-            heightChanges = 1;
+            heightChanges = 5;
         }
         this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
         ladderHeight = heightChanges;
@@ -104,6 +93,7 @@ public class Player2Controller : MonoBehaviour
 
     void SpeedAdjust()
     {
+        // three levels of speed: slow, normal, fast
         if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
         {
             moveLadderSpeed = 3f;
