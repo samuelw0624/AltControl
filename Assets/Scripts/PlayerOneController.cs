@@ -32,6 +32,14 @@ public class PlayerOneController : MonoBehaviour
     bool signOnLeft, signOnRight;
     GameObject signToFix;
 
+    [SerializeField] float ladderHeight;
+    [SerializeField] float heightChanges;
+    //Set ladderHeight
+    GameObject ladder;
+
+
+
+
     public enum DrillType
     {
         CrossDrill,
@@ -45,6 +53,8 @@ public class PlayerOneController : MonoBehaviour
     {
         //standard starting drill
         currentDrill = DrillType.SpiralDrill;
+        ladder = GameObject.FindWithTag("Ladder");
+        ladderHeight = ladder.transform.localScale.y;
     }
 
     #region Update Methods
@@ -54,6 +64,8 @@ public class PlayerOneController : MonoBehaviour
         CheckLeftRail();
         CheckRightRail();
         FixSign();
+        LadderFunction();
+
     }
 
     private void FixedUpdate()
@@ -75,6 +87,15 @@ public class PlayerOneController : MonoBehaviour
         CheckLeftHand();
         CheckRightHand();
         ClimbUp();
+
+        if (this.transform.position.y <= ladderHeight - 2.0f)
+        {
+            moveDist = 0.5f;
+        }
+        else
+        {
+            moveDist = 0f;
+        }
     }
     #endregion
 
@@ -147,6 +168,40 @@ public class PlayerOneController : MonoBehaviour
                 ResetLeftBool(4);
             }
         }
+    }
+
+    void LadderFunction()
+    {
+        if (Keyboard.current[Key.Z].wasPressedThisFrame)
+        {
+            heightChanges = 5;
+            Debug.Log("5");
+        }
+        if (Keyboard.current[Key.X].wasPressedThisFrame)
+        {
+            heightChanges = 4;
+            Debug.Log("4");
+        }
+        if (Keyboard.current[Key.C].wasPressedThisFrame)
+        {
+            heightChanges = 3;
+            Debug.Log("3");
+
+        }
+        if (Keyboard.current[Key.V].wasPressedThisFrame)
+        {
+            heightChanges = 2;
+            Debug.Log("2");
+
+        }
+        if (Keyboard.current[Key.Space].wasPressedThisFrame)
+        {
+            heightChanges = 1;
+            Debug.Log("1");
+
+        }
+        ladder.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
+        ladderHeight = heightChanges;
     }
     
     void CheckRightRail()
@@ -242,7 +297,7 @@ public class PlayerOneController : MonoBehaviour
     {
         float elapsedTime = 0f;
         Vector3 startingPos = this.transform.position;
-
+        Debug.Log("startingPos.y is" + startingPos.y);
         while(elapsedTime < moveSpeed)
         {
             this.transform.position = Vector3.Lerp(startingPos, newPos, elapsedTime / moveSpeed);
@@ -251,11 +306,13 @@ public class PlayerOneController : MonoBehaviour
         }
 
         this.transform.position = newPos;
+        
     }
 
     Vector3 NewPosition()
     {
         Vector3 newPosition = transform.position + new Vector3(0, moveDist, 0);
+
         return newPosition;
     }
     #endregion
