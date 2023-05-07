@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RepairSpots : MonoBehaviour
+public class SignRepair : MonoBehaviour
 {
-
     Renderer rend;
     int colorValue;
-    PlayerController playerController;
+    PlayerMovementCtrl_OLD playerController;
     GameObject player;
 
     // Start is called before the first frame update
@@ -16,7 +15,7 @@ public class RepairSpots : MonoBehaviour
         rend = this.GetComponent<Renderer>();
         colorValue = Random.Range(1, 3);
 
-        player = GameObject.FindWithTag("Player");   
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -33,16 +32,14 @@ public class RepairSpots : MonoBehaviour
         {
             rend.material.color = Color.red;
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && player.GetComponent<PlayerController>().colorNumber == colorValue)
+        if (other.tag == "Player" && player.GetComponent<PlayerMovementCtrl_OLD>().colorNumber == colorValue)
         {
             Debug.Log("Trigered");
             Destroy(this.gameObject);
         }
-
     }
 }

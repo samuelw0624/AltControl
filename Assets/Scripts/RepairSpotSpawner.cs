@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class RepairSpotSpawner : MonoBehaviour
 {
-
     public GameObject repairSpots;
     float randX;
     float randY;

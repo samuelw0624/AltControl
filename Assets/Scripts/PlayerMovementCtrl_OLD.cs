@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovementCtrl_OLD : MonoBehaviour
 {
-
     Player1Controller controls;
     Vector2 move;
     Vector2 height;
@@ -29,44 +28,34 @@ public class PlayerController : MonoBehaviour
 
         controls.Gameplay.Hold.started += Hold;
         controls.Gameplay.Hold.canceled += ctx => rb.useGravity = true;
-
     }
 
     private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
         rend = this.GetComponent<Renderer>();
-
     }
-
 
     void Update()
     {
-
         if (controls.Gameplay.Climb_Left.triggered)
         {
             controls.Gameplay.Climb_Left.performed += ClimbUp;
-
         }
         else
         {
             controls.Gameplay.Climb_Left.canceled += ctx => climbValue = 0;
-
         }
 
         if (controls.Gameplay.Climb_Right.triggered)
         {
             controls.Gameplay.Climb_Right.performed += ClimbUp;
-
         }
         else
         {
             controls.Gameplay.Climb_Right.canceled += ctx => climbValue = 0;
-
         }
-
      
-
         if (controls.Gameplay.Equip01.triggered)
         {
             controls.Gameplay.Equip01.performed += Equip1;
@@ -79,12 +68,9 @@ public class PlayerController : MonoBehaviour
             controls.Gameplay.Equip03.performed += Equip3;
         }
 
-
-
         // axis_x movement function
         Vector2 movement = new Vector2(move.x, climbValue) * Time.deltaTime;
         transform.Translate(movement, Space.World);
-
     }
 
     void Equip1(InputAction.CallbackContext context)
@@ -109,17 +95,12 @@ public class PlayerController : MonoBehaviour
     private void ClimbUp(InputAction.CallbackContext context)
     {
         climbValue = 1;
-        
     }
-
-
 
     private void Hold(InputAction.CallbackContext context)
     {
         rb.useGravity = false;
-
     }
-
 
     void OnEnable()
     {
@@ -130,8 +111,4 @@ public class PlayerController : MonoBehaviour
     {
         controls.Gameplay.Disable();
     }
-
-
-
-
 }
