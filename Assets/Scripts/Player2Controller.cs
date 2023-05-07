@@ -23,6 +23,11 @@ public class Player2Controller : MonoBehaviour
     Vector3 movement;
     Vector3 rotation;
 
+    [SerializeField] float initialRotationSpeed = 10f;
+    [SerializeField] float acceleratingRate = 0.1f;
+    [SerializeField] float maxRotationSpeed = 50;
+    [SerializeField] float currentRotationSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +35,9 @@ public class Player2Controller : MonoBehaviour
         ladderRb = this.GetComponent<Rigidbody>();
         player = GameObject.FindWithTag("Player");
         player1 = player.GetComponent<PlayerOneController>();
+
+        //set default Rotation Speed 
+        currentRotationSpeed = initialRotationSpeed;
     }
 
     // Update is called once per frame
@@ -42,6 +50,19 @@ public class Player2Controller : MonoBehaviour
         movement.x = Input.GetAxisRaw("HorizontalInput");
         rotation.z = Input.GetAxisRaw("Rotation");
 
+        transform.Rotate(Vector3.back, currentRotationSpeed * Time.deltaTime);
+        
+        if (Input.GetKeyDown(KeyCode.Q)|| Input.GetKeyDown(KeyCode.E))
+        {
+            currentRotationSpeed = 0;
+        }
+        else if(Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
+        {
+            currentRotationSpeed = initialRotationSpeed;
+            currentRotationSpeed += acceleratingRate * Time.deltaTime;
+        }
+
+        currentRotationSpeed = Mathf.Min(currentRotationSpeed, maxRotationSpeed);
     }
 
     private void FixedUpdate()
