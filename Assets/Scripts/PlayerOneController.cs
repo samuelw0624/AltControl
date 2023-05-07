@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerOneController : MonoBehaviour
 {
+    Rigidbody playerRb;
     bool leftHandOnLadder, rightHandOnLadder;
     //checks if the player grabbed the ladder for the frst time
     bool firstOnLeft, firstOnRight;
@@ -24,6 +25,11 @@ public class PlayerOneController : MonoBehaviour
      */
     [SerializeField] public float moveDist = 0.5f;
     [SerializeField] float moveSpeed = 5f;
+    bool canSlide;
+    float timer;
+    [SerializeField] float slideHoldTime;
+    [SerializeField] float gravityMod;
+
 
     //repair variables
     //repair radius, change in inspector
@@ -34,7 +40,6 @@ public class PlayerOneController : MonoBehaviour
 
     //ladder
     GameObject ladder;
-
 
     public enum DrillType
     {
@@ -47,10 +52,11 @@ public class PlayerOneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerRb = this.GetComponent<Rigidbody>();
         //standard starting drill
         currentDrill = DrillType.SpiralDrill;
         ladder = GameObject.FindWithTag("Ladder");
-        
+
     }
 
     #region Update Methods
@@ -60,13 +66,13 @@ public class PlayerOneController : MonoBehaviour
         CheckLeftRail();
         CheckRightRail();
         FixSign();
+        SlideDown();
 
         //player's position and rotation follows to the ladder
         this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
-        
+
         Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
         transform.rotation = newRotation;
-        
 
     }
 
@@ -74,12 +80,12 @@ public class PlayerOneController : MonoBehaviour
     {
         var keyboard = Keyboard.current;
         //check if there is a keyboard
-        if(keyboard == null)
+        if (keyboard == null)
         {
             return;
         }
 
-        if(!leftHandOnLadder && !rightHandOnLadder && firstOnLeft && firstOnRight)
+        if (!leftHandOnLadder && !rightHandOnLadder && firstOnLeft && firstOnRight)
         {
             ResetLeftBool();
             ResetRightBool();
@@ -89,14 +95,12 @@ public class PlayerOneController : MonoBehaviour
         CheckLeftHand();
         CheckRightHand();
         ClimbUp();
-     
-
 
     }
     #endregion
 
     #region Rail Position Logic
-    
+
     void CheckLeftHand()
     {
         /*first check if left hand had ever been placed on the ladder
@@ -141,7 +145,7 @@ public class PlayerOneController : MonoBehaviour
      */
     void CheckLeftRail()
     {
-        if(leftHandOnLadder)
+        if (leftHandOnLadder)
         {
             if (Keyboard.current[Key.T].wasPressedThisFrame)
             {
@@ -166,10 +170,9 @@ public class PlayerOneController : MonoBehaviour
         }
     }
 
-    
     void CheckRightRail()
     {
-        if(rightHandOnLadder)
+        if (rightHandOnLadder)
         {
             if (Keyboard.current[Key.O].wasPressedThisFrame)
             {
@@ -257,11 +260,37 @@ public class PlayerOneController : MonoBehaviour
         }
     }
 
+    void SlideDown()
+    {
+        Debug.Log(Physics.gravity.y);
+        if (leftBoolArray[2] && rightBoolArray[2] && !canSlide)
+        {
+            canSlide = true;
+            timer = 0f;
+        }
+
+        if (canSlide)
+        {
+            timer += Time.deltaTime;
+        }
+
+        if (canSlide && timer >= slideHoldTime && leftBoolArray[2] && rightBoolArray[2])
+        {
+            playerRb.useGravity = true;
+            Physics.gravity = new Vector3(0, gravityMod, 0);
+        } else if (!leftBoolArray[2] ||  !rightBoolArray[2])
+        {
+            playerRb.useGravity = false;
+            playerRb.velocity = Vector3.zero;
+            canSlide = false;
+        }
+    }
+
     IEnumerator MoveToNewPos(Vector3 newPos)
     {
         float elapsedTime = 0f;
         Vector3 startingPos = this.transform.position;
-        Debug.Log("startingPos.y is" + startingPos.y);
+        //Debug.Log("startingPos.y is" + startingPos.y);
         while(elapsedTime < moveSpeed)
         {
             this.transform.position = Vector3.Lerp(startingPos, newPos, elapsedTime / moveSpeed);

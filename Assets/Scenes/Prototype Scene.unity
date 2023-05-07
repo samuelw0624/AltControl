@@ -905,6 +905,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDist: 0.5
   moveSpeed: 0.15
+  slideHoldTime: 1
+  gravityMod: -0.7
   detectionRadius: 5
   currentDrill: 0
 --- !u!135 &1403149664
@@ -932,7 +934,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1097,10 +1099,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4880c2f5053417b48b2b24d91f673250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ladderHeight: 0
-  heightChanges: 0
+  ladderHeight: 100
+  heightChanges: 100
   moveLadderSpeed: 5
-  moveLadderDist: 0
+  moveLadderDist: 3
 --- !u!1 &1533201473
 GameObject:
   m_ObjectHideFlags: 0

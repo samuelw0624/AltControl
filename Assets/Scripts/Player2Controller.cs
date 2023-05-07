@@ -18,7 +18,7 @@ public class Player2Controller : MonoBehaviour
     //ladder movement variables
     [SerializeField] float moveLadderSpeed = 5.0f;
     [SerializeField] float moveLadderDist;
-    Rigidbody rb;
+    Rigidbody ladderRb;
 
     Vector3 movement;
     Vector3 rotation;
@@ -27,7 +27,7 @@ public class Player2Controller : MonoBehaviour
     void Start()
     {
         ladderHeight = this.transform.localScale.y;
-        rb = this.GetComponent<Rigidbody>();
+        ladderRb = this.GetComponent<Rigidbody>();
         player = GameObject.FindWithTag("Player");
         player1 = player.GetComponent<PlayerOneController>();
     }
@@ -57,10 +57,10 @@ public class Player2Controller : MonoBehaviour
         }
 
         //ladder movement at axis.x
-        rb.MovePosition(rb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
+        ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
 
         Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, 0f, rotation.z*moveLadderSpeed) * Time.fixedDeltaTime);
-        rb.MoveRotation(rb.rotation * deltaRotation);
+        ladderRb.MoveRotation(ladderRb.rotation * deltaRotation);
     }
 
     #region Ladder
