@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerOneController : MonoBehaviour
 {
     Rigidbody playerRb;
-    bool leftHandOnLadder, rightHandOnLadder;
+    bool leftHandOffLadder = true;
+    bool rightHandOffLadder = true;
     //checks if the player grabbed the ladder for the frst time
     bool firstOnLeft, firstOnRight;
 
@@ -53,6 +54,8 @@ public class PlayerOneController : MonoBehaviour
     void Start()
     {
         playerRb = this.GetComponent<Rigidbody>();
+        leftHandOffLadder = true;
+        rightHandOffLadder = true;
         //standard starting drill
         currentDrill = DrillType.SpiralDrill;
         ladder = GameObject.FindWithTag("Ladder");
@@ -63,10 +66,17 @@ public class PlayerOneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckLeftHand();
+        CheckRightHand();
+        
         CheckLeftRail();
         CheckRightRail();
+        
         FixSign();
         SlideDown();
+
+        Debug.Log("Left hand off ladder is " + leftHandOffLadder);
+        Debug.Log("Right hand off ladder is " + rightHandOffLadder);
 
         //player's position and rotation follows to the ladder
         this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
@@ -85,17 +95,14 @@ public class PlayerOneController : MonoBehaviour
             return;
         }
 
-        if (!leftHandOnLadder && !rightHandOnLadder && firstOnLeft && firstOnRight)
+        if (leftHandOffLadder && rightHandOffLadder && firstOnLeft && firstOnRight)
         {
             ResetLeftBool();
             ResetRightBool();
             Debug.Log("You fall to death");
         }
-
-        CheckLeftHand();
-        CheckRightHand();
+        
         ClimbUp();
-
     }
     #endregion
 
@@ -105,39 +112,45 @@ public class PlayerOneController : MonoBehaviour
     {
         /*first check if left hand had ever been placed on the ladder
          * then checks if the hand is grabbed on currently*/
-        if (Keyboard.current[Key.A].isPressed && !firstOnLeft)
+        if (Keyboard.current[Key.W].wasPressedThisFrame && !firstOnLeft)
         {
             firstOnLeft = true;
-            leftHandOnLadder = true;
-        }
-        else if (Keyboard.current[Key.A].isPressed)
+            leftHandOffLadder = false;
+        }else if (Keyboard.current[Key.W].wasPressedThisFrame)
         {
-            leftHandOnLadder = true;
+            leftHandOffLadder = false;
         }
-        else
+        if (Keyboard.current[Key.A].wasPressedThisFrame)
         {
-            leftHandOnLadder = false;
+            leftHandOffLadder = true;
             ResetLeftBool();
         }
+        //else
+        //{
+        //    leftHandOffLadder = false;
+        //}
     }
 
     void CheckRightHand()
     {
         //same as left hand
-        if (Keyboard.current[Key.D].isPressed && !firstOnRight)
+        if (Keyboard.current[Key.R].wasPressedThisFrame && !firstOnRight)
         {
             firstOnRight = true;
-            rightHandOnLadder = true;
-        }
-        else if (Keyboard.current[Key.D].isPressed)
+            rightHandOffLadder = false;
+        }else if (Keyboard.current[Key.R].wasPressedThisFrame)
         {
-            rightHandOnLadder = true;
+            leftHandOffLadder = false;
         }
-        else
+        if (Keyboard.current[Key.D].wasPressedThisFrame)
         {
-            rightHandOnLadder = false;
+            rightHandOffLadder = true;
             ResetRightBool();
         }
+        //else
+        //{
+        //    rightHandOffLadder = false;
+        //}
     }
 
     /*rail positionis checked every frame. When the key input corresponding to a 
@@ -145,7 +158,7 @@ public class PlayerOneController : MonoBehaviour
      */
     void CheckLeftRail()
     {
-        if (leftHandOnLadder)
+        if (!leftHandOffLadder)
         {
             if (Keyboard.current[Key.T].wasPressedThisFrame)
             {
@@ -172,7 +185,7 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckRightRail()
     {
-        if (rightHandOnLadder)
+        if (!rightHandOffLadder)
         {
             if (Keyboard.current[Key.O].wasPressedThisFrame)
             {
@@ -262,7 +275,6 @@ public class PlayerOneController : MonoBehaviour
 
     void SlideDown()
     {
-        Debug.Log(Physics.gravity.y);
         if (leftBoolArray[2] && rightBoolArray[2] && !canSlide)
         {
             canSlide = true;
@@ -321,6 +333,7 @@ public class PlayerOneController : MonoBehaviour
             if (signLocalPos.x < 0)
             {
                 signOnLeft = true;
+                Debug.Log("left sign");
 
             } else if (signLocalPos.x > 0)
             {
@@ -334,12 +347,12 @@ public class PlayerOneController : MonoBehaviour
 
     void FixSign()
     {
-        if (signOnLeft && !leftHandOnLadder && signToFix.CompareTag("sign") && Keyboard.current[Key.S].wasPressedThisFrame)
+        if (signOnLeft && leftHandOffLadder && signToFix.CompareTag("sign") && Keyboard.current[Key.S].wasPressedThisFrame)
         {
             signToFix.tag = "fixedSign";
             Debug.Log("sign repaired on the left");
         }
-        if (signOnRight && !rightHandOnLadder && signToFix.CompareTag("sign") && Keyboard.current[Key.F].wasPressedThisFrame)
+        if (signOnRight && rightHandOffLadder && signToFix.CompareTag("sign") && Keyboard.current[Key.S].wasPressedThisFrame)
         {
             signToFix.gameObject.tag = "fixedSign";
             Debug.Log("sign repaired on the right");
