@@ -8,6 +8,9 @@ TagManager:
   - fixedSign
   - Wall
   - Ladder
+  - flat
+  - cross
+  - spiral
   layers:
   - Default
   - TransparentFX

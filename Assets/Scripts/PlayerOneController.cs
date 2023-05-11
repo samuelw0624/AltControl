@@ -31,6 +31,8 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField] float slideHoldTime;
     [SerializeField] float gravityMod;
 
+    //drill variables
+    bool isInDrillSlot;
 
     //repair variables
     //repair radius, change in inspector
@@ -48,7 +50,15 @@ public class PlayerOneController : MonoBehaviour
         FlatDrill,
         SpiralDrill
     }
+    public enum ScrewType
+    {
+        CrossScrew,
+        FlatScrew,
+        SpiralScrew,
+    }
+    
     public DrillType currentDrill;
+    public ScrewType currentScrew;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +67,7 @@ public class PlayerOneController : MonoBehaviour
         leftHandOffLadder = true;
         rightHandOffLadder = true;
         //standard starting drill
-        currentDrill = DrillType.SpiralDrill;
+        currentDrill = DrillType.CrossDrill;
         ladder = GameObject.FindWithTag("Ladder");
 
     }
@@ -71,8 +81,10 @@ public class PlayerOneController : MonoBehaviour
         
         CheckLeftRail();
         CheckRightRail();
-        
-        FixSign();
+
+        SwitchDrill();
+        HandleDrills();
+
         SlideDown();
 
         Debug.Log("Left hand off ladder is " + leftHandOffLadder);
@@ -322,18 +334,96 @@ public class PlayerOneController : MonoBehaviour
     }
     #endregion
 
-    #region Repair
+    #region Drill Methods
+    void SwitchDrill()
+    {
+        if(Keyboard.current[Key.Digit0].wasPressedThisFrame)
+        {
+            currentDrill = DrillType.CrossDrill;
+            Debug.Log("current drill type is " + currentDrill);
+        }
+        if (Keyboard.current[Key.Digit9].wasPressedThisFrame)
+        {
+            currentDrill = DrillType.FlatDrill;
+            Debug.Log("current drill type is " + currentDrill);
+        }
+        if (Keyboard.current[Key.Digit8].wasPressedThisFrame)
+        {
+            currentDrill = DrillType.SpiralDrill;
+            Debug.Log("current drill type is " + currentDrill);
+        }
+    }
+
+    void HandleDrills()
+    {
+        CheckDrillStatus();
+        if(isInDrillSlot)
+        {
+            switch (currentDrill)
+            {
+                case DrillType.CrossDrill:
+                    if(currentScrew == ScrewType.CrossScrew)
+                    {
+                        FixSign();
+                    }
+                    break;
+                case DrillType.FlatDrill:
+                    if(currentScrew == ScrewType.FlatScrew)
+                    {
+                        FixSign();
+                    }
+                    break;
+                case DrillType.SpiralDrill:
+                    if (currentScrew == ScrewType.SpiralScrew)
+                    {
+                        FixSign();
+                    }
+                    break;
+            }
+        }
+    }
+
+    void CheckDrillStatus()
+    {
+        if(Keyboard.current[Key.P].wasPressedThisFrame && (signOnLeft || signOnRight))
+        {
+            isInDrillSlot = true;
+            Debug.Log("drill in slot is " + isInDrillSlot);
+        }
+        else if(Keyboard.current[Key.L].wasPressedThisFrame && (signOnLeft || signOnRight))
+        {
+            isInDrillSlot = false;
+            Debug.Log("drill in slot is " + isInDrillSlot);
+        }
+    }
+    #endregion
+
+    #region Repair Methods
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("sign"))
+        if (other.gameObject.CompareTag("cross"))
         {
+            currentScrew = ScrewType.CrossScrew;
+        }
+        if (other.gameObject.CompareTag("flat"))
+        {
+            currentScrew = ScrewType.FlatScrew;
+        }
+        if (other.gameObject.CompareTag("spiral"))
+        {
+            currentScrew = ScrewType.SpiralScrew;
+        }
+
+            if (other.gameObject.CompareTag("cross") || other.gameObject.CompareTag("flat") || other.gameObject.CompareTag("spiral"))
+        {
+            Debug.Log("current screw type is " + currentScrew);
             signToFix = other.gameObject;
             //convert sign position to local position relative to player
             Vector3 signLocalPos = this.transform.InverseTransformPoint(other.gameObject.transform.position);
             if (signLocalPos.x < 0)
             {
                 signOnLeft = true;
-                Debug.Log("left sign");
+                //Debug.Log("left sign");
 
             } else if (signLocalPos.x > 0)
             {
@@ -347,14 +437,16 @@ public class PlayerOneController : MonoBehaviour
 
     void FixSign()
     {
-        if (signOnLeft && leftHandOffLadder && signToFix.CompareTag("sign") && Keyboard.current[Key.S].wasPressedThisFrame)
+        if (signOnLeft && leftHandOffLadder && Keyboard.current[Key.S].wasPressedThisFrame)
         {
-            signToFix.tag = "fixedSign";
+            Collider signTriggerColid = signToFix.gameObject.GetComponent<BoxCollider>();
+            signTriggerColid.isTrigger = false;
             Debug.Log("sign repaired on the left");
         }
-        if (signOnRight && rightHandOffLadder && signToFix.CompareTag("sign") && Keyboard.current[Key.S].wasPressedThisFrame)
+        if (signOnRight && rightHandOffLadder && Keyboard.current[Key.S].wasPressedThisFrame)
         {
-            signToFix.gameObject.tag = "fixedSign";
+            Collider signTriggerColid = signToFix.gameObject.GetComponent<BoxCollider>();
+            signTriggerColid.isTrigger = false;
             Debug.Log("sign repaired on the right");
         }
     }
