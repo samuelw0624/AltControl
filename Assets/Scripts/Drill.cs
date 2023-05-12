@@ -64,19 +64,19 @@ public class Drill : MonoBehaviour
             switch (currentDrill)
             {
                 case DrillType.CrossDrill:
-                    if (p1Script.currentScrew == PlayerOneController.ScrewType.CrossScrew)
+                    if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
                     {
                         p1Script.FixSign();
                     }
                     break;
                 case DrillType.FlatDrill:
-                    if (p1Script.currentScrew == PlayerOneController.ScrewType.FlatScrew)
+                    if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
                     {
                         p1Script.FixSign();
                     }
                     break;
                 case DrillType.SpiralDrill:
-                    if (p1Script.currentScrew == PlayerOneController.ScrewType.SpiralScrew)
+                    if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SpiralScrew)
                     {
                         p1Script.FixSign();
                     }
