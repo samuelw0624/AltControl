@@ -5,7 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerOneController : MonoBehaviour
 {
+    //reference variables
     Rigidbody playerRb;
+    GameObject ladder;
+
+    //hand position variables
     bool leftHandOffLadder = true;
     bool rightHandOffLadder = true;
     //checks if the player grabbed the ladder for the frst time
@@ -26,8 +30,12 @@ public class PlayerOneController : MonoBehaviour
      */
     [SerializeField] public float moveDist = 0.5f;
     [SerializeField] float moveSpeed = 5f;
-    bool canSlide;
+
+    //slide varibales
+    bool slideCountDown;
+    //timer varibale used to store how much time had passed
     float timer;
+    //slideHoldTime is a constant of how many seconds the player must hold the position
     [SerializeField] float slideHoldTime;
     [SerializeField] float gravityMod;
 
@@ -41,8 +49,8 @@ public class PlayerOneController : MonoBehaviour
     bool signOnLeft, signOnRight;
     GameObject signToFix;
 
-    //ladder
-    GameObject ladder;
+    //game state
+    bool gameOver;
 
     public enum DrillType
     {
@@ -56,7 +64,7 @@ public class PlayerOneController : MonoBehaviour
         FlatScrew,
         SpiralScrew,
     }
-    
+
     public DrillType currentDrill;
     public ScrewType currentScrew;
 
@@ -64,11 +72,13 @@ public class PlayerOneController : MonoBehaviour
     void Start()
     {
         playerRb = this.GetComponent<Rigidbody>();
+        ladder = GameObject.FindWithTag("Ladder");
+
         leftHandOffLadder = true;
         rightHandOffLadder = true;
+
         //standard starting drill
         currentDrill = DrillType.CrossDrill;
-        ladder = GameObject.FindWithTag("Ladder");
 
     }
 
@@ -78,7 +88,7 @@ public class PlayerOneController : MonoBehaviour
     {
         CheckLeftHand();
         CheckRightHand();
-        
+
         CheckLeftRail();
         CheckRightRail();
 
@@ -86,9 +96,6 @@ public class PlayerOneController : MonoBehaviour
         HandleDrills();
 
         SlideDown();
-
-        Debug.Log("Left hand off ladder is " + leftHandOffLadder);
-        Debug.Log("Right hand off ladder is " + rightHandOffLadder);
 
         //player's position and rotation follows to the ladder
         this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
@@ -107,13 +114,16 @@ public class PlayerOneController : MonoBehaviour
             return;
         }
 
-        if (leftHandOffLadder && rightHandOffLadder && firstOnLeft && firstOnRight)
+        if (!leftHandOffLadder && !rightHandOffLadder && firstOnLeft && firstOnRight)
         {
-            ResetLeftBool();
-            ResetRightBool();
-            Debug.Log("You fall to death");
+            gameOver = false;
+
+        }else if(leftHandOffLadder && rightHandOffLadder && firstOnLeft && firstOnRight)
+        {
+            gameOver = true;
+            Debug.Log("Game Over is " + gameOver);
         }
-        
+
         ClimbUp();
     }
     #endregion
@@ -122,13 +132,16 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckLeftHand()
     {
+        //Debug.Log("Left hand off ladder is " + leftHandOffLadder);
+
         /*first check if left hand had ever been placed on the ladder
          * then checks if the hand is grabbed on currently*/
         if (Keyboard.current[Key.W].wasPressedThisFrame && !firstOnLeft)
         {
             firstOnLeft = true;
             leftHandOffLadder = false;
-        }else if (Keyboard.current[Key.W].wasPressedThisFrame)
+        }
+        else if (Keyboard.current[Key.W].wasPressedThisFrame)
         {
             leftHandOffLadder = false;
         }
@@ -137,20 +150,19 @@ public class PlayerOneController : MonoBehaviour
             leftHandOffLadder = true;
             ResetLeftBool();
         }
-        //else
-        //{
-        //    leftHandOffLadder = false;
-        //}
     }
 
     void CheckRightHand()
     {
+        //Debug.Log("Right hand off ladder is " + rightHandOffLadder);
+
         //same as left hand
         if (Keyboard.current[Key.R].wasPressedThisFrame && !firstOnRight)
         {
             firstOnRight = true;
             rightHandOffLadder = false;
-        }else if (Keyboard.current[Key.R].wasPressedThisFrame)
+        }
+        else if (Keyboard.current[Key.R].wasPressedThisFrame)
         {
             leftHandOffLadder = false;
         }
@@ -159,10 +171,6 @@ public class PlayerOneController : MonoBehaviour
             rightHandOffLadder = true;
             ResetRightBool();
         }
-        //else
-        //{
-        //    rightHandOffLadder = false;
-        //}
     }
 
     /*rail positionis checked every frame. When the key input corresponding to a 
@@ -266,7 +274,7 @@ public class PlayerOneController : MonoBehaviour
         {
             if (leftBoolArray[0] && rightBoolArray[4])
             {
-                StartCoroutine(MoveToNewPos(NewPosition()));
+                StartCoroutine(MoveToNewPos(GetNewPos()));
 
                 performed04 = true;
                 performed40 = false;
@@ -277,7 +285,7 @@ public class PlayerOneController : MonoBehaviour
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
-                StartCoroutine(MoveToNewPos(NewPosition()));
+                StartCoroutine(MoveToNewPos(GetNewPos()));
 
                 performed40 = true;
                 performed04 = false;
@@ -287,26 +295,34 @@ public class PlayerOneController : MonoBehaviour
 
     void SlideDown()
     {
-        if (leftBoolArray[2] && rightBoolArray[2] && !canSlide)
+        //Debug.Log(timer);
+
+        //at hand position 2,2, start slideCoundDown
+        if (leftBoolArray[2] && rightBoolArray[2] && !slideCountDown)
         {
-            canSlide = true;
+            slideCountDown = true;
             timer = 0f;
         }
 
-        if (canSlide)
+        if (slideCountDown)
         {
             timer += Time.deltaTime;
         }
 
-        if (canSlide && timer >= slideHoldTime && leftBoolArray[2] && rightBoolArray[2])
+        //enable modified gravity when hold threashold is reached
+        if (leftBoolArray[2] && rightBoolArray[2] && timer >= slideHoldTime)
         {
-            playerRb.useGravity = true;
             Physics.gravity = new Vector3(0, gravityMod, 0);
-        } else if (!leftBoolArray[2] ||  !rightBoolArray[2])
+            playerRb.useGravity = true;
+        }
+        else if (!leftBoolArray[2] || !rightBoolArray[2])
         {
+            slideCountDown = false;
+            timer = 0f;
+
+            //reset velocity and disable gravity when position != 2,2
             playerRb.useGravity = false;
             playerRb.velocity = Vector3.zero;
-            canSlide = false;
         }
     }
 
@@ -315,7 +331,7 @@ public class PlayerOneController : MonoBehaviour
         float elapsedTime = 0f;
         Vector3 startingPos = this.transform.position;
         //Debug.Log("startingPos.y is" + startingPos.y);
-        while(elapsedTime < moveSpeed)
+        while (elapsedTime < moveSpeed)
         {
             this.transform.position = Vector3.Lerp(startingPos, newPos, elapsedTime / moveSpeed);
             elapsedTime += Time.deltaTime;
@@ -323,13 +339,12 @@ public class PlayerOneController : MonoBehaviour
         }
 
         this.transform.position = newPos;
-        
+
     }
 
-    Vector3 NewPosition()
+    Vector3 GetNewPos()
     {
         Vector3 newPosition = transform.position + new Vector3(0, moveDist, 0);
-
         return newPosition;
     }
     #endregion
@@ -337,38 +352,38 @@ public class PlayerOneController : MonoBehaviour
     #region Drill Methods
     void SwitchDrill()
     {
-        if(Keyboard.current[Key.Digit0].wasPressedThisFrame)
+        //Debug.Log("current drill type is " + currentDrill);
+
+        if (Keyboard.current[Key.Digit0].wasPressedThisFrame)
         {
             currentDrill = DrillType.CrossDrill;
-            Debug.Log("current drill type is " + currentDrill);
         }
         if (Keyboard.current[Key.Digit9].wasPressedThisFrame)
         {
             currentDrill = DrillType.FlatDrill;
-            Debug.Log("current drill type is " + currentDrill);
         }
         if (Keyboard.current[Key.Digit8].wasPressedThisFrame)
         {
             currentDrill = DrillType.SpiralDrill;
-            Debug.Log("current drill type is " + currentDrill);
         }
     }
 
     void HandleDrills()
     {
         CheckDrillStatus();
-        if(isInDrillSlot)
+        if (isInDrillSlot)
         {
+            //each drill case checks whether the current screw matched the current drill
             switch (currentDrill)
             {
                 case DrillType.CrossDrill:
-                    if(currentScrew == ScrewType.CrossScrew)
+                    if (currentScrew == ScrewType.CrossScrew)
                     {
                         FixSign();
                     }
                     break;
                 case DrillType.FlatDrill:
-                    if(currentScrew == ScrewType.FlatScrew)
+                    if (currentScrew == ScrewType.FlatScrew)
                     {
                         FixSign();
                     }
@@ -385,15 +400,15 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckDrillStatus()
     {
-        if(Keyboard.current[Key.P].wasPressedThisFrame && (signOnLeft || signOnRight))
+        //Debug.Log("drill in slot is " + isInDrillSlot);
+
+        if (Keyboard.current[Key.P].wasPressedThisFrame && (signOnLeft || signOnRight))
         {
             isInDrillSlot = true;
-            Debug.Log("drill in slot is " + isInDrillSlot);
         }
-        else if(Keyboard.current[Key.L].wasPressedThisFrame && (signOnLeft || signOnRight))
+        else if (Keyboard.current[Key.L].wasPressedThisFrame && (signOnLeft || signOnRight))
         {
             isInDrillSlot = false;
-            Debug.Log("drill in slot is " + isInDrillSlot);
         }
     }
     #endregion
@@ -401,22 +416,25 @@ public class PlayerOneController : MonoBehaviour
     #region Repair Methods
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("cross"))
+        //if the sign is trigger range has the word sign in object name
+        if (other.gameObject.name.Contains("sign"))
         {
-            currentScrew = ScrewType.CrossScrew;
-        }
-        if (other.gameObject.CompareTag("flat"))
-        {
-            currentScrew = ScrewType.FlatScrew;
-        }
-        if (other.gameObject.CompareTag("spiral"))
-        {
-            currentScrew = ScrewType.SpiralScrew;
-        }
+            //check what kind of sign it is
+            if (other.gameObject.CompareTag("cross"))
+            {
+                currentScrew = ScrewType.CrossScrew;
+            }
+            if (other.gameObject.CompareTag("flat"))
+            {
+                currentScrew = ScrewType.FlatScrew;
+            }
+            if (other.gameObject.CompareTag("spiral"))
+            {
+                currentScrew = ScrewType.SpiralScrew;
+            }
 
-            if (other.gameObject.CompareTag("cross") || other.gameObject.CompareTag("flat") || other.gameObject.CompareTag("spiral"))
-        {
-            Debug.Log("current screw type is " + currentScrew);
+            //Debug.Log("current screw type is " + currentScrew);
+
             signToFix = other.gameObject;
             //convert sign position to local position relative to player
             Vector3 signLocalPos = this.transform.InverseTransformPoint(other.gameObject.transform.position);
@@ -425,13 +443,15 @@ public class PlayerOneController : MonoBehaviour
                 signOnLeft = true;
                 //Debug.Log("left sign");
 
-            } else if (signLocalPos.x > 0)
+            }
+            else if (signLocalPos.x > 0)
             {
                 signOnRight = true;
+                //Debug.Log("right sign");
             }
-        } else
+        }else
         {
-            Debug.Log("no sign to repair");
+            //Debug.Log("no sign to repair");
         }
     }
 
@@ -439,18 +459,22 @@ public class PlayerOneController : MonoBehaviour
     {
         if (signOnLeft && leftHandOffLadder && Keyboard.current[Key.S].wasPressedThisFrame)
         {
-            Collider signTriggerColid = signToFix.gameObject.GetComponent<BoxCollider>();
-            signTriggerColid.isTrigger = false;
+            //disable sign collider upon fix
+            Collider signCollider = signToFix.gameObject.GetComponent<BoxCollider>();
+            signCollider.enabled = false;
+            
             Debug.Log("sign repaired on the left");
         }
         if (signOnRight && rightHandOffLadder && Keyboard.current[Key.S].wasPressedThisFrame)
         {
-            Collider signTriggerColid = signToFix.gameObject.GetComponent<BoxCollider>();
-            signTriggerColid.isTrigger = false;
+            Collider signCollider = signToFix.gameObject.GetComponent<BoxCollider>();
+            signCollider.enabled = false;
+
             Debug.Log("sign repaired on the right");
         }
     }
 
+    //visualize player fix trigger range
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
