@@ -97,12 +97,7 @@ public class PlayerOneController : MonoBehaviour
 
         SlideDown();
 
-        //player's position and rotation follows to the ladder
-        this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
-
-        Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
-        transform.rotation = newRotation;
-
+        FollowLadder();
     }
 
     private void FixedUpdate()
@@ -417,5 +412,18 @@ public class PlayerOneController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
-    #endregion  
+    #endregion
+
+    #region Rotation and Position Synchronization
+    public void FollowLadder()
+    {
+
+        //player's position and rotation follows to the ladder
+        this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
+
+        Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
+        transform.rotation = newRotation;
+    }
+
+    #endregion
 }

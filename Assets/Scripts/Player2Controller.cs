@@ -12,7 +12,6 @@ public class Player2Controller : MonoBehaviour
     //height rate changes
 
     PlayerOneController player1;
-    GameObject player;
 
 
     //ladder movement variables
@@ -22,19 +21,28 @@ public class Player2Controller : MonoBehaviour
 
     Vector3 movement;
     Vector3 rotation;
+    float rotationValue;
+    bool isTiltingLeft;
+    bool isTiltingRight;
 
     [SerializeField] float initialRotationSpeed = 10f;
     [SerializeField] float acceleratingRate = 0.1f;
     [SerializeField] float maxRotationSpeed = 50;
     [SerializeField] float currentRotationSpeed;
 
+
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        player1 = PlayerOneController.instance;
+    }
     void Start()
     {
         ladderHeight = this.transform.localScale.y;
         ladderRb = this.GetComponent<Rigidbody>();
-        player = GameObject.FindWithTag("Player");
-        player1 = player.GetComponent<PlayerOneController>();
+        
+        //player1 = player.GetComponent<PlayerOneController>();
 
         //set default Rotation Speed 
         currentRotationSpeed = initialRotationSpeed;
@@ -50,17 +58,12 @@ public class Player2Controller : MonoBehaviour
         movement.x = Input.GetAxisRaw("HorizontalInput");
         rotation.z = Input.GetAxisRaw("Rotation");
 
-        transform.Rotate(Vector3.back, currentRotationSpeed * Time.deltaTime);
-        
-        if (Input.GetKeyDown(KeyCode.Q)|| Input.GetKeyDown(KeyCode.E))
-        {
-            currentRotationSpeed = 0;
-        }
-        else if(Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.E))
-        {
-            currentRotationSpeed = initialRotationSpeed;
-            currentRotationSpeed += acceleratingRate * Time.deltaTime;
-        }
+        rotationValue = this.transform.localRotation.z;
+        Debug.Log("Rotation Value is " + this.transform.localRotation.z);
+
+        Tilt();
+        Rotate();
+        AdjustRotation();
 
         currentRotationSpeed = Mathf.Min(currentRotationSpeed, maxRotationSpeed);
     }
@@ -68,7 +71,7 @@ public class Player2Controller : MonoBehaviour
     private void FixedUpdate()
     {
         //compare character's height to the ladder's height 
-        if (player.transform.position.y <= ladderHeight - 2.0f)
+        if (player1.transform.position.y <= ladderHeight - 2.0f)
         {
             player1.moveDist = 0.5f;
         }
@@ -79,9 +82,11 @@ public class Player2Controller : MonoBehaviour
 
         //ladder movement at axis.x
         ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
-
-        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, 0f, rotation.z*moveLadderSpeed) * Time.fixedDeltaTime);
+        
+        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, 0f, rotation.z * moveLadderSpeed) * Time.fixedDeltaTime);
         ladderRb.MoveRotation(ladderRb.rotation * deltaRotation);
+
+
     }
 
     #region Ladder
@@ -132,5 +137,51 @@ public class Player2Controller : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Tilt Logics
+    void Tilt()
+    {
+        if(rotationValue > -90)
+        {
+            rotationValue = rotationValue + 90;
+            isTiltingRight = true;
+            isTiltingLeft = false;
+
+        }
+
+        if(rotationValue > 90)
+        {
+            rotationValue = rotationValue - 90;
+            isTiltingLeft = true;
+            isTiltingRight = false;
+        }
+    }
+
+    void Rotate()
+    {
+        if (rotationValue <= 0)
+        {
+            transform.Rotate(Vector3.back, currentRotationSpeed * Time.deltaTime);
+        }
+        else if(rotationValue > 0)
+        {
+            transform.Rotate(-Vector3.back, currentRotationSpeed * Time.deltaTime);
+        }
+    }
+
+
+    void AdjustRotation()
+    {
+        if (rotation.z != 0)
+        {
+            currentRotationSpeed = 0;
+        }
+        else
+        {
+            currentRotationSpeed = initialRotationSpeed;
+            currentRotationSpeed += acceleratingRate * Time.deltaTime;
+        }
+    }
     #endregion
 }
