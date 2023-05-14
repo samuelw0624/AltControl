@@ -907,8 +907,10 @@ MonoBehaviour:
   moveSpeed: 0.15
   slideHoldTime: 1
   gravityMod: -0.7
+  isInDrillSlot: 0
   detectionRadius: 5
-  currentDrill: 0
+  signOnLeft: 0
+  signOnRight: 0
   currentScrew: 0
 --- !u!135 &1403149664
 SphereCollider:
@@ -1095,7 +1097,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440884804}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4880c2f5053417b48b2b24d91f673250, type: 3}
   m_Name: 
