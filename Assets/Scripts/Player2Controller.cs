@@ -26,6 +26,7 @@ public class Player2Controller : MonoBehaviour
     float rotationValue;
     bool isTiltingLeft;
     bool isTiltingRight;
+    
 
     [SerializeField] float initialRotationSpeed = 10f;
     [SerializeField] float acceleratingRate = 0.1f;
@@ -38,8 +39,7 @@ public class Player2Controller : MonoBehaviour
     void Awake()
     {
         player1 = PlayerOneController.instance;
-        moveLadderSpeed = 0;
-        moveLadderDist = 1f;
+
     }
     void Start()
     {
@@ -50,6 +50,11 @@ public class Player2Controller : MonoBehaviour
 
         //set default Rotation Speed 
         currentRotationSpeed = initialRotationSpeed;
+        
+        moveLadderSpeed = 0;
+        moveLadderDist = 1f;
+
+
     }
 
     // Update is called once per frame
@@ -66,7 +71,7 @@ public class Player2Controller : MonoBehaviour
         //Debug.Log("Rotation Value is " + this.transform.localRotation.z);
 
         //Tilt();
-        Rotate();
+        //Rotate();
         AdjustRotation();
 
         currentRotationSpeed = Mathf.Min(currentRotationSpeed, maxRotationSpeed);
