@@ -15,8 +15,10 @@ public class Player2Controller : MonoBehaviour
 
 
     //ladder movement variables
-    [SerializeField] float moveLadderSpeed = 5.0f;
+    [SerializeField] float moveLadderSpeed;
     [SerializeField] float moveLadderDist;
+    bool moveLeft = false;
+    bool moveRight = false;
     Rigidbody ladderRb;
 
     Vector3 movement;
@@ -36,12 +38,14 @@ public class Player2Controller : MonoBehaviour
     void Awake()
     {
         player1 = PlayerOneController.instance;
+        moveLadderSpeed = 0;
+        moveLadderDist = 1f;
     }
     void Start()
     {
         ladderHeight = this.transform.localScale.y;
         ladderRb = this.GetComponent<Rigidbody>();
-        
+
         //player1 = player.GetComponent<PlayerOneController>();
 
         //set default Rotation Speed 
@@ -55,17 +59,19 @@ public class Player2Controller : MonoBehaviour
         LadderFunction();
         SpeedAdjust();
 
-        movement.x = Input.GetAxisRaw("HorizontalInput");
+        //movement.x = Input.GetAxisRaw("HorizontalInput");
         rotation.z = Input.GetAxisRaw("Rotation");
 
         rotationValue = this.transform.localRotation.z;
-        Debug.Log("Rotation Value is " + this.transform.localRotation.z);
+        //Debug.Log("Rotation Value is " + this.transform.localRotation.z);
 
-        Tilt();
+        //Tilt();
         Rotate();
         AdjustRotation();
 
         currentRotationSpeed = Mathf.Min(currentRotationSpeed, maxRotationSpeed);
+
+
     }
 
     private void FixedUpdate()
@@ -81,15 +87,18 @@ public class Player2Controller : MonoBehaviour
         }
 
         //ladder movement at axis.x
-        ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
-        
+        //ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
+
         Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, 0f, rotation.z * moveLadderSpeed) * Time.fixedDeltaTime);
         ladderRb.MoveRotation(ladderRb.rotation * deltaRotation);
+
+        MoveHorizontally();
+
 
 
     }
 
-    #region Ladder
+    #region LadderHeightControl&Movement
     void LadderFunction()
     {
         // five stages of ladder heitgh adjustment
@@ -122,19 +131,60 @@ public class Player2Controller : MonoBehaviour
         // three levels of speed: slow, normal, fast
         if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
         {
+            moveLeft = true;
             moveLadderSpeed = 3f;
+
             Debug.Log("1");
+
         }
         if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
         {
-            moveLadderSpeed = 5f;
+            moveLeft = true;
+            moveLadderSpeed = 1f;
+
             Debug.Log("2");
+
         }
         if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
         {
-            moveLadderSpeed = 7f;
+            moveLeft = false;
+            moveRight = false;
+            moveLadderSpeed = 0f;
+            //StopCoroutine(MoveToHorizontal(MoveToNewPos(0)));
+
+
             Debug.Log("3");
+
         }
+        if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
+        {
+            moveRight = true;
+            moveLadderSpeed = 1f;
+
+            Debug.Log("4");
+
+        }
+        if (Keyboard.current[Key.Digit5].wasPressedThisFrame)
+        {
+            moveRight = true;
+            moveLadderSpeed = 3f;
+
+            Debug.Log("5");
+
+        }
+    }
+
+    private void MoveHorizontally()
+    {
+        if (moveLeft)
+        {
+            transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);
+        }
+        if (moveRight)
+        {
+            transform.Translate(Vector3.right * moveLadderSpeed * Time.deltaTime);
+        }
+
     }
 
     #endregion
