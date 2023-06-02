@@ -126,7 +126,7 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckLeftHand()
     {
-        //Debug.Log("Left hand off ladder is " + leftHandOffLadder);
+        Debug.Log("Left hand off ladder is " + leftHandOffLadder);
 
         bool anyPosTrue = leftBoolArray.Any(boolValue => boolValue);
         /*first check if left hand had ever been placed on the ladder
@@ -149,7 +149,7 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckRightHand()
     {
-        //Debug.Log("Right hand off ladder is " + rightHandOffLadder);
+        Debug.Log("Right hand off ladder is " + rightHandOffLadder);
 
         bool anyPosTrue = rightBoolArray.Any(boolValue => boolValue);
         //same as left hand
@@ -364,7 +364,7 @@ public class PlayerOneController : MonoBehaviour
             {
                 currentScrew = ScrewType.SpiralScrew;
             }
-            //Debug.Log("current screw type is " + currentScrew);
+            Debug.Log("current screw type is " + currentScrew);
 
             signToFix = other.gameObject;
             //convert sign position to local position relative to player
