@@ -1094,7 +1094,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440884804}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4880c2f5053417b48b2b24d91f673250, type: 3}
   m_Name: 
@@ -1103,6 +1103,10 @@ MonoBehaviour:
   heightChanges: 100
   moveLadderSpeed: 5
   moveLadderDist: 3
+  initialRotationSpeed: 10
+  acceleratingRate: 0.1
+  maxRotationSpeed: 50
+  currentRotationSpeed: 0
 --- !u!1 &1533201473
 GameObject:
   m_ObjectHideFlags: 0

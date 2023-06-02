@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PlayerOneController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PlayerOneController : MonoBehaviour
     bool leftHandOffLadder = true;
     bool rightHandOffLadder = true;
     //checks if the player grabbed the ladder for the frst time
-    bool firstOnLeft, firstOnRight;
+    bool gameStart1, gameStart2, gameOver;
 
     /*rail spot booleans, 5 spots on each side, 0 = uppper most position, 4 = lower most position 
     */
@@ -95,10 +96,11 @@ public class PlayerOneController : MonoBehaviour
             return;
         }
 
-        if (leftHandOffLadder && rightHandOffLadder && firstOnLeft && firstOnRight)
+        if (leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
         {
             ResetLeftBool();
             ResetRightBool();
+            gameOver = true;
             Debug.Log("You fall to death");
         }
         
@@ -110,17 +112,18 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckLeftHand()
     {
+        bool anyPosTrue = leftBoolArray.Any(boolValue => boolValue);
         /*first check if left hand had ever been placed on the ladder
          * then checks if the hand is grabbed on currently*/
-        if (Keyboard.current[Key.W].wasPressedThisFrame && !firstOnLeft)
+        if (anyPosTrue && leftHandOffLadder && !gameStart1)
         {
-            firstOnLeft = true;
+            gameStart1 = true;
             leftHandOffLadder = false;
-        }else if (Keyboard.current[Key.W].wasPressedThisFrame)
+        }else if (anyPosTrue && leftHandOffLadder)
         {
             leftHandOffLadder = false;
         }
-        if (Keyboard.current[Key.A].wasPressedThisFrame)
+        if (Keyboard.current[Key.A].wasPressedThisFrame && !leftHandOffLadder)
         {
             leftHandOffLadder = true;
             ResetLeftBool();
@@ -133,16 +136,17 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckRightHand()
     {
+        bool anyPosTrue = rightBoolArray.Any(boolValue => boolValue);
         //same as left hand
-        if (Keyboard.current[Key.R].wasPressedThisFrame && !firstOnRight)
+        if (anyPosTrue && rightHandOffLadder && !gameStart2)
         {
-            firstOnRight = true;
+            gameStart2 = true;
             rightHandOffLadder = false;
-        }else if (Keyboard.current[Key.R].wasPressedThisFrame)
+        }else if (anyPosTrue && rightHandOffLadder)
         {
-            leftHandOffLadder = false;
+            rightHandOffLadder = false;
         }
-        if (Keyboard.current[Key.D].wasPressedThisFrame)
+        if (Keyboard.current[Key.D].wasPressedThisFrame && !rightHandOffLadder)
         {
             rightHandOffLadder = true;
             ResetRightBool();
@@ -158,55 +162,49 @@ public class PlayerOneController : MonoBehaviour
      */
     void CheckLeftRail()
     {
-        if (!leftHandOffLadder)
+        if (Keyboard.current[Key.T].wasPressedThisFrame)
         {
-            if (Keyboard.current[Key.T].wasPressedThisFrame)
-            {
-                ResetLeftBool(0);
-            }
-            if (Keyboard.current[Key.Y].wasPressedThisFrame)
-            {
-                ResetLeftBool(1);
-            }
-            if (Keyboard.current[Key.G].wasPressedThisFrame)
-            {
-                ResetLeftBool(2);
-            }
-            if (Keyboard.current[Key.H].wasPressedThisFrame)
-            {
-                ResetLeftBool(3);
-            }
-            if (Keyboard.current[Key.B].wasPressedThisFrame)
-            {
-                ResetLeftBool(4);
-            }
+            ResetLeftBool(0);
+        }
+        if (Keyboard.current[Key.Y].wasPressedThisFrame)
+        {
+            ResetLeftBool(1);
+        }
+        if (Keyboard.current[Key.G].wasPressedThisFrame)
+        {
+            ResetLeftBool(2);
+        }
+        if (Keyboard.current[Key.H].wasPressedThisFrame)
+        {
+            ResetLeftBool(3);
+        }
+        if (Keyboard.current[Key.B].wasPressedThisFrame)
+        {
+            ResetLeftBool(4);
         }
     }
 
     void CheckRightRail()
     {
-        if (!rightHandOffLadder)
+        if (Keyboard.current[Key.O].wasPressedThisFrame)
         {
-            if (Keyboard.current[Key.O].wasPressedThisFrame)
-            {
-                ResetRightBool(0);
-            }
-            if (Keyboard.current[Key.I].wasPressedThisFrame)
-            {
-                ResetRightBool(1);
-            }
-            if (Keyboard.current[Key.K].wasPressedThisFrame)
-            {
-                ResetRightBool(2);
-            }
-            if (Keyboard.current[Key.J].wasPressedThisFrame)
-            {
-                ResetRightBool(3);
-            }
-            if (Keyboard.current[Key.M].wasPressedThisFrame)
-            {
-                ResetRightBool(4);
-            }
+            ResetRightBool(0);
+        }
+        if (Keyboard.current[Key.I].wasPressedThisFrame)
+        {
+            ResetRightBool(1);
+        }
+        if (Keyboard.current[Key.K].wasPressedThisFrame)
+        {
+            ResetRightBool(2);
+        }
+        if (Keyboard.current[Key.J].wasPressedThisFrame)
+        {
+            ResetRightBool(3);
+        }
+        if (Keyboard.current[Key.M].wasPressedThisFrame)
+        {
+            ResetRightBool(4);
         }
     }
 
@@ -250,7 +248,7 @@ public class PlayerOneController : MonoBehaviour
 
     void ClimbUp()
     {
-        if (!performed04)
+        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver)
         {
             if (leftBoolArray[0] && rightBoolArray[4])
             {
@@ -261,7 +259,7 @@ public class PlayerOneController : MonoBehaviour
             }
         }
 
-        if (!performed40)
+        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver)
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
