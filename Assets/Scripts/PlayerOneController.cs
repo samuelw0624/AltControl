@@ -6,7 +6,12 @@ using System.Linq;
 
 public class PlayerOneController : MonoBehaviour
 {
+    public static PlayerOneController instance {get; private set;}
+    //reference variables
     Rigidbody playerRb;
+    GameObject ladder;
+
+    //hand position variables
     bool leftHandOffLadder = true;
     bool rightHandOffLadder = true;
     //checks if the player grabbed the ladder for the frst time
@@ -27,40 +32,55 @@ public class PlayerOneController : MonoBehaviour
      */
     [SerializeField] public float moveDist = 0.5f;
     [SerializeField] float moveSpeed = 5f;
-    bool canSlide;
+
+    //slide varibales
+    bool slideCountDown;
+    //timer varibale used to store how much time had passed
     float timer;
+    //slideHoldTime is a constant of how many seconds the player must hold the position
     [SerializeField] float slideHoldTime;
     [SerializeField] float gravityMod;
 
+    //drill variables
+    public bool isInDrillSlot;
 
     //repair variables
     //repair radius, change in inspector
     [SerializeField] float detectionRadius = 5f;
     //sign positional bool
-    bool signOnLeft, signOnRight;
+    public bool signOnLeft, signOnRight;
     GameObject signToFix;
 
-    //ladder
-    GameObject ladder;
-
-    public enum DrillType
+    public enum ScrewType
     {
-        CrossDrill,
-        FlatDrill,
-        SpiralDrill
+        CrossScrew,
+        FlatScrew,
+        SpiralScrew,
     }
-    public DrillType currentDrill;
+
+    public ScrewType currentScrew;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = this.GetComponent<Rigidbody>();
-        leftHandOffLadder = true;
-        rightHandOffLadder = true;
-        //standard starting drill
-        currentDrill = DrillType.SpiralDrill;
         ladder = GameObject.FindWithTag("Ladder");
 
+        leftHandOffLadder = true;
+        rightHandOffLadder = true;
     }
 
     #region Update Methods
@@ -69,22 +89,13 @@ public class PlayerOneController : MonoBehaviour
     {
         CheckLeftHand();
         CheckRightHand();
-        
+
         CheckLeftRail();
         CheckRightRail();
-        
-        FixSign();
+
         SlideDown();
 
-        Debug.Log("Left hand off ladder is " + leftHandOffLadder);
-        Debug.Log("Right hand off ladder is " + rightHandOffLadder);
-
-        //player's position and rotation follows to the ladder
-        this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
-
-        Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
-        transform.rotation = newRotation;
-
+        FollowLadder();
     }
 
     private void FixedUpdate()
@@ -96,14 +107,17 @@ public class PlayerOneController : MonoBehaviour
             return;
         }
 
-        if (leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
+        if (!leftHandOffLadder && !rightHandOffLadder && gameStart1 && gameStart2)
         {
-            ResetLeftBool();
-            ResetRightBool();
+            gameOver = false;
+
+        }else if(leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
+        {
             gameOver = true;
-            Debug.Log("You fall to death");
+            Debug.Log("Game Over is " + gameOver);
+            //scene transiton functions
         }
-        
+
         ClimbUp();
     }
     #endregion
@@ -112,6 +126,8 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckLeftHand()
     {
+        //Debug.Log("Left hand off ladder is " + leftHandOffLadder);
+
         bool anyPosTrue = leftBoolArray.Any(boolValue => boolValue);
         /*first check if left hand had ever been placed on the ladder
          * then checks if the hand is grabbed on currently*/
@@ -119,7 +135,8 @@ public class PlayerOneController : MonoBehaviour
         {
             gameStart1 = true;
             leftHandOffLadder = false;
-        }else if (anyPosTrue && leftHandOffLadder)
+        }
+        else if (anyPosTrue && leftHandOffLadder)
         {
             leftHandOffLadder = false;
         }
@@ -128,21 +145,20 @@ public class PlayerOneController : MonoBehaviour
             leftHandOffLadder = true;
             ResetLeftBool();
         }
-        //else
-        //{
-        //    leftHandOffLadder = false;
-        //}
     }
 
     void CheckRightHand()
     {
+        //Debug.Log("Right hand off ladder is " + rightHandOffLadder);
+
         bool anyPosTrue = rightBoolArray.Any(boolValue => boolValue);
         //same as left hand
         if (anyPosTrue && rightHandOffLadder && !gameStart2)
         {
             gameStart2 = true;
             rightHandOffLadder = false;
-        }else if (anyPosTrue && rightHandOffLadder)
+        }
+        else if (anyPosTrue && rightHandOffLadder)
         {
             rightHandOffLadder = false;
         }
@@ -151,10 +167,6 @@ public class PlayerOneController : MonoBehaviour
             rightHandOffLadder = true;
             ResetRightBool();
         }
-        //else
-        //{
-        //    rightHandOffLadder = false;
-        //}
     }
 
     /*rail positionis checked every frame. When the key input corresponding to a 
@@ -273,26 +285,34 @@ public class PlayerOneController : MonoBehaviour
 
     void SlideDown()
     {
-        if (leftBoolArray[2] && rightBoolArray[2] && !canSlide)
+        //Debug.Log(timer);
+
+        //at hand position 2,2, start slideCoundDown
+        if (leftBoolArray[2] && rightBoolArray[2] && !slideCountDown)
         {
-            canSlide = true;
+            slideCountDown = true;
             timer = 0f;
         }
 
-        if (canSlide)
+        if (slideCountDown)
         {
             timer += Time.deltaTime;
         }
 
-        if (canSlide && timer >= slideHoldTime && leftBoolArray[2] && rightBoolArray[2])
+        //enable modified gravity when hold threashold is reached
+        if (leftBoolArray[2] && rightBoolArray[2] && timer >= slideHoldTime)
         {
-            playerRb.useGravity = true;
             Physics.gravity = new Vector3(0, gravityMod, 0);
-        } else if (!leftBoolArray[2] ||  !rightBoolArray[2])
+            playerRb.useGravity = true;
+        }
+        else if (!leftBoolArray[2] || !rightBoolArray[2])
         {
+            slideCountDown = false;
+            timer = 0f;
+
+            //reset velocity and disable gravity when position != 2,2
             playerRb.useGravity = false;
             playerRb.velocity = Vector3.zero;
-            canSlide = false;
         }
     }
 
@@ -301,7 +321,7 @@ public class PlayerOneController : MonoBehaviour
         float elapsedTime = 0f;
         Vector3 startingPos = this.transform.position;
         //Debug.Log("startingPos.y is" + startingPos.y);
-        while(elapsedTime < moveSpeed)
+        while (elapsedTime < moveSpeed)
         {
             this.transform.position = Vector3.Lerp(startingPos, newPos, elapsedTime / moveSpeed);
             elapsedTime += Time.deltaTime;
@@ -309,22 +329,36 @@ public class PlayerOneController : MonoBehaviour
         }
 
         this.transform.position = newPos;
-        
     }
 
     Vector3 NewPosition()
     {
         Vector3 newPosition = transform.position + new Vector3(0, moveDist, 0);
-
         return newPosition;
     }
     #endregion
 
-    #region Repair
+    #region Repair Methods
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("sign"))
+        //if the sign is trigger range has the word sign in object name
+        if (other.gameObject.name.Contains("sign"))
         {
+            //check what kind of sign it is
+            if (other.gameObject.CompareTag("cross"))
+            {
+                currentScrew = ScrewType.CrossScrew;
+            }
+            if (other.gameObject.CompareTag("flat"))
+            {
+                currentScrew = ScrewType.FlatScrew;
+            }
+            if (other.gameObject.CompareTag("spiral"))
+            {
+                currentScrew = ScrewType.SpiralScrew;
+            }
+            //Debug.Log("current screw type is " + currentScrew);
+
             signToFix = other.gameObject;
             //convert sign position to local position relative to player
             Vector3 signLocalPos = this.transform.InverseTransformPoint(other.gameObject.transform.position);
@@ -332,35 +366,58 @@ public class PlayerOneController : MonoBehaviour
             {
                 signOnLeft = true;
                 Debug.Log("left sign");
-
-            } else if (signLocalPos.x > 0)
+            }
+            else if (signLocalPos.x > 0)
             {
                 signOnRight = true;
+                Debug.Log("right sign");
             }
-        } else
+        }
+        else
         {
-            Debug.Log("no sign to repair");
+            //Debug.Log("no sign to repair");
         }
     }
 
-    void FixSign()
+    public void FixSign()
     {
-        if (signOnLeft && leftHandOffLadder && signToFix.CompareTag("sign") && Keyboard.current[Key.S].wasPressedThisFrame)
+        if (signOnLeft && leftHandOffLadder && Keyboard.current[Key.S].wasPressedThisFrame)
         {
-            signToFix.tag = "fixedSign";
+            //disable sign collider upon fix
+            Collider signCollider = signToFix.gameObject.GetComponent<BoxCollider>();
+            signCollider.enabled = false;
+            
             Debug.Log("sign repaired on the left");
+            //repair animation
         }
-        if (signOnRight && rightHandOffLadder && signToFix.CompareTag("sign") && Keyboard.current[Key.S].wasPressedThisFrame)
+        if (signOnRight && rightHandOffLadder && Keyboard.current[Key.S].wasPressedThisFrame)
         {
-            signToFix.gameObject.tag = "fixedSign";
+            Collider signCollider = signToFix.gameObject.GetComponent<BoxCollider>();
+            signCollider.enabled = false;
+
             Debug.Log("sign repaired on the right");
+            //repair animation
         }
     }
 
+    //visualize player fix trigger range
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
-    #endregion  
+    #endregion
+
+    #region Rotation and Position Synchronization
+    public void FollowLadder()
+    {
+
+        //player's position and rotation follows to the ladder
+        this.transform.position = new Vector3(ladder.transform.position.x, this.transform.position.y, this.transform.position.z);
+
+        Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
+        transform.rotation = newRotation;
+    }
+
+    #endregion
 }

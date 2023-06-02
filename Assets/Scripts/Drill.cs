@@ -17,14 +17,10 @@ public class Drill : MonoBehaviour
 
     public DrillType currentDrill;
 
-    private void Awake()
-    {
-        p1Script = PlayerOneController.instance;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
+        p1Script = PlayerOneController.instance;
         //standard starting drill
         currentDrill = DrillType.CrossDrill;
     }
@@ -32,6 +28,7 @@ public class Drill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(p1Script);
         SwitchDrill();
         HandleDrills();
     }
@@ -39,7 +36,7 @@ public class Drill : MonoBehaviour
     #region Drill Methods
     void SwitchDrill()
     {
-        //Debug.Log("current drill type is " + currentDrill);
+        Debug.Log("current drill type is " + currentDrill);
 
         if (Keyboard.current[Key.Digit0].wasPressedThisFrame)
         {
@@ -92,7 +89,7 @@ public class Drill : MonoBehaviour
 
     void CheckDrillStatus()
     {
-        //Debug.Log("drill in slot is " + isInDrillSlot);
+        Debug.Log("drill in slot is " + p1Script.isInDrillSlot);
 
         if (Keyboard.current[Key.P].wasPressedThisFrame && (p1Script.signOnLeft || p1Script.signOnRight))
         {
