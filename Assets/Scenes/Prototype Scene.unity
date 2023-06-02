@@ -798,18 +798,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e56c78941a5a4204496b08040b00a87d, type: 3}
   m_PrefabInstance: {fileID: 599433210}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &601189042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601189040}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d178b60566f7319419d0c9f784e30289, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &601189043
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2050,7 +2038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1440884805
 BoxCollider:
   m_ObjectHideFlags: 0
