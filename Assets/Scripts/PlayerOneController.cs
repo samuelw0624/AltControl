@@ -351,6 +351,8 @@ public class PlayerOneController : MonoBehaviour
         //if the sign is trigger range has the word sign in object name
         if (other.gameObject.name.Contains("sign"))
         {
+            Debug.Log("current screw type is " + currentScrew);
+
             //check what kind of sign it is
             if (other.gameObject.CompareTag("cross"))
             {
@@ -364,7 +366,6 @@ public class PlayerOneController : MonoBehaviour
             {
                 currentScrew = ScrewType.SpiralScrew;
             }
-            Debug.Log("current screw type is " + currentScrew);
 
             signToFix = other.gameObject;
             //convert sign position to local position relative to player
