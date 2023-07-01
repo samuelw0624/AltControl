@@ -2218,6 +2218,7 @@ MonoBehaviour:
   heightChanges: 100
   moveLadderSpeed: 5
   moveLadderDist: 3
+  ladder: {fileID: 1440884804}
   initialRotationSpeed: 10
   acceleratingRate: 0.1
   maxRotationSpeed: 50

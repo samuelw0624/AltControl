@@ -21,11 +21,10 @@ public class Player2Controller : MonoBehaviour
     bool moveRight = false;
     Rigidbody ladderRb;
 
-    Vector3 movement;
+    public GameObject ladder;
     Vector3 rotation;
-    float rotationValue;
-    bool isTiltingLeft;
-    bool isTiltingRight;
+    float value;
+
     
 
     [SerializeField] float initialRotationSpeed = 10f;
@@ -49,10 +48,13 @@ public class Player2Controller : MonoBehaviour
         //player1 = player.GetComponent<PlayerOneController>();
 
         //set default Rotation Speed 
-        currentRotationSpeed = initialRotationSpeed;
-        
+
         moveLadderSpeed = 0;
         moveLadderDist = 1f;
+
+        value = Random.Range(1, 10);
+
+
 
 
     }
@@ -63,19 +65,8 @@ public class Player2Controller : MonoBehaviour
 
         LadderFunction();
         SpeedAdjust();
-
-        //movement.x = Input.GetAxisRaw("HorizontalInput");
-        rotation.z = Input.GetAxisRaw("Rotation");
-
-        rotationValue = this.transform.localRotation.z;
-        //Debug.Log("Rotation Value is " + this.transform.localRotation.z);
-
-        //Tilt();
-        //Rotate();
-        AdjustRotation();
-
-        currentRotationSpeed = Mathf.Min(currentRotationSpeed, maxRotationSpeed);
-
+        LadderRotate();
+        RandomTilt();
 
     }
 
@@ -94,10 +85,11 @@ public class Player2Controller : MonoBehaviour
         //ladder movement at axis.x
         //ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
 
-        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0f, 0f, rotation.z * moveLadderSpeed) * Time.fixedDeltaTime);
-        ladderRb.MoveRotation(ladderRb.rotation * deltaRotation);
 
         MoveHorizontally();
+       
+
+
 
 
 
@@ -139,6 +131,7 @@ public class Player2Controller : MonoBehaviour
             moveLeft = true;
             moveLadderSpeed = 3f;
 
+
             Debug.Log("1");
 
         }
@@ -146,7 +139,7 @@ public class Player2Controller : MonoBehaviour
         {
             moveLeft = true;
             moveLadderSpeed = 1f;
-
+       
             Debug.Log("2");
 
         }
@@ -155,6 +148,8 @@ public class Player2Controller : MonoBehaviour
             moveLeft = false;
             moveRight = false;
             moveLadderSpeed = 0f;
+            value = Random.Range(1, 10);
+
             //StopCoroutine(MoveToHorizontal(MoveToNewPos(0)));
 
 
@@ -165,6 +160,7 @@ public class Player2Controller : MonoBehaviour
         {
             moveRight = true;
             moveLadderSpeed = 1f;
+       
 
             Debug.Log("4");
 
@@ -173,6 +169,7 @@ public class Player2Controller : MonoBehaviour
         {
             moveRight = true;
             moveLadderSpeed = 3f;
+       
 
             Debug.Log("5");
 
@@ -184,59 +181,51 @@ public class Player2Controller : MonoBehaviour
         if (moveLeft)
         {
             transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);
+            LadderTilt(-2);
+
         }
         if (moveRight)
         {
             transform.Translate(Vector3.right * moveLadderSpeed * Time.deltaTime);
+            LadderTilt(2);
         }
 
+    }
+
+    void LadderRotate()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ladder.transform.Rotate(0f, 0f, 6f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ladder.transform.Rotate(0f, 0f, -6f);
+        }
     }
 
     #endregion
 
     #region Tilt Logics
-    void Tilt()
+
+    void LadderTilt(float rotationValue)
     {
-        if(rotationValue > -90)
-        {
-            rotationValue = rotationValue + 90;
-            isTiltingRight = true;
-            isTiltingLeft = false;
+        rotation.z = rotationValue;
+        ladder.transform.Rotate(rotation * Time.fixedDeltaTime);
+    }
 
-        }
+    void RandomTilt()
+    {
 
-        if(rotationValue > 90)
+        if(value > 0 && value <= 5 && !moveLeft && !moveRight)
         {
-            rotationValue = rotationValue - 90;
-            isTiltingLeft = true;
-            isTiltingRight = false;
+            LadderTilt(1);
+        } else if (value <= 10 && value > 5 && !moveLeft && !moveRight)
+        {
+            LadderTilt(-1);
         }
     }
 
-    void Rotate()
-    {
-        if (rotationValue <= 0)
-        {
-            transform.Rotate(Vector3.back, currentRotationSpeed * Time.deltaTime);
-        }
-        else if(rotationValue > 0)
-        {
-            transform.Rotate(-Vector3.back, currentRotationSpeed * Time.deltaTime);
-        }
-    }
-
-
-    void AdjustRotation()
-    {
-        if (rotation.z != 0)
-        {
-            currentRotationSpeed = 0;
-        }
-        else
-        {
-            currentRotationSpeed = initialRotationSpeed;
-            currentRotationSpeed += acceleratingRate * Time.deltaTime;
-        }
-    }
     #endregion
 }
