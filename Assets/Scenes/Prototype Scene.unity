@@ -2348,7 +2348,7 @@ MonoBehaviour:
   detectionRadius: 3
   signOnLeft: 0
   signOnRight: 0
-  currentScrew: 0
+  currentScrew: 3
 --- !u!135 &1403149664
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2557,10 +2557,6 @@ MonoBehaviour:
   moveLadderSpeed: 5
   moveLadderDist: 3
   ladder: {fileID: 1440884804}
-  initialRotationSpeed: 10
-  acceleratingRate: 0.1
-  maxRotationSpeed: 50
-  currentRotationSpeed: 0
 --- !u!1001 &1471531684
 PrefabInstance:
   m_ObjectHideFlags: 0

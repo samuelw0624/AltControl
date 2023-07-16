@@ -37,24 +37,25 @@ public class Drill : MonoBehaviour
     #region Drill Methods
     void SwitchDrill()
     {
-        Debug.Log("current drill type is " + currentDrill);
-
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             currentDrill = DrillType.CrossDrill;
+            Debug.Log("cross screw is activated ");
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             currentDrill = DrillType.FlatDrill;
+            Debug.Log("flat screw is activated");
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             currentDrill = DrillType.SpiralDrill;
+            Debug.Log("hex screw is activated");
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             currentDrill = DrillType.None;
-            Debug.Log("None Drill");
+            Debug.Log("Deactivate screw");
         }
     }
 
