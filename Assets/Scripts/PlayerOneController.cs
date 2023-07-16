@@ -56,6 +56,7 @@ public class PlayerOneController : MonoBehaviour
         CrossScrew,
         FlatScrew,
         SpiralScrew,
+        None
     }
 
     public ScrewType currentScrew;

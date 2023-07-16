@@ -12,7 +12,8 @@ public class Drill : MonoBehaviour
     {
         CrossDrill,
         FlatDrill,
-        SpiralDrill
+        SpiralDrill,
+        None
     }
 
     public DrillType currentDrill;
@@ -22,7 +23,7 @@ public class Drill : MonoBehaviour
     {
         p1Script = PlayerOneController.instance;
         //standard starting drill
-        currentDrill = DrillType.CrossDrill;
+        currentDrill = DrillType.None;
     }
 
     // Update is called once per frame
@@ -38,17 +39,22 @@ public class Drill : MonoBehaviour
     {
         Debug.Log("current drill type is " + currentDrill);
 
-        if (Keyboard.current[Key.Digit0].wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             currentDrill = DrillType.CrossDrill;
         }
-        if (Keyboard.current[Key.Digit9].wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             currentDrill = DrillType.FlatDrill;
         }
-        if (Keyboard.current[Key.Digit8].wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             currentDrill = DrillType.SpiralDrill;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            currentDrill = DrillType.None;
+            Debug.Log("None Drill");
         }
     }
 

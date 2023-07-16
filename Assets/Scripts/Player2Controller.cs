@@ -27,10 +27,10 @@ public class Player2Controller : MonoBehaviour
 
     
 
-    [SerializeField] float initialRotationSpeed = 10f;
-    [SerializeField] float acceleratingRate = 0.1f;
-    [SerializeField] float maxRotationSpeed = 50;
-    [SerializeField] float currentRotationSpeed;
+    //[SerializeField] float initialRotationSpeed = 10f;
+    //[SerializeField] float acceleratingRate = 0.1f;
+    //[SerializeField] float maxRotationSpeed = 50;
+    //[SerializeField] float currentRotationSpeed;
 
 
     // Start is called before the first frame update
