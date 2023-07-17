@@ -24,6 +24,9 @@ public class Player2Controller : MonoBehaviour
     public GameObject ladder;
     Vector3 rotation;
     float value;
+    bool rotateLeft;
+    bool rotateRight;
+    //bool gameStart;
 
     
 
@@ -67,6 +70,8 @@ public class Player2Controller : MonoBehaviour
         SpeedAdjust();
         LadderRotate();
         RandomTilt();
+        Rotate();
+
 
     }
 
@@ -87,11 +92,6 @@ public class Player2Controller : MonoBehaviour
 
 
         MoveHorizontally();
-       
-
-
-
-
 
     }
 
@@ -181,27 +181,43 @@ public class Player2Controller : MonoBehaviour
         if (moveLeft)
         {
             transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);
-            LadderTilt(-2);
+            //LadderTilt(-2);
 
         }
         if (moveRight)
         {
             transform.Translate(Vector3.right * moveLadderSpeed * Time.deltaTime);
-            LadderTilt(2);
+            //LadderTilt(2);
         }
 
     }
 
     void LadderRotate()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Keyboard.current[Key.Q].wasPressedThisFrame)
         {
-            ladder.transform.Rotate(0f, 0f, 6f);
+            rotateLeft = true;
+            rotateRight = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+
+        if (Keyboard.current[Key.E].wasPressedThisFrame)
         {
-            ladder.transform.Rotate(0f, 0f, -6f);
+            rotateRight = true;
+            rotateLeft = false;
+        }
+    }
+
+    void Rotate()
+    {
+        if (rotateLeft)
+        {
+            LadderTilt(2);
+        }
+
+        if (rotateRight)
+        {
+            LadderTilt(-2);
         }
     }
 
@@ -218,7 +234,7 @@ public class Player2Controller : MonoBehaviour
     void RandomTilt()
     {
 
-        if(value > 0 && value <= 5 && !moveLeft && !moveRight)
+        if(value > 0 && value <= 5 && !moveLeft && !moveRight )
         {
             LadderTilt(1);
         } else if (value <= 10 && value > 5 && !moveLeft && !moveRight)
