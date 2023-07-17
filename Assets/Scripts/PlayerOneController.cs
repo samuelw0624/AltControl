@@ -42,20 +42,23 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField] float gravityMod;
 
     //drill variables
-    public bool isInDrillSlot;
+    //public bool isInDrillSlot;
 
     //repair variables
+    SphereCollider repairCollide;
     //repair radius, change in inspector
     [SerializeField] float detectionRadius = 5f;
     //sign positional bool
     public bool signOnLeft, signOnRight;
-    GameObject signToFix;
+    GameObject closestSign;
+    List<GameObject> signsToFix = new List<GameObject>();
 
     public enum ScrewType
     {
         CrossScrew,
         FlatScrew,
-        SpiralScrew,
+        HexScrew,
+        None
     }
 
     public ScrewType currentScrew;
@@ -78,6 +81,8 @@ public class PlayerOneController : MonoBehaviour
     {
         playerRb = this.GetComponent<Rigidbody>();
         ladder = GameObject.FindWithTag("Ladder");
+        repairCollide = this.GetComponent<SphereCollider>();
+        repairCollide.radius = detectionRadius;
 
         leftHandOffLadder = true;
         rightHandOffLadder = true;
@@ -96,6 +101,9 @@ public class PlayerOneController : MonoBehaviour
         SlideDown();
 
         FollowLadder();
+
+        Debug.Log(signsToFix.Count);
+        Debug.Log(closestSign.name);
     }
 
     private void FixedUpdate()
@@ -348,64 +356,95 @@ public class PlayerOneController : MonoBehaviour
     #region Repair Methods
     private void OnTriggerEnter(Collider other)
     {
+        GameObject enteredSign = other.gameObject;
         //if the sign is trigger range has the word sign in object name
-        if (other.gameObject.name.Contains("sign"))
+        if (other.gameObject.name.Contains("sign") && !signsToFix.Contains(enteredSign))
         {
             Debug.Log("current screw type is " + currentScrew);
 
+            //add signs to signs list
+            signsToFix.Add(enteredSign);
+            UpdateClosestSign();
+
             //check what kind of sign it is
-            if (other.gameObject.CompareTag("cross"))
+            if (closestSign.gameObject.CompareTag("cross"))
             {
                 currentScrew = ScrewType.CrossScrew;
             }
-            if (other.gameObject.CompareTag("flat"))
+            if (closestSign.gameObject.CompareTag("flat"))
             {
                 currentScrew = ScrewType.FlatScrew;
             }
-            if (other.gameObject.CompareTag("spiral"))
+            if (closestSign.gameObject.CompareTag("spiral"))
             {
-                currentScrew = ScrewType.SpiralScrew;
+                currentScrew = ScrewType.HexScrew;
             }
 
-            signToFix = other.gameObject;
             //convert sign position to local position relative to player
-            Vector3 signLocalPos = this.transform.InverseTransformPoint(other.gameObject.transform.position);
-            if (signLocalPos.x < 0)
-            {
-                signOnLeft = true;
-                Debug.Log("left sign");
-            }
-            else if (signLocalPos.x > 0)
-            {
-                signOnRight = true;
-                Debug.Log("right sign");
-            }
+            //Vector3 signLocalPos = this.transform.InverseTransformPoint(closestSign.gameObject.transform.position);
+            //if (signLocalPos.x < 0)
+            //{
+            //    signOnLeft = true;
+            //    Debug.Log("left sign");
+            //}
+            //else if (signLocalPos.x > 0)
+            //{
+            //    signOnRight = true;
+            //    Debug.Log("right sign");
+            //}
         }
         else
         {
             //Debug.Log("no sign to repair");
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        GameObject exitedSign = other.gameObject;
+        if (signsToFix.Contains(exitedSign))
+        {
+            signsToFix.Remove(exitedSign);
+            UpdateClosestSign();
+        }
+    }
+
+    void UpdateClosestSign()
+    {
+        closestSign = null;
+        float closestDist = Mathf.Infinity;
+        Vector3 playerPos = this.transform.position;
+
+        foreach (GameObject sign in signsToFix)
+        {
+            float distance = Vector3.Distance(sign.transform.position, playerPos);
+            if(distance < closestDist)
+            {
+                closestDist = distance;
+                closestSign = sign;
+            }
+        }
+    }
 
     public void FixSign()
     {
-        if (signOnLeft && leftHandOffLadder && Keyboard.current[Key.S].wasPressedThisFrame)
+        if (closestSign != null && (leftHandOffLadder || rightHandOffLadder))
         {
             //disable sign collider upon fix
-            Collider signCollider = signToFix.gameObject.GetComponent<BoxCollider>();
+            Collider signCollider = closestSign.gameObject.GetComponent<BoxCollider>();
             signCollider.enabled = false;
+            Destroy(closestSign);
             
             Debug.Log("sign repaired on the left");
             //repair animation
         }
-        if (signOnRight && rightHandOffLadder && Keyboard.current[Key.S].wasPressedThisFrame)
-        {
-            Collider signCollider = signToFix.gameObject.GetComponent<BoxCollider>();
-            signCollider.enabled = false;
+        //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)
+        //{
+        //    Collider signCollider = closestSign.gameObject.GetComponent<BoxCollider>();
+        //    signCollider.enabled = false;
 
-            Debug.Log("sign repaired on the right");
-            //repair animation
-        }
+        //    Debug.Log("sign repaired on the right");
+        //    //repair animation
+        //}
     }
 
     //visualize player fix trigger range

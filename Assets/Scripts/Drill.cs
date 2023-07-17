@@ -12,93 +12,114 @@ public class Drill : MonoBehaviour
     {
         CrossDrill,
         FlatDrill,
-        SpiralDrill
+        HexDrill,
+        None
     }
 
     public DrillType currentDrill;
-
+    
     // Start is called before the first frame update
     void Start()
     {
         p1Script = PlayerOneController.instance;
+        
         //standard starting drill
-        currentDrill = DrillType.CrossDrill;
+        currentDrill = DrillType.None;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Debug.Log(p1Script);
+
         SwitchDrill();
-        HandleDrills();
+        //HandleDrills();
     }
 
     #region Drill Methods
     void SwitchDrill()
     {
-        Debug.Log("current drill type is " + currentDrill);
-
-        if (Keyboard.current[Key.Digit0].wasPressedThisFrame)
-        {
-            currentDrill = DrillType.CrossDrill;
-        }
-        if (Keyboard.current[Key.Digit9].wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             currentDrill = DrillType.FlatDrill;
-        }
-        if (Keyboard.current[Key.Digit8].wasPressedThisFrame)
-        {
-            currentDrill = DrillType.SpiralDrill;
-        }
-    }
-
-    void HandleDrills()
-    {
-        CheckDrillStatus();
-        if (p1Script.isInDrillSlot)
-        {
-            //each drill case checks whether the current screw matched the current drill
-            switch (currentDrill)
+            Debug.Log("flat screw is activated ");
+            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
             {
-                case DrillType.CrossDrill:
-                    if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
-                    {
-                        p1Script.FixSign();
-                    }
-                    break;
-                case DrillType.FlatDrill:
-                    if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
-                    {
-                        p1Script.FixSign();
-                    }
-                    break;
-                case DrillType.SpiralDrill:
-                    if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SpiralScrew)
-                    {
-                        p1Script.FixSign();
-                    }
-                    break;
+                p1Script.FixSign();
             }
         }
-        else
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            //Debug.Log("drill is not in slot to repair");
-            //UX functions
+            currentDrill = DrillType.HexDrill;
+            Debug.Log("hex screw is activated");
+            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
+            {
+                p1Script.FixSign();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            currentDrill = DrillType.CrossDrill;
+            Debug.Log("cross screw is activated");
+            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
+            {
+                p1Script.FixSign();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            currentDrill = DrillType.None;
+            Debug.Log("Deactivate screw");
         }
     }
 
-    void CheckDrillStatus()
-    {
-        Debug.Log("drill in slot is " + p1Script.isInDrillSlot);
+    //void HandleDrills()
+    //{
+    //    CheckDrillStatus();
+    //    if (p1Script.isInDrillSlot)
+    //    {
+    //        //each drill case checks whether the current screw matched the current drill
+    //        switch (currentDrill)
+    //        {
+    //            case DrillType.CrossDrill:
+    //                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
+    //                {
+    //                    p1Script.FixSign();
+    //                }
+    //                break;
+    //            case DrillType.FlatDrill:
+    //                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
+    //                {
+    //                    p1Script.FixSign();
+    //                }
+    //                break;
+    //            case DrillType.HexDrill:
+    //                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
+    //                {
+    //                    p1Script.FixSign();
+    //                }
+    //                break;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        //Debug.Log("drill is not in slot to repair");
+    //        //UX functions
+    //    }
+    //}
 
-        if (Keyboard.current[Key.P].wasPressedThisFrame && (p1Script.signOnLeft || p1Script.signOnRight))
-        {
-            p1Script.isInDrillSlot = true;
-        }
-        else if (Keyboard.current[Key.L].wasPressedThisFrame && (p1Script.signOnLeft || p1Script.signOnRight))
-        {
-            p1Script.isInDrillSlot = false;
-        }
-    }
+    //void CheckDrillStatus()
+    //{
+    //    Debug.Log("drill in slot is " + p1Script.isInDrillSlot);
+
+    //    if (Keyboard.current[Key.P].wasPressedThisFrame && (p1Script.signOnLeft || p1Script.signOnRight))
+    //    {
+    //        p1Script.isInDrillSlot = true;
+    //    }
+    //    else if (Keyboard.current[Key.L].wasPressedThisFrame && (p1Script.signOnLeft || p1Script.signOnRight))
+    //    {
+    //        p1Script.isInDrillSlot = false;
+    //    }
+    //}
     #endregion
 }
