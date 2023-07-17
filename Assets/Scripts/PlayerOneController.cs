@@ -434,7 +434,6 @@ public class PlayerOneController : MonoBehaviour
             signCollider.enabled = false;
             Destroy(closestSign);
             
-            Debug.Log("sign repaired on the left");
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)

@@ -6,7 +6,7 @@ public class EditEmissiveIntensityExample : MonoBehaviour
 
     void Start()
     {
-        float emissiveIntensity = 0.1f;
+        float emissiveIntensity = 100f;
         Color emissiveColor = Color.green;
         m_EmissiveObject.GetComponent<Renderer>().material.SetColor("_EmissiveColor", emissiveColor * emissiveIntensity);
     }
