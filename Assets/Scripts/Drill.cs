@@ -17,7 +17,7 @@ public class Drill : MonoBehaviour
     }
 
     public DrillType currentDrill;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -42,29 +42,29 @@ public class Drill : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             currentDrill = DrillType.FlatDrill;
+            Debug.Log("flat screw is activated ");
             if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
             {
                 p1Script.FixSign();
             }
-            Debug.Log("flat screw is activated ");
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             currentDrill = DrillType.HexDrill;
+            Debug.Log("hex screw is activated");
             if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
             {
                 p1Script.FixSign();
             }
-            Debug.Log("hex screw is activated");
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             currentDrill = DrillType.CrossDrill;
+            Debug.Log("cross screw is activated");
             if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
             {
                 p1Script.FixSign();
             }
-            Debug.Log("cross screw is activated");
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
