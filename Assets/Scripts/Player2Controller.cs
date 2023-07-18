@@ -233,8 +233,7 @@ public class Player2Controller : MonoBehaviour
 
     void RandomTilt()
     {
-
-        if(value > 0 && value <= 5 && !moveLeft && !moveRight )
+        if(value > 0 && value <= 5 && !moveLeft && !moveRight)
         {
             LadderTilt(1);
         } else if (value <= 10 && value > 5 && !moveLeft && !moveRight)
