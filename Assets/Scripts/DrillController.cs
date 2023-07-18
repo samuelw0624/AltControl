@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Drill : MonoBehaviour
+public class DrillController : MonoBehaviour
 {
     //reference variables
     PlayerOneController p1Script;

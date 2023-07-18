@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6170253837257478008}
   - component: {fileID: 7348711566127689985}
   m_Layer: 0
-  m_Name: RepairSpots
+  m_Name: OLD_RepairSpots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

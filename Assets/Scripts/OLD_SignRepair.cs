@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SignRepair : MonoBehaviour
+public class OLD_SignRepair : MonoBehaviour
 {
     Renderer rend;
     int colorValue;
-    PlayerMovementCtrl_OLD playerController;
+    OLD_PlayerMovementCtrl playerController;
     GameObject player;
 
     public GameObject sign;
@@ -41,7 +41,7 @@ public class SignRepair : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && player.GetComponent<PlayerMovementCtrl_OLD>().colorNumber == colorValue)
+        if (other.tag == "Player" && player.GetComponent<OLD_PlayerMovementCtrl>().colorNumber == colorValue)
         {
             Debug.Log("Trigered");
             Destroy(this.gameObject);

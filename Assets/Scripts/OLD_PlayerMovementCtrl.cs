@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovementCtrl_OLD : MonoBehaviour
+public class OLD_PlayerMovementCtrl : MonoBehaviour
 {
-    Player1Controller controls;
+    OLD_Player1Controller controls;
     Vector2 move;
     Vector2 height;
     Rigidbody rb;
@@ -20,7 +20,7 @@ public class PlayerMovementCtrl_OLD : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        controls = new Player1Controller();
+        controls = new OLD_Player1Controller();
 
         //access movement axis_x
         controls.Gameplay.Move_X.performed += ctx => move = ctx.ReadValue<Vector2>();

@@ -10,7 +10,7 @@ TagManager:
   - Ladder
   - flat
   - cross
-  - spiral
+  - hex
   layers:
   - Default
   - TransparentFX

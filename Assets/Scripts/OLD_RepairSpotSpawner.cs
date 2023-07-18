@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RepairSpotSpawner : MonoBehaviour
+public class OLD_RepairSpotSpawner : MonoBehaviour
 {
     public GameObject repairSpots;
     float randX;

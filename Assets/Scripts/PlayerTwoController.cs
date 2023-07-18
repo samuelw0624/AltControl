@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player2Controller : MonoBehaviour
+public class PlayerTwoController : MonoBehaviour
 {
     //ladder variables
     [SerializeField] float ladderHeight = 10f;
