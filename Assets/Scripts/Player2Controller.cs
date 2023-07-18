@@ -200,13 +200,11 @@ public class Player2Controller : MonoBehaviour
         if (moveLeft)
         {
             transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);
-            //LadderTilt(-2);
 
         }
         if (moveRight)
         {
             transform.Translate(Vector3.right * moveLadderSpeed * Time.deltaTime);
-            //LadderTilt(2);
         }
 
     }
@@ -256,20 +254,20 @@ public class Player2Controller : MonoBehaviour
         } else if (rotateLeft && rotateFast)
         {
             LadderTilt(3);
-            Debug.Log("rotateLeft + fast");
+            //Debug.Log("rotateLeft + fast");
         } else if (rotateLeft && rotateNormal)
         {
             LadderTilt(2);
-            Debug.Log("rotateLeft + normal");
+            //Debug.Log("rotateLeft + normal");
         } else if (rotateRight && rotateFast)
         {
             LadderTilt(-3);
-            Debug.Log("rotateRight + fast");
+            //Debug.Log("rotateRight + fast");
         }
         else if (rotateRight && rotateNormal)
         {
             LadderTilt(-2);
-            Debug.Log("rotateRight + normal");
+            //Debug.Log("rotateRight + normal");
         }
     }
 
