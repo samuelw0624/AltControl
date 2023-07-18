@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class PlayerOneController : MonoBehaviour
 {
@@ -51,11 +52,13 @@ public class PlayerOneController : MonoBehaviour
     //sign positional bool, currently unsed
     public bool signOnLeft, signOnRight;
     //variables to get closest sign
-    public List<GameObject> signsToFix = new List<GameObject>();
-    public GameObject closestSign;
+    List<GameObject> signsToFix = new List<GameObject>();
+    GameObject closestSign;
 
     //light emission control variables
     LightControl lightcontrolRef;
+    AudioSource repairAudio;
+    public AudioClip repairClip;
 
     public enum ScrewType
     {
@@ -72,7 +75,7 @@ public class PlayerOneController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -87,6 +90,7 @@ public class PlayerOneController : MonoBehaviour
         ladder = GameObject.FindWithTag("Ladder");
         repairCollide = this.GetComponent<SphereCollider>();
         repairCollide.radius = detectionRadius;
+        repairAudio = this.GetComponent<AudioSource>();
 
         leftHandOffLadder = true;
         rightHandOffLadder = true;
@@ -123,6 +127,7 @@ public class PlayerOneController : MonoBehaviour
         }else if(leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
         {
             gameOver = true;
+            SceneManager.LoadScene("GameOver");
             Debug.Log("Game Over is " + gameOver);
             //scene transiton functions
         }
@@ -465,6 +470,7 @@ public class PlayerOneController : MonoBehaviour
     {
         if (closestSign != null && (leftHandOffLadder || rightHandOffLadder))
         {
+            repairAudio.PlayOneShot(repairClip);
             //change fix status in light control ref
             lightcontrolRef.isFixed = true;
             //removed the closest sign that was just fixed
