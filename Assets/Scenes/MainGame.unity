@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3fca452f2206b042aa8e1e65c9a38c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 714454908}
 --- !u!1 &794116801
 GameObject:
   m_ObjectHideFlags: 0
@@ -3517,9 +3517,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7849c5b81e674d04f8ef448e545d3094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flatDrill: {fileID: 0}
-  hexDrill: {fileID: 0}
-  crossDrill: {fileID: 0}
+  flatDrill: {fileID: 51886693}
+  hexDrill: {fileID: 1372901050}
+  crossDrill: {fileID: 1358254500}
   currentDrill: 3
 --- !u!82 &1403149667
 AudioSource:

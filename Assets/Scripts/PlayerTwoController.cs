@@ -106,7 +106,6 @@ public class PlayerTwoController : MonoBehaviour
         if (Keyboard.current[Key.X].wasPressedThisFrame)
         {
             heightChanges = 13;
-            ScoreManager.instance.AddPoint(1);
         }
         if (Keyboard.current[Key.C].wasPressedThisFrame)
         {
