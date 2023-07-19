@@ -477,7 +477,8 @@ public class PlayerOneController : MonoBehaviour
             signsToFix.Remove(closestSign);
             UpdateClosestSign();
             //Destroy(closestSign);
-            
+            //add score function
+            ScoreManager.instance.AddPoint(1);
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)

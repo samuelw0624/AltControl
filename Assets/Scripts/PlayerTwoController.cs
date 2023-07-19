@@ -59,10 +59,6 @@ public class PlayerTwoController : MonoBehaviour
         moveLadderDist = 1f;
 
         value = Random.Range(1, 10);
-
-
-
-
     }
 
     // Update is called once per frame
@@ -99,6 +95,7 @@ public class PlayerTwoController : MonoBehaviour
     }
 
     #region LadderHeightControl&Movement
+    
     void LadderFunction()
     {
         // five stages of ladder heitgh adjustment
@@ -109,6 +106,7 @@ public class PlayerTwoController : MonoBehaviour
         if (Keyboard.current[Key.X].wasPressedThisFrame)
         {
             heightChanges = 13;
+            ScoreManager.instance.AddPoint(1);
         }
         if (Keyboard.current[Key.C].wasPressedThisFrame)
         {
@@ -125,6 +123,7 @@ public class PlayerTwoController : MonoBehaviour
         this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
         ladderHeight = heightChanges;
     }
+    
 
     void SpeedAdjust()
     {
