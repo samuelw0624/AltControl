@@ -29,14 +29,12 @@ public class PlayerTwoController : MonoBehaviour
     bool rotateFast;
     bool rotateNormal;
 
-    //bool gameStart;
+    //Ladder heights 
+    public GameObject[] ladderObj;
+    int numOfLadder;
 
     
-
-    //[SerializeField] float initialRotationSpeed = 10f;
-    //[SerializeField] float acceleratingRate = 0.1f;
-    //[SerializeField] float maxRotationSpeed = 50;
-    //[SerializeField] float currentRotationSpeed;
+    
 
 
     // Start is called before the first frame update
@@ -65,11 +63,11 @@ public class PlayerTwoController : MonoBehaviour
     void Update()
     {
 
-        LadderFunction();
         SpeedAdjust();
         LadderRotate();
         RandomTilt();
-
+        LadderHight();
+        
 
 
     }
@@ -77,50 +75,80 @@ public class PlayerTwoController : MonoBehaviour
     private void FixedUpdate()
     {
         //compare character's height to the ladder's height 
-        if (player1.transform.position.y <= ladderHeight - 2.0f)
-        {
-            player1.moveDist = 0.5f;
-        }
-        else
-        {
-            player1.moveDist = 0f;
-        }
+
 
         //ladder movement at axis.x
         //ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
 
-
+        LadderHeightSwitch();
         MoveHorizontally();
+        
+
 
     }
 
     #region LadderHeightControl&Movement
     
-    void LadderFunction()
+    void LadderHight()
     {
         // five stages of ladder heitgh adjustment
         if (Keyboard.current[Key.Z].wasPressedThisFrame)
         {
-            heightChanges = 15;
+            numOfLadder = 5;
         }
         if (Keyboard.current[Key.X].wasPressedThisFrame)
         {
-            heightChanges = 13;
+            numOfLadder = 4;
         }
         if (Keyboard.current[Key.C].wasPressedThisFrame)
         {
-            heightChanges = 10;
+            numOfLadder = 3;
         }
         if (Keyboard.current[Key.V].wasPressedThisFrame)
         {
-            heightChanges = 7;
+            numOfLadder = 2;
         }
         if (Keyboard.current[Key.Space].wasPressedThisFrame)
         {
-            heightChanges = 5;
+            numOfLadder = 1;
         }
-        this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
+        //this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
         ladderHeight = heightChanges;
+    }
+
+    void LadderHeightSwitch()
+    {
+        if (numOfLadder == 1)
+        {
+            ladderObj[0].gameObject.SetActive(false);
+            ladderObj[1].gameObject.SetActive(false);
+            ladderObj[2].gameObject.SetActive(false);
+            ladderObj[3].gameObject.SetActive(false);
+        } 
+        else if (numOfLadder == 2)
+        {
+            ladderObj[0].gameObject.SetActive(true);
+            ladderObj[1].gameObject.SetActive(false);
+            ladderObj[2].gameObject.SetActive(false);
+            ladderObj[3].gameObject.SetActive(false);
+        } 
+        else if (numOfLadder == 3)
+        {
+            ladderObj[1].gameObject.SetActive(true);
+            ladderObj[2].gameObject.SetActive(false);
+            ladderObj[3].gameObject.SetActive(false);
+        }
+        else if (numOfLadder == 4)
+        {
+            ladderObj[2].gameObject.SetActive(true);
+            ladderObj[3].gameObject.SetActive(false);
+
+        }
+        else if (numOfLadder == 5)
+        {
+            ladderObj[3].gameObject.SetActive(true);
+        }
+
     }
     
 
