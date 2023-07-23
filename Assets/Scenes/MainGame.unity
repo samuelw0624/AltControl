@@ -222,12 +222,12 @@ MonoBehaviour:
   heightChanges: 100
   moveLadderSpeed: 5
   moveLadderDist: 3
-  ladder: {fileID: 10001508}
   ladderObj:
   - {fileID: 1001939540}
   - {fileID: 880426284}
   - {fileID: 383038221}
   - {fileID: 783839252}
+  pivotPoint: {fileID: 1237523594}
 --- !u!54 &10001513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -244,6 +244,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &10001516
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10001508}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.008289653, y: 0.0661672, z: 0.0011493723}
+  m_Center: {x: -0.0031038634, y: 0.033083603, z: -0.0004746861}
 --- !u!1 &19331752
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.86666673, g: 0.8000001, b: 0.4666667, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3421,7 +3434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1353788866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3557,7 +3570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.029144764, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.8000001, g: 0.40000004, b: 0.4666667, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3784,7 +3797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1508894, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.26666668, g: 0.6666667, b: 0.6, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4483,8 +4496,8 @@ MonoBehaviour:
   heightChanges: 100
   moveLadderSpeed: 5
   moveLadderDist: 3
-  ladder: {fileID: 1440884804}
   ladderObj: []
+  pivotPoint: {fileID: 0}
 --- !u!1 &1461441512
 GameObject:
   m_ObjectHideFlags: 0
@@ -5653,7 +5666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d3a141de6e5cc664bb2e139e3e138f6f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0031038634
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d3a141de6e5cc664bb2e139e3e138f6f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5673,11 +5686,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d3a141de6e5cc664bb2e139e3e138f6f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d3a141de6e5cc664bb2e139e3e138f6f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d3a141de6e5cc664bb2e139e3e138f6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5797,7 +5810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2097638865
 MonoBehaviour:
   m_ObjectHideFlags: 0
