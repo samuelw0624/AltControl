@@ -228,6 +228,7 @@ MonoBehaviour:
   - {fileID: 383038221}
   - {fileID: 783839252}
   pivotPoint: {fileID: 1237523594}
+  player: {fileID: 1403149658}
 --- !u!54 &10001513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -874,7 +875,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 131.8089, y: -47.6264}
+  m_AnchoredPosition: {x: 131.80884, y: -47.626343}
   m_SizeDelta: {x: 263.6179, y: 95.2528}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &313812518
@@ -3906,7 +3907,7 @@ GameObject:
   - component: {fileID: 1403149666}
   - component: {fileID: 1403149667}
   m_Layer: 0
-  m_Name: Player
+  m_Name: w
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3984,7 +3985,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403149658}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.25, z: -0.48000002}
+  m_LocalPosition: {x: 0.32, y: -2.04, z: -0.48000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4498,6 +4499,7 @@ MonoBehaviour:
   moveLadderDist: 3
   ladderObj: []
   pivotPoint: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &1461441512
 GameObject:
   m_ObjectHideFlags: 0

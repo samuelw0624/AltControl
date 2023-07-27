@@ -34,7 +34,9 @@ public class PlayerTwoController : MonoBehaviour
     int numOfLadder;
 
     public GameObject pivotPoint;
-
+    public GameObject player;
+    float minY;
+    float maxY;
     
     
 
@@ -57,6 +59,7 @@ public class PlayerTwoController : MonoBehaviour
 
         moveLadderSpeed = 0;
         moveLadderDist = 1f;
+        maxY = 3;
 
         value = Random.Range(1, 10);
     }
@@ -68,7 +71,11 @@ public class PlayerTwoController : MonoBehaviour
         SpeedAdjust();
         LadderRotate();
         LadderHight();
-        
+
+        //Restrict the player's maximum height for climbing
+        Vector3 newPosition = player.transform.position;
+        newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
+        player.transform.position = newPosition;
 
 
     }
@@ -127,6 +134,8 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[1].gameObject.SetActive(false);
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
+
+            maxY = 3;
         } 
         else if (numOfLadder == 2)
         {
@@ -134,22 +143,30 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[1].gameObject.SetActive(false);
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
+
+            maxY = 9.50f;
         } 
         else if (numOfLadder == 3)
         {
             ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
+
+            maxY = 16;
         }
         else if (numOfLadder == 4)
         {
             ladderObj[2].gameObject.SetActive(true);
             ladderObj[3].gameObject.SetActive(false);
 
+            maxY = 22.5f;
+
         }
         else if (numOfLadder == 5)
         {
             ladderObj[3].gameObject.SetActive(true);
+
+            maxY = 30;
         }
 
     }

@@ -22,7 +22,7 @@ public class LoseFunction : MonoBehaviour
         if(other.gameObject.tag == "DeadLine")
         {
             Debug.Log("GameOver(Player2");
-            //SceneManager.LoadScene(2);
+            SceneManager.LoadScene(2);
         }
     }
 }
