@@ -31,12 +31,13 @@ public class PlayerTwoController : MonoBehaviour
 
     //Ladder heights 
     public GameObject[] ladderObj;
-    int numOfLadder;
+    public int numOfLadder;
 
     public GameObject pivotPoint;
     public GameObject player;
     float minY;
     float maxY;
+    public int num;
     
     
 
@@ -126,6 +127,30 @@ public class PlayerTwoController : MonoBehaviour
         ladderHeight = heightChanges;
     }
 
+    void DetectPlayerPosition()
+    {
+        if (player1.transform.position.y <= 2.84)
+        {
+            num = 0;
+        }
+        else if(player1.transform.position.y > 2.84 && player1.transform.position.y <= 6)
+        {
+            num = 1;
+        }
+        else if (player1.transform.position.y > 6 && player1.transform.position.y <= 9)
+        {
+            num = 2;
+        }
+        else if (player1.transform.position.y > 9 && player1.transform.position.y <= 12)
+        {
+            num = 3;
+        }
+        else if (player1.transform.position.y > 12 && player1.transform.position.y <= 15)
+        {
+            num = 4;
+        }
+    }
+
     void LadderHeightSwitch()
     {
         if (numOfLadder == 1)
@@ -144,7 +169,7 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 9.50f;
+            maxY = 6f;
         } 
         else if (numOfLadder == 3)
         {
@@ -152,21 +177,21 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 16;
+            maxY = 9F;
         }
         else if (numOfLadder == 4)
         {
             ladderObj[2].gameObject.SetActive(true);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 22.5f;
+            maxY = 12f;
 
         }
         else if (numOfLadder == 5)
         {
             ladderObj[3].gameObject.SetActive(true);
 
-            maxY = 30;
+            maxY = 15F;
         }
 
     }
