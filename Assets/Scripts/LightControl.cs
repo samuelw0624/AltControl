@@ -7,7 +7,7 @@ using System.Linq;
 public class LightControl : MonoBehaviour
 {
     GameObject sign;
-    public GameObject selectionRing;
+    //public GameObject selectionRing;
     Color emissiveColor;
 
     public float onIntensity;
@@ -26,7 +26,7 @@ public class LightControl : MonoBehaviour
         sign.GetComponent<Renderer>().material.SetColor("_EmissionColor", emissiveColor * offIntensity);
         StartCoroutine(BlinkCoroutine());
         GetChilds();
-        selectionRing = repairSpotChildren[repairSpotChildren.Count -1];
+        //selectionRing = repairSpotChildren[repairSpotChildren.Count -1];
     }
 
     private void Update()
