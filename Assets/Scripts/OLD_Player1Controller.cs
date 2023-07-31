@@ -15,10 +15,10 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @Player1Controller : IInputActionCollection2, IDisposable
+public partial class OLD_Player1Controller : IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @Player1Controller()
+    public OLD_Player1Controller()
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""Player1Controller"",
@@ -361,8 +361,8 @@ public partial class @Player1Controller : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Rotate;
     public struct GameplayActions
     {
-        private @Player1Controller m_Wrapper;
-        public GameplayActions(@Player1Controller wrapper) { m_Wrapper = wrapper; }
+        private OLD_Player1Controller m_Wrapper;
+        public GameplayActions(OLD_Player1Controller wrapper) { m_Wrapper = wrapper; }
         public InputAction @Climb_Left => m_Wrapper.m_Gameplay_Climb_Left;
         public InputAction @Climb_Right => m_Wrapper.m_Gameplay_Climb_Right;
         public InputAction @Move_X => m_Wrapper.m_Gameplay_Move_X;

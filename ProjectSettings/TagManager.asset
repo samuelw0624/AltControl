@@ -10,7 +10,8 @@ TagManager:
   - Ladder
   - flat
   - cross
-  - spiral
+  - hex
+  - DeadLine
   layers:
   - Default
   - TransparentFX

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Drill : MonoBehaviour
+public class DrillController : MonoBehaviour
 {
     //reference variables
     PlayerOneController p1Script;
-
+    public GameObject flatDrill;
+    public GameObject hexDrill;
+    public GameObject crossDrill;
     public enum DrillType
     {
         CrossDrill,
@@ -42,6 +44,11 @@ public class Drill : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             currentDrill = DrillType.FlatDrill;
+            //activate UI icons
+            flatDrill.SetActive(true);
+            hexDrill.SetActive(false);
+            crossDrill.SetActive(false);
+
             Debug.Log("flat screw is activated ");
             if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
             {
@@ -51,6 +58,11 @@ public class Drill : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             currentDrill = DrillType.HexDrill;
+
+            //activate UI icons
+            flatDrill.SetActive(false);
+            hexDrill.SetActive(true);
+            crossDrill.SetActive(false);
             Debug.Log("hex screw is activated");
             if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
             {
@@ -60,6 +72,11 @@ public class Drill : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             currentDrill = DrillType.CrossDrill;
+            //activate UI icons
+            flatDrill.SetActive(false);
+            hexDrill.SetActive(false);
+            crossDrill.SetActive(true);
+
             Debug.Log("cross screw is activated");
             if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
             {
@@ -69,6 +86,10 @@ public class Drill : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             currentDrill = DrillType.None;
+            //activate UI icons
+            flatDrill.SetActive(false);
+            hexDrill.SetActive(false);
+            crossDrill.SetActive(false);
             Debug.Log("Deactivate screw");
         }
     }

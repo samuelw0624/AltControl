@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player2Controller : MonoBehaviour
+public class PlayerTwoController : MonoBehaviour
 {
     //ladder variables
     [SerializeField] float ladderHeight = 10f;
@@ -21,7 +21,7 @@ public class Player2Controller : MonoBehaviour
     bool moveRight = false;
     Rigidbody ladderRb;
 
-    public GameObject ladder;
+    //public GameObject ladder;
     Vector3 rotation;
     float value;
     bool rotateLeft;
@@ -29,14 +29,17 @@ public class Player2Controller : MonoBehaviour
     bool rotateFast;
     bool rotateNormal;
 
-    //bool gameStart;
+    //Ladder heights 
+    public GameObject[] ladderObj;
+    public int numOfLadder;
 
+    public GameObject pivotPoint;
+    public GameObject player;
+    float minY;
+    float maxY;
+    public int num;
     
-
-    //[SerializeField] float initialRotationSpeed = 10f;
-    //[SerializeField] float acceleratingRate = 0.1f;
-    //[SerializeField] float maxRotationSpeed = 50;
-    //[SerializeField] float currentRotationSpeed;
+    
 
 
     // Start is called before the first frame update
@@ -57,23 +60,23 @@ public class Player2Controller : MonoBehaviour
 
         moveLadderSpeed = 0;
         moveLadderDist = 1f;
+        maxY = 3;
 
         value = Random.Range(1, 10);
-
-
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        LadderFunction();
         SpeedAdjust();
         LadderRotate();
-        RandomTilt();
+        LadderHight();
 
+        //Restrict the player's maximum height for climbing
+        Vector3 newPosition = player.transform.position;
+        newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
+        player.transform.position = newPosition;
 
 
     }
@@ -81,50 +84,118 @@ public class Player2Controller : MonoBehaviour
     private void FixedUpdate()
     {
         //compare character's height to the ladder's height 
-        if (player1.transform.position.y <= ladderHeight - 2.0f)
-        {
-            player1.moveDist = 0.5f;
-        }
-        else
-        {
-            player1.moveDist = 0f;
-        }
+
 
         //ladder movement at axis.x
         //ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
 
-
+        LadderHeightSwitch();
         MoveHorizontally();
+
+        RandomTilt();
+
+
 
     }
 
     #region LadderHeightControl&Movement
-    void LadderFunction()
+    
+    void LadderHight()
     {
         // five stages of ladder heitgh adjustment
         if (Keyboard.current[Key.Z].wasPressedThisFrame)
         {
-            heightChanges = 15;
+            numOfLadder = 5;
         }
         if (Keyboard.current[Key.X].wasPressedThisFrame)
         {
-            heightChanges = 13;
+            numOfLadder = 4;
         }
         if (Keyboard.current[Key.C].wasPressedThisFrame)
         {
-            heightChanges = 10;
+            numOfLadder = 3;
         }
         if (Keyboard.current[Key.V].wasPressedThisFrame)
         {
-            heightChanges = 7;
+            numOfLadder = 2;
         }
         if (Keyboard.current[Key.Space].wasPressedThisFrame)
         {
-            heightChanges = 5;
+            numOfLadder = 1;
         }
-        this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
+        //this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
         ladderHeight = heightChanges;
     }
+
+    void DetectPlayerPosition()
+    {
+        if (player1.transform.position.y <= 2.84)
+        {
+            num = 0;
+        }
+        else if(player1.transform.position.y > 2.84 && player1.transform.position.y <= 6)
+        {
+            num = 1;
+        }
+        else if (player1.transform.position.y > 6 && player1.transform.position.y <= 9)
+        {
+            num = 2;
+        }
+        else if (player1.transform.position.y > 9 && player1.transform.position.y <= 12)
+        {
+            num = 3;
+        }
+        else if (player1.transform.position.y > 12 && player1.transform.position.y <= 15)
+        {
+            num = 4;
+        }
+    }
+
+    void LadderHeightSwitch()
+    {
+        if (numOfLadder == 1)
+        {
+            ladderObj[0].gameObject.SetActive(false);
+            ladderObj[1].gameObject.SetActive(false);
+            ladderObj[2].gameObject.SetActive(false);
+            ladderObj[3].gameObject.SetActive(false);
+
+            maxY = 3;
+        } 
+        else if (numOfLadder == 2)
+        {
+            ladderObj[0].gameObject.SetActive(true);
+            ladderObj[1].gameObject.SetActive(false);
+            ladderObj[2].gameObject.SetActive(false);
+            ladderObj[3].gameObject.SetActive(false);
+
+            maxY = 6f;
+        } 
+        else if (numOfLadder == 3)
+        {
+            ladderObj[1].gameObject.SetActive(true);
+            ladderObj[2].gameObject.SetActive(false);
+            ladderObj[3].gameObject.SetActive(false);
+
+            maxY = 9F;
+        }
+        else if (numOfLadder == 4)
+        {
+            ladderObj[2].gameObject.SetActive(true);
+            ladderObj[3].gameObject.SetActive(false);
+
+            maxY = 12f;
+
+        }
+        else if (numOfLadder == 5)
+        {
+            ladderObj[3].gameObject.SetActive(true);
+
+            maxY = 15F;
+        }
+
+    }
+    
 
     void SpeedAdjust()
     {
@@ -138,9 +209,6 @@ public class Player2Controller : MonoBehaviour
             rotateNormal = false;
 
 
-
-            Debug.Log("1");
-
         }
         if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
         {
@@ -150,7 +218,6 @@ public class Player2Controller : MonoBehaviour
             rotateFast = false;
             rotateNormal = true;
 
-            Debug.Log("2");
 
         }
         if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
@@ -166,8 +233,6 @@ public class Player2Controller : MonoBehaviour
             //StopCoroutine(MoveToHorizontal(MoveToNewPos(0)));
 
 
-            Debug.Log("3");
-
         }
         if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
         {
@@ -177,8 +242,6 @@ public class Player2Controller : MonoBehaviour
             rotateFast = false;
             rotateNormal = true;
 
-
-            Debug.Log("4");
 
         }
         if (Keyboard.current[Key.Digit5].wasPressedThisFrame)
@@ -190,7 +253,6 @@ public class Player2Controller : MonoBehaviour
             rotateNormal = false;
 
 
-            Debug.Log("5");
 
         }
     }
@@ -199,26 +261,26 @@ public class Player2Controller : MonoBehaviour
     {
         if (moveLeft)
         {
-            transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);
+            pivotPoint.transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);
 
         }
         if (moveRight)
         {
-            transform.Translate(Vector3.right * moveLadderSpeed * Time.deltaTime);
+            pivotPoint.transform.Translate(Vector3.right * moveLadderSpeed * Time.deltaTime);
         }
 
     }
 
     void LadderRotate()
     {
-        if (Keyboard.current[Key.Q].wasPressedThisFrame)
+        if (Keyboard.current[Key.E].wasPressedThisFrame)
         {
             rotateLeft = true;
             rotateRight = false;
         }
 
 
-        if (Keyboard.current[Key.E].wasPressedThisFrame)
+        if (Keyboard.current[Key.Q].wasPressedThisFrame)
         {
             rotateRight = true;
             rotateLeft = false;
@@ -233,41 +295,45 @@ public class Player2Controller : MonoBehaviour
     void LadderTilt(float rotationValue)
     {
         rotation.z = rotationValue;
-        ladder.transform.Rotate(rotation * Time.fixedDeltaTime);
+        this.transform.Rotate(rotation * Time.fixedDeltaTime);
     }
 
     void RandomTilt()
     {
 
-        if(value > 0 && value <= 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight)
+        if(value > 0 && value <= 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight && !rotateFast && !rotateNormal)
         {
-            LadderTilt(1);
-        } else if (value <= 10 && value > 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight)
+            LadderTilt(5);
+        } 
+        else if (value <= 10 && value > 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight && !rotateFast && !rotateNormal)
         {
-            LadderTilt(-1);
-        } else if (rotateLeft && !rotateFast && !rotateNormal)
+            LadderTilt(-5);
+        } 
+        
+        else if (rotateLeft && !rotateFast && !rotateNormal)
         {
-            LadderTilt(1);
-        } else if (rotateRight && !rotateFast && !rotateNormal)
+            LadderTilt(5);
+        } 
+        else if (rotateRight && !rotateFast && !rotateNormal) 
         {
-            LadderTilt(-1);
-        } else if (rotateLeft && rotateFast)
+            LadderTilt(-5);
+        } 
+        
+        else if (rotateLeft && rotateFast)
         {
-            LadderTilt(3);
-            //Debug.Log("rotateLeft + fast");
-        } else if (rotateLeft && rotateNormal)
+            LadderTilt(10);
+        } 
+        else if (rotateLeft && rotateNormal)
         {
-            LadderTilt(2);
-            //Debug.Log("rotateLeft + normal");
-        } else if (rotateRight && rotateFast)
+            LadderTilt(10);
+        } 
+        else if (rotateRight && rotateFast)
         {
-            LadderTilt(-3);
-            //Debug.Log("rotateRight + fast");
+            LadderTilt(-10);
         }
         else if (rotateRight && rotateNormal)
         {
-            LadderTilt(-2);
-            //Debug.Log("rotateRight + normal");
+            LadderTilt(-10);
         }
     }
 
