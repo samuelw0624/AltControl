@@ -63,6 +63,12 @@ public class PlayerOneController : MonoBehaviour
     AudioSource repairAudio;
     public AudioClip repairClip;
 
+    //follow ladder position
+    public Transform[] target;
+    public float offset;
+    public PlayerTwoController player2;
+
+
     public enum ScrewType
     {
         CrossScrew,
@@ -84,6 +90,7 @@ public class PlayerOneController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+     
     }
 
     // Start is called before the first frame update
@@ -538,10 +545,12 @@ public class PlayerOneController : MonoBehaviour
     {
 
         //player's position and rotation follows to the ladder
-        this.transform.position = new Vector3(ladder.transform.position.x - 0.5f, this.transform.position.y, this.transform.position.z);
-
+        this.transform.position = new Vector3(target[player2.num].position.x + offset, this.transform.position.y + offset, this.transform.position.z) ;
+        //transform.position = target.position + offset;
         Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
         transform.rotation = newRotation;
+
+        
     }
 
     #endregion
