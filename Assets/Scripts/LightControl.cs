@@ -7,6 +7,7 @@ using System.Linq;
 public class LightControl : MonoBehaviour
 {
     GameObject sign;
+    public GameObject selectionRing;
     Color emissiveColor;
 
     public float onIntensity;
@@ -15,7 +16,7 @@ public class LightControl : MonoBehaviour
     public float blinkInterval;
     public bool isFixed;
 
-    List<GameObject> particleEffects = new List<GameObject>();
+    List<GameObject> repairSpotChildren = new List<GameObject>();
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class LightControl : MonoBehaviour
         sign.GetComponent<Renderer>().material.SetColor("_EmissionColor", emissiveColor * offIntensity);
         StartCoroutine(BlinkCoroutine());
         GetChilds();
+        selectionRing = repairSpotChildren[repairSpotChildren.Count -1];
     }
 
     private void Update()
@@ -32,9 +34,9 @@ public class LightControl : MonoBehaviour
         if(isFixed)
         {
             sign.GetComponent<Renderer>().material.SetColor("_EmissionColor", emissiveColor * onIntensity);
-            for (int i = 0; i < particleEffects.Count; i++)
+            for (int i = 0; i < repairSpotChildren.Count; i++)
             {
-                particleEffects[i].gameObject.SetActive(false);
+                repairSpotChildren[i].gameObject.SetActive(false);
             }
         }
     }
@@ -56,7 +58,7 @@ public class LightControl : MonoBehaviour
         for (int i = 0; i < childCount; i++)
         {
             Transform child = sign.transform.GetChild(i);
-            particleEffects.Add(child.gameObject);
+            repairSpotChildren.Add(child.gameObject);
         }
     }
 }

@@ -52,8 +52,11 @@ public class PlayerOneController : MonoBehaviour
     //sign positional bool, currently unsed
     public bool signOnLeft, signOnRight;
     //variables to get closest sign
-    List<GameObject> signsToFix = new List<GameObject>();
-    GameObject closestSign;
+    public List<GameObject> spotsToFix = new List<GameObject>();
+    public GameObject closestSpot;
+
+    public LineRenderer lineRend;
+    public float lineWidth = 0.3f;
 
     //light emission control variables
     LightControl lightcontrolRef;
@@ -109,6 +112,15 @@ public class PlayerOneController : MonoBehaviour
         SlideDown();
 
         FollowLadder();
+
+        UnityEngine.Debug.Log("Player Position: " );
+        UnityEngine.Debug.Log("Target Position: ");
+
+        if (closestSpot != null)
+        {
+            lineRend = closestSpot.GetComponent<LineRenderer>();
+            DrawLine();
+        }
     }
 
     private void FixedUpdate()
@@ -336,14 +348,14 @@ public class PlayerOneController : MonoBehaviour
             playerRb.velocity = Vector3.zero;
 
             //check for closest sign at new player pos
-            UpdateClosestSign();
+            UpdateClosestSpot();
         }
     }
 
     IEnumerator MoveToNewPos(Vector3 newPos)
     {
         //check for closest sign each time player moves
-        UpdateClosestSign();
+        UpdateClosestSpot();
 
         float elapsedTime = 0f;
         Vector3 startingPos = this.transform.position;
@@ -368,15 +380,15 @@ public class PlayerOneController : MonoBehaviour
     #region Repair Methods
     private void OnTriggerEnter(Collider other)
     {
-        GameObject enteredSign = other.gameObject;
+        GameObject enteredSpot = other.gameObject;
         //if the sign is trigger range has the word sign in object name, and this sign has not yet been added to the list of signs in range
-        if (other.gameObject.name.Contains("sign") && !signsToFix.Contains(enteredSign))
+        if (other.gameObject.name.Contains("sign") && !spotsToFix.Contains(enteredSpot))
         {
             Debug.Log("current screw type is " + currentScrew);
 
             //add sign to signs list
-            signsToFix.Add(enteredSign);
-            UpdateClosestSign();
+            spotsToFix.Add(enteredSpot);
+            UpdateClosestSpot();
             //convert sign position to local position relative to player
             //Vector3 signLocalPos = this.transform.InverseTransformPoint(closestSign.gameObject.transform.position);
             //if (signLocalPos.x < 0)
@@ -398,45 +410,54 @@ public class PlayerOneController : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        GameObject exitedSign = other.gameObject;
+        GameObject exitedSpot = other.gameObject;
         //same logic as enter
-        if (other.gameObject.name.Contains("sign") && signsToFix.Contains(exitedSign))
+        if (other.gameObject.name.Contains("sign") && spotsToFix.Contains(exitedSpot))
         {
-            signsToFix.Remove(exitedSign);
-            UpdateClosestSign();
+            spotsToFix.Remove(exitedSpot);
+            UpdateClosestSpot();
         }
     }
 
-    void UpdateClosestSign()
+    void UpdateClosestSpot()
     {
-        closestSign = null;
+        closestSpot = null;
+
         float closestDist = Mathf.Infinity;
         Vector3 playerPos = this.transform.position;
 
         //if there are signs in the signs to fix list
-        if (signsToFix.Count != 0)
+        if (spotsToFix.Count != 0)
         {
             //iterate through each sign
-            foreach (GameObject sign in signsToFix)
+            foreach (GameObject spot in spotsToFix)
             {
                 //get the distance from that sign to the player
-                float distance = Vector3.Distance(sign.transform.position, playerPos);
+                float distance = Vector3.Distance(spot.transform.position, playerPos);
                 // if the new distance is shorter than from the previous sign or from the initial value
                 if (distance < closestDist)
                 {
                     //the closest dist is the new dist
                     closestDist = distance;
-                    closestSign = sign;
+                    closestSpot = spot;
+                    
+
+                    //if (closestSpot.gameObject.GetComponent<LightControl>() != null)
+                    //{
+                    //    lightcontrolRef = closestSpot.gameObject.GetComponent<LightControl>();
+                    //    break;
+                    //}
 
                     //set the scew type to the closest sign
                     SetScrewType();
 
                     //get light control ref to toggle VFX and sign fix status
-                    foreach (Transform signPart in closestSign.transform)
+                    foreach (Transform signPart in closestSpot.transform)
                     {
                         if (signPart.gameObject.GetComponent<LightControl>() != null)
                         {
                             lightcontrolRef = signPart.gameObject.GetComponent<LightControl>();
+                            //lightcontrolRef.selectionRing.SetActive(true);
                             break;
                         }
                     }
@@ -445,21 +466,34 @@ public class PlayerOneController : MonoBehaviour
         }
     }
 
+    void DrawLine()
+    {
+        lineRend.startWidth = lineWidth;
+        lineRend.endWidth = lineWidth;
+
+        Vector3[] positions = new Vector3[2];
+        positions[0] = this.transform.position;
+        positions[1] = closestSpot.transform.position;
+
+        lineRend.positionCount = positions.Length;
+        lineRend.SetPositions(positions);
+    }
+
     void SetScrewType()
     {
         // if there is a closest sign
-        if(closestSign != null)
+        if(closestSpot != null)
         {
             //check what kind of sign it is
-            if (closestSign.gameObject.CompareTag("cross"))
+            if (closestSpot.gameObject.CompareTag("cross"))
             {
                 currentScrew = ScrewType.CrossScrew;
             }
-            if (closestSign.gameObject.CompareTag("flat"))
+            if (closestSpot.gameObject.CompareTag("flat"))
             {
                 currentScrew = ScrewType.FlatScrew;
             }
-            if (closestSign.gameObject.CompareTag("hex"))
+            if (closestSpot.gameObject.CompareTag("hex"))
             {
                 currentScrew = ScrewType.HexScrew;
             }
@@ -468,14 +502,14 @@ public class PlayerOneController : MonoBehaviour
 
     public void FixSign()
     {
-        if (closestSign != null && (leftHandOffLadder || rightHandOffLadder))
+        if (closestSpot != null && (leftHandOffLadder || rightHandOffLadder))
         {
             repairAudio.PlayOneShot(repairClip);
             //change fix status in light control ref
             lightcontrolRef.isFixed = true;
             //removed the closest sign that was just fixed
-            signsToFix.Remove(closestSign);
-            UpdateClosestSign();
+            spotsToFix.Remove(closestSpot);
+            UpdateClosestSpot();
             //Destroy(closestSign);
             //add score function
             ScoreManager.instance.AddPoint(1);
