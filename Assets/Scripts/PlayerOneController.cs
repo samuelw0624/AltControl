@@ -52,6 +52,7 @@ public class PlayerOneController : MonoBehaviour
     public bool signOnLeft, signOnRight;
     GameObject closestSign;
     List<GameObject> signsToFix = new List<GameObject>();
+    LightControl lightcontrolRef;
 
     public enum ScrewType
     {
@@ -421,6 +422,14 @@ public class PlayerOneController : MonoBehaviour
             {
                 closestDist = distance;
                 closestSign = sign;
+                foreach (Transform child in closestSign.transform)
+                {
+                    if(child.gameObject.GetComponent<LightControl>() != null)
+                    {
+                        lightcontrolRef = child.gameObject.GetComponent<LightControl>();
+                        break;
+                    }
+                }
             }
         }
     }
@@ -429,12 +438,12 @@ public class PlayerOneController : MonoBehaviour
     {
         if (closestSign != null && (leftHandOffLadder || rightHandOffLadder))
         {
+            lightcontrolRef.isFixed = true;
             //disable sign collider upon fix
             Collider signCollider = closestSign.gameObject.GetComponent<BoxCollider>();
             signCollider.enabled = false;
-            Destroy(closestSign);
+            //Destroy(closestSign);
             
-            Debug.Log("sign repaired on the left");
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)

@@ -9,9 +9,14 @@ public class SignRepair : MonoBehaviour
     PlayerMovementCtrl_OLD playerController;
     GameObject player;
 
+    public GameObject sign;
+
     // Start is called before the first frame update
     void Start()
     {
+        float emissiveIntensity = 10;
+        Color emissiveColor = Color.red;
+        sign.GetComponent<Renderer>().material.SetColor("emisiveColor", emissiveColor * emissiveIntensity);
         rend = this.GetComponent<Renderer>();
         colorValue = Random.Range(1, 3);
 

@@ -24,6 +24,12 @@ public class Player2Controller : MonoBehaviour
     public GameObject ladder;
     Vector3 rotation;
     float value;
+    bool rotateLeft;
+    bool rotateRight;
+    bool rotateFast;
+    bool rotateNormal;
+
+    //bool gameStart;
 
     
 
@@ -68,6 +74,8 @@ public class Player2Controller : MonoBehaviour
         LadderRotate();
         RandomTilt();
 
+
+
     }
 
     private void FixedUpdate()
@@ -87,11 +95,6 @@ public class Player2Controller : MonoBehaviour
 
 
         MoveHorizontally();
-       
-
-
-
-
 
     }
 
@@ -130,6 +133,10 @@ public class Player2Controller : MonoBehaviour
         {
             moveLeft = true;
             moveLadderSpeed = 3f;
+            
+            rotateFast = true;
+            rotateNormal = false;
+
 
 
             Debug.Log("1");
@@ -139,7 +146,10 @@ public class Player2Controller : MonoBehaviour
         {
             moveLeft = true;
             moveLadderSpeed = 1f;
-       
+
+            rotateFast = false;
+            rotateNormal = true;
+
             Debug.Log("2");
 
         }
@@ -149,6 +159,9 @@ public class Player2Controller : MonoBehaviour
             moveRight = false;
             moveLadderSpeed = 0f;
             value = Random.Range(1, 10);
+
+            rotateFast = false;
+            rotateNormal = false;
 
             //StopCoroutine(MoveToHorizontal(MoveToNewPos(0)));
 
@@ -160,7 +173,10 @@ public class Player2Controller : MonoBehaviour
         {
             moveRight = true;
             moveLadderSpeed = 1f;
-       
+
+            rotateFast = false;
+            rotateNormal = true;
+
 
             Debug.Log("4");
 
@@ -169,7 +185,10 @@ public class Player2Controller : MonoBehaviour
         {
             moveRight = true;
             moveLadderSpeed = 3f;
-       
+
+            rotateFast = true;
+            rotateNormal = false;
+
 
             Debug.Log("5");
 
@@ -181,29 +200,31 @@ public class Player2Controller : MonoBehaviour
         if (moveLeft)
         {
             transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);
-            LadderTilt(-2);
 
         }
         if (moveRight)
         {
             transform.Translate(Vector3.right * moveLadderSpeed * Time.deltaTime);
-            LadderTilt(2);
         }
 
     }
 
     void LadderRotate()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Keyboard.current[Key.Q].wasPressedThisFrame)
         {
-            ladder.transform.Rotate(0f, 0f, 6f);
+            rotateLeft = true;
+            rotateRight = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+
+        if (Keyboard.current[Key.E].wasPressedThisFrame)
         {
-            ladder.transform.Rotate(0f, 0f, -6f);
+            rotateRight = true;
+            rotateLeft = false;
         }
     }
+
 
     #endregion
 
@@ -218,12 +239,35 @@ public class Player2Controller : MonoBehaviour
     void RandomTilt()
     {
 
-        if(value > 0 && value <= 5 && !moveLeft && !moveRight)
+        if(value > 0 && value <= 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight)
         {
             LadderTilt(1);
-        } else if (value <= 10 && value > 5 && !moveLeft && !moveRight)
+        } else if (value <= 10 && value > 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight)
         {
             LadderTilt(-1);
+        } else if (rotateLeft && !rotateFast && !rotateNormal)
+        {
+            LadderTilt(1);
+        } else if (rotateRight && !rotateFast && !rotateNormal)
+        {
+            LadderTilt(-1);
+        } else if (rotateLeft && rotateFast)
+        {
+            LadderTilt(3);
+            //Debug.Log("rotateLeft + fast");
+        } else if (rotateLeft && rotateNormal)
+        {
+            LadderTilt(2);
+            //Debug.Log("rotateLeft + normal");
+        } else if (rotateRight && rotateFast)
+        {
+            LadderTilt(-3);
+            //Debug.Log("rotateRight + fast");
+        }
+        else if (rotateRight && rotateNormal)
+        {
+            LadderTilt(-2);
+            //Debug.Log("rotateRight + normal");
         }
     }
 
