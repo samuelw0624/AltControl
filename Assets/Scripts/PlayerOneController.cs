@@ -543,12 +543,15 @@ public class PlayerOneController : MonoBehaviour
     #region Rotation and Position Synchronization
     public void FollowLadder()
     {
-
+        this.transform.rotation = ladder.transform.rotation;
+        //transform.LookAt(target[player2.num].position);
+      
         //player's position and rotation follows to the ladder
-        this.transform.position = new Vector3(target[player2.num].position.x + offset, this.transform.position.y + offset, this.transform.position.z) ;
+        //this.transform.position = new Vector3(target[player2.num].position.x + offset, this.transform.position.y, ladder.transform.position.z) ;
         //transform.position = target.position + offset;
-        Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
-        transform.rotation = newRotation;
+        //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        //Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
+        //transform.rotation = newRotation;
 
         
     }
