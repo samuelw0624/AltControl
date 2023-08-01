@@ -93,6 +93,7 @@ public class PlayerTwoController : MonoBehaviour
         MoveHorizontally();
 
         RandomTilt();
+        DetectPlayerPosition();
 
 
 
