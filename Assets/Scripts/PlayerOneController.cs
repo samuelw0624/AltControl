@@ -392,8 +392,7 @@ public class PlayerOneController : MonoBehaviour
 
     Vector3 NewPosition()
     {
-        
-        transform.position += transform.up * moveDist;
+        transform.position += this.transform.up * moveDist;
         //Vector3 newPosition = transform.position + new Vector3(0, moveDist, 0);
         Vector3 newPosition = transform.position;
 
