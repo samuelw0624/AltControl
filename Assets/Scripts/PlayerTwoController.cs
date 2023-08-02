@@ -38,8 +38,15 @@ public class PlayerTwoController : MonoBehaviour
     float minY;
     float maxY;
     public int num;
-    
-    
+
+    public bool reachMax1;
+    public bool reachMax2;
+    public bool reachMax3;
+    public bool reachMax4;
+    public bool reachMax5;
+
+
+
 
 
     // Start is called before the first frame update
@@ -72,16 +79,21 @@ public class PlayerTwoController : MonoBehaviour
         SpeedAdjust();
         LadderRotate();
         LadderHight();
+        DetectPlayerPosition();
+        DetectReachMaxHeight();
+
+
+
 
         //Restrict the player's maximum height for climbing
-        Vector3 newPosition = player.transform.position;
-        newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
-        player.transform.position = newPosition;
+        //Vector3 newPosition = player.transform.position;
+        //newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
+        //player.transform.position = newPosition;
 
 
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         //compare character's height to the ladder's height 
 
@@ -93,9 +105,6 @@ public class PlayerTwoController : MonoBehaviour
         MoveHorizontally();
 
         RandomTilt();
-        DetectPlayerPosition();
-
-
 
     }
 
@@ -130,26 +139,88 @@ public class PlayerTwoController : MonoBehaviour
 
     void DetectPlayerPosition()
     {
-        if (player1.transform.position.y <= 2.84)
+        if (player1.transform.position.y <= player1.target[0].transform.position.y)
         {
             num = 0;
+            Debug.Log("num = " + num);
         }
-        else if(player1.transform.position.y > 2.84 && player1.transform.position.y <= 6)
+        else if(player1.transform.position.y > player1.target[1].transform.position.y && player1.transform.position.y <= player1.target[1].transform.position.y)
         {
             num = 1;
+            Debug.Log("num = " + num);
+
         }
-        else if (player1.transform.position.y > 6 && player1.transform.position.y <= 9)
+        else if (player1.transform.position.y > player1.target[2].transform.position.y && player1.transform.position.y <= player1.target[2].transform.position.y)
         {
             num = 2;
+            Debug.Log("num = " + num);
+
         }
-        else if (player1.transform.position.y > 9 && player1.transform.position.y <= 12)
+        else if (player1.transform.position.y > player1.target[3].transform.position.y && player1.transform.position.y <= player1.target[3].transform.position.y)
         {
             num = 3;
+            Debug.Log("num = " + num);
+
         }
-        else if (player1.transform.position.y > 12 && player1.transform.position.y <= 15)
+        else if (player1.transform.position.y > player1.target[4].transform.position.y && player1.transform.position.y <= player1.target[4].transform.position.y)
         {
             num = 4;
+            Debug.Log("num = " + num);
+
         }
+    }
+
+
+    void DetectReachMaxHeight()
+    {
+        if(num == 0 && player1.transform.position.y >= player1.target[0].transform.position.y)
+        {
+            reachMax1 = true;
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax4 = false;
+            reachMax5 = false;
+            Debug.Log("reachMax1" + reachMax1);
+        }
+        
+        if(num == 1 && player1.transform.position.y >= player1.target[1].transform.position.y)
+        {
+            reachMax2 = true;
+            reachMax1 = false;
+            reachMax3 = false;
+            reachMax4 = false;
+            reachMax5 = false;
+            Debug.Log("reachMax2" + reachMax2);
+        }
+        if (num == 2 && player1.transform.position.y >= player1.target[2].transform.position.y)
+        {
+            reachMax3 = true;
+            reachMax2 = false;
+            reachMax1 = false;
+            reachMax4 = false;
+            reachMax5 = false;
+            Debug.Log("reachMax3" + reachMax3);
+        }
+        if (num == 3 && player1.transform.position.y >= player1.target[3].transform.position.y)
+        {
+            reachMax4 = true;
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax1 = false;
+            reachMax5 = false;
+            Debug.Log("reachMax4" + reachMax4);
+        }
+        if (num == 4 && player1.transform.position.y >= player1.target[4].transform.position.y)
+        {
+            reachMax5 = true;
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax4 = false;
+            reachMax1 = false;
+            Debug.Log("reachMax5" + reachMax5);
+        }
+
+
     }
 
     void LadderHeightSwitch()

@@ -31,7 +31,7 @@ public class PlayerOneController : MonoBehaviour
     /*movement variables, change in inspector, don't change here
      * smaller speed value = faster lerp
      */
-    [SerializeField] public float moveDist = 0.5f;
+    [SerializeField] public float moveDist = 1.2f;
     [SerializeField] float moveSpeed = 5f;
 
     //slide varibales
@@ -64,9 +64,17 @@ public class PlayerOneController : MonoBehaviour
     public AudioClip repairClip;
 
     //follow ladder position
-    public Transform[] target;
+    public GameObject[] target;
     public float offset;
     public PlayerTwoController player2;
+
+    public int num;
+
+    public bool reachMax1;
+    public bool reachMax2;
+    public bool reachMax3;
+    public bool reachMax4;
+    public bool reachMax5;
 
 
     public enum ScrewType
@@ -119,6 +127,9 @@ public class PlayerOneController : MonoBehaviour
         SlideDown();
 
         FollowLadder();
+
+        DetectPlayerPosition();
+        DetectReachMaxHeight();
 
         UnityEngine.Debug.Log("Player Position: " );
         UnityEngine.Debug.Log("Target Position: ");
@@ -300,9 +311,9 @@ public class PlayerOneController : MonoBehaviour
 
     void ClimbUp()
     {
-        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver)
+        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !player2.reachMax1 && !player2.reachMax2 && !player2.reachMax3 && !player2.reachMax4 && !player2.reachMax5)
         {
-            if (leftBoolArray[0] && rightBoolArray[4])
+            if (leftBoolArray[0] && rightBoolArray[4] )
             {
                 StartCoroutine(MoveToNewPos(NewPosition()));
 
@@ -311,7 +322,7 @@ public class PlayerOneController : MonoBehaviour
             }
         }
 
-        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver)
+        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !player2.reachMax1 && !player2.reachMax2 && !player2.reachMax3 && !player2.reachMax4 && !player2.reachMax5)
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
@@ -379,7 +390,12 @@ public class PlayerOneController : MonoBehaviour
 
     Vector3 NewPosition()
     {
-        Vector3 newPosition = transform.position + new Vector3(0, moveDist, 0);
+
+        transform.position += transform.up * moveDist;
+        //Vector3 newPosition = transform.position + new Vector3(0, moveDist, 0);
+        //Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, 0);
+        Vector3 newPosition = transform.position;
+        Debug.Log("Position =" + newPosition);
         return newPosition;
     }
     #endregion
@@ -544,8 +560,9 @@ public class PlayerOneController : MonoBehaviour
     public void FollowLadder()
     {
         this.transform.rotation = ladder.transform.rotation;
+        
         //transform.LookAt(target[player2.num].position);
-      
+
         //player's position and rotation follows to the ladder
         //this.transform.position = new Vector3(target[player2.num].position.x + offset, this.transform.position.y, ladder.transform.position.z) ;
         //transform.position = target.position + offset;
@@ -553,8 +570,94 @@ public class PlayerOneController : MonoBehaviour
         //Quaternion newRotation = Quaternion.Euler(0, 0, ladder.transform.rotation.eulerAngles.z);
         //transform.rotation = newRotation;
 
-        
+
     }
 
     #endregion
+
+    void DetectPlayerPosition()
+    {
+        if (transform.position.y <= target[0].transform.position.y)
+        {
+            num = 0;
+            Debug.Log("num = " + num);
+        }
+        else if (transform.position.y > target[1].transform.position.y && transform.position.y <= target[1].transform.position.y)
+        {
+            num = 1;
+            Debug.Log("num = " + num);
+
+        }
+        else if (transform.position.y > target[2].transform.position.y && transform.position.y <= target[2].transform.position.y)
+        {
+            num = 2;
+            Debug.Log("num = " + num);
+
+        }
+        else if (transform.position.y > target[3].transform.position.y && transform.position.y <= target[3].transform.position.y)
+        {
+            num = 3;
+            Debug.Log("num = " + num);
+
+        }
+        else if (transform.position.y > target[4].transform.position.y && transform.position.y <= target[4].transform.position.y)
+        {
+            num = 4;
+            Debug.Log("num = " + num);
+
+        }
+    }
+
+
+    void DetectReachMaxHeight()
+    {
+        if (num == 0 && transform.position.y >= target[0].transform.position.y)
+        {
+            reachMax1 = true;
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax4 = false;
+            reachMax5 = false;
+            Debug.Log("reachMax1" + reachMax1);
+        }
+
+        if (num == 1 && transform.position.y >= target[1].transform.position.y)
+        {
+            reachMax2 = true;
+            reachMax1 = false;
+            reachMax3 = false;
+            reachMax4 = false;
+            reachMax5 = false;
+            Debug.Log("reachMax2" + reachMax2);
+        }
+        if (num == 2 && transform.position.y >= target[2].transform.position.y)
+        {
+            reachMax3 = true;
+            reachMax2 = false;
+            reachMax1 = false;
+            reachMax4 = false;
+            reachMax5 = false;
+            Debug.Log("reachMax3" + reachMax3);
+        }
+        if (num == 3 && transform.position.y >= target[3].transform.position.y)
+        {
+            reachMax4 = true;
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax1 = false;
+            reachMax5 = false;
+            Debug.Log("reachMax4" + reachMax4);
+        }
+        if (num == 4 && transform.position.y >= target[4].transform.position.y)
+        {
+            reachMax5 = true;
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax4 = false;
+            reachMax1 = false;
+            Debug.Log("reachMax5" + reachMax5);
+        }
+
+
+    }
 }
