@@ -37,9 +37,10 @@ public class PlayerTwoController : MonoBehaviour
     public GameObject player;
     float minY;
     float maxY;
-    public int num;
-    
-    
+
+
+
+
 
 
     // Start is called before the first frame update
@@ -61,6 +62,7 @@ public class PlayerTwoController : MonoBehaviour
         moveLadderSpeed = 0;
         moveLadderDist = 1f;
         maxY = 3;
+        numOfLadder = 1;
 
         value = Random.Range(1, 10);
     }
@@ -73,15 +75,19 @@ public class PlayerTwoController : MonoBehaviour
         LadderRotate();
         LadderHight();
 
+
+
+
+
         //Restrict the player's maximum height for climbing
-        Vector3 newPosition = player.transform.position;
-        newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
-        player.transform.position = newPosition;
+        //Vector3 newPosition = player.transform.position;
+        //newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
+        //player.transform.position = newPosition;
 
 
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         //compare character's height to the ladder's height 
 
@@ -93,9 +99,6 @@ public class PlayerTwoController : MonoBehaviour
         MoveHorizontally();
 
         RandomTilt();
-        DetectPlayerPosition();
-
-
 
     }
 
@@ -108,19 +111,19 @@ public class PlayerTwoController : MonoBehaviour
         {
             numOfLadder = 5;
         }
-        if (Keyboard.current[Key.X].wasPressedThisFrame)
+        else if (Keyboard.current[Key.X].wasPressedThisFrame)
         {
             numOfLadder = 4;
         }
-        if (Keyboard.current[Key.C].wasPressedThisFrame)
+        else if (Keyboard.current[Key.C].wasPressedThisFrame)
         {
             numOfLadder = 3;
         }
-        if (Keyboard.current[Key.V].wasPressedThisFrame)
+        else if (Keyboard.current[Key.V].wasPressedThisFrame)
         {
             numOfLadder = 2;
         }
-        if (Keyboard.current[Key.Space].wasPressedThisFrame)
+        else if (Keyboard.current[Key.Space].wasPressedThisFrame)
         {
             numOfLadder = 1;
         }
@@ -128,29 +131,7 @@ public class PlayerTwoController : MonoBehaviour
         ladderHeight = heightChanges;
     }
 
-    void DetectPlayerPosition()
-    {
-        if (player1.transform.position.y <= 2.84)
-        {
-            num = 0;
-        }
-        else if(player1.transform.position.y > 2.84 && player1.transform.position.y <= 6)
-        {
-            num = 1;
-        }
-        else if (player1.transform.position.y > 6 && player1.transform.position.y <= 9)
-        {
-            num = 2;
-        }
-        else if (player1.transform.position.y > 9 && player1.transform.position.y <= 12)
-        {
-            num = 3;
-        }
-        else if (player1.transform.position.y > 12 && player1.transform.position.y <= 15)
-        {
-            num = 4;
-        }
-    }
+    
 
     void LadderHeightSwitch()
     {
