@@ -70,13 +70,8 @@ public class PlayerOneController : MonoBehaviour
 
     public int num;
 
-    public bool reachMax1;
-    public bool reachMax2;
-    public bool reachMax3;
-    public bool reachMax4;
-    public bool reachMax5;
+    public bool reachMax1, reachMax2, reachMax3, reachMax4, reachMax5;
 
-    public Transform[] ParentObj;
 
 
     public enum ScrewType
@@ -114,6 +109,7 @@ public class PlayerOneController : MonoBehaviour
 
         leftHandOffLadder = true;
         rightHandOffLadder = true;
+
     }
 
     #region Update Methods
@@ -561,23 +557,6 @@ public class PlayerOneController : MonoBehaviour
     {
         this.transform.rotation = ladder.transform.rotation;
 
-        if(player2.numOfLadder == 2)
-        {
-            transform.SetParent(ParentObj[0]);
-        } 
-        else if (player2.numOfLadder == 3)
-        {
-            transform.SetParent(ParentObj[1]);
-        }
-        else if (player2.numOfLadder == 4)
-        {
-            transform.SetParent(ParentObj[2]);
-        }
-        else if (player2.numOfLadder == 5)
-        {
-            transform.SetParent(ParentObj[3]);
-        }
-
         //transform.LookAt(target[player2.num].position);
 
         //player's position and rotation follows to the ladder
@@ -592,6 +571,7 @@ public class PlayerOneController : MonoBehaviour
 
     #endregion
 
+    #region Height confine
     void DetectPlayerPosition()
     {
         if (this.transform.position.y <= target[0].transform.position.y - offset && player2.numOfLadder ==1)
@@ -676,6 +656,5 @@ public class PlayerOneController : MonoBehaviour
             Debug.Log("reachMax5: " + reachMax5);
         }
     }
-
-
+    #endregion
 }
