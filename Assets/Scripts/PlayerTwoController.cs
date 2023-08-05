@@ -55,7 +55,7 @@ public class PlayerTwoController : MonoBehaviour
         ladderHeight = this.transform.localScale.y;
         ladderRb = this.GetComponent<Rigidbody>();
 
-        //player1 = player.GetComponent<PlayerOneController>();
+        player1 = player.GetComponent<PlayerOneController>();
 
         //set default Rotation Speed 
 
