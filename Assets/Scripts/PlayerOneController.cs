@@ -129,6 +129,8 @@ public class PlayerOneController : MonoBehaviour
         DetectPlayerPosition();
         DetectReachMaxHeight();
 
+        ConfineLadderHeight();
+
         //UnityEngine.Debug.Log("Player Position: " );
         //UnityEngine.Debug.Log("Target Position: ");
 
@@ -630,31 +632,77 @@ public class PlayerOneController : MonoBehaviour
 
     void DetectReachMaxHeight()
     {
-        if (num == 0 && this.transform.position.y >= target[0].transform.position.y - offset && player2.numOfLadder == 1)
+        if (this.transform.position.y >= target[0].transform.position.y - offset && player2.numOfLadder == 1)
         {
             reachMax1 = true;
             Debug.Log("reachMax1: " + reachMax1);
+
         }
-        else if (num == 1 && this.transform.position.y >= target[1].transform.position.y - offset && player2.numOfLadder == 2)
+        else if (this.transform.position.y >= target[1].transform.position.y - offset && player2.numOfLadder == 2)
         {
             reachMax2 = true;
             Debug.Log("reachMax2: " + reachMax2);
         }
-        else if (num == 2 && this.transform.position.y >= target[2].transform.position.y - offset && player2.numOfLadder == 3) 
+        else if (this.transform.position.y >= target[2].transform.position.y - offset && player2.numOfLadder == 3) 
         {
             reachMax3 = true;
             Debug.Log("reachMax3: " + reachMax3);
         }
-        else if (num == 3 && this.transform.position.y >= target[3].transform.position.y - offset && player2.numOfLadder == 4)
+        else if (this.transform.position.y >= target[3].transform.position.y - offset && player2.numOfLadder == 4)
         {
             reachMax4 = true;
             Debug.Log("reachMax4: " + reachMax4);
         }
-        else if (num == 4 && this.transform.position.y >= target[4].transform.position.y - offset && player2.numOfLadder == 5)
+        else if (this.transform.position.y >= target[4].transform.position.y - offset && player2.numOfLadder == 5)
         {
             reachMax5 = true;
             Debug.Log("reachMax5: " + reachMax5);
         }
     }
     #endregion
+
+    void ConfineLadderHeight()
+    {
+        float offSet = - 0.1f;
+        if (num > 0 && transform.position.y > target[0].transform.position.y && player2.numOfLadder == 1)
+        {
+            Vector3 charPos = target[0].transform.position;
+            charPos.x = target[0].transform.position.x - offSet;
+            charPos.y = target[0].transform.position.y;
+            charPos.z = target[0].transform.position.z + offSet;
+            transform.position = charPos;
+        } 
+        else if(num > 1 && transform.position.y > target[1].transform.position.y && player2.numOfLadder == 2)
+        {
+            Vector3 charPos = target[1].transform.position;
+            charPos.x = target[1].transform.position.x - offSet; 
+            charPos.y = target[1].transform.position.y;
+            charPos.z = target[0].transform.position.z + offSet;
+            transform.position = charPos;
+        }
+        else if (num > 2 && transform.position.y > target[2].transform.position.y && player2.numOfLadder == 3)
+        {
+            Vector3 charPos = target[2].transform.position;
+            charPos.x = target[2].transform.position.x - offSet;
+            charPos.y = target[2].transform.position.y;
+            charPos.z = target[0].transform.position.z + offSet;
+            transform.position = charPos;
+        }
+        else if (num > 3 && transform.position.y > target[3].transform.position.y && player2.numOfLadder == 4)
+        {
+            Vector3 charPos = target[3].transform.position;
+            charPos.x = target[3].transform.position.x - offSet;
+            charPos.y = target[3].transform.position.y;
+            charPos.z = target[0].transform.position.z + offSet;
+            transform.position = charPos;
+        }
+        else if (num > 4 && transform.position.y > target[4].transform.position.y && player2.numOfLadder == 5)
+        {
+            Vector3 charPos = target[4].transform.position;
+            charPos.x = target[4].transform.position.x - offSet;
+            charPos.y = target[4].transform.position.y;
+            charPos.z = target[0].transform.position.z + offSet;
+            transform.position = charPos;
+        }
+    }
 }
