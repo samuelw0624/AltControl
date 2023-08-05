@@ -75,10 +75,6 @@ public class PlayerTwoController : MonoBehaviour
         LadderRotate();
         LadderHight();
 
-
-
-
-
         //Restrict the player's maximum height for climbing
         //Vector3 newPosition = player.transform.position;
         //newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
@@ -128,7 +124,7 @@ public class PlayerTwoController : MonoBehaviour
             numOfLadder = 1;
         }
         //this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
-        ladderHeight = heightChanges;
+        //ladderHeight = heightChanges;
     }
 
     
@@ -142,7 +138,7 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 3;
+            //maxY = 3;
         } 
         else if (numOfLadder == 2)
         {
@@ -151,7 +147,7 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 6f;
+            //maxY = 6f;
         } 
         else if (numOfLadder == 3)
         {
@@ -159,21 +155,21 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 9F;
+            //maxY = 9F;
         }
         else if (numOfLadder == 4)
         {
             ladderObj[2].gameObject.SetActive(true);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 12f;
+            //maxY = 12f;
 
         }
         else if (numOfLadder == 5)
         {
             ladderObj[3].gameObject.SetActive(true);
 
-            maxY = 15F;
+            //maxY = 15F;
         }
 
     }
