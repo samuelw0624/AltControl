@@ -12,6 +12,7 @@ TagManager:
   - cross
   - hex
   - DeadLine
+  - LadderCollider
   layers:
   - Default
   - TransparentFX
