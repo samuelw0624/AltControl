@@ -13,11 +13,12 @@ TagManager:
   - hex
   - DeadLine
   - LadderCollider
+  - Minimap
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Minimap
   - Water
   - UI
   - 
