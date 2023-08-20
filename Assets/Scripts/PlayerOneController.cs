@@ -122,6 +122,8 @@ public class PlayerOneController : MonoBehaviour
         CheckLeftRail();
         CheckRightRail();
 
+        UpdateClosestSpot();
+
         SlideDown();
 
         FollowLadder();
@@ -137,7 +139,7 @@ public class PlayerOneController : MonoBehaviour
         if (closestSpot != null)
         {
             lineRend = closestSpot.GetComponent<LineRenderer>();
-            DrawLine();
+            //DrawLine();
         }
     }
 
@@ -442,6 +444,10 @@ public class PlayerOneController : MonoBehaviour
 
     void UpdateClosestSpot()
     {
+        if(lightcontrolRef != null)
+        {
+            lightcontrolRef.isSelected = false;
+        }
         closestSpot = null;
 
         float closestDist = Mathf.Infinity;
@@ -453,6 +459,7 @@ public class PlayerOneController : MonoBehaviour
             //iterate through each sign
             foreach (GameObject spot in spotsToFix)
             {
+                //spot.GetComponent<LightControl>().isSelected = false;
                 //get the distance from that sign to the player
                 float distance = Vector3.Distance(spot.transform.position, playerPos);
                 // if the new distance is shorter than from the previous sign or from the initial value
@@ -461,6 +468,7 @@ public class PlayerOneController : MonoBehaviour
                     //the closest dist is the new dist
                     closestDist = distance;
                     closestSpot = spot;
+                    //closestSpot.GetComponent<LightControl>().isSelected = true;
                     
 
                     //if (closestSpot.gameObject.GetComponent<LightControl>() != null)
@@ -478,6 +486,7 @@ public class PlayerOneController : MonoBehaviour
                         if (signPart.gameObject.GetComponent<LightControl>() != null)
                         {
                             lightcontrolRef = signPart.gameObject.GetComponent<LightControl>();
+                            lightcontrolRef.isSelected = true;
                             //lightcontrolRef.selectionRing.SetActive(true);
                             break;
                         }
@@ -487,18 +496,18 @@ public class PlayerOneController : MonoBehaviour
         }
     }
 
-    void DrawLine()
-    {
-        lineRend.startWidth = lineWidth;
-        lineRend.endWidth = lineWidth;
+    //void DrawLine()
+    //{
+    //    lineRend.startWidth = lineWidth;
+    //    lineRend.endWidth = lineWidth;
 
-        Vector3[] positions = new Vector3[2];
-        positions[0] = this.transform.position;
-        positions[1] = closestSpot.transform.position;
+    //    Vector3[] positions = new Vector3[2];
+    //    positions[0] = this.transform.position;
+    //    positions[1] = closestSpot.transform.position;
 
-        lineRend.positionCount = positions.Length;
-        lineRend.SetPositions(positions);
-    }
+    //    lineRend.positionCount = positions.Length;
+    //    lineRend.SetPositions(positions);
+    //}
 
     void SetScrewType()
     {
