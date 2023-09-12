@@ -444,10 +444,10 @@ public class PlayerOneController : MonoBehaviour
 
     void UpdateClosestSpot()
     {
-        if(lightcontrolRef != null)
-        {
-            lightcontrolRef.isSelected = false;
-        }
+        //if(lightcontrolRef != null)
+        //{
+        //    lightcontrolRef.isSelected = false;
+        //}
         closestSpot = null;
 
         float closestDist = Mathf.Infinity;
@@ -486,7 +486,7 @@ public class PlayerOneController : MonoBehaviour
                         if (signPart.gameObject.GetComponent<LightControl>() != null)
                         {
                             lightcontrolRef = signPart.gameObject.GetComponent<LightControl>();
-                            lightcontrolRef.isSelected = true;
+                            //lightcontrolRef.isSelected = true;
                             //lightcontrolRef.selectionRing.SetActive(true);
                             break;
                         }

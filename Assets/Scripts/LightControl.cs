@@ -43,7 +43,7 @@ public class LightControl : MonoBehaviour
                 repairSpotChildren[i].gameObject.SetActive(false);
             }
         }
-        ToggleSelectionRing();
+        //ToggleSelectionRing();
     }
 
     IEnumerator BlinkCoroutine()
@@ -67,17 +67,17 @@ public class LightControl : MonoBehaviour
         }
     }
 
-    void ToggleSelectionRing()
-    {
-        if(!isSelected)
-        {
-            selectionRing.SetActive(false);
-        }else if(isSelected)
-        {
-            selectionRing.SetActive(true);
-            StartCoroutine(ResetSelectionRing());
-        }
-    }
+    //void ToggleSelectionRing()
+    //{
+    //    if(!isSelected)
+    //    {
+    //        selectionRing.SetActive(false);
+    //    }else if(isSelected)
+    //    {
+    //        selectionRing.SetActive(true);
+    //        StartCoroutine(ResetSelectionRing());
+    //    }
+    //}
 
     IEnumerator ResetSelectionRing()
     {
