@@ -21,8 +21,8 @@ public class LoseFunction : MonoBehaviour
     {
         if(other.gameObject.tag == "DeadLine")
         {
-            Debug.Log("GameOver(Player2");
-            SceneManager.LoadScene(2);
+            Debug.Log("Player is off the ladder");
+            SceneManager.LoadScene("GameOver");
         }
     }
 }

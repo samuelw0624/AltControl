@@ -20,7 +20,7 @@ public class DetectLadderCollider : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene("TitlePage");
             Debug.Log("Player is off the ladder");
         }
 

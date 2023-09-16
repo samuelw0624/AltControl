@@ -15,6 +15,7 @@ TagManager:
   - LadderCollider
   - Minimap
   - ScreenActivation
+  - Kite
   layers:
   - Default
   - TransparentFX

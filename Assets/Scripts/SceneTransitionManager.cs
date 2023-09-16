@@ -7,7 +7,7 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public void LoadMainGame()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Level_01");
     }
 
     public void RestartGame()
