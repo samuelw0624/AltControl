@@ -19,6 +19,7 @@ public class KiteMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Random speed with accelerationRate
         timeLeft -= Time.deltaTime;
         if(timeLeft <= 0)
         {
@@ -29,6 +30,7 @@ public class KiteMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Apply movement to the RB
         rb.AddForce(movement * maxSpeed);
     }
 }
