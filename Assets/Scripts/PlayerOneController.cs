@@ -126,7 +126,7 @@ public class PlayerOneController : MonoBehaviour
 
         SlideDown();
 
-        FollowLadder();
+        //FollowLadder();
 
         DetectPlayerPosition();
         DetectReachMaxHeight();
@@ -317,8 +317,8 @@ public class PlayerOneController : MonoBehaviour
         {
             if (leftBoolArray[0] && rightBoolArray[4] )
             {
-                StartCoroutine(MoveToNewPos(NewPosition()));
-
+                //StartCoroutine(MoveToNewPos(NewPosition()));
+                MovePlayer();
                 performed04 = true;
                 performed40 = false;
             }
@@ -328,8 +328,8 @@ public class PlayerOneController : MonoBehaviour
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
-                StartCoroutine(MoveToNewPos(NewPosition()));
-
+                //StartCoroutine(MoveToNewPos(NewPosition()));
+                MovePlayer();
                 performed40 = true;
                 performed04 = false;
             }
@@ -397,6 +397,13 @@ public class PlayerOneController : MonoBehaviour
         Vector3 newPosition = transform.position;
 
         return newPosition;
+    }
+
+    void MovePlayer()
+    {
+        Vector3 newLocalPos = this.transform.localPosition;
+        newLocalPos.y += moveSpeed * Time.deltaTime;
+        this.transform.localPosition = newLocalPos;
     }
     #endregion
 

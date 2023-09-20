@@ -272,8 +272,8 @@ public class PlayerTwoController : MonoBehaviour
 
     void LadderTilt(float rotationValue)
     {
-        rotation.z = rotationValue;
-        this.transform.Rotate(rotation * Time.fixedDeltaTime);
+        //rotation.z = rotationValue;
+        this.transform.Rotate(Vector3.forward, rotationValue * Time.fixedDeltaTime);
     }
 
     void RandomTilt()

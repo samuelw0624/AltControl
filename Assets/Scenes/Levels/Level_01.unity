@@ -6222,6 +6222,10 @@ PrefabInstance:
       propertyPath: crossDrill
       value: 
       objectReference: {fileID: 426390349}
+    - target: {fileID: 1861648725385447038, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
 --- !u!1 &1731489870
