@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class PlayerOneController : MonoBehaviour
 {
@@ -71,6 +72,8 @@ public class PlayerOneController : MonoBehaviour
     public int num;
 
     public bool reachMax1, reachMax2, reachMax3, reachMax4, reachMax5;
+
+    bool isCollided;
 
 
 
@@ -437,6 +440,11 @@ public class PlayerOneController : MonoBehaviour
             //Debug.Log("no sign to repair");
             return;
         }
+
+        if (other.gameObject.CompareTag("block"))
+        {
+            isCollided = true;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -446,6 +454,10 @@ public class PlayerOneController : MonoBehaviour
         {
             spotsToFix.Remove(exitedSpot);
             UpdateClosestSpot();
+        }
+        if (other.gameObject.CompareTag("block"))
+        {
+            isCollided = false;
         }
     }
 
@@ -549,7 +561,7 @@ public class PlayerOneController : MonoBehaviour
             UpdateClosestSpot();
             //Destroy(closestSign);
             //add score function
-            ScoreManager.instance.AddPoint(1);
+            ScoreManager.instance.AddPoint(5);
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)
@@ -721,4 +733,5 @@ public class PlayerOneController : MonoBehaviour
             transform.position = charPos;
         }
     }
+
 }

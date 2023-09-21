@@ -53,7 +53,9 @@ public class SpawnEvent : MonoBehaviour
         Instantiate(kite, SpawnLocation, Quaternion.identity);
         isSpawned = true;
         yield return new WaitForSeconds(5);
+
         Destroy(GameObject.FindWithTag("Kite"));
+
         isSpawned = false;
     }
 

@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
     }
     void Start()
     {
-        scoreText.text = "POINTS:" + score.ToString();
+        scoreText.text = "Coin:" + score.ToString();
     }
 
     // Update is called once per frame
@@ -31,8 +31,8 @@ public class ScoreManager : MonoBehaviour
     public void AddPoint(int value)
     {
         score += value;
-        scoreText.text = "POINTS:" + score.ToString();
-        Debug.Log("Point + 1");
+        scoreText.text = "Coin:" + score.ToString();
+        Debug.Log("Coin + 5");
     }
 
     #endregion
