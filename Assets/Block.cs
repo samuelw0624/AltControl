@@ -42,6 +42,7 @@ public class Block : MonoBehaviour
     {
         
     }
+    #endregion
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -58,7 +59,6 @@ public class Block : MonoBehaviour
             isCollided = false;
         }
     }
-
 
 
 }
