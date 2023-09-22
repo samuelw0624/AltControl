@@ -16,6 +16,8 @@ TagManager:
   - Minimap
   - ScreenActivation
   - block
+  - Kite
+  - PlayerCollision
   layers:
   - Default
   - TransparentFX

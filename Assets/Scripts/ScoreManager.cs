@@ -5,7 +5,13 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public Text scoreText;
+    public Text scorePlayer1;
+    public Text scorePlayer2;
+
+    public AudioSource source;
+    public AudioClip coinCollected;
+    public AudioClip coinLosted;
+
     int score = 0;
     //create add score instance
     public static ScoreManager instance;
@@ -18,7 +24,9 @@ public class ScoreManager : MonoBehaviour
     }
     void Start()
     {
-        scoreText.text = "Coin:" + score.ToString();
+        //print original coin value
+        scorePlayer1.text = "Coin:" + score.ToString();
+        scorePlayer2.text = "Coin:" + score.ToString();
     }
 
     // Update is called once per frame
@@ -30,8 +38,11 @@ public class ScoreManager : MonoBehaviour
     #region Add score
     public void AddPoint(int value)
     {
+        //collect coin function
         score += value;
-        scoreText.text = "Coin:" + score.ToString();
+        scorePlayer1.text = "Coin:" + score.ToString();
+        scorePlayer2.text = "Coin:" + score.ToString();
+        source.PlayOneShot(coinCollected);
         Debug.Log("Coin + 5");
     }
     #endregion
@@ -39,8 +50,11 @@ public class ScoreManager : MonoBehaviour
     #region Subtract score
     public void ReducePoint(int value)
     {
+        //lose coin function
         score -= value;
-        scoreText.text = "Coin:" + score.ToString();
+        scorePlayer1.text = "Coin:" + score.ToString();
+        scorePlayer2.text = "Coin:" + score.ToString();
+        source.PlayOneShot(coinLosted);
         Debug.Log("Coin - 3");
     }
     #endregion

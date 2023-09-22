@@ -18,10 +18,9 @@ public class StealMoney : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("PlayerCollision"))
         {
             ScoreManager.instance.ReducePoint(3);
-            ScorePlayer2.instance.ReducePoint(3);
             Destroy(this.gameObject);
             Debug.Log("CollisionwithKite");
         }

@@ -555,7 +555,7 @@ public class PlayerOneController : MonoBehaviour
             //Destroy(closestSign);
             //add score function
             ScoreManager.instance.AddPoint(5);
-            ScorePlayer2.instance.AddPoint(5);
+
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)
