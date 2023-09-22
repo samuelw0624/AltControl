@@ -23,6 +23,7 @@ TagManager:
   - RightCollider
   - TopCollider
   - BottomCollider
+  - PlayerCollider
   layers:
   - Default
   - TransparentFX
