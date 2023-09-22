@@ -441,10 +441,6 @@ public class PlayerOneController : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.CompareTag("block"))
-        {
-            isCollided = true;
-        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -455,10 +451,7 @@ public class PlayerOneController : MonoBehaviour
             spotsToFix.Remove(exitedSpot);
             UpdateClosestSpot();
         }
-        if (other.gameObject.CompareTag("block"))
-        {
-            isCollided = false;
-        }
+
     }
 
     void UpdateClosestSpot()
@@ -562,6 +555,7 @@ public class PlayerOneController : MonoBehaviour
             //Destroy(closestSign);
             //add score function
             ScoreManager.instance.AddPoint(5);
+            ScorePlayer2.instance.AddPoint(5);
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)

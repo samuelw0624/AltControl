@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6880566111548765259}
   - component: {fileID: 6880566111548765256}
   - component: {fileID: -2700006005444665057}
+  - component: {fileID: 3170705592649806077}
+  - component: {fileID: 1489455114810366282}
   m_Layer: 0
   m_Name: kite
   m_TagString: Kite
@@ -119,3 +121,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &3170705592649806077
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880566111548765262}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.6684182, y: 0.9209182}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10.07, y: 11.95}
+    newSize: {x: 10.07, y: 11.95}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.8856587, y: 6.479155}
+  m_EdgeRadius: 0
+--- !u!114 &1489455114810366282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880566111548765262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf08a170f9d31146ac8f4112bea91bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

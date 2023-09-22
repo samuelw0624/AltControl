@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour
+public class ScorePlayer2 : MonoBehaviour
 {
     public Text scoreText;
     int score = 0;
-    //create add score instance
-    public static ScoreManager instance;
-
+    public static ScorePlayer2 instance;
     // Start is called before the first frame update
 
     private void Awake()
@@ -24,7 +22,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     #region Add score
