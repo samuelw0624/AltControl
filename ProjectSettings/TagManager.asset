@@ -18,6 +18,11 @@ TagManager:
   - block
   - Kite
   - PlayerCollision
+  - Collider
+  - LeftCollider
+  - RightCollider
+  - TopCollider
+  - BottomCollider
   layers:
   - Default
   - TransparentFX
