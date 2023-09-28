@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 96c7057e9f2d7964da72444558a3eb67
+guid: 0d0bae6f8a04a074baf546e7fec8b82d
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: 70aaa50da70eb224589eb5aa47d30639, type: 2}
+      name: RoadBlack
+    second: {fileID: 2100000, guid: 0aa3b12fc06913343ac122374d850127, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RoadWhite
+    second: {fileID: 2100000, guid: 74d7d352fab9cba40a46cd64e30f202f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
