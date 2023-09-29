@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: LatternLight
     second: {fileID: 2100000, guid: 8eece7e2e311da84f910b62bdc2ba94f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WoodLantern
+    second: {fileID: 2100000, guid: 1a0e347ed94ed2c45b2456abc5706c87, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

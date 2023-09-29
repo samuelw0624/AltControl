@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Noodle
+  m_Name: bubble_tea_text
   m_Shader: {fileID: 4800000, guid: 933f24cde1e3f6a41818f56d729421ab, type: 3}
   m_ValidKeywords:
   - _EMISSION
@@ -176,7 +176,7 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineEnabled: 1
     - _OutlineMode: 0
-    - _OutlineWidth: 8
+    - _OutlineWidth: 12
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -206,9 +206,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.90588236, g: 0.53626436, b: 0.082352914, a: 1}
-    - _Color: {r: 0.90588236, g: 0.5362643, b: 0.082352884, a: 1}
-    - _EmissionColor: {r: 2.3018868, g: 0.9979103, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0.05495598, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.05495596, b: 0, a: 1}
+    - _EmissionColor: {r: 2.9044733, g: 1.9422741, b: 0, a: 1}
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _HairSpecColor: {r: 0, g: 0, b: 0, a: 1}

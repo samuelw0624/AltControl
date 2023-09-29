@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: 1433f6bacb9607b4dbf37ba7a2ff884a
+guid: 867b979bc7980a94b89b3b17ab07fa18
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: glow_blue_fastfood
-    second: {fileID: 2100000, guid: b5d034aaed52a9142bb35a955ec8a0dd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: glow_yellow
-    second: {fileID: 2100000, guid: c50b3ed1508a412488f95cced118fafe, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: phong1
-    second: {fileID: 2100000, guid: b38def2ad9410764ea3f9a228e974eea, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
