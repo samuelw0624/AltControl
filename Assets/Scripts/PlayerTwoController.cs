@@ -37,9 +37,10 @@ public class PlayerTwoController : MonoBehaviour
     public GameObject player;
     float minY;
     float maxY;
-    public int num;
-    
-    
+
+
+
+
 
 
     // Start is called before the first frame update
@@ -54,13 +55,14 @@ public class PlayerTwoController : MonoBehaviour
         ladderHeight = this.transform.localScale.y;
         ladderRb = this.GetComponent<Rigidbody>();
 
-        //player1 = player.GetComponent<PlayerOneController>();
+        player1 = player.GetComponent<PlayerOneController>();
 
         //set default Rotation Speed 
 
         moveLadderSpeed = 0;
         moveLadderDist = 1f;
         maxY = 3;
+        numOfLadder = 1;
 
         value = Random.Range(1, 10);
     }
@@ -74,14 +76,14 @@ public class PlayerTwoController : MonoBehaviour
         LadderHight();
 
         //Restrict the player's maximum height for climbing
-        Vector3 newPosition = player.transform.position;
-        newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
-        player.transform.position = newPosition;
+        //Vector3 newPosition = player.transform.position;
+        //newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
+        //player.transform.position = newPosition;
 
 
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         //compare character's height to the ladder's height 
 
@@ -93,9 +95,6 @@ public class PlayerTwoController : MonoBehaviour
         MoveHorizontally();
 
         RandomTilt();
-        DetectPlayerPosition();
-
-
 
     }
 
@@ -108,49 +107,27 @@ public class PlayerTwoController : MonoBehaviour
         {
             numOfLadder = 5;
         }
-        if (Keyboard.current[Key.X].wasPressedThisFrame)
+        else if (Keyboard.current[Key.X].wasPressedThisFrame)
         {
             numOfLadder = 4;
         }
-        if (Keyboard.current[Key.C].wasPressedThisFrame)
+        else if (Keyboard.current[Key.C].wasPressedThisFrame)
         {
             numOfLadder = 3;
         }
-        if (Keyboard.current[Key.V].wasPressedThisFrame)
+        else if (Keyboard.current[Key.V].wasPressedThisFrame)
         {
             numOfLadder = 2;
         }
-        if (Keyboard.current[Key.Space].wasPressedThisFrame)
+        else if (Keyboard.current[Key.Space].wasPressedThisFrame)
         {
             numOfLadder = 1;
         }
         //this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
-        ladderHeight = heightChanges;
+        //ladderHeight = heightChanges;
     }
 
-    void DetectPlayerPosition()
-    {
-        if (player1.transform.position.y <= 2.84)
-        {
-            num = 0;
-        }
-        else if(player1.transform.position.y > 2.84 && player1.transform.position.y <= 6)
-        {
-            num = 1;
-        }
-        else if (player1.transform.position.y > 6 && player1.transform.position.y <= 9)
-        {
-            num = 2;
-        }
-        else if (player1.transform.position.y > 9 && player1.transform.position.y <= 12)
-        {
-            num = 3;
-        }
-        else if (player1.transform.position.y > 12 && player1.transform.position.y <= 15)
-        {
-            num = 4;
-        }
-    }
+    
 
     void LadderHeightSwitch()
     {
@@ -161,7 +138,7 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 3;
+            //maxY = 3;
         } 
         else if (numOfLadder == 2)
         {
@@ -170,7 +147,7 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 6f;
+            //maxY = 6f;
         } 
         else if (numOfLadder == 3)
         {
@@ -178,21 +155,21 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 9F;
+            //maxY = 9F;
         }
         else if (numOfLadder == 4)
         {
             ladderObj[2].gameObject.SetActive(true);
             ladderObj[3].gameObject.SetActive(false);
 
-            maxY = 12f;
+            //maxY = 12f;
 
         }
         else if (numOfLadder == 5)
         {
             ladderObj[3].gameObject.SetActive(true);
 
-            maxY = 15F;
+            //maxY = 15F;
         }
 
     }
@@ -295,8 +272,8 @@ public class PlayerTwoController : MonoBehaviour
 
     void LadderTilt(float rotationValue)
     {
-        rotation.z = rotationValue;
-        this.transform.Rotate(rotation * Time.fixedDeltaTime);
+        //rotation.z = rotationValue;
+        this.transform.Rotate(Vector3.forward, rotationValue * Time.fixedDeltaTime);
     }
 
     void RandomTilt()
@@ -339,4 +316,5 @@ public class PlayerTwoController : MonoBehaviour
     }
 
     #endregion
+
 }

@@ -16,6 +16,10 @@ public class LightControl : MonoBehaviour
     public float blinkInterval;
     public bool isFixed;
 
+    public bool isSelected;
+    public GameObject selectionRing;
+    float countdownTime = 0.5f;
+
     List<GameObject> repairSpotChildren = new List<GameObject>();
 
     void Start()
@@ -39,6 +43,7 @@ public class LightControl : MonoBehaviour
                 repairSpotChildren[i].gameObject.SetActive(false);
             }
         }
+        //ToggleSelectionRing();
     }
 
     IEnumerator BlinkCoroutine()
@@ -60,5 +65,33 @@ public class LightControl : MonoBehaviour
             Transform child = sign.transform.GetChild(i);
             repairSpotChildren.Add(child.gameObject);
         }
+    }
+
+    //void ToggleSelectionRing()
+    //{
+    //    if(!isSelected)
+    //    {
+    //        selectionRing.SetActive(false);
+    //    }else if(isSelected)
+    //    {
+    //        selectionRing.SetActive(true);
+    //        StartCoroutine(ResetSelectionRing());
+    //    }
+    //}
+
+    IEnumerator ResetSelectionRing()
+    {
+        float timeLeft = countdownTime;
+        while (timeLeft > 0f)
+        {
+            yield return new WaitForSeconds(1f);
+            timeLeft--;
+        }
+        SelectionSwitch();
+    }
+
+    void SelectionSwitch()
+    {
+        isSelected = false;
     }
 }

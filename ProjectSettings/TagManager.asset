@@ -12,11 +12,23 @@ TagManager:
   - cross
   - hex
   - DeadLine
+  - LadderCollider
+  - Minimap
+  - ScreenActivation
+  - block
+  - Kite
+  - PlayerCollision
+  - Collider
+  - LeftCollider
+  - RightCollider
+  - TopCollider
+  - BottomCollider
+  - PlayerCollider
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Minimap
   - Water
   - UI
   - 
