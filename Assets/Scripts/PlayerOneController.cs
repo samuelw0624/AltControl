@@ -33,8 +33,9 @@ public class PlayerOneController : MonoBehaviour
      * smaller speed value = faster lerp
      */
     [SerializeField] public float moveDist = 1.1f;
-    [SerializeField] float moveSpeed = 5f;
-
+    [SerializeField] float moveSpeed;
+    [SerializeField] float moveOriSpeed = 5;
+    [SerializeField] float moveSlowSpeed = 3;
     //slide varibales
     bool slideCountDown;
     //timer varibale used to store how much time had passed
@@ -73,9 +74,18 @@ public class PlayerOneController : MonoBehaviour
 
     public bool reachMax1, reachMax2, reachMax3, reachMax4, reachMax5;
 
-    bool isCollided;
 
 
+    [SerializeField] SlowDown sD;
+
+    [Header("Animation")]
+    [SerializeField]
+    public Animator anim;
+    public bool isMoving;
+    [SerializeField]
+    public Transform player2Pos;
+    float distance;
+    float LateDis;
 
     public enum ScrewType
     {
@@ -113,6 +123,10 @@ public class PlayerOneController : MonoBehaviour
         leftHandOffLadder = true;
         rightHandOffLadder = true;
 
+        moveSpeed = moveOriSpeed;
+
+        distance = Vector2.Distance(this.transform.position, player2Pos.transform.position);
+
     }
 
     #region Update Methods
@@ -135,6 +149,7 @@ public class PlayerOneController : MonoBehaviour
         DetectReachMaxHeight();
 
         ConfineLadderHeight();
+
 
         //UnityEngine.Debug.Log("Player Position: " );
         //UnityEngine.Debug.Log("Target Position: ");
@@ -404,9 +419,26 @@ public class PlayerOneController : MonoBehaviour
 
     void MovePlayer()
     {
+        anim.SetBool("isMoving", true);
+        isMoving = true;
+        MoveSpeedControl();
         Vector3 newLocalPos = this.transform.localPosition;
         newLocalPos.y += moveSpeed * Time.deltaTime;
         this.transform.localPosition = newLocalPos;
+    }
+
+    void MoveSpeedControl()
+    {
+        if (!sD.insideSteam)
+        {
+            moveSpeed = moveOriSpeed;
+            Debug.Log("moveSpeed = " + moveSpeed);
+        }
+        else
+        {
+            moveSpeed = moveSlowSpeed;
+            Debug.Log("moveSpeed = " + moveSpeed);
+        }
     }
     #endregion
 
