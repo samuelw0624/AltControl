@@ -3,7 +3,27 @@ guid: 82da202994518634cb239b8d6d1fbdc2
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface6
+    second: {fileID: 2100000, guid: 41fc24ce5c051af4e9dd5b344d85907f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface7
+    second: {fileID: 2100000, guid: 87bbee735a9940a479adad0a5f516e89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glow_circle
+    second: {fileID: 2100000, guid: 4a9ac0ef501c00141bdc41142a71098e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong3
+    second: {fileID: 2100000, guid: 998eebf4d8643ce428c570424de5c449, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

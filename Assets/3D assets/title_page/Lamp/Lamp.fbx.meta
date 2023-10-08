@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e7766ff6bf7c5424fac6d8a74b7e97af
+guid: d1f95200add76be4f9b2f5edf864ace4
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,18 +7,33 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Ladder_Black
-    second: {fileID: 2100000, guid: 05276a05732485d4385dc5626b0c8449, type: 2}
+      name: Material.002
+    second: {fileID: 2100000, guid: 887e1a46672e1a843bee68e59d39190d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Ladder_Yellow
-    second: {fileID: 2100000, guid: c7030ed661f9a9a409404eb2a5b15b09, type: 2}
+      name: Material.003
+    second: {fileID: 2100000, guid: 17dfe6d2d091d694ba7c47a226ca4b9b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: 51613d87df14ade4499da3b30d63e7c7, type: 2}
+      name: Material.004
+    second: {fileID: 2100000, guid: 456624e0bb9ebdd4f8d79aae8ff3fffa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: 19feb01ac40724e42bb661279ea018fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.006
+    second: {fileID: 2100000, guid: e82797735b5b4eb42b5f89fb07332303, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1.001
+    second: {fileID: 2100000, guid: 55bbba26c5c1c8840a0dc848e984e640, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
