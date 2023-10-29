@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using TMPro;
 
 public class PlayerOneController : MonoBehaviour
 {
@@ -86,6 +87,21 @@ public class PlayerOneController : MonoBehaviour
     public Transform player2Pos;
     float distance;
     float LateDis;
+    [SerializeField]
+    bool handsOff = false;
+
+    [SerializeField]
+    GameObject p1Screen;
+    [SerializeField]
+    GameObject p2Screen;
+    [SerializeField]
+    TMP_Text p1Text;
+    [SerializeField]
+    TMP_Text p2Text;
+    [SerializeField]
+    float time = 5f;
+    [SerializeField]
+    float timerValue;
 
     public enum ScrewType
     {
@@ -149,6 +165,7 @@ public class PlayerOneController : MonoBehaviour
         DetectReachMaxHeight();
 
         ConfineLadderHeight();
+        Warn();
 
 
         //UnityEngine.Debug.Log("Player Position: " );
@@ -176,10 +193,19 @@ public class PlayerOneController : MonoBehaviour
 
         }else if(leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
         {
+
+
             gameOver = true;
             SceneManager.LoadScene("GameOver");
-            //Debug.Log("Game Over is " + gameOver);
+            Debug.Log("Game Over is " + gameOver);
             //scene transiton functions
+        }
+
+        if (Input.GetKey(KeyCode.M))
+        {
+            handsOff = true;
+            p1Screen.SetActive(true);
+            p2Screen.SetActive(true);
         }
 
         ClimbUp();
@@ -771,4 +797,29 @@ public class PlayerOneController : MonoBehaviour
         }
     }
 
+
+    #region Warning
+    void Warn()
+    {
+        if (handsOff)
+        {
+            time -= Time.deltaTime;
+
+
+            if (time <= 0)
+            {
+
+                time = 0;
+                gameOver = true;
+                Debug.Log("Game Over - HandsOff");
+                handsOff = false;
+                SceneManager.LoadScene("GameOver");
+            }
+        }
+
+        p1Text.text = (time).ToString("0");
+
+        p2Text.text = (time).ToString("0");
+    }
+    #endregion
 }
