@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerTwoController : MonoBehaviour
 {
@@ -37,6 +38,24 @@ public class PlayerTwoController : MonoBehaviour
     public GameObject player;
     float minY;
     float maxY;
+    [SerializeField]
+    GameObject normalLeft;
+    [SerializeField]
+    GameObject normaRight;
+    [SerializeField]
+    GameObject fastLeft;
+    [SerializeField]
+    GameObject fastRight;
+    [SerializeField]
+    GameObject neutral;
+    
+    [SerializeField]
+    Graphic leftRotation;
+    [SerializeField]
+    Graphic rightRotation;
+    Color pressColor;
+    Color releaseColor;
+
 
 
 
@@ -52,6 +71,10 @@ public class PlayerTwoController : MonoBehaviour
     }
     void Start()
     {
+        pressColor = Color.red;
+        releaseColor = Color.white;
+
+        currentState = LadderStates.Neutral;
         ladderHeight = this.transform.localScale.y;
         ladderRb = this.GetComponent<Rigidbody>();
 
@@ -95,11 +118,12 @@ public class PlayerTwoController : MonoBehaviour
         MoveHorizontally();
 
         RandomTilt();
+        SetCurrentState();
 
     }
 
     #region LadderHeightControl&Movement
-    
+
     void LadderHight()
     {
         // five stages of ladder heitgh adjustment
@@ -127,7 +151,7 @@ public class PlayerTwoController : MonoBehaviour
         //ladderHeight = heightChanges;
     }
 
-    
+
 
     void LadderHeightSwitch()
     {
@@ -139,7 +163,7 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[3].gameObject.SetActive(false);
 
             //maxY = 3;
-        } 
+        }
         else if (numOfLadder == 2)
         {
             ladderObj[0].gameObject.SetActive(true);
@@ -148,7 +172,7 @@ public class PlayerTwoController : MonoBehaviour
             ladderObj[3].gameObject.SetActive(false);
 
             //maxY = 6f;
-        } 
+        }
         else if (numOfLadder == 3)
         {
             ladderObj[1].gameObject.SetActive(true);
@@ -173,7 +197,7 @@ public class PlayerTwoController : MonoBehaviour
         }
 
     }
-    
+
 
     void SpeedAdjust()
     {
@@ -182,7 +206,7 @@ public class PlayerTwoController : MonoBehaviour
         {
             moveLeft = true;
             moveLadderSpeed = 3f;
-            
+
             rotateFast = true;
             rotateNormal = false;
 
@@ -233,6 +257,8 @@ public class PlayerTwoController : MonoBehaviour
 
 
         }
+
+
     }
 
     private void MoveHorizontally()
@@ -255,6 +281,8 @@ public class PlayerTwoController : MonoBehaviour
         {
             rotateLeft = true;
             rotateRight = false;
+            leftRotation.color = pressColor;
+            rightRotation.color = releaseColor;
         }
 
 
@@ -262,6 +290,8 @@ public class PlayerTwoController : MonoBehaviour
         {
             rotateRight = true;
             rotateLeft = false;
+            rightRotation.color = pressColor;
+            leftRotation.color = releaseColor;
         }
     }
 
@@ -279,32 +309,32 @@ public class PlayerTwoController : MonoBehaviour
     void RandomTilt()
     {
 
-        if(value > 0 && value <= 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight && !rotateFast && !rotateNormal)
+        if (value > 0 && value <= 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight && !rotateFast && !rotateNormal)
         {
             LadderTilt(5);
-        } 
+        }
         else if (value <= 10 && value > 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight && !rotateFast && !rotateNormal)
         {
             LadderTilt(-5);
-        } 
-        
+        }
+
         else if (rotateLeft && !rotateFast && !rotateNormal)
         {
             LadderTilt(5);
-        } 
-        else if (rotateRight && !rotateFast && !rotateNormal) 
+        }
+        else if (rotateRight && !rotateFast && !rotateNormal)
         {
             LadderTilt(-5);
-        } 
-        
+        }
+
         else if (rotateLeft && rotateFast)
         {
             LadderTilt(10);
-        } 
+        }
         else if (rotateLeft && rotateNormal)
         {
             LadderTilt(10);
-        } 
+        }
         else if (rotateRight && rotateFast)
         {
             LadderTilt(-10);
@@ -317,4 +347,78 @@ public class PlayerTwoController : MonoBehaviour
 
     #endregion
 
+
+    #region Ladder UI Status
+
+    public enum LadderStates
+    {
+        Fast_Right,
+        Normal_Right,
+        Neutral,
+        Normal_Left,
+        Fast_Left
+    }
+
+    public LadderStates currentState;
+
+    void SetCurrentState()
+    {
+        if (moveLeft && rotateFast)
+        {
+            currentState = LadderStates.Fast_Left;
+
+            normalLeft.SetActive(false);
+            normaRight.SetActive(false);
+            fastRight.SetActive(false);
+            neutral.SetActive(false);
+            fastLeft.SetActive(true);
+        }
+
+        if (moveLeft && rotateNormal)
+        {
+            currentState = LadderStates.Normal_Left;
+
+            normalLeft.SetActive(true);
+            normaRight.SetActive(false);
+            fastRight.SetActive(false);
+            neutral.SetActive(false);
+            fastLeft.SetActive(false);
+        }
+        if (moveRight && rotateFast)
+        {
+            currentState = LadderStates.Fast_Right;
+
+            normalLeft.SetActive(false);
+            normaRight.SetActive(false);
+            fastRight.SetActive(true);
+            neutral.SetActive(false);
+            fastLeft.SetActive(false);
+        }
+
+        if (moveRight && rotateNormal)
+        {
+            currentState = LadderStates.Normal_Right;
+
+            normalLeft.SetActive(false);
+            normaRight.SetActive(true);
+            fastRight.SetActive(false);
+            neutral.SetActive(false);
+            fastLeft.SetActive(false);
+        }
+        if (!moveRight && !moveLeft)
+        {
+            currentState = LadderStates.Neutral;
+
+            normalLeft.SetActive(false);
+            normaRight.SetActive(false);
+            fastRight.SetActive(false);
+            neutral.SetActive(true);
+            fastLeft.SetActive(false);
+        }
+
+    }
+    #endregion
+
 }
+
+
