@@ -58,9 +58,6 @@ public class PlayerOneController : MonoBehaviour
     public List<GameObject> spotsToFix = new List<GameObject>();
     public GameObject closestSpot;
 
-    public LineRenderer lineRend;
-    public float lineWidth = 0.3f;
-
     //light emission control variables
     LightControl lightcontrolRef;
     AudioSource repairAudio;
@@ -99,7 +96,7 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField]
     TMP_Text p2Text;
     [SerializeField]
-    float time = 5f;
+    float warningTimer = 5f;
     [SerializeField]
     float timerValue;
 
@@ -166,16 +163,6 @@ public class PlayerOneController : MonoBehaviour
 
         ConfineLadderHeight();
         Warn();
-
-
-        //UnityEngine.Debug.Log("Player Position: " );
-        //UnityEngine.Debug.Log("Target Position: ");
-
-        if (closestSpot != null)
-        {
-            lineRend = closestSpot.GetComponent<LineRenderer>();
-            //DrawLine();
-        }
     }
 
     private void FixedUpdate()
@@ -193,19 +180,8 @@ public class PlayerOneController : MonoBehaviour
 
         }else if(leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
         {
-
-
-            gameOver = true;
-            SceneManager.LoadScene("GameOver");
-            Debug.Log("Game Over is " + gameOver);
-            //scene transiton functions
-        }
-
-        if (Input.GetKey(KeyCode.M))
-        {
             handsOff = true;
-            p1Screen.SetActive(true);
-            p2Screen.SetActive(true);
+            //SceneManager.LoadScene("GameOver");
         }
 
         ClimbUp();
@@ -803,23 +779,28 @@ public class PlayerOneController : MonoBehaviour
     {
         if (handsOff)
         {
-            time -= Time.deltaTime;
+            warningTimer -= Time.deltaTime;
+            p1Screen.SetActive(true);
+            p2Screen.SetActive(true);
 
-
-            if (time <= 0)
+            if (warningTimer <= 0)
             {
-
-                time = 0;
+                //Debug.Log("Game Over - HandsOff");
                 gameOver = true;
-                Debug.Log("Game Over - HandsOff");
                 handsOff = false;
+                warningTimer = timerValue;
                 SceneManager.LoadScene("GameOver");
+            }else if (!leftHandOffLadder || !rightHandOffLadder)
+            {
+                handsOff = false;
+                warningTimer = timerValue;
+                p1Screen.SetActive(false);
+                p2Screen.SetActive(false);
             }
         }
-
-        p1Text.text = (time).ToString("0");
-
-        p2Text.text = (time).ToString("0");
+       
+        p1Text.text = (warningTimer).ToString("0");
+        p2Text.text = (warningTimer).ToString("0");
     }
     #endregion
 }
