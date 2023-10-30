@@ -25,6 +25,9 @@ public class PlayerOneController : MonoBehaviour
     bool[] leftBoolArray = new bool[5];
     bool[] rightBoolArray = new bool[5];
 
+    public GameObject[] leftPosUIArray = new GameObject[5];
+    public GameObject[] rightPoseUIArray = new GameObject[5];
+
     /*04 = left hand at top, right hand at bottom
     40 = left hand at bottom, right hand at top
     */
@@ -299,6 +302,7 @@ public class PlayerOneController : MonoBehaviour
         for (int i = 0; i < leftBoolArray.Length; i++)
         {
             leftBoolArray[i] = false;
+            leftPosUIArray[i].SetActive(true);
         }
     }
     /*overload function of ResetLeftBool(), each step set the value of index i
@@ -309,6 +313,7 @@ public class PlayerOneController : MonoBehaviour
         for (int i = 0; i < leftBoolArray.Length; i++)
         {
             leftBoolArray[i] = (i == toSetTrue);
+            leftPosUIArray[i].SetActive(i != toSetTrue);
         }
     }
 
@@ -317,6 +322,7 @@ public class PlayerOneController : MonoBehaviour
         for (int i = 0; i < rightBoolArray.Length; i++)
         {
             rightBoolArray[i] = false;
+            rightPoseUIArray[i].SetActive(true);
         }
     }
     //same as the ResetLeftBool
@@ -325,6 +331,7 @@ public class PlayerOneController : MonoBehaviour
         for (int i = 0; i < rightBoolArray.Length; i++)
         {
             rightBoolArray[i] = (i == toSetTrue);
+            rightPoseUIArray[i].SetActive(i != toSetTrue);
         }
     }
     #endregion
