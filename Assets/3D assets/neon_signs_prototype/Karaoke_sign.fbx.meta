@@ -3,7 +3,37 @@ guid: 8faf112fce9083a43ab6b9cefeeeedfe
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted__phong2
+    second: {fileID: -1580535799172915004, guid: e8e63d0ebe4f6094aa8e8b128ae9aac7, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong10
+    second: {fileID: 2100000, guid: 2e329f0a4ddb4614aaaccc6796f7e2b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong11
+    second: {fileID: 2100000, guid: 2e329f0a4ddb4614aaaccc6796f7e2b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong12
+    second: {fileID: 2100000, guid: 2e329f0a4ddb4614aaaccc6796f7e2b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong13
+    second: {fileID: 2100000, guid: 2e329f0a4ddb4614aaaccc6796f7e2b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong9
+    second: {fileID: 2100000, guid: 2ace5170dc159c148bf8b6c560fd2bb6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
