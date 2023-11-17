@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+
+    [SerializeField]
+    private Material skyboxScene1;
+    [SerializeField]
+    private Material skyboxScene2;
+    [SerializeField]
+    private Material skyboxScene3;
+    [SerializeField]
+    private Material skyboxScene4;
+    // Start is called before the first frame update
+    void Start()
+    {
+        SkyboxControl();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void SkyboxControl()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Change skybox based on the scene name
+        if (currentScene.name == "TitlePage")
+        {
+            RenderSettings.skybox = skyboxScene1;
+        }
+        else if (currentScene.name == "Level_01")
+        {
+            RenderSettings.skybox = skyboxScene2;
+        }
+        else if (currentScene.name == "Level_Tutorial_01")
+        {
+            RenderSettings.skybox = skyboxScene3;
+        }
+
+        print(RenderSettings.skybox);
+    }
+}
