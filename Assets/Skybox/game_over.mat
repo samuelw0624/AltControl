@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Level2_sky
+  m_Name: game_over
   m_Shader: {fileID: 4800000, guid: f4f94670d5f7d274da550a5aef7050c3, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -106,7 +106,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Intensity: 1
+    - _Intensity: 2.09
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -124,8 +124,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.8207547, g: 0.40383628, b: 0.081301175, a: 0}
-    - _Color2: {r: 0.413295, g: 0.19335172, b: 0.5188679, a: 0}
+    - _Color1: {r: 0.09019609, g: 0.094644286, b: 0.24705882, a: 0}
+    - _Color2: {r: 0.18039216, g: 0.1841473, b: 0.25490198, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _UpVector: {r: 0, g: 1, b: 0, a: 0}
