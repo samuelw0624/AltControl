@@ -14,16 +14,28 @@ public class GameManager : MonoBehaviour
     private Material skyboxScene3;
     [SerializeField]
     private Material skyboxScene4;
+
+    [SerializeField]
+    private GameObject shopUI1;
+    [SerializeField]
+    private GameObject shopUI2;
+    [SerializeField]
+    private bool inShop;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         SkyboxControl();
+        shopUI1.SetActive(false);
+        shopUI2.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        EnterShop();
     }
 
     void SkyboxControl()
@@ -45,5 +57,29 @@ public class GameManager : MonoBehaviour
         }
 
         print(RenderSettings.skybox);
+    }
+
+
+
+    void EnterShop()
+    {
+        if (Input.GetKeyDown(KeyCode.CapsLock))
+        {
+            if (!inShop)
+            {
+                shopUI1.SetActive(true);
+                shopUI2.SetActive(true);
+                inShop = true;
+            }
+            else
+            {
+                shopUI1.SetActive(false);
+                shopUI2.SetActive(false);
+                inShop = false;
+            }
+
+        } 
+        
+
     }
 }
