@@ -30662,7 +30662,7 @@ PrefabInstance:
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: p2Screen
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 937435845}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: greenIcon
       value: 
