@@ -100,6 +100,8 @@ public class PlayerOneController : MonoBehaviour
     public float warningTimer = 5f;
     [SerializeField]
     float timerValue;
+    [SerializeField]
+    AudioSource audio;
 
     public enum ScrewType
     {
@@ -788,7 +790,7 @@ public class PlayerOneController : MonoBehaviour
             warningTimer -= Time.deltaTime;
             p1Screen.SetActive(true);
             p2Screen.SetActive(true);
-
+            audio.Play();
             if (warningTimer <= 0)
             {
                 //Debug.Log("Game Over - HandsOff");
