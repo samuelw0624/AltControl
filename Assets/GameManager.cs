@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         {
             RenderSettings.skybox = skyboxScene2;
         }
-        else if (currentScene.name == "Level_Tutorial_01")
+        else if (currentScene.name == "GameOver")
         {
             RenderSettings.skybox = skyboxScene3;
         }
