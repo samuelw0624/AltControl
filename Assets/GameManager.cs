@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    void EnterShop()
+    public void EnterShop()
     {
         if (Input.GetKeyDown(KeyCode.CapsLock))
         {
@@ -77,9 +77,13 @@ public class GameManager : MonoBehaviour
                 shopUI2.SetActive(false);
                 inShop = false;
             }
-
         } 
-        
+    }
 
+    public void CloseShop()
+    {
+        shopUI1.SetActive(false);
+        shopUI2.SetActive(false);
+        inShop = false;
     }
 }

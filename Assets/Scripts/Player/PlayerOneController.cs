@@ -75,8 +75,6 @@ public class PlayerOneController : MonoBehaviour
 
     public bool reachMax1, reachMax2, reachMax3, reachMax4, reachMax5;
 
-
-
     [SerializeField] SlowDown sD;
 
     [Header("Animation")]
@@ -99,7 +97,7 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField]
     TMP_Text p2Text;
     [SerializeField]
-    float warningTimer = 5f;
+    public float warningTimer = 5f;
     [SerializeField]
     float timerValue;
 
@@ -784,6 +782,7 @@ public class PlayerOneController : MonoBehaviour
     #region Warning
     void Warn()
     {
+        Debug.Log(warningTimer);
         if (handsOff)
         {
             warningTimer -= Time.deltaTime;
