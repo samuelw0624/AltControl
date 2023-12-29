@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class Timer : MonoBehaviour
 {
+    public static Timer instance { get; private set; }
     [SerializeField]
     private Slider p1Slider;
     [SerializeField]
@@ -25,11 +26,28 @@ public class Timer : MonoBehaviour
     private TMP_Text p1Text;
     [SerializeField]
     private TMP_Text p2Text;
+    [SerializeField]
+    public bool gameStart;
+    [SerializeField]
+    private TMP_Text startTimerText1;
+    [SerializeField]
+    private TMP_Text startTimerText2;
+    [SerializeField]
+    private float startTimer;
+    [SerializeField]
+    private GameObject p1StartTimer;
+    [SerializeField]
+    private GameObject p2StartTimer;
+    [SerializeField]
+    private float timerValue;
+    [SerializeField]
+    private AudioSource audio;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         //SetTimer(120);
         p1Slider.maxValue = maxTimer;
         p1Slider.value = sliderTimer;
@@ -38,12 +56,15 @@ public class Timer : MonoBehaviour
         p2Slider.value = sliderTimer;
 
         grandient.Evaluate(1f);
-        StartTimerAction();
+        StartCoroutine(StartTimer());
+        audio.Play();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         
     }
 
@@ -83,8 +104,10 @@ public class Timer : MonoBehaviour
     {
         while(stopTimer == false)
         {
+
             sliderTimer += Time.deltaTime;
             yield return new WaitForSeconds(0.001f);
+
             p1Slider.value = sliderTimer;
             p1Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
             p2Slider.value = sliderTimer;
@@ -93,6 +116,32 @@ public class Timer : MonoBehaviour
             p2Text.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
         }
 
+    }
+
+    IEnumerator StartTimer()
+    {
+        while (gameStart == false)
+        {
+            startTimer -= Time.deltaTime;
+            yield return new WaitForSeconds(0.001f);
+
+            print("Timer");
+            p1StartTimer.SetActive(true);
+            p2StartTimer.SetActive(true);
+            //startTimer = timerValue;
+
+            startTimerText1.text = (startTimer).ToString("0");
+            startTimerText2.text = (startTimer).ToString("0");
+            if (startTimer <= 0)
+            {
+                p1StartTimer.SetActive(false);
+                p2StartTimer.SetActive(false);
+                gameStart = true;
+                StartTimerAction();
+            }
+        }
+
+        yield return gameStart;
     }
 
 }

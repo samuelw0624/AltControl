@@ -18,7 +18,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
         Vector3 cameraMoveDir = (cameraFollowPosition - transform.position).normalized;
         float distance = Vector3.Distance(cameraFollowPosition, transform.position);
-        float cameraMoveSpeed = 1f;
+        float cameraMoveSpeed = 2f;
 
         transform.position = transform.position + cameraMoveDir * distance * cameraMoveSpeed * Time.deltaTime;
     }

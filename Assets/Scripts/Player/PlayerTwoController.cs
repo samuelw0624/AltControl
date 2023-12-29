@@ -105,10 +105,14 @@ public class PlayerTwoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Timer.instance.gameStart)
+        {
+            SpeedAdjust();
+            LadderRotate();
+            LadderHight();
+        }
 
-        SpeedAdjust();
-        LadderRotate();
-        LadderHight();
+
         //EventTrigger();
        
       
@@ -129,11 +133,15 @@ public class PlayerTwoController : MonoBehaviour
         //ladder movement at axis.x
         //ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
 
-        LadderHeightSwitch();
-        MoveHorizontally();
+        if (Timer.instance.gameStart)
+        {
+            LadderHeightSwitch();
+            MoveHorizontally();
 
-        RandomTilt();
-        SetCurrentState();
+            RandomTilt();
+            SetCurrentState();
+        }
+
         //WindStart();
 
     }

@@ -64,7 +64,9 @@ public class PlayerOneController : MonoBehaviour
     //light emission control variables
     LightControl lightcontrolRef;
     AudioSource repairAudio;
+    [SerializeField]
     public AudioClip repairClip;
+
 
     //follow ladder position
     public Transform[] target;
@@ -149,45 +151,54 @@ public class PlayerOneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckLeftHand();
-        CheckRightHand();
+        if (Timer.instance.gameStart)
+        {
+            CheckLeftHand();
+            CheckRightHand();
 
-        CheckLeftRail();
-        CheckRightRail();
+            CheckLeftRail();
+            CheckRightRail();
 
-        UpdateClosestSpot();
+            UpdateClosestSpot();
 
-        SlideDown();
+            SlideDown();
 
-        //FollowLadder();
+            //FollowLadder();
 
-        DetectPlayerPosition();
-        DetectReachMaxHeight();
+            DetectPlayerPosition();
+            DetectReachMaxHeight();
 
-        ConfineLadderHeight();
-        Warn();
+            ConfineLadderHeight();
+            Warn();
+        }
+
     }
 
     private void FixedUpdate()
     {
-        var keyboard = Keyboard.current;
-        //check if there is a keyboard
-        if (keyboard == null)
+        if (Timer.instance.gameStart)
         {
-            return;
+            var keyboard = Keyboard.current;
+            //check if there is a keyboard
+            if (keyboard == null)
+            {
+                return;
+            }
+
+            if (!leftHandOffLadder && !rightHandOffLadder && gameStart1 && gameStart2)
+            {
+                gameOver = false;
+
+            }
+            else if (leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
+            {
+                handsOff = true;
+                //SceneManager.LoadScene("GameOver");
+            }
+
+            ClimbUp();
         }
 
-        if (!leftHandOffLadder && !rightHandOffLadder && gameStart1 && gameStart2)
-        {
-            gameOver = false;
-
-        }else if(leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
-        {
-            handsOff = true;
-            //SceneManager.LoadScene("GameOver");
-        }
-
-        ClimbUp();
     }
     #endregion
 
@@ -599,6 +610,7 @@ public class PlayerOneController : MonoBehaviour
         if (closestSpot != null && (leftHandOffLadder || rightHandOffLadder))
         {
             repairAudio.PlayOneShot(repairClip);
+
             //change fix status in light control ref
             lightcontrolRef.isFixed = true;
             //removed the closest sign that was just fixed
@@ -796,7 +808,7 @@ public class PlayerOneController : MonoBehaviour
                 //Debug.Log("Game Over - HandsOff");
                 gameOver = true;
                 handsOff = false;
-                warningTimer = timerValue;
+                //warningTimer = timerValue;
                 SceneManager.LoadScene("GameOver");
             }else if (!leftHandOffLadder || !rightHandOffLadder)
             {

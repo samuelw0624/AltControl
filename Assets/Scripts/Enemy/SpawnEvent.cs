@@ -28,12 +28,16 @@ public class SpawnEvent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isSpawned)
+        if (Timer.instance.gameStart)
         {
-        
-            StartCoroutine(RandomValue());
-            StartCoroutine(Spawn());
+            if (!isSpawned)
+            {
+
+                StartCoroutine(RandomValue());
+                StartCoroutine(Spawn());
+            }
         }
+
 
 
         //spawn randomly within the game range
