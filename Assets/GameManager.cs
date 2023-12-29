@@ -86,4 +86,6 @@ public class GameManager : MonoBehaviour
         shopUI2.SetActive(false);
         inShop = false;
     }
+
+
 }
