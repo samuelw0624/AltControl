@@ -8,6 +8,12 @@ using UnityEngine.InputSystem;
 public class SceneTransitionManager : MonoBehaviour
 {
     Scene currentScene;
+    AudioSource startSound;
+
+    private void Start()
+    {
+        startSound = this.GetComponent<AudioSource>();
+    }
     private void Update()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -15,7 +21,8 @@ public class SceneTransitionManager : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha9))
             {
-                LoadMainGame();
+                startSound.Play();
+                StartCoroutine(StartLoading());
             }
         }
         if (currentScene.name == "GameOver")
@@ -25,6 +32,12 @@ public class SceneTransitionManager : MonoBehaviour
                 RestartGame();
             }
         }
+    }
+
+    IEnumerator StartLoading()
+    {
+        yield return new WaitForSeconds(1.5f);
+        LoadMainGame();
     }
     public void LoadMainGame()
     {

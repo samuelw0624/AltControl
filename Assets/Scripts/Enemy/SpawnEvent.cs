@@ -8,9 +8,15 @@ public class SpawnEvent : MonoBehaviour
     public GameObject player1;
     float randX, randY;
     Vector2 SpawnLocation;
-    public float spawnRate = 2;
+    [SerializeField]
+    private float spawnRate;
+    [SerializeField]
     float nextSpawn = 0.0f;
+    [SerializeField]
     bool isSpawned = false;
+    [SerializeField]
+    private float startSpawn;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +30,7 @@ public class SpawnEvent : MonoBehaviour
     {
         if (!isSpawned)
         {
+        
             StartCoroutine(RandomValue());
             StartCoroutine(Spawn());
         }
@@ -45,19 +52,27 @@ public class SpawnEvent : MonoBehaviour
 
     IEnumerator Spawn()
     {
-        //Kite spawns around player
-        nextSpawn = Time.time + spawnRate;
-        randY = Random.Range(8,15);
-        Vector2 playerDire = player1.transform.position;
-        SpawnLocation = new Vector2(randX + playerDire.x, randY);
-        Instantiate(kite, SpawnLocation, Quaternion.identity);
-        isSpawned = true;
-        yield return new WaitForSeconds(5);
-        if(GameObject.FindWithTag("Kite") != null)
+        if(startSpawn > nextSpawn)
         {
-            Destroy(GameObject.FindWithTag("Kite"));
+            //Kite spawns around player
+            nextSpawn = Time.time + spawnRate;
+            randY = Random.Range(8, 15);
+            Vector2 playerDire = player1.transform.position;
+            SpawnLocation = new Vector2(randX + playerDire.x, randY);
+            Instantiate(kite, SpawnLocation, Quaternion.identity);
+            isSpawned = true;
+            yield return new WaitForSeconds(10);
+            if (GameObject.FindWithTag("Kite") != null)
+            {
+                Destroy(GameObject.FindWithTag("Kite"));
+            }
+            isSpawned = false;
         }
-        isSpawned = false;
+        else
+        {
+            startSpawn += Time.deltaTime;
+        }
+
     }
 
     IEnumerator RandomValue()
