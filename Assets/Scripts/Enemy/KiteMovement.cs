@@ -64,22 +64,21 @@ public class KiteMovement : MonoBehaviour
         //Apply movement to the RB
         //transform.Translate(Vector2.left * movingForwardSpeed * Time.deltaTime, Space.Self);
         //rb.AddForce(movement * maxSpeed);
-
-
-
-
+        angle += speed * Time.deltaTime;
+        Vector3 direction = player.position - this.transform.position;
+        direction = Quaternion.Euler(0, 0, 60) * direction;
+        float distanceThisFrame = speed * Time.deltaTime;
+        transform.Translate(direction.normalized * distanceThisFrame, Space.World);
 
     }
 
     private void LateUpdate()
     {
 
-        angle += speed * Time.deltaTime;
-        Vector3 direction = player.position - this.transform.position;
-        direction = Quaternion.Euler(0, 0, 60) * direction;
-        float distanceThisFrame = speed * Time.deltaTime;
-        transform.Translate(direction.normalized * distanceThisFrame, Space.World);
+
     }
+
+
 
 
 }
