@@ -112,10 +112,22 @@ public class Timer : MonoBehaviour
             p1Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
             p2Slider.value = sliderTimer;
             p2Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
+
+            if (KiteEffect.instance.kiteAttack)
+            {
+                AddTimer();
+            }
             p1Text.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
             p2Text.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
         }
 
+    }
+
+
+    public void AddTimer()
+    {
+        sliderTimer += 5f;
+        KiteEffect.instance.kiteAttack = false;
     }
 
     IEnumerator StartTimer()

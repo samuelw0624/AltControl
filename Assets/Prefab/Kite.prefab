@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 6880566111548765256}
   - component: {fileID: -2700006005444665057}
   - component: {fileID: 3170705592649806077}
-  - component: {fileID: 1489455114810366282}
   - component: {fileID: 3329125486212471015}
   m_Layer: 0
-  m_Name: kite
+  m_Name: Kite
   m_TagString: Kite
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,18 +155,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.8856587, y: 6.479155}
   m_EdgeRadius: 0
---- !u!114 &1489455114810366282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6880566111548765262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf08a170f9d31146ac8f4112bea91bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &3329125486212471015
 AudioSource:
   m_ObjectHideFlags: 0

@@ -54,7 +54,7 @@ public class ScoreManager : MonoBehaviour
         score -= value;
         scorePlayer1.text = "Coin:" + score.ToString();
         scorePlayer2.text = "Coin:" + score.ToString();
-        source.PlayOneShot(coinLosted);
+        //source.PlayOneShot(coinLosted);
         Debug.Log("Coin - 3");
     }
     #endregion

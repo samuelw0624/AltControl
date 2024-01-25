@@ -16,8 +16,7 @@ public class SpawnEvent : MonoBehaviour
     bool isSpawned = false;
     [SerializeField]
     private float startSpawn;
-    [SerializeField]
-    private AudioSource kiteBreakingSound;
+
 
 
     // Start is called before the first frame update
@@ -70,7 +69,7 @@ public class SpawnEvent : MonoBehaviour
             yield return new WaitForSeconds(10);
             if (GameObject.FindWithTag("Kite") != null)
             {
-                kiteBreakingSound.Play();
+                
                 Destroy(GameObject.FindWithTag("Kite"));
 
             }
