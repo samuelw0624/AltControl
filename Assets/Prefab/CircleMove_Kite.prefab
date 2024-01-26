@@ -71,6 +71,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8152168865639638861}
     m_Modifications:
+    - target: {fileID: 3170705592649806077, guid: 0eaf41f80db5ff442a6d620cffe488a6, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 10.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170705592649806077, guid: 0eaf41f80db5ff442a6d620cffe488a6, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 8.99
+      objectReference: {fileID: 0}
     - target: {fileID: 6880566111548765257, guid: 0eaf41f80db5ff442a6d620cffe488a6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -115,6 +123,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6880566111548765259, guid: 0eaf41f80db5ff442a6d620cffe488a6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 42c2018de1a33e04085296186661cbe8, type: 3}
     - target: {fileID: 6880566111548765262, guid: 0eaf41f80db5ff442a6d620cffe488a6, type: 3}
       propertyPath: m_Name
       value: Kite
@@ -141,6 +153,26 @@ MonoBehaviour:
   rotationCenter: {fileID: 8152168866612733707}
   rotationRadius: 5
   angularSpeed: 1.2
+--- !u!95 &6035607972298641688
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3341385085446287898}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc8be74ced2e1e943b7590f9e43ec81f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &3341385085446287901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6880566111548765257, guid: 0eaf41f80db5ff442a6d620cffe488a6, type: 3}
