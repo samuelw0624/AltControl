@@ -9,7 +9,7 @@ using TMPro;
 
 public class PlayerOneController : MonoBehaviour
 {
-    public static PlayerOneController instance {get; private set;}
+    public static PlayerOneController instance { get; private set; }
     //reference variables
     Rigidbody playerRb;
     GameObject ladder;
@@ -41,7 +41,7 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField] float moveOriSpeed = 5;
     [SerializeField] float moveSlowSpeed = 3;
     //slide varibales
-    bool slideCountDown;
+    [SerializeField] bool slideCountDown;
     //timer varibale used to store how much time had passed
     float timer;
     //slideHoldTime is a constant of how many seconds the player must hold the position
@@ -126,7 +126,7 @@ public class PlayerOneController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-     
+
     }
 
     // Start is called before the first frame update
@@ -165,7 +165,7 @@ public class PlayerOneController : MonoBehaviour
 
             //FollowLadder();
 
-            DetectPlayerPosition();
+            //DetectPlayerPosition();
             DetectReachMaxHeight();
 
             ConfineLadderHeight();
@@ -254,7 +254,7 @@ public class PlayerOneController : MonoBehaviour
      */
     void CheckLeftRail()
     {
-        if(!gameOver)
+        if (!gameOver)
         {
             if (Keyboard.current[Key.T].wasPressedThisFrame)
             {
@@ -282,7 +282,7 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckRightRail()
     {
-        if(!gameOver)
+        if (!gameOver)
         {
             if (Keyboard.current[Key.O].wasPressedThisFrame)
             {
@@ -353,14 +353,21 @@ public class PlayerOneController : MonoBehaviour
     {
         if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !reachMax1 && !reachMax2 && !reachMax3 && !reachMax4 && !reachMax5)
         {
-            if (leftBoolArray[0] && rightBoolArray[4] )
+            if (leftBoolArray[0] && rightBoolArray[4])
             {
                 //StartCoroutine(MoveToNewPos(NewPosition()));
                 MovePlayer();
                 performed04 = true;
                 performed40 = false;
             }
+            else if (!leftBoolArray[0] || !rightBoolArray[4])
+            {
+                isMoving = false;
+                anim.SetFloat("moveSpeed", 0);
+
+            }
         }
+
 
         if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !reachMax1 && !reachMax2 && !reachMax3 && !reachMax4 && !reachMax5)
         {
@@ -371,16 +378,28 @@ public class PlayerOneController : MonoBehaviour
                 performed40 = true;
                 performed04 = false;
             }
+            else if (!leftBoolArray[4] || !rightBoolArray[0])
+            {
+                isMoving = false;
+                anim.SetFloat("moveSpeed", 0);
+            }
         }
+
+        if (leftHandOffLadder || rightHandOffLadder || reachMax1 || reachMax2 || reachMax3 || reachMax4 || reachMax5)
+        {
+            isMoving = false;
+            anim.SetFloat("moveSpeed", 0);
+        }
+
     }
 
     void SlideDown()
     {
         Vector3 newLocalPos1 = this.transform.localPosition;
-        Debug.Log(newLocalPos1);
+        //Debug.Log(newLocalPos1);
 
         //at hand position 2,2, start slideCoundDown
-        if (leftBoolArray[2] && rightBoolArray[2] && !slideCountDown)
+        if (leftBoolArray[4] && rightBoolArray[4] && !slideCountDown)
         {
             slideCountDown = true;
             timer = 0f;
@@ -392,7 +411,7 @@ public class PlayerOneController : MonoBehaviour
         }
 
         //enable modified gravity when hold threashold is reached
-        if (leftBoolArray[2] && rightBoolArray[2] && timer >= slideHoldTime)
+        if (leftBoolArray[4] && rightBoolArray[4] && timer >= slideHoldTime)
         {
             Vector3 newLocalPos = this.transform.localPosition;
             newLocalPos.y -= (moveSpeed * 0.1f) * Time.deltaTime;
@@ -404,7 +423,7 @@ public class PlayerOneController : MonoBehaviour
                 return; // Exit the function early
             }
         }
-        else if (!leftBoolArray[2] || !rightBoolArray[2])
+        else if (!leftBoolArray[4] || !rightBoolArray[4])
         {
             StopSlide();
             UpdateClosestSpot();
@@ -450,9 +469,12 @@ public class PlayerOneController : MonoBehaviour
 
     void MovePlayer()
     {
-        anim.SetBool("isMoving", true);
+        //anim.SetBool("isMoving", true);
         isMoving = true;
+        print("isMoving" + isMoving);
         MoveSpeedControl();
+        anim.SetFloat("moveSpeed", moveOriSpeed);
+
         Vector3 newLocalPos = this.transform.localPosition;
         newLocalPos.y += moveSpeed * Time.deltaTime;
         this.transform.localPosition = newLocalPos;
@@ -660,60 +682,60 @@ public class PlayerOneController : MonoBehaviour
     #endregion
 
     #region Height confine
-    void DetectPlayerPosition()
-    {
-        if (this.transform.position.y <= target[0].transform.position.y && player2.numOfLadder ==1)
-        {
-            num = 0;
-            reachMax2 = false;
-            reachMax3 = false;
-            reachMax4 = false;
-            reachMax5 = false;
-            //Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[0].transform.position.y);
+    //void DetectPlayerPosition()
+    //{
+    //    if (this.transform.position.y <= target[0].transform.position.y && player2.numOfLadder ==1)
+    //    {
+    //        //num = 0;
+    //        reachMax2 = false;
+    //        reachMax3 = false;
+    //        reachMax4 = false;
+    //        reachMax5 = false;
+    //        //Debug.Log("num = " + num);
+    //        //Debug.Log("targerPosition = " + target[0].transform.position.y);
 
-        }
-        else if (this.transform.position.y > target[0].transform.position.y && this.transform.position.y <= target[1].transform.position.y - offset && player2.numOfLadder == 2)
-        {
-            num = 1;
-            reachMax1 = false;
-            reachMax3 = false;
-            reachMax4 = false;
-            reachMax5 = false;
-            //Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[1]);
-        }
-        else if (this.transform.position.y > target[1].transform.position.y && this.transform.position.y <= target[2].transform.position.y - offset && player2.numOfLadder == 3)
-        {
-            num = 2;
-            reachMax1 = false;
-            reachMax2 = false;
-            reachMax4 = false;
-            reachMax5 = false;
-            //Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[2]);
-        }
-        else if (this.transform.position.y > target[2].transform.position.y && this.transform.position.y <= target[3].transform.position.y - offset && player2.numOfLadder == 4)
-        {
-            num = 3;
-            reachMax1 = false;
-            reachMax2 = false;
-            reachMax3 = false;
-            reachMax5 = false;
-            Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[3]);
-        }
-        else if (this.transform.position.y > target[3].transform.position.y && this.transform.position.y <= target[4].transform.position.y - offset && player2.numOfLadder == 5)
-        {
-            num = 4;
-            reachMax1 = false;
-            reachMax2 = false;
-            reachMax3 = false;
-            reachMax4 = false;
-            //Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[4]);
-        }
-    }
+    //    }
+    //    else if (this.transform.position.y > target[0].transform.position.y && this.transform.position.y <= target[1].transform.position.y - offset && player2.numOfLadder == 2)
+    //    {
+    //        //num = 1;
+    //        reachMax1 = false;
+    //        reachMax3 = false;
+    //        reachMax4 = false;
+    //        reachMax5 = false;
+    //        //Debug.Log("num = " + num);
+    //        //Debug.Log("targerPosition = " + target[1]);
+    //    }
+    //    else if (this.transform.position.y > target[1].transform.position.y && this.transform.position.y <= target[2].transform.position.y - offset && player2.numOfLadder == 3)
+    //    {
+    //        //num = 2;
+    //        reachMax1 = false;
+    //        reachMax2 = false;
+    //        reachMax4 = false;
+    //        reachMax5 = false;
+    //        //Debug.Log("num = " + num);
+    //        //Debug.Log("targerPosition = " + target[2]);
+    //    }
+    //    else if (this.transform.position.y > target[2].transform.position.y && this.transform.position.y <= target[3].transform.position.y - offset && player2.numOfLadder == 4)
+    //    {
+    //        //num = 3;
+    //        reachMax1 = false;
+    //        reachMax2 = false;
+    //        reachMax3 = false;
+    //        reachMax5 = false;
+    //        Debug.Log("num = " + num);
+    //        //Debug.Log("targerPosition = " + target[3]);
+    //    }
+    //    else if (this.transform.position.y > target[3].transform.position.y && this.transform.position.y <= target[4].transform.position.y - offset && player2.numOfLadder == 5)
+    //    {
+    //        //num = 4;
+    //        reachMax1 = false;
+    //        reachMax2 = false;
+    //        reachMax3 = false;
+    //        reachMax4 = false;
+    //        //Debug.Log("num = " + num);
+    //        //Debug.Log("targerPosition = " + target[4]);
+    //    }
+    //}
 
 
     void DetectReachMaxHeight()
@@ -721,75 +743,96 @@ public class PlayerOneController : MonoBehaviour
         if (this.transform.position.y >= target[0].transform.position.y && player2.numOfLadder == 1)
         {
             reachMax1 = true;
-            //Debug.Log("reachMax1: " + reachMax1);
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax4 = false;
+            reachMax5 = false;
 
         }
         else if (this.transform.position.y >= target[1].transform.position.y && player2.numOfLadder == 2)
         {
+            reachMax1 = false;
             reachMax2 = true;
-            //Debug.Log("reachMax2: " + reachMax2);
+            reachMax3 = false;
+            reachMax4 = false;
+            reachMax5 = false;
+
         }
         else if (this.transform.position.y >= target[2].transform.position.y && player2.numOfLadder == 3) 
         {
             reachMax3 = true;
-            //Debug.Log("reachMax3: " + reachMax3);
+            reachMax1 = false;
+            reachMax2 = false;
+            reachMax4 = false;
+            reachMax5 = false;
+
         }
         else if (this.transform.position.y >= target[3].transform.position.y && player2.numOfLadder == 4)
         {
             reachMax4 = true;
-            //Debug.Log("reachMax4: " + reachMax4);
+            reachMax1 = false;
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax5 = false;
+
         }
         else if (this.transform.position.y >= target[4].transform.position.y && player2.numOfLadder == 5)
         {
             reachMax5 = true;
-            //Debug.Log("reachMax5: " + reachMax5);
+            reachMax1 = false;
+            reachMax2 = false;
+            reachMax3 = false;
+            reachMax4 = false;
+
         }
     }
     #endregion
 
     void ConfineLadderHeight()
     {
-        float offSet = - 0.1f;
-        if (num > 0 && transform.position.y > target[0].transform.position.y && player2.numOfLadder == 1)
+        float offSet = -0f;
+        num = player2.numOfLadder - 1;
+        if (num == 0 && transform.position.y > target[0].transform.position.y && player2.numOfLadder == 1)
         {
             Vector3 charPos = target[0].transform.position;
-            charPos.x = target[0].transform.position.x - offSet;
-            charPos.y = target[0].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            //charPos.x = target[0].transform.position.x - offSet;
+            charPos.y = target[0].transform.position.y - offSet;
+            //charPos.z = target[0].transform.position.z + offSet;
             transform.position = charPos;
         } 
-        else if(num > 1 && transform.position.y > target[1].transform.position.y && player2.numOfLadder == 2)
+        else if(num == 1 && transform.position.y > target[1].transform.position.y && player2.numOfLadder == 2)
         {
             Vector3 charPos = target[1].transform.position;
-            charPos.x = target[1].transform.position.x - offSet; 
-            charPos.y = target[1].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            //charPos.x = target[1].transform.position.x - offSet; 
+            charPos.y = target[1].transform.position.y - offSet;
+            //charPos.z = target[0].transform.position.z + offSet;
             transform.position = charPos;
         }
-        else if (num > 2 && transform.position.y > target[2].transform.position.y && player2.numOfLadder == 3)
+        else if (num == 2 && transform.position.y > target[2].transform.position.y && player2.numOfLadder == 3)
         {
             Vector3 charPos = target[2].transform.position;
-            charPos.x = target[2].transform.position.x - offSet;
-            charPos.y = target[2].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            //charPos.x = target[2].transform.position.x - offSet;
+            charPos.y = target[2].transform.position.y - offSet;
+            //charPos.z = target[0].transform.position.z + offSet;
             transform.position = charPos;
         }
-        else if (num > 3 && transform.position.y > target[3].transform.position.y && player2.numOfLadder == 4)
+        else if (num == 3 && transform.position.y > target[3].transform.position.y && player2.numOfLadder == 4)
         {
             Vector3 charPos = target[3].transform.position;
-            charPos.x = target[3].transform.position.x - offSet;
-            charPos.y = target[3].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            //charPos.x = target[3].transform.position.x - offSet;
+            charPos.y = target[3].transform.position.y - offSet;
+            //charPos.z = target[0].transform.position.z + offSet;
             transform.position = charPos;
         }
-        else if (num > 4 && transform.position.y > target[4].transform.position.y && player2.numOfLadder == 5)
+        else if (num == 4 && transform.position.y > target[4].transform.position.y && player2.numOfLadder == 5)
         {
             Vector3 charPos = target[4].transform.position;
-            charPos.x = target[4].transform.position.x - offSet;
-            charPos.y = target[4].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            //charPos.x = target[4].transform.position.x - offSet;
+            charPos.y = target[4].transform.position.y - offSet;
+            //charPos.z = target[0].transform.position.z + offSet;
             transform.position = charPos;
         }
+
     }
 
 
