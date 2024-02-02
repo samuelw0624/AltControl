@@ -154,7 +154,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.DefaultCompany.SkyRepair
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -272,7 +273,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 35a012f906f40ed41882b9f13bc364f2, type: 3}
+      m_Icon: {fileID: 2800000, guid: a1778d45b2eedd04a9dad00d35f08f1c, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

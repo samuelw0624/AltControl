@@ -26,9 +26,9 @@ public class KiteEffect : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Kite"))
         {
-            kiteBreakingSound.Play();
-            ScoreManager.instance.ReducePoint(3);
-            Destroy(collision.gameObject);
+            //kiteBreakingSound.Play();
+            //ScoreManager.instance.ReducePoint(3);
+            //Destroy(collision.gameObject);
             Debug.Log("CollisionwithKite");
 
             kiteAttack = true;
