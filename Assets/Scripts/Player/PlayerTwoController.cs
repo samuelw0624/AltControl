@@ -337,12 +337,12 @@ public class PlayerTwoController : MonoBehaviour
         {
             if (numOfLadder == 1)
             {
-                currentSpeed = 1;
+                currentSpeed = 3;
                 LadderTilt(currentSpeed);
             }
             else if (numOfLadder == 2)
             {
-                currentSpeed = 3;
+                currentSpeed = 4;
                 LadderTilt(currentSpeed);
             }
             else if (numOfLadder == 3)
@@ -365,12 +365,12 @@ public class PlayerTwoController : MonoBehaviour
         {
             if (numOfLadder == 1)
             {
-                currentSpeed = 1;
+                currentSpeed = 3;
                 LadderTilt(-currentSpeed);
             }
             else if (numOfLadder == 2)
             {
-                currentSpeed = 3;
+                currentSpeed = 4;
                 LadderTilt(-currentSpeed);
             }
             else if (numOfLadder == 3)
@@ -394,12 +394,12 @@ public class PlayerTwoController : MonoBehaviour
         {
             if (numOfLadder == 1)
             {
-                currentSpeed = 1;
+                currentSpeed = 3;
                 LadderTilt(currentSpeed);
             }
             else if (numOfLadder == 2)
             {
-                currentSpeed = 3;
+                currentSpeed = 4;
                 LadderTilt(currentSpeed);
             }
             else if (numOfLadder == 3)
@@ -422,12 +422,12 @@ public class PlayerTwoController : MonoBehaviour
         {
             if (numOfLadder == 1)
             {
-                currentSpeed = 1;
+                currentSpeed = 3;
                 LadderTilt(-currentSpeed);
             }
             else if (numOfLadder == 2)
             {
-                currentSpeed = 3;
+                currentSpeed = 4;
                 LadderTilt(-currentSpeed);
             }
             else if (numOfLadder == 3)
