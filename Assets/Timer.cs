@@ -27,6 +27,10 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private TMP_Text p2Text;
     [SerializeField]
+    private Text startTimer1;
+    [SerializeField]
+    private Text startTimer2;
+    [SerializeField]
     public bool gameStart;
     [SerializeField]
     private TMP_Text startTimerText1;
@@ -124,6 +128,8 @@ public class Timer : MonoBehaviour
             }
             p1Text.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
             p2Text.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
+            //startTimer1.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
+            //startTimer2.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
         }
 
     }
@@ -156,8 +162,8 @@ public class Timer : MonoBehaviour
             p2StartTimer.SetActive(true);
             //startTimer = timerValue;
 
-            startTimerText1.text = (startTimer).ToString("0");
-            startTimerText2.text = (startTimer).ToString("0");
+            startTimer1.text = (startTimer).ToString("0");
+            startTimer2.text = (startTimer).ToString("0");
             if (startTimer <= 0)
             {
                 p1StartTimer.SetActive(false);

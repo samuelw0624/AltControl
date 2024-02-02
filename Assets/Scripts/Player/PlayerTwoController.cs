@@ -151,24 +151,44 @@ public class PlayerTwoController : MonoBehaviour
     void LadderHight()
     {
         // five stages of ladder heitgh adjustment
-        if (Keyboard.current[Key.Z].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Z].wasPressedThisFrame)   
+        //{
+        //    numOfLadder = 5;
+        //}
+        //else if (Keyboard.current[Key.X].wasPressedThisFrame)
+        //{
+        //    numOfLadder = 4;
+        //}
+        //else if (Keyboard.current[Key.C].wasPressedThisFrame)
+        //{
+        //    numOfLadder = 3;
+        //}
+        //else if (Keyboard.current[Key.V].wasPressedThisFrame)
+        //{
+        //    numOfLadder = 2;
+        //}
+        //else if (Keyboard.current[Key.Space].wasPressedThisFrame)
+        //{
+        //    numOfLadder = 1;
+        //}
+        if(Input.GetKey(KeyCode.Z))
         {
             numOfLadder = 5;
         }
-        else if (Keyboard.current[Key.X].wasPressedThisFrame)
+        else if (Input.GetKey(KeyCode.X))
         {
             numOfLadder = 4;
         }
-        else if (Keyboard.current[Key.C].wasPressedThisFrame)
+        else if (Input.GetKey(KeyCode.C))
         {
             numOfLadder = 3;
         }
-        else if (Keyboard.current[Key.V].wasPressedThisFrame)
+        else if (Input.GetKey(KeyCode.V))
         {
             numOfLadder = 2;
         }
-        else if (Keyboard.current[Key.Space].wasPressedThisFrame)
-        {
+        else if(Input.GetKey(KeyCode.Space))
+            {
             numOfLadder = 1;
         }
         //this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
@@ -226,7 +246,8 @@ public class PlayerTwoController : MonoBehaviour
     void SpeedAdjust()
     {
         // three levels of speed: slow, normal, fast
-        if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
+        if(Input.GetKey(KeyCode.Alpha1))
         {
             moveLeft = true;
             moveLadderSpeed = 3f;
@@ -236,7 +257,8 @@ public class PlayerTwoController : MonoBehaviour
 
 
         }
-        if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha2))
         {
             moveLeft = true;
             moveLadderSpeed = 1f;
@@ -246,7 +268,8 @@ public class PlayerTwoController : MonoBehaviour
 
 
         }
-        if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha3))
         {
             moveLeft = false;
             moveRight = false;
@@ -260,7 +283,8 @@ public class PlayerTwoController : MonoBehaviour
 
 
         }
-        if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha4))
         {
             moveRight = true;
             moveLadderSpeed = 1f;
@@ -270,7 +294,8 @@ public class PlayerTwoController : MonoBehaviour
 
 
         }
-        if (Keyboard.current[Key.Digit5].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit5].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha5))
         {
             moveRight = true;
             moveLadderSpeed = 3f;
@@ -301,7 +326,9 @@ public class PlayerTwoController : MonoBehaviour
 
     void LadderRotate()
     {
-        if (Keyboard.current[Key.E].wasPressedThisFrame)
+
+        //if (Keyboard.current[Key.E].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.E))
         {
             rotateLeft = true;
             rotateRight = false;
@@ -309,8 +336,8 @@ public class PlayerTwoController : MonoBehaviour
             rightRotation.color = releaseColor;
         }
 
-
-        if (Keyboard.current[Key.Q].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Q].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Q))
         {
             rotateRight = true;
             rotateLeft = false;

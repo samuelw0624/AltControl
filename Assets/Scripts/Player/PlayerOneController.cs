@@ -221,7 +221,8 @@ public class PlayerOneController : MonoBehaviour
         {
             leftHandOffLadder = false;
         }
-        if (Keyboard.current[Key.A].wasPressedThisFrame && !leftHandOffLadder)
+        //if (Keyboard.current[Key.A].wasPressedThisFrame && !leftHandOffLadder)
+        if(Input.GetKey(KeyCode.A) && !leftHandOffLadder)
         {
             leftHandOffLadder = true;
             ResetLeftBool();
@@ -243,7 +244,8 @@ public class PlayerOneController : MonoBehaviour
         {
             rightHandOffLadder = false;
         }
-        if (Keyboard.current[Key.D].wasPressedThisFrame && !rightHandOffLadder)
+        //if (Keyboard.current[Key.D].wasPressedThisFrame && !rightHandOffLadder)
+        if(Input.GetKey(KeyCode.D) && !rightHandOffLadder)
         {
             rightHandOffLadder = true;
             ResetRightBool();
@@ -257,23 +259,43 @@ public class PlayerOneController : MonoBehaviour
     {
         if (!gameOver)
         {
-            if (Keyboard.current[Key.T].wasPressedThisFrame)
+            //if (Keyboard.current[Key.T].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(0);
+            //}
+            //if (Keyboard.current[Key.Y].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(1);
+            //}
+            //if (Keyboard.current[Key.G].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(2);
+            //}
+            //if (Keyboard.current[Key.H].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(3);
+            //}
+            //if (Keyboard.current[Key.B].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(4);
+            //}
+            if (Input.GetKey(KeyCode.T))
             {
                 ResetLeftBool(0);
             }
-            if (Keyboard.current[Key.Y].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.Y))
             {
                 ResetLeftBool(1);
             }
-            if (Keyboard.current[Key.G].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.G))
             {
                 ResetLeftBool(2);
             }
-            if (Keyboard.current[Key.H].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.H))
             {
                 ResetLeftBool(3);
             }
-            if (Keyboard.current[Key.B].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.B))
             {
                 ResetLeftBool(4);
             }
@@ -285,23 +307,43 @@ public class PlayerOneController : MonoBehaviour
     {
         if (!gameOver)
         {
-            if (Keyboard.current[Key.O].wasPressedThisFrame)
+            //if (Keyboard.current[Key.O].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(0);
+            //}
+            //if (Keyboard.current[Key.I].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(1);
+            //}
+            //if (Keyboard.current[Key.K].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(2);
+            //}
+            //if (Keyboard.current[Key.J].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(3);
+            //}
+            //if (Keyboard.current[Key.M].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(4);
+            //}
+            if (Input.GetKey(KeyCode.O))
             {
                 ResetRightBool(0);
             }
-            if (Keyboard.current[Key.I].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.I))
             {
                 ResetRightBool(1);
             }
-            if (Keyboard.current[Key.K].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.K))
             {
                 ResetRightBool(2);
             }
-            if (Keyboard.current[Key.J].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.J))
             {
                 ResetRightBool(3);
             }
-            if (Keyboard.current[Key.M].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.M))
             {
                 ResetRightBool(4);
             }
@@ -326,6 +368,8 @@ public class PlayerOneController : MonoBehaviour
         {
             leftBoolArray[i] = (i == toSetTrue);
             leftPosUIArray[i].SetActive(i != toSetTrue);
+
+
         }
     }
 
@@ -344,6 +388,8 @@ public class PlayerOneController : MonoBehaviour
         {
             rightBoolArray[i] = (i == toSetTrue);
             rightPoseUIArray[i].SetActive(i != toSetTrue);
+
+
         }
     }
     #endregion
