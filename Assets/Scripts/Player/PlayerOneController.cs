@@ -314,7 +314,7 @@ public class PlayerOneController : MonoBehaviour
         for (int i = 0; i < leftBoolArray.Length; i++)
         {
             leftBoolArray[i] = false;
-            leftPosUIArray[i].SetActive(true);
+            //leftPosUIArray[i].SetActive(true);
         }
     }
     /*overload function of ResetLeftBool(), each step set the value of index i
@@ -334,7 +334,7 @@ public class PlayerOneController : MonoBehaviour
         for (int i = 0; i < rightBoolArray.Length; i++)
         {
             rightBoolArray[i] = false;
-            rightPoseUIArray[i].SetActive(true);
+            //rightPoseUIArray[i].SetActive(true);
         }
     }
     //same as the ResetLeftBool
@@ -417,9 +417,9 @@ public class PlayerOneController : MonoBehaviour
             Vector3 newLocalPos = this.transform.localPosition;
             newLocalPos.y -= (moveSpeed * 0.1f) * Time.deltaTime;
             this.transform.localPosition = newLocalPos;
-            if (newLocalPos.y <= 0.04f)
+            if (newLocalPos.y <= 0.045f)
             {
-                newLocalPos.y = 0.04f;
+                newLocalPos.y = 0.045f;
                 StopSlide();
                 return; // Exit the function early
             }
