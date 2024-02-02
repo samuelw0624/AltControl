@@ -18,7 +18,8 @@ public class PlayerOneController : MonoBehaviour
     bool leftHandOffLadder = true;
     bool rightHandOffLadder = true;
     //checks if the player grabbed the ladder for the frst time
-    bool gameStart1, gameStart2, gameOver;
+    [SerializeField]
+    public bool gameStart1, gameStart2, gameOver, isDead;
 
     /*rail spot booleans, 5 spots on each side, 0 = uppper most position, 4 = lower most position 
     */
@@ -864,6 +865,11 @@ public class PlayerOneController : MonoBehaviour
        
         p1Text.text = (warningTimer).ToString("0");
         p2Text.text = (warningTimer).ToString("0");
+
+        if (isDead)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
     #endregion
 }

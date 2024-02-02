@@ -43,6 +43,9 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private AudioSource audio;
 
+    [SerializeField]
+    private GameObject clock;
+
 
     // Start is called before the first frame update
     void Start()
@@ -97,7 +100,9 @@ public class Timer : MonoBehaviour
 
     void StartTimerAction()
     {
+
         StartCoroutine(StartTimerTicker());
+
     }
 
     IEnumerator StartTimerTicker()
@@ -128,7 +133,16 @@ public class Timer : MonoBehaviour
     {
         sliderTimer += 5f;
         KiteEffect.instance.kiteAttack = false;
+        StartCoroutine(ClockEffect());
+        
     }
+    IEnumerator ClockEffect()
+    {
+        clock.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        clock.SetActive(false);
+    }
+
 
     IEnumerator StartTimer()
     {
