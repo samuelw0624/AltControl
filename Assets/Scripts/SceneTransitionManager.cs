@@ -29,7 +29,9 @@ public class SceneTransitionManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha9))
             {
-                RestartGame();
+                //RestartGame();
+                startSound.Play();
+                StartCoroutine(StartLoading());
             }
         }
     }

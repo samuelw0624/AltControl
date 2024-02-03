@@ -29,7 +29,11 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private Text startTimer1;
     [SerializeField]
+    private Text startTimer3;
+    [SerializeField]
     private Text startTimer2;
+    [SerializeField]
+    private Text startTimer4;
     [SerializeField]
     public bool gameStart;
     [SerializeField]
@@ -164,6 +168,9 @@ public class Timer : MonoBehaviour
 
             startTimer1.text = (startTimer).ToString("0");
             startTimer2.text = (startTimer).ToString("0");
+            startTimer3.text = (startTimer).ToString("0");
+            startTimer4.text = (startTimer).ToString("0");
+            
             if (startTimer <= 0)
             {
                 p1StartTimer.SetActive(false);
