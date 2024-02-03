@@ -188,7 +188,7 @@ public class PlayerTwoController : MonoBehaviour
             numOfLadder = 2;
         }
         else if(Input.GetKey(KeyCode.Space))
-            {
+        {
             numOfLadder = 1;
         }
         //this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
