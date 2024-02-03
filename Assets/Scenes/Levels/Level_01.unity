@@ -13880,13 +13880,13 @@ MonoBehaviour:
   normalSpeed: 3
   attackSpeed: 5
   timer: 0
-  attackTimer: 7
+  attackTimer: 5
   readyToAttack: 0
   falconAudio: {fileID: 749699955}
   isAttacking: 0
   direction: {x: 0, y: 0, z: 0}
   waitingTime: 5
-  waitingStunTime: 5
+  waitingStunTime: 3
   oriParent: {fileID: 1800481525}
   isStunning: 0
 --- !u!82 &749699955
