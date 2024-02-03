@@ -400,7 +400,7 @@ public class PlayerOneController : MonoBehaviour
 
     void ClimbUp()
     {
-        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver)
+        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !StunFunction.instance.isStuned)
         {
             if (leftBoolArray[0] && rightBoolArray[4])
             {
@@ -413,12 +413,11 @@ public class PlayerOneController : MonoBehaviour
             {
                 isMoving = false;
                 anim.SetFloat("moveSpeed", 0);
-
             }
         }
 
 
-        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver)
+        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !StunFunction.instance.isStuned)
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
@@ -448,7 +447,7 @@ public class PlayerOneController : MonoBehaviour
         //Debug.Log(newLocalPos1);
 
         //at hand position 2,2, start slideCoundDown
-        if (leftBoolArray[4] && rightBoolArray[4] && !slideCountDown)
+        if (leftBoolArray[4] && rightBoolArray[4] && !slideCountDown && !StunFunction.instance.isStuned)
         {
             slideCountDown = true;
             timer = 0f;
@@ -464,13 +463,13 @@ public class PlayerOneController : MonoBehaviour
         {
             Vector3 newLocalPos = this.transform.localPosition;
             newLocalPos.y -= (moveSpeed * 0.1f) * Time.deltaTime;
-            this.transform.localPosition = newLocalPos;
-            if (newLocalPos.y <= 0.045f)
-            {
-                newLocalPos.y = 0.045f;
-                StopSlide();
-                return; // Exit the function early
-            }
+            //this.transform.localPosition = newLocalPos;
+            //if (newLocalPos.y <= 0.045f)
+            //{
+            //    newLocalPos.y = 0.045f;
+            //    StopSlide();
+            //    return; // Exit the function early
+            //}
 
         }
         else if (!leftBoolArray[4] || !rightBoolArray[4])
