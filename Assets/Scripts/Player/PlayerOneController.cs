@@ -41,12 +41,6 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float moveOriSpeed = 5;
     [SerializeField] float moveSlowSpeed = 3;
-    //slide varibales
-    [SerializeField] bool slideCountDown;
-    //timer varibale used to store how much time had passed
-    float timer;
-    //slideHoldTime is a constant of how many seconds the player must hold the position
-    [SerializeField] float slideHoldTime;
     [SerializeField] float gravityMod;
 
     //drill variables
@@ -108,6 +102,13 @@ public class PlayerOneController : MonoBehaviour
     [Header("Slide Down")]
     [SerializeField]
     private bool canSlideDown;
+    [SerializeField]
+    private float timer;
+    [SerializeField] 
+    private float slideHoldTime;
+    [SerializeField] 
+    private bool slideCountDown;
+
     public enum ScrewType
     {
         CrossScrew,
@@ -408,7 +409,7 @@ public class PlayerOneController : MonoBehaviour
                 MovePlayer();
                 performed04 = true;
                 performed40 = false;
-                anim.SetTrigger("Left");
+                //anim.SetTrigger("Left");
             }
             else if (!leftBoolArray[0] || !rightBoolArray[4])
             {
@@ -427,7 +428,7 @@ public class PlayerOneController : MonoBehaviour
                 MovePlayer();
                 performed40 = true;
                 performed04 = false;
-                anim.SetTrigger("Right");
+                //anim.SetTrigger("Right");
             }
             else if (!leftBoolArray[4] || !rightBoolArray[0])
             {
@@ -466,13 +467,13 @@ public class PlayerOneController : MonoBehaviour
         {
             Vector3 newLocalPos = this.transform.localPosition;
             newLocalPos.y -= (moveSpeed * 0.1f) * Time.deltaTime;
-            //this.transform.localPosition = newLocalPos;
-            //if (newLocalPos.y <= 0.045f)
-            //{
-            //    newLocalPos.y = 0.045f;
-            //    StopSlide();
-            //    return; // Exit the function early
-            //}
+            this.transform.localPosition = newLocalPos;
+            if (newLocalPos.y <= 0.045f)
+            {
+                newLocalPos.y = 0.045f;
+                StopSlide();
+                return; // Exit the function early
+            }
 
         }
         else if (!leftBoolArray[4] || !rightBoolArray[4])
@@ -526,7 +527,13 @@ public class PlayerOneController : MonoBehaviour
         print("isMoving" + isMoving);
         MoveSpeedControl();
         anim.SetFloat("moveSpeed", moveOriSpeed);
+        StartCoroutine(DoClimb());
 
+    }
+
+    IEnumerator DoClimb()
+    {
+        yield return new WaitForSeconds(0.2f);
         Vector3 newLocalPos = this.transform.localPosition;
         newLocalPos.y += moveSpeed * Time.deltaTime;
         this.transform.localPosition = newLocalPos;
