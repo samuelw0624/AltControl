@@ -408,11 +408,13 @@ public class PlayerOneController : MonoBehaviour
                 MovePlayer();
                 performed04 = true;
                 performed40 = false;
+                anim.SetTrigger("Left");
             }
             else if (!leftBoolArray[0] || !rightBoolArray[4])
             {
                 isMoving = false;
                 anim.SetFloat("moveSpeed", 0);
+
             }
         }
 
@@ -425,6 +427,7 @@ public class PlayerOneController : MonoBehaviour
                 MovePlayer();
                 performed40 = true;
                 performed04 = false;
+                anim.SetTrigger("Right");
             }
             else if (!leftBoolArray[4] || !rightBoolArray[0])
             {

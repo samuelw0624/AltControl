@@ -13880,7 +13880,7 @@ MonoBehaviour:
   normalSpeed: 3
   attackSpeed: 5
   timer: 0
-  attackTimer: 5
+  attackTimer: 300
   readyToAttack: 0
   falconAudio: {fileID: 749699955}
   isAttacking: 0
