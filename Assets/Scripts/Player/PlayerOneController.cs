@@ -109,6 +109,14 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField] 
     private bool slideCountDown;
 
+    [Header("Shop")]
+    [SerializeField]
+    public bool hasChanged;
+    [SerializeField]
+    public bool isFreezed;
+    [SerializeField]
+    public int numItem;
+
     public enum ScrewType
     {
         CrossScrew,
@@ -157,6 +165,12 @@ public class PlayerOneController : MonoBehaviour
     {
         if (Timer.instance.gameStart)
         {
+
+            if (!isFreezed)
+            {
+                SlideDown();
+
+            }
             CheckLeftHand();
             CheckRightHand();
 
@@ -164,17 +178,13 @@ public class PlayerOneController : MonoBehaviour
             CheckRightRail();
 
             UpdateClosestSpot();
-
-            SlideDown();
-
             //FollowLadder();
-
             DetectPlayerPosition();
             //DetectReachMaxHeight();
-
-            ConfineLadderHeight();
             Warn(10);
         }
+
+
 
     }
 
@@ -182,25 +192,30 @@ public class PlayerOneController : MonoBehaviour
     {
         if (Timer.instance.gameStart)
         {
-            var keyboard = Keyboard.current;
-            //check if there is a keyboard
-            if (keyboard == null)
+
+            if (!isFreezed)
             {
-                return;
+                var keyboard = Keyboard.current;
+                //check if there is a keyboard
+                if (keyboard == null)
+                {
+                    return;
+                }
+
+                if (!leftHandOffLadder && !rightHandOffLadder && gameStart1 && gameStart2)
+                {
+                    gameOver = false;
+
+                }
+                else if (leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
+                {
+                    handsOff = true;
+                    //SceneManager.LoadScene("GameOver");
+                }
+
+                ClimbUp();
             }
 
-            if (!leftHandOffLadder && !rightHandOffLadder && gameStart1 && gameStart2)
-            {
-                gameOver = false;
-
-            }
-            else if (leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
-            {
-                handsOff = true;
-                //SceneManager.LoadScene("GameOver");
-            }
-
-            ClimbUp();
         }
 
     }
@@ -282,25 +297,30 @@ public class PlayerOneController : MonoBehaviour
             //{
             //    ResetLeftBool(4);
             //}
-            if (Input.GetKey(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 ResetLeftBool(0);
+                EnterShop.instance.SelectItem();
             }
-            if (Input.GetKey(KeyCode.Y))
+            if (Input.GetKeyDown(KeyCode.Y))
             {
                 ResetLeftBool(1);
+                EnterShop.instance.SelectItem();
             }
-            if (Input.GetKey(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.G))
             {
                 ResetLeftBool(2);
+                EnterShop.instance.SelectItem();
             }
-            if (Input.GetKey(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 ResetLeftBool(3);
+                EnterShop.instance.SelectItem();
             }
-            if (Input.GetKey(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 ResetLeftBool(4);
+                EnterShop.instance.SelectItem();
             }
         }
 
@@ -367,12 +387,11 @@ public class PlayerOneController : MonoBehaviour
      */
     void ResetLeftBool(int toSetTrue)
     {
+
         for (int i = 0; i < leftBoolArray.Length; i++)
-        {
+        {     
             leftBoolArray[i] = (i == toSetTrue);
             leftPosUIArray[i].SetActive(i != toSetTrue);
-
-
         }
     }
 
@@ -402,6 +421,7 @@ public class PlayerOneController : MonoBehaviour
     void ClimbUp()
     {
         if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !FalconAttack.instance.isStunning)
+
         {
             if (leftBoolArray[0] && rightBoolArray[4])
             {

@@ -86,6 +86,10 @@ public class PlayerTwoController : MonoBehaviour
     [SerializeField]
     private bool isInput2Active;
 
+    [Header("Shop")]
+    [SerializeField]
+    private float speedMulti;
+
 
     // Start is called before the first frame update
 
@@ -122,17 +126,11 @@ public class PlayerTwoController : MonoBehaviour
         if (Timer.instance.gameStart)
         {
             SpeedAdjust();
-            LadderRotate();
             LadderHight();
             RescuePlayer1();
         }
 
-
-
         //EventTrigger();
-
-
-
         //Restrict the player's maximum height for climbing
         //Vector3 newPosition = player.transform.position;
         //newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
@@ -151,10 +149,14 @@ public class PlayerTwoController : MonoBehaviour
 
         if (Timer.instance.gameStart)
         {
+            if (PlayerOneController.instance.isFreezed == false)
+            {
+
+                RandomTilt();
+            }
             LadderHeightSwitch();
             MoveHorizontally();
-
-            RandomTilt();
+            LadderRotate();
             SetCurrentState();
         }
 
@@ -287,9 +289,13 @@ public class PlayerTwoController : MonoBehaviour
 
     void SpeedAdjust()
     {
+        if (EnterShop.instance.isPurchased1)
+        {
+            moveLadderSpeed *= speedMulti;
+        }
         // three levels of speed: slow, normal, fast
         //if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
-        if(Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.Alpha1))
         {
             moveLeft = true;
             moveLadderSpeed = 3f;
@@ -354,6 +360,7 @@ public class PlayerTwoController : MonoBehaviour
 
     private void MoveHorizontally()
     {
+
         if (moveLeft)
         {
             pivotPoint.transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);

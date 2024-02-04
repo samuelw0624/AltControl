@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnterShop : MonoBehaviour
 {
-    public static EnterShop intance;
+    public static EnterShop instance;
 
     [SerializeField]
     private GameObject ShopInstruction;
@@ -12,20 +12,75 @@ public class EnterShop : MonoBehaviour
     private GameObject ShopInstruction1;
     [SerializeField]
     public bool withinShopRange;
-
+    [SerializeField]
+    public GameObject[] shopItem;
+    [SerializeField]
+    public int selectedItem;
+    [SerializeField]
+    public int previousItem;
+    [SerializeField]
+    public bool firstEnter;
+    [SerializeField]
+    public bool oriShop;
+    [SerializeField]
+    public GameObject[] soldOutItems;
+    [SerializeField]
+    public bool isPurchased1, isPurchased2, isPurchased3;
 
     // Start is called before the first frame update
     void Start()
     {
         ShopInstruction.SetActive(false);
         ShopInstruction1.SetActive(false);
-        intance = this;
+        instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void SelectItem()
+    {
+        if (oriShop)
+        {
+            previousItem = selectedItem;
+            selectedItem += 1;
+
+            if (selectedItem > shopItem.Length -1)
+            {
+
+                selectedItem = 0;
+                shopItem[3].SetActive(false);
+                shopItem[0].SetActive(true);
+            }
+            else
+            {
+                if (previousItem != selectedItem)
+                {
+                    shopItem[previousItem].SetActive(false);
+                    shopItem[selectedItem].SetActive(true);
+                }
+            }
+
+
+
+
+
+        }
         
+        if(firstEnter && !oriShop)
+        {
+            selectedItem = 0;
+            shopItem[selectedItem].SetActive(true);
+            oriShop = true;
+        }
+
+
+
+
+
     }
 
     private void OnTriggerStay(Collider other)

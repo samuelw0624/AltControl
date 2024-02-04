@@ -12,8 +12,14 @@ public class DrillController : MonoBehaviour
     public GameObject crossDrill;
 
     [Header("Shop")]
+    [SerializeField]
     public bool keyPressed;
+    [SerializeField]
     public GameObject shopUI;
+
+
+
+
     public enum DrillType
     {
         CrossDrill,
@@ -59,10 +65,7 @@ public class DrillController : MonoBehaviour
                 p1Script.FixSign();
             }
             keyPressed = true;
-        }
-        else
-        {
-            keyPressed = false;
+            Purchase();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
@@ -80,11 +83,9 @@ public class DrillController : MonoBehaviour
             }
            
             keyPressed = true;
+            Purchase();
         }
-        else
-        {
-            keyPressed = false;
-        }
+
 
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
@@ -101,11 +102,9 @@ public class DrillController : MonoBehaviour
             }
 
             keyPressed = true;
+            Purchase();
         }
-        else
-        {
-            keyPressed = false;
-        }
+
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             currentDrill = DrillType.None;
@@ -168,16 +167,83 @@ public class DrillController : MonoBehaviour
     //}
     #endregion
 
-    #region Enter Shop
+    #region Shop
     private void Enter()
     {
-        if (EnterShop.intance.withinShopRange && keyPressed)
+        if (EnterShop.instance.withinShopRange && keyPressed)
         {
             shopUI.SetActive(true);
+            PlayerOneController.instance.isFreezed = true;
+            EnterShop.instance.firstEnter = true;
+
         }
         else
         {
-            shopUI.SetActive(false);
+            LeaveShop();
+        }
+    }
+
+
+    public void LeaveShop()
+    {
+        shopUI.SetActive(false);
+        PlayerOneController.instance.isFreezed = false;
+        keyPressed = false;
+        for (int i = 0; i < EnterShop.instance.shopItem.Length; i++)
+        {
+            EnterShop.instance.shopItem[i].SetActive(false);
+        }
+        EnterShop.instance.selectedItem = 0;
+        EnterShop.instance.firstEnter = false;
+        EnterShop.instance.oriShop = false;
+    }
+
+
+    private void Purchase()
+    {
+        if(EnterShop.instance.selectedItem == 0 && EnterShop.instance.isPurchased1 == false)
+        {
+            if(ScoreManager.instance.score >= 50)
+            {
+                EnterShop.instance.soldOutItems[0].SetActive(true);
+                EnterShop.instance.isPurchased1 = true;
+            }
+            else
+            {
+
+            }
+
+        }
+
+        if (EnterShop.instance.selectedItem == 1 && EnterShop.instance.isPurchased2 == false)
+        {
+            if(ScoreManager.instance.score >= 100)
+            {
+                EnterShop.instance.soldOutItems[1].SetActive(true);
+                EnterShop.instance.isPurchased2 = true;
+            }
+            else
+            {
+
+            }
+        }
+
+        if (EnterShop.instance.selectedItem == 2 && EnterShop.instance.isPurchased3 == false)
+        {
+            if(ScoreManager.instance.score >= 80)
+            {
+                EnterShop.instance.soldOutItems[2].SetActive(true);
+                EnterShop.instance.isPurchased3 = true;
+            }
+            else
+            {
+
+            }
+        }
+
+        if (EnterShop.instance.selectedItem == 3)
+        {
+            LeaveShop();
         }
     }
 
