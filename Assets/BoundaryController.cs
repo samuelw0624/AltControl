@@ -30,7 +30,7 @@ public class BoundaryController : MonoBehaviour
         {
             // If other objects exit the boundary, destroy them
             //Destroy(other.gameObject);
-            p1c.isDead = true;
+            p1c.Warn(3f);
         }
     }
 }

@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class EnterShop : MonoBehaviour
 {
+    public static EnterShop intance;
 
     [SerializeField]
     private GameObject ShopInstruction;
     [SerializeField]
     private GameObject ShopInstruction1;
+    [SerializeField]
+    public bool withinShopRange;
+
+
     // Start is called before the first frame update
     void Start()
     {
         ShopInstruction.SetActive(false);
         ShopInstruction1.SetActive(false);
+        intance = this;
     }
 
     // Update is called once per frame
@@ -28,6 +34,7 @@ public class EnterShop : MonoBehaviour
         {
             ShopInstruction.SetActive(true);
             ShopInstruction1.SetActive(true);
+            withinShopRange = true;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -36,6 +43,7 @@ public class EnterShop : MonoBehaviour
         {
             ShopInstruction.SetActive(false);
             ShopInstruction1.SetActive(false);
+            withinShopRange = false;
         }
     }
 }

@@ -82,7 +82,7 @@ public class PlayerOneController : MonoBehaviour
     float distance;
     float LateDis;
     [SerializeField]
-    bool handsOff = false;
+    public bool handsOff = false;
 
     [SerializeField]
     GameObject p1Screen;
@@ -173,7 +173,7 @@ public class PlayerOneController : MonoBehaviour
             //DetectReachMaxHeight();
 
             ConfineLadderHeight();
-            Warn();
+            Warn(10);
         }
 
     }
@@ -832,11 +832,13 @@ public class PlayerOneController : MonoBehaviour
     #endregion
 
     #region Warning
-    void Warn()
+    public void Warn(float timer)
     {
         Debug.Log(warningTimer);
         if (handsOff)
         {
+            warningTimer = timer;
+
             warningTimer -= Time.deltaTime;
             p1Screen.SetActive(true);
             p2Screen.SetActive(true);

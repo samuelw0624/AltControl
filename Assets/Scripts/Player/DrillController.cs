@@ -10,6 +10,10 @@ public class DrillController : MonoBehaviour
     public GameObject flatDrill;
     public GameObject hexDrill;
     public GameObject crossDrill;
+
+    [Header("Shop")]
+    public bool keyPressed;
+    public GameObject shopUI;
     public enum DrillType
     {
         CrossDrill,
@@ -33,7 +37,7 @@ public class DrillController : MonoBehaviour
     void Update()
     {
         //Debug.Log(p1Script);
-
+        Enter();
         SwitchDrill();
         //HandleDrills();
     }
@@ -54,7 +58,13 @@ public class DrillController : MonoBehaviour
             {
                 p1Script.FixSign();
             }
+            keyPressed = true;
         }
+        else
+        {
+            keyPressed = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             currentDrill = DrillType.HexDrill;
@@ -68,7 +78,14 @@ public class DrillController : MonoBehaviour
             {
                 p1Script.FixSign();
             }
+           
+            keyPressed = true;
         }
+        else
+        {
+            keyPressed = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             currentDrill = DrillType.CrossDrill;
@@ -82,6 +99,12 @@ public class DrillController : MonoBehaviour
             {
                 p1Script.FixSign();
             }
+
+            keyPressed = true;
+        }
+        else
+        {
+            keyPressed = false;
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
@@ -93,6 +116,7 @@ public class DrillController : MonoBehaviour
             Debug.Log("Deactivate screw");
         }
     }
+
 
     //void HandleDrills()
     //{
@@ -142,5 +166,20 @@ public class DrillController : MonoBehaviour
     //        p1Script.isInDrillSlot = false;
     //    }
     //}
+    #endregion
+
+    #region Enter Shop
+    private void Enter()
+    {
+        if (EnterShop.intance.withinShopRange && keyPressed)
+        {
+            shopUI.SetActive(true);
+        }
+        else
+        {
+            shopUI.SetActive(false);
+        }
+    }
+
     #endregion
 }

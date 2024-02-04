@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
 
     public Button exitShopButton;
 
-    public float stableSwapUpgradeMulti;
+    public float stableSwapUpgrade;
     public bool isStableSwapped;
 
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class ShopManager : MonoBehaviour
         if (!isStableSwapped)
         {
             Debug.Log("upgraded");
-            p1Script.warningTimer *= stableSwapUpgradeMulti;
+            p1Script.Warn(stableSwapUpgrade);
             isStableSwapped = true;
         }
         else
