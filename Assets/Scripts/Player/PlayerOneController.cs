@@ -400,7 +400,7 @@ public class PlayerOneController : MonoBehaviour
 
     void ClimbUp()
     {
-        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !StunFunction.instance.isStuned)
+        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !FalconAttack.instance.isStunning)
         {
             if (leftBoolArray[0] && rightBoolArray[4])
             {
@@ -417,7 +417,7 @@ public class PlayerOneController : MonoBehaviour
         }
 
 
-        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !StunFunction.instance.isStuned)
+        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !FalconAttack.instance.isStunning)
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
@@ -447,7 +447,7 @@ public class PlayerOneController : MonoBehaviour
         //Debug.Log(newLocalPos1);
 
         //at hand position 2,2, start slideCoundDown
-        if (leftBoolArray[4] && rightBoolArray[4] && !slideCountDown && !StunFunction.instance.isStuned)
+        if (leftBoolArray[4] && rightBoolArray[4] && !slideCountDown && !FalconAttack.instance.isStunning)
         {
             slideCountDown = true;
             timer = 0f;

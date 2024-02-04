@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FalconAttack : MonoBehaviour
 {
+    public static FalconAttack instance;
 
     [Header("Movement")]
     [SerializeField]
@@ -35,7 +36,9 @@ public class FalconAttack : MonoBehaviour
     [SerializeField]
     private Transform oriParent;
     [SerializeField]
-    private bool isStunning;
+    public bool isStunning;
+    [SerializeField]
+    private Animator anim;
 
     private void Awake()
     {
@@ -45,7 +48,8 @@ public class FalconAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        instance = this;
+        anim = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -73,6 +77,8 @@ public class FalconAttack : MonoBehaviour
             timer = 0;
             readyToAttack = true;
             isStunning = false;
+
+            anim.SetBool("Attack", false);
 
         }
 
@@ -127,15 +133,16 @@ public class FalconAttack : MonoBehaviour
 
     void Stun()
     {
+        anim.SetBool("Attack", true);
         this.transform.parent = playerPos;
-
-        StartCoroutine(StopStun());
+        
     }
 
-    IEnumerator StopStun()
+    public IEnumerator StopStun()
     {
-        yield return new WaitForSeconds(waitingStunTime);
+        //yield return new WaitForSeconds(waitingStunTime);
         this.transform.parent = oriParent;
+        return null;
 
     }
 }

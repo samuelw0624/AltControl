@@ -73,6 +73,20 @@ public class PlayerTwoController : MonoBehaviour
     [SerializeField]
     private float startTime;
 
+
+    [Header("Stun")]
+    [SerializeField]
+    private float timer;
+    [SerializeField]
+    private int times;
+    [SerializeField]
+    private float swapInterval;
+    [SerializeField]
+    private bool isInput1Active;
+    [SerializeField]
+    private bool isInput2Active;
+
+
     // Start is called before the first frame update
 
     void Awake()
@@ -110,12 +124,14 @@ public class PlayerTwoController : MonoBehaviour
             SpeedAdjust();
             LadderRotate();
             LadderHight();
+            RescuePlayer1();
         }
 
 
+
         //EventTrigger();
-       
-      
+
+
 
         //Restrict the player's maximum height for climbing
         //Vector3 newPosition = player.transform.position;
@@ -145,6 +161,32 @@ public class PlayerTwoController : MonoBehaviour
         //WindStart();
 
     }
+    #region Stun Resolved
+    private void RescuePlayer1()
+    {
+        if (FalconAttack.instance.isStunning)
+        {
+            if(isInput1Active && isInput2Active)
+            {
+                isInput1Active = false;
+                isInput2Active = false;
+                times += 1;
+            }
+            swapInterval = 1f / times;
+            print("swap rate" + swapInterval);
+
+            if(swapInterval >= 0.2)
+            {
+                StartCoroutine(FalconAttack.instance.StopStun());
+            }
+
+
+        }
+    }
+
+
+
+    #endregion
 
     #region LadderHeightControl&Movement
 
@@ -334,6 +376,9 @@ public class PlayerTwoController : MonoBehaviour
             rotateRight = false;
             leftRotation.color = pressColor;
             rightRotation.color = releaseColor;
+            isInput1Active = true;
+
+
         }
 
         //if (Keyboard.current[Key.Q].wasPressedThisFrame)
@@ -343,6 +388,7 @@ public class PlayerTwoController : MonoBehaviour
             rotateLeft = false;
             rightRotation.color = pressColor;
             leftRotation.color = releaseColor;
+            isInput1Active = true;
         }
     }
 

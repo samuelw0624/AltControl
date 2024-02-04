@@ -8,6 +8,8 @@ public class StunFunction : MonoBehaviour
 
     [SerializeField]
     public bool isStuned;
+    [SerializeField]
+    public bool stunApplied;
 
     // Start is called before the first frame update
     void Start()
@@ -18,25 +20,26 @@ public class StunFunction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerCollider")
         {
             isStuned = true;
 
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerCollider")
         {
             isStuned = false;
 
         }
     }
+
 
 }

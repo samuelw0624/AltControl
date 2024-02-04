@@ -13875,7 +13875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0b64664b6f36d48bfc2308a5804b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPos: {fileID: 206413379}
+  playerPos: {fileID: 829752436}
   oriPos: {fileID: 1678577264}
   normalSpeed: 3
   attackSpeed: 5
@@ -13889,6 +13889,7 @@ MonoBehaviour:
   waitingStunTime: 3
   oriParent: {fileID: 1800481525}
   isStunning: 0
+  anim: {fileID: 0}
 --- !u!82 &749699955
 AudioSource:
   m_ObjectHideFlags: 0
@@ -35636,8 +35637,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1794148429}
   - component: {fileID: 1794148432}
-  - component: {fileID: 1794148431}
   - component: {fileID: 1794148430}
+  - component: {fileID: 1794148433}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -35673,19 +35674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStuned: 0
---- !u!65 &1794148431
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1794148428}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 7.3139095, y: 6.161734, z: 1}
-  m_Center: {x: -0.3917392, y: -1.981732, z: 0}
+  stunApplied: 0
 --- !u!33 &1794148432
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -35694,6 +35683,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794148428}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!61 &1794148433
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794148428}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.9871731, y: -2.0285892}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.528553, y: 6.749465}
+  m_EdgeRadius: 0
 --- !u!1001 &1799175276
 PrefabInstance:
   m_ObjectHideFlags: 0
