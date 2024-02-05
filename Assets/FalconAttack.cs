@@ -32,13 +32,14 @@ public class FalconAttack : MonoBehaviour
 
     [Header("Stun Function")]
     [SerializeField]
-    private float waitingStunTime;
-    [SerializeField]
     private Transform oriParent;
     [SerializeField]
     public bool isStunning;
     [SerializeField]
     private Animator anim;
+    [SerializeField]
+    private bool attackEnds;
+
 
     private void Awake()
     {
@@ -61,15 +62,13 @@ public class FalconAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isAttacking)
-        {
-            Attack();
-        }
 
+        Attack();
     }
 
     void InitiateAttack()
     {
+
         if (FalconArea.instance.withinAttackRange && !readyToAttack)
         {
             transform.position = Vector2.MoveTowards(transform.position, oriPos.position, normalSpeed * Time.deltaTime);
@@ -81,7 +80,6 @@ public class FalconAttack : MonoBehaviour
             anim.SetBool("Attack", false);
 
         }
-
 
 
         if (readyToAttack)
@@ -97,29 +95,53 @@ public class FalconAttack : MonoBehaviour
     }
 
     void Attack()
-    {
-        if (isStunning)
+    {      
+        if(isAttacking)
         {
-            Stun();
+
+            if (isStunning)
+            {
+                Stun();
+            }
+            else
+            {
+                falconAudio.Play();
+
+                transform.Translate(direction.normalized * attackSpeed * Time.deltaTime);
+
+                timer = 0;
+
+                StartCoroutine(BackHome());
+
+            }
         }
-        else
+
+
+        if (attackEnds)
         {
-            falconAudio.Play();
-
-            transform.Translate(direction.normalized * attackSpeed * Time.deltaTime);
-
-            timer = 0;
-
             StartCoroutine(StopAttack());
-        }
+        } 
+
+
+    }
+
+    IEnumerator BackHome()
+    {
+        yield return new WaitForSeconds(waitingTime);
+        isAttacking = false;
+        attackEnds = true;
+        this.transform.parent = oriParent;
+        transform.position = Vector2.MoveTowards(transform.position, oriPos.position, normalSpeed * Time.deltaTime);
     }
 
     IEnumerator StopAttack()
     {
         yield return new WaitForSeconds(waitingTime);
         readyToAttack = false;
-        isAttacking = false;
+        attackEnds = false;
 
+        this.transform.parent = oriParent;
+        transform.position = Vector2.MoveTowards(transform.position, oriPos.position, normalSpeed * Time.deltaTime);
     }
 
     private void DetectStun()
@@ -138,11 +160,18 @@ public class FalconAttack : MonoBehaviour
         
     }
 
-    public IEnumerator StopStun()
+    public void StopStun()
     {
-        //yield return new WaitForSeconds(waitingStunTime);
         this.transform.parent = oriParent;
-        return null;
-
+        isStunning = false;
+        isAttacking = false;
+        attackEnds = true;
+        
     }
+
+
+
+
+
+
 }

@@ -41,7 +41,7 @@ public class ShopManager : MonoBehaviour
         if (!isStableSwapped)
         {
             Debug.Log("upgraded");
-            p1Script.Warn(stableSwapUpgrade);
+            //p1Script.Warn(stableSwapUpgrade);
             isStableSwapped = true;
         }
         else

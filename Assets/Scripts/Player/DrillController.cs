@@ -10,6 +10,7 @@ public class DrillController : MonoBehaviour
     public GameObject flatDrill;
     public GameObject hexDrill;
     public GameObject crossDrill;
+    public GameObject superDrill;
 
     [Header("Shop")]
     [SerializeField]
@@ -25,6 +26,7 @@ public class DrillController : MonoBehaviour
         CrossDrill,
         FlatDrill,
         HexDrill,
+        SuperDrill,
         None
     }
 
@@ -53,35 +55,77 @@ public class DrillController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            currentDrill = DrillType.FlatDrill;
-            //activate UI icons
-            flatDrill.SetActive(true);
-            hexDrill.SetActive(false);
-            crossDrill.SetActive(false);
-
-            Debug.Log("flat screw is activated ");
-            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
+            if(PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
             {
+                currentDrill = DrillType.SuperDrill;
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
+
                 p1Script.FixSign();
+
             }
+            else
+            {
+                currentDrill = DrillType.FlatDrill;
+                //activate UI icons
+                flatDrill.SetActive(true);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(false);
+
+                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
+                {
+                    p1Script.FixSign();
+                }
+
+            }
+
+            EnterShop.instance.pressedTimes += 1;
+            Debug.Log("flat screw is activated ");
+
             keyPressed = true;
             Purchase();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            currentDrill = DrillType.HexDrill;
-
-            //activate UI icons
-            flatDrill.SetActive(false);
-            hexDrill.SetActive(true);
-            crossDrill.SetActive(false);
-            Debug.Log("hex screw is activated");
-            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
+            if(PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
             {
+                currentDrill = DrillType.SuperDrill;
+
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
+
                 p1Script.FixSign();
             }
-           
+            else
+            {
+                currentDrill = DrillType.HexDrill;
+
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(true);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(false);
+
+                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
+                {
+                    p1Script.FixSign();
+                }
+            }
+
+
+            EnterShop.instance.pressedTimes += 1;
+
+            Debug.Log("hex screw is activated");
+
+
             keyPressed = true;
             Purchase();
         }
@@ -89,17 +133,36 @@ public class DrillController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            currentDrill = DrillType.CrossDrill;
-            //activate UI icons
-            flatDrill.SetActive(false);
-            hexDrill.SetActive(false);
-            crossDrill.SetActive(true);
+            if(PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
+            {
+                currentDrill = DrillType.SuperDrill;
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
+
+                p1Script.FixSign();
+
+            }
+            else
+            {
+                currentDrill = DrillType.CrossDrill;
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(true);
+                superDrill.SetActive(false);
+
+                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
+                {
+                    p1Script.FixSign();
+                }
+            }
+
+            EnterShop.instance.pressedTimes += 1;
 
             Debug.Log("cross screw is activated");
-            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
-            {
-                p1Script.FixSign();
-            }
 
             keyPressed = true;
             Purchase();
@@ -201,7 +264,7 @@ public class DrillController : MonoBehaviour
 
     private void Purchase()
     {
-        if(EnterShop.instance.selectedItem == 0 && EnterShop.instance.isPurchased1 == false)
+        if(EnterShop.instance.selectedItem == 0 && EnterShop.instance.isPurchased1 == false && EnterShop.instance.pressedTimes > 1)
         {
             if(ScoreManager.instance.score >= 50)
             {
@@ -216,7 +279,7 @@ public class DrillController : MonoBehaviour
 
         }
 
-        if (EnterShop.instance.selectedItem == 1 && EnterShop.instance.isPurchased2 == false)
+        if (EnterShop.instance.selectedItem == 1 && EnterShop.instance.isPurchased2 == false && EnterShop.instance.pressedTimes > 1)
         {
             if(ScoreManager.instance.score >= 100)
             {
@@ -230,7 +293,7 @@ public class DrillController : MonoBehaviour
             }
         }
 
-        if (EnterShop.instance.selectedItem == 2 && EnterShop.instance.isPurchased3 == false)
+        if (EnterShop.instance.selectedItem == 2 && EnterShop.instance.isPurchased3 == false && EnterShop.instance.pressedTimes > 1)
         {
             if(ScoreManager.instance.score >= 80)
             {
@@ -247,6 +310,7 @@ public class DrillController : MonoBehaviour
         if (EnterShop.instance.selectedItem == 3)
         {
             LeaveShop();
+            EnterShop.instance.pressedTimes = 0;
         }
     }
 

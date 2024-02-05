@@ -89,6 +89,8 @@ public class PlayerTwoController : MonoBehaviour
     [Header("Shop")]
     [SerializeField]
     private float speedMulti;
+    [SerializeField]
+    private bool isBooted1;
 
 
     // Start is called before the first frame update
@@ -179,10 +181,11 @@ public class PlayerTwoController : MonoBehaviour
 
             if(swapInterval >= 0.2)
             {
-                StartCoroutine(FalconAttack.instance.StopStun());
+                FalconAttack.instance.StopStun();
             }
-
-
+        } else
+        {
+            times = 0;
         }
     }
 
@@ -289,9 +292,10 @@ public class PlayerTwoController : MonoBehaviour
 
     void SpeedAdjust()
     {
-        if (EnterShop.instance.isPurchased1)
+        if (EnterShop.instance.isPurchased1 && !isBooted1)
         {
             moveLadderSpeed *= speedMulti;
+            isBooted1 = true;
         }
         // three levels of speed: slow, normal, fast
         //if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
@@ -395,7 +399,7 @@ public class PlayerTwoController : MonoBehaviour
             rotateLeft = false;
             rightRotation.color = pressColor;
             leftRotation.color = releaseColor;
-            isInput1Active = true;
+            isInput2Active = true;
         }
     }
 

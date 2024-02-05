@@ -115,12 +115,17 @@ public class PlayerOneController : MonoBehaviour
     public bool isFreezed;
     [SerializeField]
     public int numItem;
+    [SerializeField]
+    public bool isBoosted;
+    [SerializeField]
+    public float timerBoosted;
 
     public enum ScrewType
     {
         CrossScrew,
         FlatScrew,
         HexScrew,
+        SuperDrill,
         None
     }
 
@@ -180,7 +185,11 @@ public class PlayerOneController : MonoBehaviour
             //FollowLadder();
             DetectPlayerPosition();
             //DetectReachMaxHeight();
-            Warn(10);
+            
+            ConfineLadderHeight();
+
+            Warn();
+
         }
 
 
@@ -690,19 +699,31 @@ public class PlayerOneController : MonoBehaviour
         // if there is a closest sign
         if(closestSpot != null)
         {
-            //check what kind of sign it is
-            if (closestSpot.gameObject.CompareTag("cross"))
+            if (EnterShop.instance.isPurchased2)
             {
-                currentScrew = ScrewType.CrossScrew;
+                //check what kind of sign it is
+                if (closestSpot.gameObject.CompareTag("cross") || closestSpot.gameObject.CompareTag("flat") || closestSpot.gameObject.CompareTag("hex"))
+                {
+                    currentScrew = ScrewType.SuperDrill;
+                }
             }
-            if (closestSpot.gameObject.CompareTag("flat"))
+            else
             {
-                currentScrew = ScrewType.FlatScrew;
+                //check what kind of sign it is
+                if (closestSpot.gameObject.CompareTag("cross"))
+                {
+                    currentScrew = ScrewType.CrossScrew;
+                }
+                if (closestSpot.gameObject.CompareTag("flat"))
+                {
+                    currentScrew = ScrewType.FlatScrew;
+                }
+                if (closestSpot.gameObject.CompareTag("hex"))
+                {
+                    currentScrew = ScrewType.HexScrew;
+                }
             }
-            if (closestSpot.gameObject.CompareTag("hex"))
-            {
-                currentScrew = ScrewType.HexScrew;
-            }
+
         }
     }
 
@@ -852,18 +873,39 @@ public class PlayerOneController : MonoBehaviour
     #endregion
 
     #region Warning
-    public void Warn(float timer)
+    public void Warn()
     {
-        Debug.Log(warningTimer);
+        //if (EnterShop.instance.isPurchased3 && !isBoosted)
+        //{
+        //    isBoosted = true;
+        //    warningTimer = 15;
+        //}
+        //Debug.Log(warningTimer);
         if (handsOff)
         {
-            warningTimer = timer;
+            if (EnterShop.instance.isPurchased3)
+            {
+                timerBoosted -= Time.deltaTime;
+                p1Screen.SetActive(true);
+                p2Screen.SetActive(true);
+                audio.Play();
 
-            warningTimer -= Time.deltaTime;
-            p1Screen.SetActive(true);
-            p2Screen.SetActive(true);
-            audio.Play();
-            if (warningTimer <= 0)
+                p1Text.text = (timerBoosted).ToString("0");
+                p2Text.text = (timerBoosted).ToString("0");
+
+            }
+            else
+            {
+                warningTimer -= Time.deltaTime;
+                p1Screen.SetActive(true);
+                p2Screen.SetActive(true);
+                audio.Play();
+
+                p1Text.text = (warningTimer).ToString("0");
+                p2Text.text = (warningTimer).ToString("0");
+            }
+
+            if (warningTimer <= 0 || timerBoosted <= 0)
             {
                 //Debug.Log("Game Over - HandsOff");
                 gameOver = true;
@@ -879,8 +921,6 @@ public class PlayerOneController : MonoBehaviour
             }
         }
        
-        p1Text.text = (warningTimer).ToString("0");
-        p2Text.text = (warningTimer).ToString("0");
 
         if (isDead)
         {

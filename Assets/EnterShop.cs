@@ -26,6 +26,8 @@ public class EnterShop : MonoBehaviour
     public GameObject[] soldOutItems;
     [SerializeField]
     public bool isPurchased1, isPurchased2, isPurchased3;
+    [SerializeField]
+    public int pressedTimes;
 
     // Start is called before the first frame update
     void Start()
@@ -64,10 +66,6 @@ public class EnterShop : MonoBehaviour
                 }
             }
 
-
-
-
-
         }
         
         if(firstEnter && !oriShop)
@@ -75,6 +73,7 @@ public class EnterShop : MonoBehaviour
             selectedItem = 0;
             shopItem[selectedItem].SetActive(true);
             oriShop = true;
+            pressedTimes = 1;
         }
 
 
