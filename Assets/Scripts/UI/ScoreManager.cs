@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
     public AudioClip coinCollected;
     public AudioClip coinLosted;
 
-    public int score = 0;
+    public int score = 500;
     //create add score instance
     public static ScoreManager instance;
 

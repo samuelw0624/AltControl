@@ -144,6 +144,7 @@ public class Timer : MonoBehaviour
         sliderTimer += 5f;
         KiteEffect.instance.kiteAttack = false;
         StartCoroutine(ClockEffect());
+        print("Attack");
         
     }
     IEnumerator ClockEffect()

@@ -207,6 +207,7 @@ public class DrillController : MonoBehaviour
             {
                 EnterShop.instance.soldOutItems[0].SetActive(true);
                 EnterShop.instance.isPurchased1 = true;
+                ScoreManager.instance.ReducePoint(50);
             }
             else
             {
@@ -221,6 +222,7 @@ public class DrillController : MonoBehaviour
             {
                 EnterShop.instance.soldOutItems[1].SetActive(true);
                 EnterShop.instance.isPurchased2 = true;
+                ScoreManager.instance.ReducePoint(100);
             }
             else
             {
@@ -234,6 +236,7 @@ public class DrillController : MonoBehaviour
             {
                 EnterShop.instance.soldOutItems[2].SetActive(true);
                 EnterShop.instance.isPurchased3 = true;
+                ScoreManager.instance.ReducePoint(80);
             }
             else
             {

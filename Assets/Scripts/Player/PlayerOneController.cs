@@ -39,8 +39,8 @@ public class PlayerOneController : MonoBehaviour
      */
     [SerializeField] public float moveDist = 1.1f;
     [SerializeField] float moveSpeed;
-    [SerializeField] float moveOriSpeed = 5;
-    [SerializeField] float moveSlowSpeed = 3;
+    [SerializeField] float moveOriSpeed;
+    [SerializeField] float moveSlowSpeed;
     [SerializeField] float gravityMod;
 
     //drill variables
@@ -71,7 +71,6 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField]
     public int num;
 
-    [SerializeField] SlowDown sD;
 
     [Header("Animation")]
     [SerializeField]
@@ -546,8 +545,9 @@ public class PlayerOneController : MonoBehaviour
         isMoving = true;
         print("isMoving" + isMoving);
         MoveSpeedControl();
-        anim.SetFloat("moveSpeed", moveOriSpeed);
+        anim.SetFloat("moveSpeed", moveSpeed);
         StartCoroutine(DoClimb());
+        //print("MoveSpeed" + moveSpeed);
 
     }
 
@@ -561,15 +561,15 @@ public class PlayerOneController : MonoBehaviour
 
     void MoveSpeedControl()
     {
-        if (!sD.insideSteam)
+        if (!SlowDown.instance.insideSteam)
         {
             moveSpeed = moveOriSpeed;
-            //Debug.Log("moveSpeed = " + moveSpeed);
+            Debug.Log("moveSpeed = " + moveSpeed);
         }
         else
         {
             moveSpeed = moveSlowSpeed;
-            //Debug.Log("moveSpeed = " + moveSpeed);
+            Debug.Log("moveSpeed = " + moveSpeed);
         }
     }
     #endregion
