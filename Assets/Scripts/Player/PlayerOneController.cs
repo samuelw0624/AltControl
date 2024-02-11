@@ -67,6 +67,8 @@ public class PlayerOneController : MonoBehaviour
     public Transform[] target;
     public float offset;
     public PlayerTwoController player2;
+    [SerializeField]
+    private GameObject minimapIcon;
 
     [SerializeField]
     public int num;
@@ -119,6 +121,11 @@ public class PlayerOneController : MonoBehaviour
     public bool isBoosted;
     [SerializeField]
     public float timerBoosted;
+
+
+    [Header("Winning Condition")]
+    [SerializeField]
+    public int numberOfSignhasBeenFixed;
 
     public enum ScrewType
     {
@@ -737,11 +744,23 @@ public class PlayerOneController : MonoBehaviour
             lightcontrolRef.isFixed = true;
             //removed the closest sign that was just fixed
             spotsToFix.Remove(closestSpot);
+
+            minimapIcon = closestSpot.transform.Find("Sign").gameObject;
+            minimapIcon.SetActive(false);
+
             UpdateClosestSpot();
+
+
             //Destroy(closestSign);
             //add score function
-            ScoreManager.instance.AddPoint(5);
+            ScoreManager.instance.AddPoint(20);
+            numberOfSignhasBeenFixed += 1;
+            print("fixed");
 
+            if(numberOfSignhasBeenFixed >= 6)
+            {
+                //winning
+            }
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)

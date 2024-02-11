@@ -102,6 +102,7 @@ public class FalconAttack : MonoBehaviour
             if (isStunning)
             {
                 Stun();
+                StopCoroutine(BackHome());
             }
             else
             {
@@ -136,12 +137,16 @@ public class FalconAttack : MonoBehaviour
 
     IEnumerator StopAttack()
     {
-        yield return new WaitForSeconds(waitingTime);
+
         readyToAttack = false;
-        attackEnds = false;
+
 
         this.transform.parent = oriParent;
         transform.position = Vector2.MoveTowards(transform.position, oriPos.position, normalSpeed * Time.deltaTime);
+
+        yield return new WaitForSeconds(3f);
+
+        attackEnds = false;
     }
 
     private void DetectStun()
