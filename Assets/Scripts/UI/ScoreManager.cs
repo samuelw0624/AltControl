@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
     public AudioClip coinCollected;
     public AudioClip coinLosted;
 
-    int score = 0;
+    public int score = 500;
     //create add score instance
     public static ScoreManager instance;
 
@@ -54,7 +54,7 @@ public class ScoreManager : MonoBehaviour
         score -= value;
         scorePlayer1.text = "Coin:" + score.ToString();
         scorePlayer2.text = "Coin:" + score.ToString();
-        source.PlayOneShot(coinLosted);
+        //source.PlayOneShot(coinLosted);
         Debug.Log("Coin - 3");
     }
     #endregion

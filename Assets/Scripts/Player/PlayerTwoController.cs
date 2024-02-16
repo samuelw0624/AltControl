@@ -18,17 +18,27 @@ public class PlayerTwoController : MonoBehaviour
     //ladder movement variables
     [SerializeField] float moveLadderSpeed;
     [SerializeField] float moveLadderDist;
-    bool moveLeft = false;
-    bool moveRight = false;
+    [SerializeField] bool moveLeft = false;
+    [SerializeField] bool moveRight = false;
     Rigidbody ladderRb;
 
     //public GameObject ladder;
+
+    [Header("Rotation")]
     Vector3 rotation;
-    float value;
-    bool rotateLeft;
-    bool rotateRight;
-    bool rotateFast;
-    bool rotateNormal;
+    [SerializeField]
+    private float value;
+    [SerializeField]
+    private bool rotateLeft;
+    [SerializeField]
+    private bool rotateRight;
+    [SerializeField]
+    private bool rotateFast;
+    [SerializeField]
+    private bool rotateNormal;
+    [SerializeField]
+    private bool gameStart;
+
 
     //Ladder heights 
     public GameObject[] ladderObj;
@@ -48,7 +58,7 @@ public class PlayerTwoController : MonoBehaviour
     GameObject fastRight;
     [SerializeField]
     GameObject neutral;
-    
+
     [SerializeField]
     Graphic leftRotation;
     [SerializeField]
@@ -56,10 +66,41 @@ public class PlayerTwoController : MonoBehaviour
     Color pressColor;
     Color releaseColor;
 
+    [SerializeField]
+    private int randValue;
+    [SerializeField]
+    private float currentSpeed;
+    [SerializeField]
+    private float multipleValue;
+    [SerializeField]
+    private bool isRight;
+    [SerializeField]
+    private bool isLeft;
+    [SerializeField]
+    private bool isTriggered;
+
+    private int windValue;
+    [SerializeField]
+    private float startTime;
 
 
+    [Header("Stun")]
+    [SerializeField]
+    private float timer;
+    [SerializeField]
+    private int times;
+    [SerializeField]
+    private float swapInterval;
+    [SerializeField]
+    private bool isInput1Active;
+    [SerializeField]
+    private bool isInput2Active;
 
-
+    [Header("Shop")]
+    [SerializeField]
+    private float speedMulti;
+    [SerializeField]
+    private bool isBooted1;
 
 
     // Start is called before the first frame update
@@ -88,16 +129,22 @@ public class PlayerTwoController : MonoBehaviour
         numOfLadder = 1;
 
         value = Random.Range(1, 10);
+
+        gameStart = true;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Timer.instance.gameStart)
+        {
+            SpeedAdjust();
+            LadderHight();
+            RescuePlayer1();
+        }
 
-        SpeedAdjust();
-        LadderRotate();
-        LadderHight();
-
+        //EventTrigger();
         //Restrict the player's maximum height for climbing
         //Vector3 newPosition = player.transform.position;
         //newPosition.y = Mathf.Clamp(newPosition.y, -2, maxY);
@@ -114,36 +161,94 @@ public class PlayerTwoController : MonoBehaviour
         //ladder movement at axis.x
         //ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
 
-        LadderHeightSwitch();
-        MoveHorizontally();
+        if (Timer.instance.gameStart)
+        {
+            if (PlayerOneController.instance.isFreezed == false)
+            {
 
-        RandomTilt();
-        SetCurrentState();
+                RandomTilt();
+            }
+
+            LadderHeightSwitch();
+            MoveHorizontally();
+            LadderRotate();
+            SetCurrentState();
+        }
+
+        //WindStart();
 
     }
+    #region Stun Resolved
+    private void RescuePlayer1()
+    {
+        if (FalconAttack.instance.isStunning)
+        {
+            if(isInput1Active && isInput2Active)
+            {
+                isInput1Active = false;
+                isInput2Active = false;
+                times += 1;
+            }
+            swapInterval = 1f / times;
+            //print("swap rate" + swapInterval);
+
+            if(swapInterval <= 0.2)
+            {
+                FalconAttack.instance.StopStun();
+                print("Rescue Player1");
+            }
+        } else
+        {
+            times = 0;
+        }
+    }
+
+
+
+    #endregion
 
     #region LadderHeightControl&Movement
 
     void LadderHight()
     {
         // five stages of ladder heitgh adjustment
-        if (Keyboard.current[Key.Z].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Z].wasPressedThisFrame)   
+        //{
+        //    numOfLadder = 5;
+        //}
+        //else if (Keyboard.current[Key.X].wasPressedThisFrame)
+        //{
+        //    numOfLadder = 4;
+        //}
+        //else if (Keyboard.current[Key.C].wasPressedThisFrame)
+        //{
+        //    numOfLadder = 3;
+        //}
+        //else if (Keyboard.current[Key.V].wasPressedThisFrame)
+        //{
+        //    numOfLadder = 2;
+        //}
+        //else if (Keyboard.current[Key.Space].wasPressedThisFrame)
+        //{
+        //    numOfLadder = 1;
+        //}
+        if(Input.GetKey(KeyCode.Z))
         {
             numOfLadder = 5;
         }
-        else if (Keyboard.current[Key.X].wasPressedThisFrame)
+        else if (Input.GetKey(KeyCode.X))
         {
             numOfLadder = 4;
         }
-        else if (Keyboard.current[Key.C].wasPressedThisFrame)
+        else if (Input.GetKey(KeyCode.C))
         {
             numOfLadder = 3;
         }
-        else if (Keyboard.current[Key.V].wasPressedThisFrame)
+        else if (Input.GetKey(KeyCode.V))
         {
             numOfLadder = 2;
         }
-        else if (Keyboard.current[Key.Space].wasPressedThisFrame)
+        else if(Input.GetKey(KeyCode.Space))
         {
             numOfLadder = 1;
         }
@@ -175,6 +280,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 3)
         {
+            ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(false);
             ladderObj[3].gameObject.SetActive(false);
@@ -183,6 +289,8 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 4)
         {
+            ladderObj[0].gameObject.SetActive(true);
+            ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(true);
             ladderObj[3].gameObject.SetActive(false);
 
@@ -191,6 +299,9 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 5)
         {
+            ladderObj[0].gameObject.SetActive(true);
+            ladderObj[1].gameObject.SetActive(true);
+            ladderObj[2].gameObject.SetActive(true);
             ladderObj[3].gameObject.SetActive(true);
 
             //maxY = 15F;
@@ -201,28 +312,36 @@ public class PlayerTwoController : MonoBehaviour
 
     void SpeedAdjust()
     {
+        if (EnterShop.instance.isPurchased1 && !isBooted1)
+        {
+            moveLadderSpeed *= speedMulti;
+            isBooted1 = true;
+        }
         // three levels of speed: slow, normal, fast
-        if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha1))
         {
             moveLeft = true;
             moveLadderSpeed = 3f;
 
             rotateFast = true;
             rotateNormal = false;
-
+            gameStart = false;
 
         }
-        if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha2))
         {
             moveLeft = true;
             moveLadderSpeed = 1f;
 
             rotateFast = false;
             rotateNormal = true;
-
+            gameStart = false;
 
         }
-        if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha3))
         {
             moveLeft = false;
             moveRight = false;
@@ -231,29 +350,32 @@ public class PlayerTwoController : MonoBehaviour
 
             rotateFast = false;
             rotateNormal = false;
+            gameStart = false;
 
             //StopCoroutine(MoveToHorizontal(MoveToNewPos(0)));
 
 
         }
-        if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha4))
         {
             moveRight = true;
             moveLadderSpeed = 1f;
 
             rotateFast = false;
             rotateNormal = true;
-
+            gameStart = false;
 
         }
-        if (Keyboard.current[Key.Digit5].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Digit5].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Alpha5))
         {
             moveRight = true;
             moveLadderSpeed = 3f;
 
             rotateFast = true;
             rotateNormal = false;
-
+            gameStart = false;
 
 
         }
@@ -263,35 +385,45 @@ public class PlayerTwoController : MonoBehaviour
 
     private void MoveHorizontally()
     {
+
         if (moveLeft)
         {
             pivotPoint.transform.Translate(Vector3.left * moveLadderSpeed * Time.deltaTime);
+            gameStart = false;
 
         }
         if (moveRight)
         {
             pivotPoint.transform.Translate(Vector3.right * moveLadderSpeed * Time.deltaTime);
+            gameStart = false;
         }
 
     }
 
     void LadderRotate()
     {
-        if (Keyboard.current[Key.E].wasPressedThisFrame)
+
+        //if (Keyboard.current[Key.E].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.E))
         {
             rotateLeft = true;
             rotateRight = false;
             leftRotation.color = pressColor;
             rightRotation.color = releaseColor;
+            isInput1Active = true;
+            gameStart = false;
+
         }
 
-
-        if (Keyboard.current[Key.Q].wasPressedThisFrame)
+        //if (Keyboard.current[Key.Q].wasPressedThisFrame)
+        if (Input.GetKey(KeyCode.Q))
         {
             rotateRight = true;
             rotateLeft = false;
             rightRotation.color = pressColor;
             leftRotation.color = releaseColor;
+            isInput2Active = true;
+            gameStart = false;
         }
     }
 
@@ -308,41 +440,219 @@ public class PlayerTwoController : MonoBehaviour
 
     void RandomTilt()
     {
+        if (gameStart)
+        {
+            if (value > 0 && value <= 5)
+            {
+                currentSpeed = 3;
+                LadderTilt(currentSpeed);
+            }
+            else if (value <= 10 && value > 5)
+            {
+                currentSpeed = 3;
+                LadderTilt(-currentSpeed);
+            }
+        }
+        else
+        {
+            if (!rotateLeft && !rotateRight)
+            {
+                if (value > 0 && value <= 5)
+                {
+                    rotateRight = true;
+                    rotateLeft = false;
+                }
+                else if (value <= 10 && value > 5)
+                {
+                    rotateLeft = true;
+                    rotateRight = false;
+                }
+            }
+            if (rotateLeft && !rotateFast && !rotateNormal)
+            {
+                if (numOfLadder == 1)
+                {
+                    currentSpeed = 3;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 2)
+                {
+                    currentSpeed = 4;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 3)
+                {
+                    currentSpeed = 5;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 4)
+                {
+                    currentSpeed = 7;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 5)
+                {
+                    currentSpeed = 10;
+                    LadderTilt(currentSpeed);
+                }
+            }
+            else if (rotateRight && !rotateFast && !rotateNormal)
+            {
+                if (numOfLadder == 1)
+                {
+                    currentSpeed = 3;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 2)
+                {
+                    currentSpeed = 4;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 3)
+                {
+                    currentSpeed = 5;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 4)
+                {
+                    currentSpeed = 7;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 5)
+                {
+                    currentSpeed = 10;
+                    LadderTilt(-currentSpeed);
+                }
+            }
 
-        if (value > 0 && value <= 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight && !rotateFast && !rotateNormal)
-        {
-            LadderTilt(5);
-        }
-        else if (value <= 10 && value > 5 && !moveLeft && !moveRight && !rotateLeft && !rotateRight && !rotateFast && !rotateNormal)
-        {
-            LadderTilt(-5);
+            else if (rotateLeft && rotateFast)
+            {
+                if (numOfLadder == 1)
+                {
+                    currentSpeed = 5;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 2)
+                {
+                    currentSpeed = 7;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 3)
+                {
+                    currentSpeed = 10;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 4)
+                {
+                    currentSpeed = 12;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 5)
+                {
+                    currentSpeed = 15;
+                    LadderTilt(currentSpeed);
+                }
+            }
+            else if (rotateLeft && rotateNormal)
+            {
+                if (numOfLadder == 1)
+                {
+                    currentSpeed = 3;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 2)
+                {
+                    currentSpeed = 5;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 3)
+                {
+                    currentSpeed = 7;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 4)
+                {
+                    currentSpeed = 9;
+                    LadderTilt(currentSpeed);
+                }
+                else if (numOfLadder == 5)
+                {
+                    currentSpeed = 10;
+                    LadderTilt(currentSpeed);
+                }
+            }
+            else if (rotateRight && rotateFast)
+            {
+                if (numOfLadder == 1)
+                {
+                    currentSpeed = 5;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 2)
+                {
+                    currentSpeed = 7;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 3)
+                {
+                    currentSpeed = 10;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 4)
+                {
+                    currentSpeed = 12;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 5)
+                {
+                    currentSpeed = 15;
+                    LadderTilt(-currentSpeed);
+                }
+            }
+            else if (rotateRight && rotateNormal)
+            {
+                if (numOfLadder == 1)
+                {
+                    currentSpeed = 3;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 2)
+                {
+                    currentSpeed = 5;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 3)
+                {
+                    currentSpeed = 7;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 4)
+                {
+                    currentSpeed = 9;
+                    LadderTilt(-currentSpeed);
+                }
+                else if (numOfLadder == 5)
+                {
+                    currentSpeed = 10;
+                    LadderTilt(-currentSpeed);
+                }
+            }else if(rotateLeft && rotateRight)
+            {
+                if (value > 0 && value <= 5)
+                {
+                    currentSpeed = 3;
+                    LadderTilt(currentSpeed);
+                }
+                else if (value <= 10 && value > 5)
+                {
+                    currentSpeed = 3;
+                    LadderTilt(-currentSpeed);
+                }
+            }
         }
 
-        else if (rotateLeft && !rotateFast && !rotateNormal)
-        {
-            LadderTilt(5);
-        }
-        else if (rotateRight && !rotateFast && !rotateNormal)
-        {
-            LadderTilt(-5);
-        }
 
-        else if (rotateLeft && rotateFast)
-        {
-            LadderTilt(10);
-        }
-        else if (rotateLeft && rotateNormal)
-        {
-            LadderTilt(10);
-        }
-        else if (rotateRight && rotateFast)
-        {
-            LadderTilt(-10);
-        }
-        else if (rotateRight && rotateNormal)
-        {
-            LadderTilt(-10);
-        }
+        
     }
 
     #endregion
@@ -419,6 +729,78 @@ public class PlayerTwoController : MonoBehaviour
     }
     #endregion
 
+    #region Wind Event
+    private void EventTrigger()
+    {
+        if (!isTriggered)
+        {
+            StartCoroutine(RandomNumber(5, 100));
+        }
+
+
+
+        if (isTriggered)
+        {
+            if(windValue ==1)
+            {
+                isRight = true;
+                isLeft = false;
+            } else if(windValue == 2)
+            {
+                isLeft = true;
+                isRight = false;
+            }
+        }
+    }
+
+    IEnumerator RandomNumber(float min, float max)
+    {
+        yield return new WaitForSeconds(Random.Range(min, max));
+        randValue = Random.Range(1, 100);
+        if (randValue < 3)
+        {
+            isTriggered = true;
+            windValue = randValue;
+        }
+
+    }
+
+
+    void WindStart()
+    {
+        currentSpeed *= multipleValue;
+        if (isLeft)
+        {
+            startTime = Time.time;
+            if(Time.time - startTime < 5)
+            {
+                LadderTilt(-currentSpeed);
+                print("Wind!!!");
+            }
+            else
+            {
+                isTriggered = false;
+            }
+
+        }
+
+        if (isRight)
+        {
+            startTime = Time.time;
+            if (Time.time - startTime < 5)
+            {
+                LadderTilt(currentSpeed);
+                print("Wind!!!");
+            }
+            else
+            {
+                isTriggered = false;
+            }
+
+        }
+    }
 }
+
+    #endregion
 
 

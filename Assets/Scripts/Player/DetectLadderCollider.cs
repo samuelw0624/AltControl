@@ -12,7 +12,7 @@ public class DetectLadderCollider : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //SceneManager.LoadScene(2);
-            Debug.Log("Player is on the ladder");
+            //Debug.Log("Player is on the ladder");
         }
     }
 
@@ -21,7 +21,7 @@ public class DetectLadderCollider : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             SceneManager.LoadScene("TitlePage");
-            Debug.Log("Player is off the ladder");
+            //Debug.Log("Player is off the ladder");
         }
 
     }

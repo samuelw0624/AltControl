@@ -10,11 +10,27 @@ public class DrillController : MonoBehaviour
     public GameObject flatDrill;
     public GameObject hexDrill;
     public GameObject crossDrill;
+    public GameObject superDrill;
+
+    [Header("Shop")]
+    [SerializeField]
+    public bool keyPressed;
+    [SerializeField]
+    public GameObject shopUI;
+    [SerializeField]
+    private AudioSource insufficientFundSound;
+    [SerializeField]
+    private AudioSource purchaseSuccessfulSound;
+
+
+
+
     public enum DrillType
     {
         CrossDrill,
         FlatDrill,
         HexDrill,
+        SuperDrill,
         None
     }
 
@@ -33,7 +49,7 @@ public class DrillController : MonoBehaviour
     void Update()
     {
         //Debug.Log(p1Script);
-
+        Enter();
         SwitchDrill();
         //HandleDrills();
     }
@@ -43,46 +59,119 @@ public class DrillController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            currentDrill = DrillType.FlatDrill;
-            //activate UI icons
-            flatDrill.SetActive(true);
-            hexDrill.SetActive(false);
-            crossDrill.SetActive(false);
-
-            Debug.Log("flat screw is activated ");
-            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
+            if(PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
             {
+                currentDrill = DrillType.SuperDrill;
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
+
                 p1Script.FixSign();
+
             }
+            else
+            {
+                currentDrill = DrillType.FlatDrill;
+                //activate UI icons
+                flatDrill.SetActive(true);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(false);
+
+                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
+                {
+                    p1Script.FixSign();
+                }
+
+            }
+
+            EnterShop.instance.pressedTimes += 1;
+            Debug.Log("flat screw is activated ");
+
+            keyPressed = true;
+            Purchase();
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            currentDrill = DrillType.HexDrill;
-
-            //activate UI icons
-            flatDrill.SetActive(false);
-            hexDrill.SetActive(true);
-            crossDrill.SetActive(false);
-            Debug.Log("hex screw is activated");
-            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
+            if(PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
             {
+                currentDrill = DrillType.SuperDrill;
+
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
+
                 p1Script.FixSign();
             }
+            else
+            {
+                currentDrill = DrillType.HexDrill;
+
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(true);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(false);
+
+                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
+                {
+                    p1Script.FixSign();
+                }
+            }
+
+
+            EnterShop.instance.pressedTimes += 1;
+
+            Debug.Log("hex screw is activated");
+
+
+            keyPressed = true;
+            Purchase();
         }
+
+
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            currentDrill = DrillType.CrossDrill;
-            //activate UI icons
-            flatDrill.SetActive(false);
-            hexDrill.SetActive(false);
-            crossDrill.SetActive(true);
+            if(PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
+            {
+                currentDrill = DrillType.SuperDrill;
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
+
+                p1Script.FixSign();
+
+            }
+            else
+            {
+                currentDrill = DrillType.CrossDrill;
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(true);
+                superDrill.SetActive(false);
+
+                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
+                {
+                    p1Script.FixSign();
+                }
+            }
+
+            EnterShop.instance.pressedTimes += 1;
 
             Debug.Log("cross screw is activated");
-            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
-            {
-                p1Script.FixSign();
-            }
+
+            keyPressed = true;
+            Purchase();
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             currentDrill = DrillType.None;
@@ -93,6 +182,7 @@ public class DrillController : MonoBehaviour
             Debug.Log("Deactivate screw");
         }
     }
+
 
     //void HandleDrills()
     //{
@@ -142,5 +232,95 @@ public class DrillController : MonoBehaviour
     //        p1Script.isInDrillSlot = false;
     //    }
     //}
+    #endregion
+
+    #region Shop
+    private void Enter()
+    {
+        if (EnterShop.instance.withinShopRange && keyPressed)
+        {
+            shopUI.SetActive(true);
+            PlayerOneController.instance.isFreezed = true;
+            EnterShop.instance.firstEnter = true;
+
+        }
+        else
+        {
+            LeaveShop();
+        }
+    }
+
+
+    public void LeaveShop()
+    {
+        shopUI.SetActive(false);
+        PlayerOneController.instance.isFreezed = false;
+        keyPressed = false;
+        for (int i = 0; i < EnterShop.instance.shopItem.Length; i++)
+        {
+            EnterShop.instance.shopItem[i].SetActive(false);
+        }
+        EnterShop.instance.selectedItem = 0;
+        EnterShop.instance.firstEnter = false;
+        EnterShop.instance.oriShop = false;
+    }
+
+
+    private void Purchase()
+    {
+        if(EnterShop.instance.selectedItem == 0 && EnterShop.instance.isPurchased1 == false && EnterShop.instance.pressedTimes > 1)
+        {
+            if(ScoreManager.instance.score >= 50)
+            {
+                EnterShop.instance.soldOutItems[0].SetActive(true);
+                EnterShop.instance.isPurchased1 = true;
+                ScoreManager.instance.ReducePoint(50);
+                purchaseSuccessfulSound.Play();
+            }
+            else
+            {
+
+            }
+
+        }
+
+        if (EnterShop.instance.selectedItem == 1 && EnterShop.instance.isPurchased2 == false && EnterShop.instance.pressedTimes > 1)
+        {
+            if(ScoreManager.instance.score >= 100)
+            {
+                EnterShop.instance.soldOutItems[1].SetActive(true);
+                EnterShop.instance.isPurchased2 = true;
+                ScoreManager.instance.ReducePoint(100);
+                purchaseSuccessfulSound.Play();
+            }
+            else
+            {
+                insufficientFundSound.Play();
+            }
+        }
+
+        if (EnterShop.instance.selectedItem == 2 && EnterShop.instance.isPurchased3 == false && EnterShop.instance.pressedTimes > 1)
+        {
+            if(ScoreManager.instance.score >= 80)
+            {
+                EnterShop.instance.soldOutItems[2].SetActive(true);
+                EnterShop.instance.isPurchased3 = true;
+                ScoreManager.instance.ReducePoint(80);
+                purchaseSuccessfulSound.Play();
+
+            }
+            else
+            {
+                insufficientFundSound.Play();
+            }
+        }
+
+        if (EnterShop.instance.selectedItem == 3)
+        {
+            LeaveShop();
+            EnterShop.instance.pressedTimes = 0;
+        }
+    }
+
     #endregion
 }

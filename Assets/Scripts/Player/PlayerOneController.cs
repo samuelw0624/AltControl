@@ -9,7 +9,7 @@ using TMPro;
 
 public class PlayerOneController : MonoBehaviour
 {
-    public static PlayerOneController instance {get; private set;}
+    public static PlayerOneController instance { get; private set; }
     //reference variables
     Rigidbody playerRb;
     GameObject ladder;
@@ -18,7 +18,8 @@ public class PlayerOneController : MonoBehaviour
     bool leftHandOffLadder = true;
     bool rightHandOffLadder = true;
     //checks if the player grabbed the ladder for the frst time
-    bool gameStart1, gameStart2, gameOver;
+    [SerializeField]
+    public bool gameStart1, gameStart2, gameOver, isDead;
 
     /*rail spot booleans, 5 spots on each side, 0 = uppper most position, 4 = lower most position 
     */
@@ -38,14 +39,8 @@ public class PlayerOneController : MonoBehaviour
      */
     [SerializeField] public float moveDist = 1.1f;
     [SerializeField] float moveSpeed;
-    [SerializeField] float moveOriSpeed = 5;
-    [SerializeField] float moveSlowSpeed = 3;
-    //slide varibales
-    bool slideCountDown;
-    //timer varibale used to store how much time had passed
-    float timer;
-    //slideHoldTime is a constant of how many seconds the player must hold the position
-    [SerializeField] float slideHoldTime;
+    [SerializeField] float moveOriSpeed;
+    [SerializeField] float moveSlowSpeed;
     [SerializeField] float gravityMod;
 
     //drill variables
@@ -64,20 +59,20 @@ public class PlayerOneController : MonoBehaviour
     //light emission control variables
     LightControl lightcontrolRef;
     AudioSource repairAudio;
+    [SerializeField]
     public AudioClip repairClip;
+
 
     //follow ladder position
     public Transform[] target;
     public float offset;
     public PlayerTwoController player2;
+    [SerializeField]
+    private GameObject minimapIcon;
 
+    [SerializeField]
     public int num;
 
-    public bool reachMax1, reachMax2, reachMax3, reachMax4, reachMax5;
-
-
-
-    [SerializeField] SlowDown sD;
 
     [Header("Animation")]
     [SerializeField]
@@ -88,7 +83,7 @@ public class PlayerOneController : MonoBehaviour
     float distance;
     float LateDis;
     [SerializeField]
-    bool handsOff = false;
+    public bool handsOff = false;
 
     [SerializeField]
     GameObject p1Screen;
@@ -99,15 +94,45 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField]
     TMP_Text p2Text;
     [SerializeField]
-    float warningTimer = 5f;
+    public float warningTimer = 5f;
     [SerializeField]
     float timerValue;
+    [SerializeField]
+    AudioSource audio;
+
+    [Header("Slide Down")]
+    [SerializeField]
+    private bool canSlideDown;
+    [SerializeField]
+    private float timer;
+    [SerializeField] 
+    private float slideHoldTime;
+    [SerializeField] 
+    private bool slideCountDown;
+
+    [Header("Shop")]
+    [SerializeField]
+    public bool hasChanged;
+    [SerializeField]
+    public bool isFreezed;
+    [SerializeField]
+    public int numItem;
+    [SerializeField]
+    public bool isBoosted;
+    [SerializeField]
+    public float timerBoosted;
+
+
+    [Header("Winning Condition")]
+    [SerializeField]
+    public int numberOfSignhasBeenFixed;
 
     public enum ScrewType
     {
         CrossScrew,
         FlatScrew,
         HexScrew,
+        SuperDrill,
         None
     }
 
@@ -124,7 +149,7 @@ public class PlayerOneController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-     
+
     }
 
     // Start is called before the first frame update
@@ -149,45 +174,65 @@ public class PlayerOneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckLeftHand();
-        CheckRightHand();
+        if (Timer.instance.gameStart)
+        {
 
-        CheckLeftRail();
-        CheckRightRail();
+            if (!isFreezed)
+            {
+                SlideDown();
 
-        UpdateClosestSpot();
+            }
+            CheckLeftHand();
+            CheckRightHand();
 
-        SlideDown();
+            CheckLeftRail();
+            CheckRightRail();
 
-        //FollowLadder();
+            UpdateClosestSpot();
+            //FollowLadder();
+            DetectPlayerPosition();
+            //DetectReachMaxHeight();
+            
+            ConfineLadderHeight();
 
-        DetectPlayerPosition();
-        DetectReachMaxHeight();
+            Warn();
 
-        ConfineLadderHeight();
-        Warn();
+        }
+
+
+
     }
 
     private void FixedUpdate()
     {
-        var keyboard = Keyboard.current;
-        //check if there is a keyboard
-        if (keyboard == null)
+        if (Timer.instance.gameStart)
         {
-            return;
+
+            if (!isFreezed)
+            {
+                var keyboard = Keyboard.current;
+                //check if there is a keyboard
+                if (keyboard == null)
+                {
+                    return;
+                }
+
+                if (!leftHandOffLadder && !rightHandOffLadder && gameStart1 && gameStart2)
+                {
+                    gameOver = false;
+
+                }
+                else if (leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
+                {
+                    handsOff = true;
+                    //SceneManager.LoadScene("GameOver");
+                }
+
+                ClimbUp();
+            }
+
         }
 
-        if (!leftHandOffLadder && !rightHandOffLadder && gameStart1 && gameStart2)
-        {
-            gameOver = false;
-
-        }else if(leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
-        {
-            handsOff = true;
-            //SceneManager.LoadScene("GameOver");
-        }
-
-        ClimbUp();
     }
     #endregion
 
@@ -209,7 +254,8 @@ public class PlayerOneController : MonoBehaviour
         {
             leftHandOffLadder = false;
         }
-        if (Keyboard.current[Key.A].wasPressedThisFrame && !leftHandOffLadder)
+        //if (Keyboard.current[Key.A].wasPressedThisFrame && !leftHandOffLadder)
+        if(Input.GetKey(KeyCode.A) && !leftHandOffLadder)
         {
             leftHandOffLadder = true;
             ResetLeftBool();
@@ -231,7 +277,8 @@ public class PlayerOneController : MonoBehaviour
         {
             rightHandOffLadder = false;
         }
-        if (Keyboard.current[Key.D].wasPressedThisFrame && !rightHandOffLadder)
+        //if (Keyboard.current[Key.D].wasPressedThisFrame && !rightHandOffLadder)
+        if(Input.GetKey(KeyCode.D) && !rightHandOffLadder)
         {
             rightHandOffLadder = true;
             ResetRightBool();
@@ -243,27 +290,78 @@ public class PlayerOneController : MonoBehaviour
      */
     void CheckLeftRail()
     {
-        if(!gameOver)
+        if (!gameOver)
         {
-            if (Keyboard.current[Key.T].wasPressedThisFrame)
+            //if (Keyboard.current[Key.T].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(0);
+            //}
+            //if (Keyboard.current[Key.Y].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(1);
+            //}
+            //if (Keyboard.current[Key.G].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(2);
+            //}
+            //if (Keyboard.current[Key.H].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(3);
+            //}
+            //if (Keyboard.current[Key.B].wasPressedThisFrame)
+            //{
+            //    ResetLeftBool(4);
+            //}
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 ResetLeftBool(0);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
-            if (Keyboard.current[Key.Y].wasPressedThisFrame)
+            if (Input.GetKeyDown(KeyCode.Y))
             {
                 ResetLeftBool(1);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
-            if (Keyboard.current[Key.G].wasPressedThisFrame)
+            if (Input.GetKeyDown(KeyCode.G))
             {
                 ResetLeftBool(2);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
-            if (Keyboard.current[Key.H].wasPressedThisFrame)
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 ResetLeftBool(3);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
-            if (Keyboard.current[Key.B].wasPressedThisFrame)
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 ResetLeftBool(4);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
         }
 
@@ -271,27 +369,82 @@ public class PlayerOneController : MonoBehaviour
 
     void CheckRightRail()
     {
-        if(!gameOver)
+        if (!gameOver)
         {
-            if (Keyboard.current[Key.O].wasPressedThisFrame)
+            //if (Keyboard.current[Key.O].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(0);
+            //}
+            //if (Keyboard.current[Key.I].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(1);
+            //}
+            //if (Keyboard.current[Key.K].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(2);
+            //}
+            //if (Keyboard.current[Key.J].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(3);
+            //}
+            //if (Keyboard.current[Key.M].wasPressedThisFrame)
+            //{
+            //    ResetRightBool(4);
+            //}
+            if (Input.GetKey(KeyCode.O))
             {
                 ResetRightBool(0);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
-            if (Keyboard.current[Key.I].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.I))
             {
                 ResetRightBool(1);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
-            if (Keyboard.current[Key.K].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.K))
             {
                 ResetRightBool(2);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
-            if (Keyboard.current[Key.J].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.J))
             {
                 ResetRightBool(3);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
-            if (Keyboard.current[Key.M].wasPressedThisFrame)
+            if (Input.GetKey(KeyCode.M))
             {
                 ResetRightBool(4);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
         }
     }
@@ -302,7 +455,7 @@ public class PlayerOneController : MonoBehaviour
         for (int i = 0; i < leftBoolArray.Length; i++)
         {
             leftBoolArray[i] = false;
-            leftPosUIArray[i].SetActive(true);
+            //leftPosUIArray[i].SetActive(true);
         }
     }
     /*overload function of ResetLeftBool(), each step set the value of index i
@@ -310,8 +463,9 @@ public class PlayerOneController : MonoBehaviour
      */
     void ResetLeftBool(int toSetTrue)
     {
+
         for (int i = 0; i < leftBoolArray.Length; i++)
-        {
+        {     
             leftBoolArray[i] = (i == toSetTrue);
             leftPosUIArray[i].SetActive(i != toSetTrue);
         }
@@ -322,7 +476,7 @@ public class PlayerOneController : MonoBehaviour
         for (int i = 0; i < rightBoolArray.Length; i++)
         {
             rightBoolArray[i] = false;
-            rightPoseUIArray[i].SetActive(true);
+            //rightPoseUIArray[i].SetActive(true);
         }
     }
     //same as the ResetLeftBool
@@ -332,6 +486,8 @@ public class PlayerOneController : MonoBehaviour
         {
             rightBoolArray[i] = (i == toSetTrue);
             rightPoseUIArray[i].SetActive(i != toSetTrue);
+
+
         }
     }
     #endregion
@@ -340,18 +496,27 @@ public class PlayerOneController : MonoBehaviour
 
     void ClimbUp()
     {
-        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !reachMax1 && !reachMax2 && !reachMax3 && !reachMax4 && !reachMax5)
+        if (!performed04 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !FalconAttack.instance.isStunning)
+
         {
-            if (leftBoolArray[0] && rightBoolArray[4] )
+            if (leftBoolArray[0] && rightBoolArray[4])
             {
                 //StartCoroutine(MoveToNewPos(NewPosition()));
                 MovePlayer();
                 performed04 = true;
                 performed40 = false;
+                //anim.SetTrigger("Left");
+            }
+            else if (!leftBoolArray[0] || !rightBoolArray[4])
+            {
+                isMoving = false;
+                anim.SetFloat("moveSpeed", 0);
+
             }
         }
 
-        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !reachMax1 && !reachMax2 && !reachMax3 && !reachMax4 && !reachMax5)
+
+        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !FalconAttack.instance.isStunning)
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
@@ -359,41 +524,55 @@ public class PlayerOneController : MonoBehaviour
                 MovePlayer();
                 performed40 = true;
                 performed04 = false;
+                //anim.SetTrigger("Right");
+            }
+            else if (!leftBoolArray[4] || !rightBoolArray[0])
+            {
+                isMoving = false;
+                anim.SetFloat("moveSpeed", 0);
             }
         }
+
+        if (leftHandOffLadder || rightHandOffLadder)
+        {
+            isMoving = false;
+            anim.SetFloat("moveSpeed", 0);
+        }
+
     }
 
     void SlideDown()
     {
         Vector3 newLocalPos1 = this.transform.localPosition;
-        Debug.Log(newLocalPos1);
+        //Debug.Log(newLocalPos1);
 
         //at hand position 2,2, start slideCoundDown
-        if (leftBoolArray[2] && rightBoolArray[2] && !slideCountDown)
+        if (leftBoolArray[4] && rightBoolArray[4] && !slideCountDown && !FalconAttack.instance.isStunning)
         {
             slideCountDown = true;
             timer = 0f;
         }
 
-        if (slideCountDown)
+        if (slideCountDown && canSlideDown)
         {
             timer += Time.deltaTime;
         }
 
         //enable modified gravity when hold threashold is reached
-        if (leftBoolArray[2] && rightBoolArray[2] && timer >= slideHoldTime)
+        if (leftBoolArray[4] && rightBoolArray[4] && timer >= slideHoldTime)
         {
             Vector3 newLocalPos = this.transform.localPosition;
             newLocalPos.y -= (moveSpeed * 0.1f) * Time.deltaTime;
             this.transform.localPosition = newLocalPos;
-            if (newLocalPos.y <= 0.04f)
+            if (newLocalPos.y <= 0.045f)
             {
-                newLocalPos.y = 0.04f;
+                newLocalPos.y = 0.045f;
                 StopSlide();
                 return; // Exit the function early
             }
+
         }
-        else if (!leftBoolArray[2] || !rightBoolArray[2])
+        else if (!leftBoolArray[4] || !rightBoolArray[4])
         {
             StopSlide();
             UpdateClosestSpot();
@@ -439,9 +618,19 @@ public class PlayerOneController : MonoBehaviour
 
     void MovePlayer()
     {
-        anim.SetBool("isMoving", true);
+        //anim.SetBool("isMoving", true);
         isMoving = true;
+        print("isMoving" + isMoving);
         MoveSpeedControl();
+        anim.SetFloat("moveSpeed", moveSpeed);
+        StartCoroutine(DoClimb());
+        //print("MoveSpeed" + moveSpeed);
+
+    }
+
+    IEnumerator DoClimb()
+    {
+        yield return new WaitForSeconds(0.2f);
         Vector3 newLocalPos = this.transform.localPosition;
         newLocalPos.y += moveSpeed * Time.deltaTime;
         this.transform.localPosition = newLocalPos;
@@ -449,15 +638,15 @@ public class PlayerOneController : MonoBehaviour
 
     void MoveSpeedControl()
     {
-        if (!sD.insideSteam)
+        if (!SlowDown.instance.insideSteam)
         {
             moveSpeed = moveOriSpeed;
-            //Debug.Log("moveSpeed = " + moveSpeed);
+            Debug.Log("moveSpeed = " + moveSpeed);
         }
         else
         {
             moveSpeed = moveSlowSpeed;
-            //Debug.Log("moveSpeed = " + moveSpeed);
+            Debug.Log("moveSpeed = " + moveSpeed);
         }
     }
     #endregion
@@ -578,19 +767,31 @@ public class PlayerOneController : MonoBehaviour
         // if there is a closest sign
         if(closestSpot != null)
         {
-            //check what kind of sign it is
-            if (closestSpot.gameObject.CompareTag("cross"))
+            if (EnterShop.instance.isPurchased2)
             {
-                currentScrew = ScrewType.CrossScrew;
+                //check what kind of sign it is
+                if (closestSpot.gameObject.CompareTag("cross") || closestSpot.gameObject.CompareTag("flat") || closestSpot.gameObject.CompareTag("hex"))
+                {
+                    currentScrew = ScrewType.SuperDrill;
+                }
             }
-            if (closestSpot.gameObject.CompareTag("flat"))
+            else
             {
-                currentScrew = ScrewType.FlatScrew;
+                //check what kind of sign it is
+                if (closestSpot.gameObject.CompareTag("cross"))
+                {
+                    currentScrew = ScrewType.CrossScrew;
+                }
+                if (closestSpot.gameObject.CompareTag("flat"))
+                {
+                    currentScrew = ScrewType.FlatScrew;
+                }
+                if (closestSpot.gameObject.CompareTag("hex"))
+                {
+                    currentScrew = ScrewType.HexScrew;
+                }
             }
-            if (closestSpot.gameObject.CompareTag("hex"))
-            {
-                currentScrew = ScrewType.HexScrew;
-            }
+
         }
     }
 
@@ -599,15 +800,28 @@ public class PlayerOneController : MonoBehaviour
         if (closestSpot != null && (leftHandOffLadder || rightHandOffLadder))
         {
             repairAudio.PlayOneShot(repairClip);
+
             //change fix status in light control ref
             lightcontrolRef.isFixed = true;
             //removed the closest sign that was just fixed
             spotsToFix.Remove(closestSpot);
+
+            minimapIcon = closestSpot.transform.Find("Sign").gameObject;
+            minimapIcon.SetActive(false);
+
             UpdateClosestSpot();
+
+
             //Destroy(closestSign);
             //add score function
-            ScoreManager.instance.AddPoint(5);
+            ScoreManager.instance.AddPoint(20);
+            numberOfSignhasBeenFixed += 1;
+            print("fixed");
 
+            if(numberOfSignhasBeenFixed >= 6)
+            {
+                //winning
+            }
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)
@@ -650,152 +864,133 @@ public class PlayerOneController : MonoBehaviour
     #region Height confine
     void DetectPlayerPosition()
     {
-        if (this.transform.position.y <= target[0].transform.position.y && player2.numOfLadder ==1)
+        if (this.transform.position.y < target[0].transform.position.y && player2.numOfLadder == 1)
         {
             num = 0;
-            reachMax2 = false;
-            reachMax3 = false;
-            reachMax4 = false;
-            reachMax5 = false;
-            //Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[0].transform.position.y);
-
         }
-        else if (this.transform.position.y > target[0].transform.position.y && this.transform.position.y <= target[1].transform.position.y - offset && player2.numOfLadder == 2)
+
+        else if (this.transform.position.y > target[0].transform.position.y && this.transform.position.y < target[1].transform.position.y - offset && player2.numOfLadder == 2)
         {
             num = 1;
-            reachMax1 = false;
-            reachMax3 = false;
-            reachMax4 = false;
-            reachMax5 = false;
-            //Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[1]);
         }
-        else if (this.transform.position.y > target[1].transform.position.y && this.transform.position.y <= target[2].transform.position.y - offset && player2.numOfLadder == 3)
+        else if (this.transform.position.y > target[1].transform.position.y && this.transform.position.y < target[2].transform.position.y - offset && player2.numOfLadder == 3)
         {
             num = 2;
-            reachMax1 = false;
-            reachMax2 = false;
-            reachMax4 = false;
-            reachMax5 = false;
-            //Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[2]);
         }
-        else if (this.transform.position.y > target[2].transform.position.y && this.transform.position.y <= target[3].transform.position.y - offset && player2.numOfLadder == 4)
+        else if (this.transform.position.y > target[2].transform.position.y && this.transform.position.y < target[3].transform.position.y - offset && player2.numOfLadder == 4)
         {
             num = 3;
-            reachMax1 = false;
-            reachMax2 = false;
-            reachMax3 = false;
-            reachMax5 = false;
-            Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[3]);
         }
-        else if (this.transform.position.y > target[3].transform.position.y && this.transform.position.y <= target[4].transform.position.y - offset && player2.numOfLadder == 5)
+        else if (this.transform.position.y > target[3].transform.position.y && this.transform.position.y < target[4].transform.position.y - offset && player2.numOfLadder == 5)
         {
             num = 4;
-            reachMax1 = false;
-            reachMax2 = false;
-            reachMax3 = false;
-            reachMax4 = false;
-            //Debug.Log("num = " + num);
-            //Debug.Log("targerPosition = " + target[4]);
         }
+
     }
-
-
-    void DetectReachMaxHeight()
-    {
-        if (this.transform.position.y >= target[0].transform.position.y && player2.numOfLadder == 1)
-        {
-            reachMax1 = true;
-            //Debug.Log("reachMax1: " + reachMax1);
-
-        }
-        else if (this.transform.position.y >= target[1].transform.position.y && player2.numOfLadder == 2)
-        {
-            reachMax2 = true;
-            //Debug.Log("reachMax2: " + reachMax2);
-        }
-        else if (this.transform.position.y >= target[2].transform.position.y && player2.numOfLadder == 3) 
-        {
-            reachMax3 = true;
-            //Debug.Log("reachMax3: " + reachMax3);
-        }
-        else if (this.transform.position.y >= target[3].transform.position.y && player2.numOfLadder == 4)
-        {
-            reachMax4 = true;
-            //Debug.Log("reachMax4: " + reachMax4);
-        }
-        else if (this.transform.position.y >= target[4].transform.position.y && player2.numOfLadder == 5)
-        {
-            reachMax5 = true;
-            //Debug.Log("reachMax5: " + reachMax5);
-        }
-    }
-    #endregion
 
     void ConfineLadderHeight()
     {
-        float offSet = - 0.1f;
-        if (num > 0 && transform.position.y > target[0].transform.position.y && player2.numOfLadder == 1)
+        num = player2.numOfLadder - 1;
+
+        if (num >= 0 && transform.position.y >= target[0].transform.position.y && player2.numOfLadder == 1)
         {
             Vector3 charPos = target[0].transform.position;
-            charPos.x = target[0].transform.position.x - offSet;
+            charPos.x = target[0].transform.position.x;
             charPos.y = target[0].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            charPos.z = target[0].transform.position.z ;
             transform.position = charPos;
-        } 
-        else if(num > 1 && transform.position.y > target[1].transform.position.y && player2.numOfLadder == 2)
+        }
+        else if (num >= 1 && transform.position.y >= target[1].transform.position.y && player2.numOfLadder == 2)
         {
             Vector3 charPos = target[1].transform.position;
-            charPos.x = target[1].transform.position.x - offSet; 
+            charPos.x = target[1].transform.position.x;
             charPos.y = target[1].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
-        else if (num > 2 && transform.position.y > target[2].transform.position.y && player2.numOfLadder == 3)
+        else if (num >= 2 && transform.position.y >= target[2].transform.position.y && player2.numOfLadder == 3)
         {
             Vector3 charPos = target[2].transform.position;
-            charPos.x = target[2].transform.position.x - offSet;
+            charPos.x = target[2].transform.position.x;
             charPos.y = target[2].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
-        else if (num > 3 && transform.position.y > target[3].transform.position.y && player2.numOfLadder == 4)
+        else if (num >= 3 && transform.position.y >= target[3].transform.position.y && player2.numOfLadder == 4)
         {
             Vector3 charPos = target[3].transform.position;
-            charPos.x = target[3].transform.position.x - offSet;
+            charPos.x = target[3].transform.position.x;
             charPos.y = target[3].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
-        else if (num > 4 && transform.position.y > target[4].transform.position.y && player2.numOfLadder == 5)
+        else if (num >= 4 && transform.position.y >= target[4].transform.position.y && player2.numOfLadder == 5)
         {
             Vector3 charPos = target[4].transform.position;
-            charPos.x = target[4].transform.position.x - offSet;
+            charPos.x = target[4].transform.position.x;
             charPos.y = target[4].transform.position.y;
-            charPos.z = target[0].transform.position.z + offSet;
+            charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
+        
+        if(transform.position.y <= target[5].transform.position.y)
+        {
+            Vector3 charPos = target[5].transform.position;
+            charPos.x = target[5].transform.position.x;
+            charPos.y = target[5].transform.position.y;
+            charPos.z = target[0].transform.position.z;
+            transform.position = charPos;
+            canSlideDown = false;
+        }
+        else
+        {
+            canSlideDown = true;
+        }
+
+
     }
 
+    #endregion
 
     #region Warning
-    void Warn()
+    public void Warn()
     {
+        //if (EnterShop.instance.isPurchased3 && !isBoosted)
+        //{
+        //    isBoosted = true;
+        //    warningTimer = 15;
+        //}
+        //Debug.Log(warningTimer);
         if (handsOff)
         {
-            warningTimer -= Time.deltaTime;
-            p1Screen.SetActive(true);
-            p2Screen.SetActive(true);
+            if (EnterShop.instance.isPurchased3)
+            {
+                timerBoosted -= Time.deltaTime;
+                p1Screen.SetActive(true);
+                p2Screen.SetActive(true);
+                audio.Play();
 
-            if (warningTimer <= 0)
+                p1Text.text = (timerBoosted).ToString("0");
+                p2Text.text = (timerBoosted).ToString("0");
+
+            }
+            else
+            {
+                warningTimer -= Time.deltaTime;
+                p1Screen.SetActive(true);
+                p2Screen.SetActive(true);
+                audio.Play();
+
+                p1Text.text = (warningTimer).ToString("0");
+                p2Text.text = (warningTimer).ToString("0");
+            }
+
+            if (warningTimer <= 0 || timerBoosted <= 0)
             {
                 //Debug.Log("Game Over - HandsOff");
                 gameOver = true;
                 handsOff = false;
-                warningTimer = timerValue;
+                //warningTimer = timerValue;
                 SceneManager.LoadScene("GameOver");
             }else if (!leftHandOffLadder || !rightHandOffLadder)
             {
@@ -806,8 +1001,11 @@ public class PlayerOneController : MonoBehaviour
             }
         }
        
-        p1Text.text = (warningTimer).ToString("0");
-        p2Text.text = (warningTimer).ToString("0");
+
+        if (isDead)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
     #endregion
 }
