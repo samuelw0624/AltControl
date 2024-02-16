@@ -28,6 +28,8 @@ public class EnterShop : MonoBehaviour
     public bool isPurchased1, isPurchased2, isPurchased3;
     [SerializeField]
     public int pressedTimes;
+    [SerializeField]
+    public AudioSource selectionSound;
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +57,7 @@ public class EnterShop : MonoBehaviour
 
                 selectedItem = 0;
                 shopItem[3].SetActive(false);
-                shopItem[0].SetActive(true);
+
             }
             else
             {

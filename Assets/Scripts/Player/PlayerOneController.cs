@@ -316,26 +316,52 @@ public class PlayerOneController : MonoBehaviour
             {
                 ResetLeftBool(0);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 ResetLeftBool(1);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
                 ResetLeftBool(2);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
                 ResetLeftBool(3);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
             if (Input.GetKeyDown(KeyCode.B))
             {
                 ResetLeftBool(4);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
         }
 
@@ -368,22 +394,57 @@ public class PlayerOneController : MonoBehaviour
             if (Input.GetKey(KeyCode.O))
             {
                 ResetRightBool(0);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKey(KeyCode.I))
             {
                 ResetRightBool(1);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKey(KeyCode.K))
             {
                 ResetRightBool(2);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKey(KeyCode.J))
             {
                 ResetRightBool(3);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKey(KeyCode.M))
             {
                 ResetRightBool(4);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
         }
     }

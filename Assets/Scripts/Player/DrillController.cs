@@ -17,6 +17,10 @@ public class DrillController : MonoBehaviour
     public bool keyPressed;
     [SerializeField]
     public GameObject shopUI;
+    [SerializeField]
+    private AudioSource insufficientFundSound;
+    [SerializeField]
+    private AudioSource purchaseSuccessfulSound;
 
 
 
@@ -271,6 +275,7 @@ public class DrillController : MonoBehaviour
                 EnterShop.instance.soldOutItems[0].SetActive(true);
                 EnterShop.instance.isPurchased1 = true;
                 ScoreManager.instance.ReducePoint(50);
+                purchaseSuccessfulSound.Play();
             }
             else
             {
@@ -286,10 +291,11 @@ public class DrillController : MonoBehaviour
                 EnterShop.instance.soldOutItems[1].SetActive(true);
                 EnterShop.instance.isPurchased2 = true;
                 ScoreManager.instance.ReducePoint(100);
+                purchaseSuccessfulSound.Play();
             }
             else
             {
-
+                insufficientFundSound.Play();
             }
         }
 
@@ -300,10 +306,12 @@ public class DrillController : MonoBehaviour
                 EnterShop.instance.soldOutItems[2].SetActive(true);
                 EnterShop.instance.isPurchased3 = true;
                 ScoreManager.instance.ReducePoint(80);
+                purchaseSuccessfulSound.Play();
+
             }
             else
             {
-
+                insufficientFundSound.Play();
             }
         }
 
