@@ -67,6 +67,8 @@ public class PlayerOneController : MonoBehaviour
     public Transform[] target;
     public float offset;
     public PlayerTwoController player2;
+    [SerializeField]
+    private GameObject minimapIcon;
 
     [SerializeField]
     public int num;
@@ -119,6 +121,11 @@ public class PlayerOneController : MonoBehaviour
     public bool isBoosted;
     [SerializeField]
     public float timerBoosted;
+
+
+    [Header("Winning Condition")]
+    [SerializeField]
+    public int numberOfSignhasBeenFixed;
 
     public enum ScrewType
     {
@@ -309,26 +316,52 @@ public class PlayerOneController : MonoBehaviour
             {
                 ResetLeftBool(0);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 ResetLeftBool(1);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
                 ResetLeftBool(2);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
                 ResetLeftBool(3);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
             if (Input.GetKeyDown(KeyCode.B))
             {
                 ResetLeftBool(4);
                 EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
             }
         }
 
@@ -361,22 +394,57 @@ public class PlayerOneController : MonoBehaviour
             if (Input.GetKey(KeyCode.O))
             {
                 ResetRightBool(0);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKey(KeyCode.I))
             {
                 ResetRightBool(1);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKey(KeyCode.K))
             {
                 ResetRightBool(2);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKey(KeyCode.J))
             {
                 ResetRightBool(3);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
             if (Input.GetKey(KeyCode.M))
             {
                 ResetRightBool(4);
+                EnterShop.instance.SelectItem();
+
+                if (EnterShop.instance.firstEnter)
+                {
+                    EnterShop.instance.selectionSound.Play();
+                }
+
             }
         }
     }
@@ -737,11 +805,23 @@ public class PlayerOneController : MonoBehaviour
             lightcontrolRef.isFixed = true;
             //removed the closest sign that was just fixed
             spotsToFix.Remove(closestSpot);
+
+            minimapIcon = closestSpot.transform.Find("Sign").gameObject;
+            minimapIcon.SetActive(false);
+
             UpdateClosestSpot();
+
+
             //Destroy(closestSign);
             //add score function
-            ScoreManager.instance.AddPoint(5);
+            ScoreManager.instance.AddPoint(20);
+            numberOfSignhasBeenFixed += 1;
+            print("fixed");
 
+            if(numberOfSignhasBeenFixed >= 6)
+            {
+                //winning
+            }
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)
