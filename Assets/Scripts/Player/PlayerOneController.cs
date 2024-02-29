@@ -53,22 +53,27 @@ public class PlayerOneController : MonoBehaviour
     //sign positional bool, currently unsed
     public bool signOnLeft, signOnRight;
     //variables to get closest sign
-    public List<GameObject> spotsToFix = new List<GameObject>();
-    public GameObject closestSpot;
+
 
     //light emission control variables
+    [SerializeField]
     LightControl lightcontrolRef;
     AudioSource repairAudio;
     [SerializeField]
     public AudioClip repairClip;
 
 
+    [Header("Repair Spot")]
     //follow ladder position
     public Transform[] target;
     public float offset;
     public PlayerTwoController player2;
     [SerializeField]
     private GameObject minimapIcon;
+    [SerializeField]
+    public List<GameObject> spotsToFix = new List<GameObject>();
+    [SerializeField]
+    public GameObject closestSpot;
 
     [SerializeField]
     public int num;
@@ -523,6 +528,7 @@ public class PlayerOneController : MonoBehaviour
             {
                 //StartCoroutine(MoveToNewPos(NewPosition()));
                 MovePlayer();
+                performed04 = false;
                 performed40 = true;
             }
             else if (!leftBoolArray[4] || !rightBoolArray[0])
@@ -625,7 +631,7 @@ public class PlayerOneController : MonoBehaviour
         MoveSpeedControl();
         anim.SetFloat("MoveSpeed", moveSpeed);
         StartCoroutine(DoClimb());
-        print("MoveSpeed" + moveSpeed);
+        //print("MoveSpeed" + moveSpeed);
 
     }
 
@@ -642,18 +648,18 @@ public class PlayerOneController : MonoBehaviour
         if (!SlowDown.instance.insideSteam)
         {
             moveSpeed = moveOriSpeed;
-            Debug.Log("moveSpeed = " + moveSpeed);
+            //Debug.Log("moveSpeed = " + moveSpeed);
         }
         else
         {
             moveSpeed = moveSlowSpeed;
-            Debug.Log("moveSpeed = " + moveSpeed);
+            //Debug.Log("moveSpeed = " + moveSpeed);
         }
     }
     #endregion
 
     #region Repair Methods
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         GameObject enteredSpot = other.gameObject;
         //if the sign is trigger range has the word sign in object name, and this sign has not yet been added to the list of signs in range
@@ -666,17 +672,17 @@ public class PlayerOneController : MonoBehaviour
             
             UpdateClosestSpot();
             //convert sign position to local position relative to player
-            //Vector3 signLocalPos = this.transform.InverseTransformPoint(closestSign.gameObject.transform.position);
-            //if (signLocalPos.x < 0)
-            //{
-            //    signOnLeft = true;
-            //    Debug.Log("left sign");
-            //}
-            //else if (signLocalPos.x > 0)
-            //{
-            //    signOnRight = true;
-            //    Debug.Log("right sign");
-            //}
+            Vector3 signLocalPos = this.transform.InverseTransformPoint(closestSpot.gameObject.transform.position);
+            if (signLocalPos.x < 0)
+            {
+                signOnLeft = true;
+                Debug.Log("left sign");
+            }
+            else if (signLocalPos.x > 0)
+            {
+                signOnRight = true;
+                Debug.Log("right sign");
+            }
         }
         else
         {
@@ -700,7 +706,7 @@ public class PlayerOneController : MonoBehaviour
 
     void UpdateClosestSpot()
     {
-        //if(lightcontrolRef != null)
+        //if (lightcontrolRef != null)
         //{
         //    lightcontrolRef.isSelected = false;
         //}
@@ -742,6 +748,7 @@ public class PlayerOneController : MonoBehaviour
                         if (signPart.gameObject.GetComponent<LightControl>() != null)
                         {
                             lightcontrolRef = signPart.gameObject.GetComponent<LightControl>();
+                            minimapIcon = closestSpot.transform.Find("Sign").gameObject;
                             //lightcontrolRef.isSelected = true;
                             //lightcontrolRef.selectionRing.SetActive(true);
                             break;
@@ -803,33 +810,26 @@ public class PlayerOneController : MonoBehaviour
         if (closestSpot != null && (leftHandOffLadder || rightHandOffLadder))
         {
             repairAudio.PlayOneShot(repairClip);
-
+            minimapIcon.SetActive(false);
             //change fix status in light control ref
             lightcontrolRef.isFixed = true;
             //removed the closest sign that was just fixed
             spotsToFix.Remove(closestSpot);
-
-            minimapIcon = closestSpot.transform.Find("Sign").gameObject;
-            minimapIcon.SetActive(false);
-
+            
             UpdateClosestSpot();
-
-            anim.SetBool("isFixing", true);
             //Destroy(closestSign);
             //add score function
+            StartCoroutine(FixingAnimation());
+            //print("11");
             ScoreManager.instance.AddPoint(20);
             numberOfSignhasBeenFixed += 1;
-            print("fixed");
+            //print("fixed");
 
             if(numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed)
             {
                 //winning
             }
             //repair animation
-        }
-        else
-        {
-            anim.SetBool("isFixing", false);
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)
         //{
@@ -839,6 +839,13 @@ public class PlayerOneController : MonoBehaviour
         //    Debug.Log("sign repaired on the right");
         //    //repair animation
         //}
+    }
+
+    IEnumerator FixingAnimation()
+    {
+        anim.SetBool("isFixing", true);
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("isFixing", false);
     }
 
     //visualize player fix trigger range
@@ -904,7 +911,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[0].transform.position;
             charPos.x = target[0].transform.position.x;
             charPos.y = target[0].transform.position.y;
-            charPos.z = target[0].transform.position.z ;
+            //charPos.z = target[0].transform.position.z ;
             transform.position = charPos;
         }
         else if (num >= 1 && transform.position.y >= target[1].transform.position.y && player2.numOfLadder == 2)
@@ -912,7 +919,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[1].transform.position;
             charPos.x = target[1].transform.position.x;
             charPos.y = target[1].transform.position.y;
-            charPos.z = target[0].transform.position.z;
+            //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
         else if (num >= 2 && transform.position.y >= target[2].transform.position.y && player2.numOfLadder == 3)
@@ -920,7 +927,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[2].transform.position;
             charPos.x = target[2].transform.position.x;
             charPos.y = target[2].transform.position.y;
-            charPos.z = target[0].transform.position.z;
+            //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
         else if (num >= 3 && transform.position.y >= target[3].transform.position.y && player2.numOfLadder == 4)
@@ -928,7 +935,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[3].transform.position;
             charPos.x = target[3].transform.position.x;
             charPos.y = target[3].transform.position.y;
-            charPos.z = target[0].transform.position.z;
+            //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
         else if (num >= 4 && transform.position.y >= target[4].transform.position.y && player2.numOfLadder == 5)
@@ -936,7 +943,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[4].transform.position;
             charPos.x = target[4].transform.position.x;
             charPos.y = target[4].transform.position.y;
-            charPos.z = target[0].transform.position.z;
+            //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
         
@@ -945,7 +952,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[5].transform.position;
             charPos.x = target[5].transform.position.x;
             charPos.y = target[5].transform.position.y;
-            charPos.z = target[0].transform.position.z;
+            //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
             canSlideDown = false;
         }

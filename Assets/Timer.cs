@@ -162,7 +162,7 @@ public class Timer : MonoBehaviour
             startTimer -= Time.deltaTime;
             yield return new WaitForSeconds(0.001f);
 
-            print("Timer");
+            //print("Timer");
             p1StartTimer.SetActive(true);
             p2StartTimer.SetActive(true);
             //startTimer = timerValue;

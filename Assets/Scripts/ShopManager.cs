@@ -25,7 +25,7 @@ public class ShopManager : MonoBehaviour
         {
             TriggerExistShopButton();
         }
-        Debug.Log("timer is" + p1Script.warningTimer);
+        //Debug.Log("timer is" + p1Script.warningTimer);
     }
 
     void TriggerExistShopButton()

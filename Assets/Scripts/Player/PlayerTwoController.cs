@@ -195,7 +195,7 @@ public class PlayerTwoController : MonoBehaviour
             if(swapInterval <= 0.2)
             {
                 FalconAttack.instance.StopStun();
-                print("Rescue Player1");
+                //print("Rescue Player1");
             }
         } else
         {
