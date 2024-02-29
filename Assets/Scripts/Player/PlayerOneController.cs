@@ -126,6 +126,8 @@ public class PlayerOneController : MonoBehaviour
     [Header("Winning Condition")]
     [SerializeField]
     public int numberOfSignhasBeenFixed;
+    [SerializeField]
+    public int totalAmountSignNeedToBeFixed;
 
     public enum ScrewType
     {
@@ -225,6 +227,7 @@ public class PlayerOneController : MonoBehaviour
                 else if (leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
                 {
                     handsOff = true;
+                    anim.SetBool("isHanging", true);
                     //SceneManager.LoadScene("GameOver");
                 }
 
@@ -486,8 +489,6 @@ public class PlayerOneController : MonoBehaviour
         {
             rightBoolArray[i] = (i == toSetTrue);
             rightPoseUIArray[i].SetActive(i != toSetTrue);
-
-
         }
     }
     #endregion
@@ -510,7 +511,7 @@ public class PlayerOneController : MonoBehaviour
             else if (!leftBoolArray[0] || !rightBoolArray[4])
             {
                 isMoving = false;
-                anim.SetFloat("moveSpeed", 0);
+                //anim.SetFloat("MoveSpeed", 0);
 
             }
         }
@@ -523,20 +524,18 @@ public class PlayerOneController : MonoBehaviour
                 //StartCoroutine(MoveToNewPos(NewPosition()));
                 MovePlayer();
                 performed40 = true;
-                performed04 = false;
-                //anim.SetTrigger("Right");
             }
             else if (!leftBoolArray[4] || !rightBoolArray[0])
             {
                 isMoving = false;
-                anim.SetFloat("moveSpeed", 0);
+                //anim.SetFloat("MoveSpeed", 0);
             }
         }
 
         if (leftHandOffLadder || rightHandOffLadder)
         {
             isMoving = false;
-            anim.SetFloat("moveSpeed", 0);
+            //anim.SetFloat("MoveSpeed", 0);
         }
 
     }
@@ -564,6 +563,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 newLocalPos = this.transform.localPosition;
             newLocalPos.y -= (moveSpeed * 0.1f) * Time.deltaTime;
             this.transform.localPosition = newLocalPos;
+            anim.SetBool("isSliding", true);
             if (newLocalPos.y <= 0.045f)
             {
                 newLocalPos.y = 0.045f;
@@ -583,6 +583,7 @@ public class PlayerOneController : MonoBehaviour
     {
         slideCountDown = false;
         timer = 0f;
+        anim.SetBool("isSliding", false);
         //Vector3 newLocalPos = this.transform.localPosition;
         //newLocalPos.y = 1;
     }
@@ -622,7 +623,7 @@ public class PlayerOneController : MonoBehaviour
         isMoving = true;
         print("isMoving" + isMoving);
         MoveSpeedControl();
-        anim.SetFloat("moveSpeed", moveSpeed);
+        anim.SetFloat("MoveSpeed", moveSpeed);
         StartCoroutine(DoClimb());
         //print("MoveSpeed" + moveSpeed);
 
@@ -662,6 +663,7 @@ public class PlayerOneController : MonoBehaviour
 
             //add sign to signs list
             spotsToFix.Add(enteredSpot);
+            
             UpdateClosestSpot();
             //convert sign position to local position relative to player
             //Vector3 signLocalPos = this.transform.InverseTransformPoint(closestSign.gameObject.transform.position);
@@ -678,6 +680,7 @@ public class PlayerOneController : MonoBehaviour
         }
         else
         {
+           
             //Debug.Log("no sign to repair");
             return;
         }
@@ -811,18 +814,22 @@ public class PlayerOneController : MonoBehaviour
 
             UpdateClosestSpot();
 
-
+            anim.SetBool("isFixing", true);
             //Destroy(closestSign);
             //add score function
             ScoreManager.instance.AddPoint(20);
             numberOfSignhasBeenFixed += 1;
             print("fixed");
 
-            if(numberOfSignhasBeenFixed >= 6)
+            if(numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed)
             {
                 //winning
             }
             //repair animation
+        }
+        else
+        {
+            anim.SetBool("isFixing", false);
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)
         //{
@@ -955,12 +962,7 @@ public class PlayerOneController : MonoBehaviour
     #region Warning
     public void Warn()
     {
-        //if (EnterShop.instance.isPurchased3 && !isBoosted)
-        //{
-        //    isBoosted = true;
-        //    warningTimer = 15;
-        //}
-        //Debug.Log(warningTimer);
+
         if (handsOff)
         {
             if (EnterShop.instance.isPurchased3)
@@ -990,12 +992,15 @@ public class PlayerOneController : MonoBehaviour
                 //Debug.Log("Game Over - HandsOff");
                 gameOver = true;
                 handsOff = false;
+                anim.SetTrigger("GameOver");
                 //warningTimer = timerValue;
-                SceneManager.LoadScene("GameOver");
-            }else if (!leftHandOffLadder || !rightHandOffLadder)
+                StartCoroutine(FallingAnim());
+            }
+            else if (!leftHandOffLadder || !rightHandOffLadder)
             {
                 handsOff = false;
                 warningTimer = timerValue;
+                anim.SetBool("isHanging", false);
                 p1Screen.SetActive(false);
                 p2Screen.SetActive(false);
             }
@@ -1004,8 +1009,15 @@ public class PlayerOneController : MonoBehaviour
 
         if (isDead)
         {
-            SceneManager.LoadScene("GameOver");
+            anim.SetTrigger("GameOver");
+            StartCoroutine(FallingAnim());
         }
+    }
+
+    IEnumerator FallingAnim()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("GameOver");
     }
     #endregion
 }
