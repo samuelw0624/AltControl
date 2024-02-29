@@ -32612,7 +32612,7 @@ PrefabInstance:
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: anim
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 794232912}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: time
       value: 3
