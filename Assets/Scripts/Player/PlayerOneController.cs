@@ -511,7 +511,7 @@ public class PlayerOneController : MonoBehaviour
             else if (!leftBoolArray[0] || !rightBoolArray[4])
             {
                 isMoving = false;
-                //anim.SetFloat("MoveSpeed", 0);
+                anim.SetFloat("MoveSpeed", 0);
 
             }
         }
@@ -528,14 +528,14 @@ public class PlayerOneController : MonoBehaviour
             else if (!leftBoolArray[4] || !rightBoolArray[0])
             {
                 isMoving = false;
-                //anim.SetFloat("MoveSpeed", 0);
+                anim.SetFloat("MoveSpeed", 0);
             }
         }
 
         if (leftHandOffLadder || rightHandOffLadder)
         {
             isMoving = false;
-            //anim.SetFloat("MoveSpeed", 0);
+            anim.SetFloat("MoveSpeed", 0);
         }
 
     }
@@ -621,11 +621,11 @@ public class PlayerOneController : MonoBehaviour
     {
         //anim.SetBool("isMoving", true);
         isMoving = true;
-        print("isMoving" + isMoving);
+        //print("isMoving" + isMoving);
         MoveSpeedControl();
         anim.SetFloat("MoveSpeed", moveSpeed);
         StartCoroutine(DoClimb());
-        //print("MoveSpeed" + moveSpeed);
+        print("MoveSpeed" + moveSpeed);
 
     }
 
