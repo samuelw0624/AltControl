@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerOneController : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class PlayerOneController : MonoBehaviour
     //light emission control variables
     [SerializeField]
     LightControl lightcontrolRef;
-    AudioSource repairAudio;
+    public AudioSource repairAudio;
     [SerializeField]
     public AudioClip repairClip;
 
@@ -133,6 +134,14 @@ public class PlayerOneController : MonoBehaviour
     public int numberOfSignhasBeenFixed;
     [SerializeField]
     public int totalAmountSignNeedToBeFixed;
+    [SerializeField]
+    private GameObject scoreBoardUI;
+    [SerializeField]
+    private Text gradeText;
+    [SerializeField]
+    private Text bonusText;
+    [SerializeField]
+    public bool gameEnd;
 
     public enum ScrewType
     {
@@ -181,9 +190,8 @@ public class PlayerOneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Timer.instance.gameStart)
+        if (Timer.instance.gameStart && !gameEnd)
         {
-
             if (!isFreezed)
             {
                 SlideDown();
@@ -203,7 +211,6 @@ public class PlayerOneController : MonoBehaviour
             ConfineLadderHeight();
 
             Warn();
-
         }
 
 
@@ -212,7 +219,7 @@ public class PlayerOneController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Timer.instance.gameStart)
+        if (Timer.instance.gameStart && !gameEnd)
         {
 
             if (!isFreezed)
@@ -825,10 +832,44 @@ public class PlayerOneController : MonoBehaviour
             numberOfSignhasBeenFixed += 1;
             //print("fixed");
 
-            if(numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed)
+            if (numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed)
             {
-                //winning
+                scoreBoardUI.SetActive(true);
+                Timer.instance.AssignGrade();
+                if (Timer.instance.isGradeA)
+                {
+                    gradeText.text = "A";
+                    bonusText.text = "+500";
+                }
+                if (Timer.instance.isGradeB)
+                {
+                    gradeText.text = "B";
+                    bonusText.text = "+300";
+                }
+                if (Timer.instance.isGradeC)
+                {
+                    gradeText.text = "C";
+                    bonusText.text = "+200";
+                }
+                if (Timer.instance.isGradeD)
+                {
+                    gradeText.text = "D";
+                    bonusText.text = "+50";
+                }
+                if (Timer.instance.isGradeE)
+                {
+                    gradeText.text = "E";
+                    bonusText.text = "+0";
+                }
+                if (Timer.instance.isGradeF)
+                {
+                    gradeText.text = "F";
+                    bonusText.text = "-50";
+                }
+
+                gameEnd = true;
             }
+            
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)

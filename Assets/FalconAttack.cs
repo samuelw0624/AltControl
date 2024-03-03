@@ -56,14 +56,22 @@ public class FalconAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InitiateAttack();
-        DetectStun();
+        if(Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
+        {
+            InitiateAttack();
+            DetectStun();
+        }
+
     }
 
     private void FixedUpdate()
     {
+        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
+        {
+            Attack();
+        }
 
-        Attack();
+
     }
 
     void InitiateAttack()

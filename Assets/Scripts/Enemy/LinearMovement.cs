@@ -31,20 +31,23 @@ public class LinearMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(this.transform.position == wayPoints[targetPoint].position)
+        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
         {
-            moveTimer = 0;
-            IncreaseTargetPoint();
+            if (this.transform.position == wayPoints[targetPoint].position)
+            {
+                moveTimer = 0;
+                IncreaseTargetPoint();
 
-        }
+            }
 
-        moveTimer += Time.deltaTime;
+            moveTimer += Time.deltaTime;
 
-        if (moveTimer >= waitTimeBetweenWaypoints)
-        {
-            
-            transform.position = Vector2.MoveTowards(transform.position, wayPoints[targetPoint].position, movingSpeed * Time.deltaTime);
+            if (moveTimer >= waitTimeBetweenWaypoints)
+            {
 
+                transform.position = Vector2.MoveTowards(transform.position, wayPoints[targetPoint].position, movingSpeed * Time.deltaTime);
+
+            }
         }
     }
     void IncreaseTargetPoint()
