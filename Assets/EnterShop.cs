@@ -56,6 +56,7 @@ public class EnterShop : MonoBehaviour
             {
 
                 selectedItem = 0;
+                shopItem[0].SetActive(true);
                 shopItem[3].SetActive(false);
 
             }

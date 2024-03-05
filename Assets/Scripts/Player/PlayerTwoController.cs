@@ -137,7 +137,7 @@ public class PlayerTwoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Timer.instance.gameStart)
+        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
         {
             SpeedAdjust();
             LadderHight();
@@ -161,7 +161,7 @@ public class PlayerTwoController : MonoBehaviour
         //ladder movement at axis.x
         //ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
 
-        if (Timer.instance.gameStart)
+        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
         {
             if (PlayerOneController.instance.isFreezed == false)
             {
@@ -181,6 +181,7 @@ public class PlayerTwoController : MonoBehaviour
     #region Stun Resolved
     private void RescuePlayer1()
     {
+
         if (FalconAttack.instance.isStunning)
         {
             if(isInput1Active && isInput2Active)
@@ -195,7 +196,7 @@ public class PlayerTwoController : MonoBehaviour
             if(swapInterval <= 0.2)
             {
                 FalconAttack.instance.StopStun();
-                print("Rescue Player1");
+                //print("Rescue Player1");
             }
         } else
         {

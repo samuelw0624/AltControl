@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private Slider p2Slider;
     [SerializeField]
-    private float sliderTimer;
+    public float slideTimer;
     [SerializeField]
     private bool stopTimer;
     [SerializeField]
@@ -53,7 +53,18 @@ public class Timer : MonoBehaviour
 
     [SerializeField]
     private GameObject clock;
-
+    [SerializeField]
+    public bool isGradeA;
+    [SerializeField]
+    public bool isGradeB;
+    [SerializeField]
+    public bool isGradeC;
+    [SerializeField]
+    public bool isGradeD;
+    [SerializeField]
+    public bool isGradeE;
+    [SerializeField]
+    public bool isGradeF;
 
     // Start is called before the first frame update
     void Start()
@@ -61,10 +72,10 @@ public class Timer : MonoBehaviour
         instance = this;
         //SetTimer(120);
         p1Slider.maxValue = maxTimer;
-        p1Slider.value = sliderTimer;
+        p1Slider.value = slideTimer;
 
         p2Slider.maxValue = maxTimer;
-        p2Slider.value = sliderTimer;
+        p2Slider.value = slideTimer;
 
         grandient.Evaluate(1f);
         StartCoroutine(StartTimer());
@@ -118,22 +129,22 @@ public class Timer : MonoBehaviour
         while(stopTimer == false)
         {
 
-            sliderTimer += Time.deltaTime;
+            slideTimer += Time.deltaTime;
             yield return new WaitForSeconds(0.001f);
 
-            p1Slider.value = sliderTimer;
+            p1Slider.value = slideTimer;
             p1Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
-            p2Slider.value = sliderTimer;
+            p2Slider.value = slideTimer;
             p2Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
 
             if (KiteEffect.instance.kiteAttack)
             {
                 AddTimer();
             }
-            p1Text.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
-            p2Text.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
-            //startTimer1.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
-            //startTimer2.text = $"{sliderTimer / 60:00} : {sliderTimer % 60:00}";
+            p1Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
+            p2Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
+            //startTimer1.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
+            //startTimer2.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
         }
 
     }
@@ -141,7 +152,7 @@ public class Timer : MonoBehaviour
 
     public void AddTimer()
     {
-        sliderTimer += 5f;
+        slideTimer += 5f;
         KiteEffect.instance.kiteAttack = false;
         StartCoroutine(ClockEffect());
         print("Attack");
@@ -162,7 +173,7 @@ public class Timer : MonoBehaviour
             startTimer -= Time.deltaTime;
             yield return new WaitForSeconds(0.001f);
 
-            print("Timer");
+            //print("Timer");
             p1StartTimer.SetActive(true);
             p2StartTimer.SetActive(true);
             //startTimer = timerValue;
@@ -183,5 +194,38 @@ public class Timer : MonoBehaviour
 
         yield return gameStart;
     }
+
+    #region Winning Grade
+    public void AssignGrade()
+    {
+        if(slideTimer <= 120)
+        {
+            isGradeA = true;
+        } 
+        else if(slideTimer > 120 && slideTimer <= 180)
+        {
+            isGradeB = true;
+        }
+        else if (slideTimer > 180 && slideTimer <= 240)
+        {
+            isGradeC = true;
+        }
+        else if (slideTimer > 240 && slideTimer <= 300)
+        {
+            isGradeD = true;
+        }
+        else if (slideTimer > 300 && slideTimer <= 360)
+        {
+            isGradeE = true;
+        }
+        else if (slideTimer > 360)
+        {
+            isGradeF= true;
+        }
+
+    }
+
+
+    #endregion
 
 }
