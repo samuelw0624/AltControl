@@ -142,6 +142,8 @@ public class PlayerTwoController : MonoBehaviour
             SpeedAdjust();
             LadderHight();
             RescuePlayer1();
+            MoveHorizontally();
+            LadderRotate();
         }
 
         //EventTrigger();
@@ -170,8 +172,7 @@ public class PlayerTwoController : MonoBehaviour
             }
 
             LadderHeightSwitch();
-            MoveHorizontally();
-            LadderRotate();
+
             SetCurrentState();
         }
 
