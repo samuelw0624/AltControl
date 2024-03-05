@@ -99,6 +99,7 @@ public class DrillController : MonoBehaviour
 
             }
 
+            TutorialDialogue.instance.NextSentence();
 
             EnterShop.instance.pressedTimes += 1;
             //Debug.Log("flat screw is activated ");
@@ -143,7 +144,7 @@ public class DrillController : MonoBehaviour
                 }
             }
 
-
+            TutorialDialogue.instance.NextSentence();
             EnterShop.instance.pressedTimes += 1;
 
             //Debug.Log("hex screw is activated");
@@ -190,6 +191,7 @@ public class DrillController : MonoBehaviour
                 }
             }
 
+            TutorialDialogue.instance.NextSentence();
             EnterShop.instance.pressedTimes += 1;
 
             //Debug.Log("cross screw is activated");
