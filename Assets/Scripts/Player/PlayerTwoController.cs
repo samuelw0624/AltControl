@@ -141,7 +141,14 @@ public class PlayerTwoController : MonoBehaviour
         {
             SpeedAdjust();
             LadderHight();
-            RescuePlayer1();
+
+            MoveHorizontally();
+            LadderRotate();
+
+            if(GameManager.instance.currentScene.name == "Level_01")
+            {
+                RescuePlayer1();
+            }
         }
 
         //EventTrigger();
@@ -170,8 +177,7 @@ public class PlayerTwoController : MonoBehaviour
             }
 
             LadderHeightSwitch();
-            MoveHorizontally();
-            LadderRotate();
+
             SetCurrentState();
         }
 

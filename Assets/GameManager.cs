@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
 
     [SerializeField]
     private Material skyboxScene1;
@@ -21,12 +22,16 @@ public class GameManager : MonoBehaviour
     private GameObject shopUI2;
     [SerializeField]
     private bool inShop;
+    [SerializeField]
+    public Scene currentScene;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+
         SkyboxControl();
         shopUI1.SetActive(false);
         shopUI2.SetActive(false);
@@ -35,12 +40,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EnterShop();
+        if(currentScene.name == "Level_01")
+        {
+            EnterShop();
+        }
+
     }
 
     void SkyboxControl()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
+        currentScene = SceneManager.GetActiveScene();
 
         // Change skybox based on the scene name
         if (currentScene.name == "TitlePage")
