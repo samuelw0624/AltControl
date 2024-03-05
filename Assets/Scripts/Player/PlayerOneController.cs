@@ -211,6 +211,7 @@ public class PlayerOneController : MonoBehaviour
             ConfineLadderHeight();
 
             Warn();
+            ClimbUp();
         }
 
 
@@ -243,7 +244,7 @@ public class PlayerOneController : MonoBehaviour
                     //SceneManager.LoadScene("GameOver");
                 }
 
-                ClimbUp();
+
             }
 
         }

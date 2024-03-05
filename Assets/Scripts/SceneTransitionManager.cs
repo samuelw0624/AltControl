@@ -38,7 +38,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     IEnumerator StartLoading()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         LoadMainGame();
     }
     public void LoadMainGame()
