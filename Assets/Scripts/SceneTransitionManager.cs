@@ -43,7 +43,7 @@ public class SceneTransitionManager : MonoBehaviour
     }
     public void LoadMainGame()
     {
-        SceneManager.LoadScene("Level_01");
+        SceneManager.LoadScene("Level_Tutorial_01");
     }
 
     public void RestartGame()
