@@ -11661,6 +11661,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 2253692457120554880, guid: b8f4b602ec959194db407e81abaca0f3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2253692457124580060, guid: b8f4b602ec959194db407e81abaca0f3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11771,6 +11775,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8f4b602ec959194db407e81abaca0f3, type: 3}
+--- !u!95 &832224447 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2253692457120554881, guid: b8f4b602ec959194db407e81abaca0f3, type: 3}
+  m_PrefabInstance: {fileID: 832224446}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &833399215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12490,6 +12499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8f4b602ec959194db407e81abaca0f3, type: 3}
+--- !u!95 &893314363 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2253692457120554881, guid: b8f4b602ec959194db407e81abaca0f3, type: 3}
+  m_PrefabInstance: {fileID: 893314362}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &895393932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23023,6 +23037,14 @@ PrefabInstance:
       propertyPath: shopUI2
       value: 
       objectReference: {fileID: 651605604}
+    - target: {fileID: 4352315527960885283, guid: d4ca2c1aa2c64864281f17a9526950fa, type: 3}
+      propertyPath: t_Anim1
+      value: 
+      objectReference: {fileID: 832224447}
+    - target: {fileID: 4352315527960885283, guid: d4ca2c1aa2c64864281f17a9526950fa, type: 3}
+      propertyPath: t_Anim2
+      value: 
+      objectReference: {fileID: 893314363}
     - target: {fileID: 4352315527960885283, guid: d4ca2c1aa2c64864281f17a9526950fa, type: 3}
       propertyPath: Tutorial1
       value: 

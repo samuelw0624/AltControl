@@ -87,7 +87,7 @@ public class Timer : MonoBehaviour
 
 
 
-        audio.Play();
+
 
 
     }
@@ -102,6 +102,8 @@ public class Timer : MonoBehaviour
             if (GameManager.instance.tutorialEnd && !gameStart)
             {
                 StartCoroutine(StartTimer());
+                audio.Play();
+                print("Timer Alarm");
             }
         }
 

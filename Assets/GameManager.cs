@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject tutorial2;
     [SerializeField]
+    private Animator t_Anim1;
+    [SerializeField]
+    private Animator t_Anim2;
+    [SerializeField]
     public bool tutorialEnd;
     [SerializeField]
     private GameObject closeTab1;
@@ -44,20 +48,6 @@ public class GameManager : MonoBehaviour
 
         SkyboxControl();
 
-        if (currentScene.name != "Level_Tutorial_01")
-        {
-            if(shopUI1 != null && shopUI2 != null)
-            {
-                shopUI1.SetActive(false);
-                shopUI2.SetActive(false);
-            }
-
-            if (!tutorialEnd)
-            {
-                StartCoroutine(CloseTutorial());
-            }
-
-        }
 
     }
 
@@ -68,6 +58,23 @@ public class GameManager : MonoBehaviour
         if (currentScene.name == "Level_01")
         {
             EnterShop();
+        }
+
+        if (currentScene.name != "Level_Tutorial_01")
+        {
+            if (shopUI1 != null && shopUI2 != null)
+            {
+                shopUI1.SetActive(false);
+                shopUI2.SetActive(false);
+            }
+
+            if (!tutorialEnd)
+            {
+                //t_Anim1.SetTrigger("TutorialStart");
+                //t_Anim2.SetTrigger("TutorialStart");
+                StartCoroutine(CloseTutorial());
+            }
+
         }
 
     }
@@ -126,11 +133,11 @@ public class GameManager : MonoBehaviour
     #region Tutorial Level
     IEnumerator CloseTutorial()
     {
-        yield return new WaitForSeconds(98f);
+        //yield return new WaitForSeconds(98f);
+        yield return new WaitForSeconds(3f);
         closeTab1.SetActive(true);
         closeTab2.SetActive(true);
         tutorialEnd = true;
     }
     #endregion
-
 }
