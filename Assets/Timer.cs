@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class Timer : MonoBehaviour
 {
     public static Timer instance { get; private set; }
@@ -13,7 +15,7 @@ public class Timer : MonoBehaviour
     [SerializeField]
     public float slideTimer;
     [SerializeField]
-    private bool stopTimer;
+    public bool stopTimer;
     [SerializeField]
     private float maxTimer;
     [SerializeField]
@@ -71,6 +73,11 @@ public class Timer : MonoBehaviour
     private AudioSource t_audio;
     [SerializeField]
     public bool inTutorial;
+    [SerializeField]
+    public GameManager gameManager;
+    [SerializeField]
+    public bool timerStart;
+    Scene currentScene;
 
     // Start is called before the first frame update
     void Start()
@@ -85,21 +92,11 @@ public class Timer : MonoBehaviour
 
         grandient.Evaluate(1f);
 
+        currentScene = SceneManager.GetActiveScene();
 
-
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+        if (currentScene.name == "TestLevel_01")
         {
-            inTutorial = true;
-
-            if (GameManager.instance.tutorialEnd && !gameStart)
+            if (!gameStart)
             {
                 StartCoroutine(StartTimer());
                 audio.Play();
@@ -107,6 +104,27 @@ public class Timer : MonoBehaviour
             }
         }
 
+        if (currentScene.name == "Level_Tutorial_01")
+        {
+            inTutorial = true;
+        }
+
+
+
+
+        }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (GameManager.instance.tutorialEnd && !gameStart && !timerStart)
+        {
+            StartCoroutine(StartTimer());
+            audio.Play();
+            print("Timer Alarm");
+            timerStart = true;
+        }      
     }
 
 
@@ -209,7 +227,6 @@ public class Timer : MonoBehaviour
                 //t_audio.Play();
                 gameStart = true;
                 StartTimerAction();
-
             }
         }
 

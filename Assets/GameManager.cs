@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour
     private GameObject closeTab1;
     [SerializeField]
     private GameObject closeTab2;
+    [SerializeField]
+    private GameObject skipButton1;
+    [SerializeField]
+    private GameObject skipButton2;
 
     // Start is called before the first frame update
     void Start()
@@ -60,23 +64,8 @@ public class GameManager : MonoBehaviour
             EnterShop();
         }
 
-        if (currentScene.name != "Level_Tutorial_01")
-        {
-            if (shopUI1 != null && shopUI2 != null)
-            {
-                shopUI1.SetActive(false);
-                shopUI2.SetActive(false);
-            }
-
-            if (!tutorialEnd)
-            {
-                //t_Anim1.SetTrigger("TutorialStart");
-                //t_Anim2.SetTrigger("TutorialStart");
-                StartCoroutine(CloseTutorial());
-            }
-
-        }
-
+        Skip();
+        Close();
     }
 
     void SkyboxControl()
@@ -94,9 +83,22 @@ public class GameManager : MonoBehaviour
         else if (currentScene.name == "GameOver")
         {
             RenderSettings.skybox = skyboxScene3;
-        } else if(currentScene.name == "Level_Tutorial_01")
+        } 
+        else if(currentScene.name == "Level_Tutorial_01")
         {
-            print("Tutorial Level");
+            if (!tutorialEnd && closeTab1 != null && closeTab2 != null)
+            {
+                //t_Anim1.SetTrigger("TutorialStart");
+                //t_Anim2.SetTrigger("TutorialStart");
+                StartCoroutine(SkipTutorial());
+                StartCoroutine(CloseTutorial());
+            }
+
+            if (shopUI1 != null && shopUI2 != null)
+            {
+                shopUI1.SetActive(false);
+                shopUI2.SetActive(false);
+            }
         }
 
 
@@ -133,11 +135,44 @@ public class GameManager : MonoBehaviour
     #region Tutorial Level
     IEnumerator CloseTutorial()
     {
-        //yield return new WaitForSeconds(98f);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(98f);
         closeTab1.SetActive(true);
         closeTab2.SetActive(true);
         tutorialEnd = true;
     }
+
+    void Close()
+    {
+        if (tutorialEnd)
+        {
+            tutorial1.SetActive(false);
+            tutorial2.SetActive(false);
+        }
+
+    }
+
+    IEnumerator SkipTutorial()
+    {
+        yield return new WaitForSeconds(3f);
+        skipButton1.SetActive(true);
+        skipButton2.SetActive(true);
+        yield return new WaitForSeconds(7f);
+        skipButton1.SetActive(false);
+        skipButton2.SetActive(false);
+    }
+
+    void Skip()
+    {
+        if (!tutorialEnd && Input.GetKey(KeyCode.M) || Input.GetKey(KeyCode.B))
+        {
+            StopCoroutine(CloseTutorial());
+            StopCoroutine(SkipTutorial());
+            tutorial1.SetActive(false);
+            tutorial2.SetActive(false);
+            tutorialEnd = true;
+            print("Skip");
+        }
+    }
+
     #endregion
 }

@@ -11,9 +11,10 @@ public class TutorialDialogue : MonoBehaviour
     [SerializeField]
     private Text dialogueText1;
     [SerializeField]
-    private string[] sentences;
+    private string sentences1;
     [SerializeField]
-    private int index;
+    private string sentences2;
+
     [SerializeField]
     private float typingSpeed;
 
@@ -21,7 +22,6 @@ public class TutorialDialogue : MonoBehaviour
     void Start()
     {
         instance = this;
-        StartCoroutine(Type());
     }
 
     // Update is called once per frame
@@ -31,9 +31,9 @@ public class TutorialDialogue : MonoBehaviour
     }
 
 
-    IEnumerator Type()
+    public IEnumerator Type1()
     {
-        foreach(char letter in sentences[index].ToCharArray())
+        foreach(char letter in sentences1.ToCharArray())
         {
             dialogueText1.text += letter;
             //dialogueText2.text += letter;
@@ -41,20 +41,15 @@ public class TutorialDialogue : MonoBehaviour
 
         }
     }
-
-    public void NextSentence()
+    public IEnumerator Type2()
     {
-        if (index < sentences.Length - 1)
+        foreach (char letter in sentences2.ToCharArray())
         {
-            index++;
-            dialogueText1.text = "";
-            //dialogueText2.text = "";
-            StartCoroutine(Type());
-        }
-        else
-        {
-            dialogueText1.text = "";
-            //dialogueText2.text = "";
+            dialogueText2.text += letter;
+            //dialogueText2.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+
         }
     }
+
 }

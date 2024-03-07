@@ -28397,6 +28397,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1404479694}
     - target: {fileID: 5844501252362922993, guid: 108231a4107998746944739403a856c3, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1098495444}
+    - target: {fileID: 5844501252362922993, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: startTimer1
       value: 
       objectReference: {fileID: 1915044776}
