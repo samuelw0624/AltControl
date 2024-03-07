@@ -79,6 +79,12 @@ public class GameManager : MonoBehaviour
         else if (currentScene.name == "Level_01")
         {
             RenderSettings.skybox = skyboxScene2;
+            
+            if (shopUI1 != null && shopUI2 != null)
+            {
+                shopUI1.SetActive(false);
+                shopUI2.SetActive(false);
+            }
         }
         else if (currentScene.name == "GameOver")
         {
@@ -86,6 +92,7 @@ public class GameManager : MonoBehaviour
         } 
         else if(currentScene.name == "Level_Tutorial_01")
         {
+            RenderSettings.skybox = skyboxScene2;
             if (!tutorialEnd && closeTab1 != null && closeTab2 != null)
             {
                 //t_Anim1.SetTrigger("TutorialStart");

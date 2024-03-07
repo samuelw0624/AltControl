@@ -18,6 +18,20 @@ public class TutorialDialogue : MonoBehaviour
     [SerializeField]
     private float typingSpeed;
 
+    [SerializeField]
+    private Text dialogueText3;
+    [SerializeField]
+    private Text dialogueText4;
+    [SerializeField]
+    private string sentences3;
+    [SerializeField]
+    private string sentences4;
+
+    [SerializeField]
+    private Text dialogueText5;
+    [SerializeField]
+    private Text dialogueText6;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +50,7 @@ public class TutorialDialogue : MonoBehaviour
         foreach(char letter in sentences1.ToCharArray())
         {
             dialogueText1.text += letter;
-            //dialogueText2.text += letter;
+
             yield return new WaitForSeconds(typingSpeed);
 
         }
@@ -46,7 +60,51 @@ public class TutorialDialogue : MonoBehaviour
         foreach (char letter in sentences2.ToCharArray())
         {
             dialogueText2.text += letter;
-            //dialogueText2.text += letter;
+
+            yield return new WaitForSeconds(typingSpeed);
+
+        }
+    }
+
+    public IEnumerator Type3()
+    {
+        foreach (char letter in sentences3.ToCharArray())
+        {
+            dialogueText3.text += letter;
+
+            yield return new WaitForSeconds(typingSpeed);
+
+        }
+    }
+
+    public IEnumerator Type4()
+    {
+        foreach (char letter in sentences4.ToCharArray())
+        {
+            dialogueText4.text += letter;
+
+            yield return new WaitForSeconds(typingSpeed);
+
+        }
+    }
+
+    public IEnumerator Type5()
+    {
+        foreach (char letter in sentences3.ToCharArray())
+        {
+            dialogueText5.text += letter;
+
+            yield return new WaitForSeconds(typingSpeed);
+
+        }
+    }
+
+    public IEnumerator Type6()
+    {
+        foreach (char letter in sentences4.ToCharArray())
+        {
+            dialogueText6.text += letter;
+
             yield return new WaitForSeconds(typingSpeed);
 
         }

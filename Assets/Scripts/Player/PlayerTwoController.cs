@@ -182,7 +182,10 @@ public class PlayerTwoController : MonoBehaviour
 
             }
 
-            LadderHeightSwitch();
+            if (TutorialScript.instance.startTutorial2)
+            {
+                LadderHeightSwitch();
+            }
 
             SetCurrentState();
         }

@@ -65,11 +65,12 @@ public class DrillController : MonoBehaviour
                 StartCoroutine(RestartGame());
                 PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
             }
-            print("1");
+
             if (EnterShop.instance.isPurchased2)
             {
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
                 {
+                    print("SuperDrill");
                     currentDrill = DrillType.SuperDrill;
                     //activate UI icons
                     flatDrill.SetActive(false);
@@ -113,17 +114,21 @@ public class DrillController : MonoBehaviour
                 StartCoroutine(RestartGame());
                 PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
             }
-            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
+
+            if (EnterShop.instance.isPurchased2)
             {
-                currentDrill = DrillType.SuperDrill;
+                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
+                {
+                    currentDrill = DrillType.SuperDrill;
 
-                //activate UI icons
-                flatDrill.SetActive(false);
-                hexDrill.SetActive(false);
-                crossDrill.SetActive(false);
-                superDrill.SetActive(true);
+                    //activate UI icons
+                    flatDrill.SetActive(false);
+                    hexDrill.SetActive(false);
+                    crossDrill.SetActive(false);
+                    superDrill.SetActive(true);
 
-                p1Script.FixSign();
+                    p1Script.FixSign();
+                }
             }
             else
             {
@@ -160,17 +165,20 @@ public class DrillController : MonoBehaviour
                 PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
             }
 
-            if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
+            if (EnterShop.instance.isPurchased2)
             {
-                currentDrill = DrillType.SuperDrill;
-                //activate UI icons
-                flatDrill.SetActive(false);
-                hexDrill.SetActive(false);
-                crossDrill.SetActive(false);
-                superDrill.SetActive(true);
+                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
+                {
+                    currentDrill = DrillType.SuperDrill;
+                    //activate UI icons
+                    flatDrill.SetActive(false);
+                    hexDrill.SetActive(false);
+                    crossDrill.SetActive(false);
+                    superDrill.SetActive(true);
 
-                p1Script.FixSign();
+                    p1Script.FixSign();
 
+                }
             }
             else
             {

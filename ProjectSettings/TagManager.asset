@@ -25,6 +25,8 @@ TagManager:
   - BottomCollider
   - PlayerCollider
   - Tutorial1
+  - Tutorial2
+  - Tutorial3
   layers:
   - Default
   - TransparentFX
