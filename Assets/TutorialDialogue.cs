@@ -7,7 +7,9 @@ public class TutorialDialogue : MonoBehaviour
     public static TutorialDialogue instance;
 
     [SerializeField]
-    private Text dialogueText;
+    private Text dialogueText2;
+    [SerializeField]
+    private Text dialogueText1;
     [SerializeField]
     private string[] sentences;
     [SerializeField]
@@ -33,7 +35,8 @@ public class TutorialDialogue : MonoBehaviour
     {
         foreach(char letter in sentences[index].ToCharArray())
         {
-            dialogueText.text += letter;
+            dialogueText1.text += letter;
+            //dialogueText2.text += letter;
             yield return new WaitForSeconds(typingSpeed);
 
         }
@@ -44,12 +47,14 @@ public class TutorialDialogue : MonoBehaviour
         if (index < sentences.Length - 1)
         {
             index++;
-            dialogueText.text = "";
+            dialogueText1.text = "";
+            //dialogueText2.text = "";
             StartCoroutine(Type());
         }
         else
         {
-            dialogueText.text = "";
+            dialogueText1.text = "";
+            //dialogueText2.text = "";
         }
     }
 }

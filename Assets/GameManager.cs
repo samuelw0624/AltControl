@@ -25,7 +25,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public Scene currentScene;
 
-
+    [Header("Tutorial")]
+    [SerializeField]
+    private GameObject tutorial1;
+    [SerializeField]
+    private GameObject tutorial2;
+    [SerializeField]
+    public bool tutorialEnd;
+    [SerializeField]
+    private GameObject closeTab1;
+    [SerializeField]
+    private GameObject closeTab2;
 
     // Start is called before the first frame update
     void Start()
@@ -33,14 +43,29 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         SkyboxControl();
-        shopUI1.SetActive(false);
-        shopUI2.SetActive(false);
+
+        if (currentScene.name != "Level_Tutorial_01")
+        {
+            if(shopUI1 != null && shopUI2 != null)
+            {
+                shopUI1.SetActive(false);
+                shopUI2.SetActive(false);
+            }
+
+            if (!tutorialEnd)
+            {
+                StartCoroutine(CloseTutorial());
+            }
+
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(currentScene.name == "Level_01")
+
+        if (currentScene.name == "Level_01")
         {
             EnterShop();
         }
@@ -50,7 +75,6 @@ public class GameManager : MonoBehaviour
     void SkyboxControl()
     {
         currentScene = SceneManager.GetActiveScene();
-
         // Change skybox based on the scene name
         if (currentScene.name == "TitlePage")
         {
@@ -63,9 +87,12 @@ public class GameManager : MonoBehaviour
         else if (currentScene.name == "GameOver")
         {
             RenderSettings.skybox = skyboxScene3;
+        } else if(currentScene.name == "Level_Tutorial_01")
+        {
+            print("Tutorial Level");
         }
 
-        print(RenderSettings.skybox);
+
     }
 
 
@@ -96,5 +123,14 @@ public class GameManager : MonoBehaviour
         inShop = false;
     }
 
+    #region Tutorial Level
+    IEnumerator CloseTutorial()
+    {
+        yield return new WaitForSeconds(98f);
+        closeTab1.SetActive(true);
+        closeTab2.SetActive(true);
+        tutorialEnd = true;
+    }
+    #endregion
 
 }

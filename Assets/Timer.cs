@@ -66,6 +66,12 @@ public class Timer : MonoBehaviour
     [SerializeField]
     public bool isGradeF;
 
+    [Header("Tutorial")]
+    [SerializeField]
+    private AudioSource t_audio;
+    [SerializeField]
+    public bool inTutorial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,16 +84,27 @@ public class Timer : MonoBehaviour
         p2Slider.value = slideTimer;
 
         grandient.Evaluate(1f);
-        StartCoroutine(StartTimer());
+
+
+
         audio.Play();
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+        {
+            inTutorial = true;
 
-        
+            if (GameManager.instance.tutorialEnd && !gameStart)
+            {
+                StartCoroutine(StartTimer());
+            }
+        }
+
     }
 
 
@@ -187,8 +204,10 @@ public class Timer : MonoBehaviour
             {
                 p1StartTimer.SetActive(false);
                 p2StartTimer.SetActive(false);
+                //t_audio.Play();
                 gameStart = true;
                 StartTimerAction();
+
             }
         }
 

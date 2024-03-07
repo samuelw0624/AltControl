@@ -190,7 +190,7 @@ public class PlayerOneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Timer.instance.gameStart && !gameEnd)
+        if (Timer.instance.gameStart && !gameEnd && !Timer.instance.inTutorial)
         {
             if (!isFreezed)
             {
@@ -220,7 +220,7 @@ public class PlayerOneController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Timer.instance.gameStart && !gameEnd)
+        if (Timer.instance.gameStart && !gameEnd && !Timer.instance.inTutorial)
         {
 
             if (!isFreezed)

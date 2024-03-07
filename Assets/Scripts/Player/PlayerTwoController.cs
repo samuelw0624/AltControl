@@ -137,15 +137,18 @@ public class PlayerTwoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
+        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !Timer.instance.inTutorial)
         {
             SpeedAdjust();
             LadderHight();
-
             MoveHorizontally();
-            LadderRotate();
 
-            if(GameManager.instance.currentScene.name == "Level_01")
+            if (GameManager.instance.currentScene.name != "Level_Tutorial_01")
+            {
+                LadderRotate();
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_01")
             {
                 RescuePlayer1();
             }
@@ -168,12 +171,15 @@ public class PlayerTwoController : MonoBehaviour
         //ladder movement at axis.x
         //ladderRb.MovePosition(ladderRb.position + movement * moveLadderSpeed * Time.fixedDeltaTime);
 
-        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
+        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !Timer.instance.inTutorial)
         {
             if (PlayerOneController.instance.isFreezed == false)
             {
+                if(GameManager.instance.currentScene.name != "Level_Tutorial_01")
+                {
+                    RandomTilt();
+                }
 
-                RandomTilt();
             }
 
             LadderHeightSwitch();
