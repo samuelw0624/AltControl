@@ -186,6 +186,7 @@ public class DrillController : MonoBehaviour
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
                 {
                     p1Script.FixSign();
+                    print("Repair");
                 }
             }
 
