@@ -139,6 +139,7 @@ public class PlayerTwoController : MonoBehaviour
     {
         if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !Timer.instance.inTutorial)
         {
+            print("Ladder Function");
             SpeedAdjust();
             LadderHight();
             MoveHorizontally();
@@ -190,7 +191,7 @@ public class PlayerTwoController : MonoBehaviour
             //    RandomTilt();
             //}
 
-            if (TutorialScript.instance.startTutorial2 && GameManager.instance.currentScene.name != "Level_Tutorial_01")
+            if (TutorialScript.instance.startTutorial2 && GameManager.instance.currentScene.name == "Level_Tutorial_01")
             {
                 LadderHeightSwitch();
             }
@@ -235,6 +236,7 @@ public class PlayerTwoController : MonoBehaviour
 
     void LadderHight()
     {
+        print("Change Ladder Height");
         // five stages of ladder heitgh adjustment
         //if (Keyboard.current[Key.Z].wasPressedThisFrame)   
         //{
@@ -286,6 +288,7 @@ public class PlayerTwoController : MonoBehaviour
     {
         if (numOfLadder == 1)
         {
+            print("1");
             ladderObj[0].gameObject.SetActive(false);
             ladderObj[1].gameObject.SetActive(false);
             ladderObj[2].gameObject.SetActive(false);
@@ -295,6 +298,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 2)
         {
+            print("2");
             ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(false);
             ladderObj[2].gameObject.SetActive(false);
@@ -304,6 +308,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 3)
         {
+            print("3");
             ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(false);
@@ -313,6 +318,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 4)
         {
+            print("4");
             ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(true);
@@ -323,6 +329,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 5)
         {
+            print("5");
             ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(true);

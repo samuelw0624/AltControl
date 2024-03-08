@@ -180,7 +180,7 @@ public class PlayerOneController : MonoBehaviour
         leftHandOffLadder = true;
         rightHandOffLadder = true;
 
-        moveSpeed = moveOriSpeed;
+        moveOriSpeed = moveSpeed;
 
         distance = Vector2.Distance(this.transform.position, player2Pos.transform.position);
 
