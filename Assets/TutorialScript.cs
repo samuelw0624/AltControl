@@ -133,7 +133,7 @@ public class TutorialScript : MonoBehaviour
                 Timer.instance.stopTimer = false;
                 Timer.instance.inTutorial = false;
                 Destroy(tutorialObject);
-                Timer.instance.StartTimerAction();
+                //Timer.instance.StartTimerAction();
                 close1 = true;
             }
         }
@@ -151,7 +151,7 @@ public class TutorialScript : MonoBehaviour
                 Timer.instance.stopTimer = false;
                 Timer.instance.inTutorial = false;
                 Destroy(tutorialObject2);
-                Timer.instance.StartTimerAction();
+                //Timer.instance.StartTimerAction();
                 close2 = true;
             }
         }

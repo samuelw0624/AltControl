@@ -68,33 +68,28 @@ public class DrillController : MonoBehaviour
 
             if (EnterShop.instance.isPurchased2)
             {
+                currentDrill = DrillType.SuperDrill;
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
                 {
-                    print("SuperDrill");
-                    currentDrill = DrillType.SuperDrill;
-                    //activate UI icons
-                    flatDrill.SetActive(false);
-                    hexDrill.SetActive(false);
-                    crossDrill.SetActive(false);
-                    superDrill.SetActive(true);
-
                     p1Script.FixSign();
-
                 }
             }
             else
             {
-                print("2");
+                currentDrill = DrillType.FlatDrill;
+                //activate UI icons
+                flatDrill.SetActive(true);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(false);
+
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
                 {
-                    print("3");
-                    currentDrill = DrillType.FlatDrill;
-                    //activate UI icons
-                    flatDrill.SetActive(true);
-                    hexDrill.SetActive(false);
-                    crossDrill.SetActive(false);
-                    superDrill.SetActive(false);
-
                     p1Script.FixSign();
                 }
 
@@ -117,16 +112,16 @@ public class DrillController : MonoBehaviour
 
             if (EnterShop.instance.isPurchased2)
             {
+                currentDrill = DrillType.SuperDrill;
+
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
+
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
                 {
-                    currentDrill = DrillType.SuperDrill;
-
-                    //activate UI icons
-                    flatDrill.SetActive(false);
-                    hexDrill.SetActive(false);
-                    crossDrill.SetActive(false);
-                    superDrill.SetActive(true);
-
                     p1Script.FixSign();
                 }
             }
@@ -167,17 +162,15 @@ public class DrillController : MonoBehaviour
 
             if (EnterShop.instance.isPurchased2)
             {
+                currentDrill = DrillType.SuperDrill;
+                //activate UI icons
+                flatDrill.SetActive(false);
+                hexDrill.SetActive(false);
+                crossDrill.SetActive(false);
+                superDrill.SetActive(true);
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
                 {
-                    currentDrill = DrillType.SuperDrill;
-                    //activate UI icons
-                    flatDrill.SetActive(false);
-                    hexDrill.SetActive(false);
-                    crossDrill.SetActive(false);
-                    superDrill.SetActive(true);
-
                     p1Script.FixSign();
-
                 }
             }
             else

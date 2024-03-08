@@ -59,13 +59,17 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (currentScene.name == "Level_01")
+        if (currentScene.name == "TestLevel_01")
         {
             EnterShop();
         }
+        else
+        {
 
-        Skip();
-        Close();
+            Skip();
+            Close();
+        }
+
     }
 
     void SkyboxControl()
@@ -76,8 +80,9 @@ public class GameManager : MonoBehaviour
         {
             RenderSettings.skybox = skyboxScene1;
         }
-        else if (currentScene.name == "Level_01")
+        else if (currentScene.name == "TestLevel_01")
         {
+            print("It's TestLevel1");
             RenderSettings.skybox = skyboxScene2;
             
             if (shopUI1 != null && shopUI2 != null)
@@ -174,8 +179,13 @@ public class GameManager : MonoBehaviour
         {
             StopCoroutine(CloseTutorial());
             StopCoroutine(SkipTutorial());
-            tutorial1.SetActive(false);
-            tutorial2.SetActive(false);
+
+            if(tutorial1 != null && tutorial2 !=null)
+            {
+                tutorial1.SetActive(false);
+                tutorial2.SetActive(false);
+            }
+
             tutorialEnd = true;
             print("Skip");
         }

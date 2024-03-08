@@ -148,7 +148,7 @@ public class PlayerTwoController : MonoBehaviour
                 LadderRotate();
             }
 
-            if (GameManager.instance.currentScene.name == "Level_01")
+            if (GameManager.instance.currentScene.name == "TestLevel_01")
             {
                 RescuePlayer1();
             }
@@ -165,6 +165,18 @@ public class PlayerTwoController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.instance.currentScene.name != "Level_Tutorial_01")
+        {
+            if(Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
+            {
+                if (PlayerOneController.instance.isFreezed == false)
+                {
+                    RandomTilt();
+                    LadderHeightSwitch();
+
+                }
+            }
+        }
         //compare character's height to the ladder's height 
 
 
@@ -173,16 +185,12 @@ public class PlayerTwoController : MonoBehaviour
 
         if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !Timer.instance.inTutorial)
         {
-            if (PlayerOneController.instance.isFreezed == false)
-            {
-                if(GameManager.instance.currentScene.name != "Level_Tutorial_01")
-                {
-                    RandomTilt();
-                }
+            //if (PlayerOneController.instance.isFreezed == false)
+            //{
+            //    RandomTilt();
+            //}
 
-            }
-
-            if (TutorialScript.instance.startTutorial2)
+            if (TutorialScript.instance.startTutorial2 && GameManager.instance.currentScene.name != "Level_Tutorial_01")
             {
                 LadderHeightSwitch();
             }

@@ -224,7 +224,12 @@ public class Timer : MonoBehaviour
             {
                 p1StartTimer.SetActive(false);
                 p2StartTimer.SetActive(false);
-                t_audio.Play();
+
+                if(t_audio != null)
+                {
+                    t_audio.Play();
+                }
+
                 gameStart = true;
                 StartTimerAction();
             }
