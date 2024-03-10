@@ -142,6 +142,8 @@ public class PlayerOneController : MonoBehaviour
     private Text bonusText;
     [SerializeField]
     public bool gameEnd;
+    [SerializeField]
+    public bool scoreBoardIsTurnnedOn;
 
     public enum ScrewType
     {
@@ -817,60 +819,62 @@ public class PlayerOneController : MonoBehaviour
     {
         if (closestSpot != null && (leftHandOffLadder || rightHandOffLadder))
         {
-            repairAudio.PlayOneShot(repairClip);
-            minimapIcon.SetActive(false);
-            //change fix status in light control ref
-            lightcontrolRef.isFixed = true;
-            //removed the closest sign that was just fixed
-            spotsToFix.Remove(closestSpot);
-            
-            UpdateClosestSpot();
-            //Destroy(closestSign);
-            //add score function
-            StartCoroutine(FixingAnimation());
-            //print("11");
-            ScoreManager.instance.AddPoint(20);
-            numberOfSignhasBeenFixed += 1;
-            //print("fixed");
-
-            if (numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed)
+            if(minimapIcon != null )
             {
-                scoreBoardUI.SetActive(true);
-                Timer.instance.AssignGrade();
-                if (Timer.instance.isGradeA)
-                {
-                    gradeText.text = "A";
-                    bonusText.text = "+500";
-                }
-                if (Timer.instance.isGradeB)
-                {
-                    gradeText.text = "B";
-                    bonusText.text = "+300";
-                }
-                if (Timer.instance.isGradeC)
-                {
-                    gradeText.text = "C";
-                    bonusText.text = "+200";
-                }
-                if (Timer.instance.isGradeD)
-                {
-                    gradeText.text = "D";
-                    bonusText.text = "+50";
-                }
-                if (Timer.instance.isGradeE)
-                {
-                    gradeText.text = "E";
-                    bonusText.text = "+0";
-                }
-                if (Timer.instance.isGradeF)
-                {
-                    gradeText.text = "F";
-                    bonusText.text = "-50";
-                }
+                repairAudio.PlayOneShot(repairClip);
+                Destroy(minimapIcon);
+                //change fix status in light control ref
+                lightcontrolRef.isFixed = true;
+                //removed the closest sign that was just fixed
+                spotsToFix.Remove(closestSpot);
 
-                gameEnd = true;
+                UpdateClosestSpot();
+                //Destroy(closestSign);
+                //add score function
+                StartCoroutine(FixingAnimation());
+                //print("11");
+                ScoreManager.instance.AddPoint(20);
+                numberOfSignhasBeenFixed += 1;
+                //print("fixed");
+
+                if (numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed && !scoreBoardIsTurnnedOn)
+                {
+                    StartCoroutine(ScoreBoard());
+                    Timer.instance.AssignGrade();
+                    if (Timer.instance.isGradeA)
+                    {
+                        gradeText.text = "A";
+                        bonusText.text = "+500";
+                    }
+                    if (Timer.instance.isGradeB)
+                    {
+                        gradeText.text = "B";
+                        bonusText.text = "+300";
+                    }
+                    if (Timer.instance.isGradeC)
+                    {
+                        gradeText.text = "C";
+                        bonusText.text = "+200";
+                    }
+                    if (Timer.instance.isGradeD)
+                    {
+                        gradeText.text = "D";
+                        bonusText.text = "+50";
+                    }
+                    if (Timer.instance.isGradeE)
+                    {
+                        gradeText.text = "E";
+                        bonusText.text = "+0";
+                    }
+                    if (Timer.instance.isGradeF)
+                    {
+                        gradeText.text = "F";
+                        bonusText.text = "-50";
+                    }
+
+                    gameEnd = true;
+                }
             }
-            
             //repair animation
         }
         //if (signOnRight && (leftHandOffLadder || rightHandOffLadder) && Keyboard.current[Key.S].wasPressedThisFrame)
@@ -881,6 +885,13 @@ public class PlayerOneController : MonoBehaviour
         //    Debug.Log("sign repaired on the right");
         //    //repair animation
         //}
+    }
+
+    IEnumerator ScoreBoard()
+    {
+        yield return new WaitForSeconds(0.5f);
+        scoreBoardUI.SetActive(true);
+        scoreBoardIsTurnnedOn = true;
     }
 
     IEnumerator FixingAnimation()

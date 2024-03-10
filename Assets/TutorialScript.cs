@@ -125,7 +125,7 @@ public class TutorialScript : MonoBehaviour
     void CloseTab()
     {
         currentScene = SceneManager.GetActiveScene();
-        print(currentScene.name);
+        //print(currentScene.name);
         if(currentScene.name == "Level_Tutorial_01" && !close1)
         {
             if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Alpha8))

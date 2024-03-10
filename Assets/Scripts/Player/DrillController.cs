@@ -62,7 +62,19 @@ public class DrillController : MonoBehaviour
         {
             if (PlayerOneController.instance.gameEnd)
             {
-                StartCoroutine(RestartGame());
+                if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+                {
+                    //loading scene
+
+                    SceneManager.LoadScene("LoadingLevel_01");
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                }
+            }
+
+            if (GameManager.instance.currentScene.name == "LoadingLevel_01")
+            {
+
+                SceneManager.LoadScene("Level_01");
                 PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
             }
 
@@ -106,7 +118,19 @@ public class DrillController : MonoBehaviour
         {
             if (PlayerOneController.instance.gameEnd)
             {
-                StartCoroutine(RestartGame());
+                if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+                {
+                    //loading scene
+
+                    SceneManager.LoadScene("LoadingLevel_01");
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                }
+            }
+
+            if (GameManager.instance.currentScene.name == "LoadingLevel_01")
+            {
+
+                SceneManager.LoadScene("Level_01");
                 PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
             }
 
@@ -156,7 +180,19 @@ public class DrillController : MonoBehaviour
         {
             if (PlayerOneController.instance.gameEnd)
             {
-                StartCoroutine(RestartGame());
+                if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+                {
+                    //loading scene
+                    SceneManager.LoadScene("LoadingLevel_01");
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                }
+
+            }
+
+            if (GameManager.instance.currentScene.name == "LoadingLevel_01")
+            {
+
+                SceneManager.LoadScene("Level_01");
                 PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
             }
 

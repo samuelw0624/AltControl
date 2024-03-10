@@ -62,7 +62,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8303685142872266813}
   - component: {fileID: 5362295446829103374}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,8 +77,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029335902811021893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0031}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_LocalPosition: {x: 0, y: 0.0037, z: 0.0031}
+  m_LocalScale: {x: 0.007, y: 0.007, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1003204146358841128}
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1545a7741f3fd749a8d389fa3583807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onIntensity: 1
+  onIntensity: 2
   offIntensity: 0.25
   blinkInterval: 0.05
   isFixed: 0

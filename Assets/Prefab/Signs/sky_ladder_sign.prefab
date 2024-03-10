@@ -5158,7 +5158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1545a7741f3fd749a8d389fa3583807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onIntensity: 1
+  onIntensity: 2
   offIntensity: 0.25
   blinkInterval: 0.05
   isFixed: 0
@@ -5225,7 +5225,6 @@ GameObject:
   - component: {fileID: 3087345487286191601}
   - component: {fileID: 5161592348696459417}
   - component: {fileID: 4787764992992785374}
-  - component: {fileID: 1352425625}
   m_Layer: 0
   m_Name: outer_shape
   m_TagString: Untagged
@@ -5298,24 +5297,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1352425625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7518862686824988387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1545a7741f3fd749a8d389fa3583807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onIntensity: 0
-  offIntensity: 0
-  blinkInterval: 0
-  isFixed: 0
-  isSelected: 0
-  selectionRing: {fileID: 0}
 --- !u!1 &8154647856266755033
 GameObject:
   m_ObjectHideFlags: 0

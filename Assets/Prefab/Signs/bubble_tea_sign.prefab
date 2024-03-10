@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1545a7741f3fd749a8d389fa3583807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onIntensity: 1
+  onIntensity: 2
   offIntensity: 0.25
   blinkInterval: 0.05
   isFixed: 0

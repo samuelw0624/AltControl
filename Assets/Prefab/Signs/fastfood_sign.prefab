@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1545a7741f3fd749a8d389fa3583807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onIntensity: 1
+  onIntensity: 2
   offIntensity: 0.25
   blinkInterval: 0.05
   isFixed: 0
@@ -402,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6830088800978956089}
   - component: {fileID: 1313883268201771925}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
