@@ -204,6 +204,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd4514b304697764eb1b8030d361a5e4, type: 3}
+--- !u!1 &5588463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7786014915046686828, guid: bd4514b304697764eb1b8030d361a5e4, type: 3}
+  m_PrefabInstance: {fileID: 5588462}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &20961513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3916,6 +3921,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7441824536081734358, guid: bd4514b304697764eb1b8030d361a5e4, type: 3}
   m_PrefabInstance: {fileID: 5588462}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &416721985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5588463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbe24d55db8aef489c653e4378f97a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &418033905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5203,6 +5220,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 794232911, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4996f6c74dff00d40a80d1f2a7c0aa10, type: 3}
     - target: {fileID: 1657879738, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5276,9 +5297,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2136102512}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: moveSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: timerValue
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: scoreBoardUI
       value: 
       objectReference: {fileID: 2136102510}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: warningTimer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: progressionText1
       value: 
@@ -20135,11 +20168,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 699911745510291408, guid: 05c16119a5b6f92438aba76b2a444608, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.37
+      value: 5.88
       objectReference: {fileID: 0}
     - target: {fileID: 699911745510291408, guid: 05c16119a5b6f92438aba76b2a444608, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.17
+      value: -7.79
       objectReference: {fileID: 0}
     - target: {fileID: 699911745510291408, guid: 05c16119a5b6f92438aba76b2a444608, type: 3}
       propertyPath: m_LocalRotation.w
