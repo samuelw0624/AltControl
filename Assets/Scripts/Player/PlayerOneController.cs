@@ -145,6 +145,8 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField]
     public bool scoreBoardIsTurnnedOn;
 
+
+
     public enum ScrewType
     {
         CrossScrew,
@@ -837,6 +839,8 @@ public class PlayerOneController : MonoBehaviour
                 numberOfSignhasBeenFixed += 1;
                 //print("fixed");
 
+                ScoreManager.instance.progressionText1.text = numberOfSignhasBeenFixed.ToString() + " / " + totalAmountSignNeedToBeFixed.ToString();
+                 
                 if (numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed && !scoreBoardIsTurnnedOn)
                 {
                     StartCoroutine(ScoreBoard());
@@ -845,31 +849,37 @@ public class PlayerOneController : MonoBehaviour
                     {
                         gradeText.text = "A";
                         bonusText.text = "+500";
+                        ScoreManager.instance.AddPoint(500);
                     }
                     if (Timer.instance.isGradeB)
                     {
                         gradeText.text = "B";
                         bonusText.text = "+300";
+                        ScoreManager.instance.AddPoint(300);
                     }
                     if (Timer.instance.isGradeC)
                     {
                         gradeText.text = "C";
                         bonusText.text = "+200";
+                        ScoreManager.instance.AddPoint(200);
                     }
                     if (Timer.instance.isGradeD)
                     {
                         gradeText.text = "D";
-                        bonusText.text = "+50";
+                        bonusText.text = "+100";
+                        ScoreManager.instance.AddPoint(100);
                     }
                     if (Timer.instance.isGradeE)
                     {
                         gradeText.text = "E";
-                        bonusText.text = "+0";
+                        bonusText.text = "+50";
+                        ScoreManager.instance.AddPoint(50);
                     }
                     if (Timer.instance.isGradeF)
                     {
                         gradeText.text = "F";
-                        bonusText.text = "-50";
+                        bonusText.text = "0";
+                        ScoreManager.instance.AddPoint(0);
                     }
 
                     gameEnd = true;

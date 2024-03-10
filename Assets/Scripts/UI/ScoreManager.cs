@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager instance;
+
     public Text scorePlayer1;
     public Text scorePlayer2;
 
@@ -13,8 +15,13 @@ public class ScoreManager : MonoBehaviour
     public AudioClip coinLosted;
 
     public int score = 500;
-    //create add score instance
-    public static ScoreManager instance;
+
+    [SerializeField]
+    public Text progressionText1;
+    [SerializeField]
+    public bool tutorialLevelIsSetUp;
+    [SerializeField]
+    public bool Level1IsSetUp;
 
     // Start is called before the first frame update
 
@@ -32,7 +39,28 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ProgressionUI();
+    }
+
+    void ProgressionUI()
+    {
+        if (GameManager.instance.currentScene.name == "Level_Tutorial_01" && !tutorialLevelIsSetUp)
+        {
+            PlayerOneController.instance.numberOfSignhasBeenFixed = 0;
+            PlayerOneController.instance.totalAmountSignNeedToBeFixed = 3;
+
+            progressionText1.text = PlayerOneController.instance.numberOfSignhasBeenFixed.ToString() + " / " + PlayerOneController.instance.totalAmountSignNeedToBeFixed.ToString();
+            tutorialLevelIsSetUp = true; 
+        }
         
+        if (GameManager.instance.currentScene.name == "Level_01" && !Level1IsSetUp)
+        {
+            PlayerOneController.instance.numberOfSignhasBeenFixed = 0;
+            PlayerOneController.instance.totalAmountSignNeedToBeFixed = 4;
+
+            progressionText1.text = PlayerOneController.instance.numberOfSignhasBeenFixed.ToString() + " / " + PlayerOneController.instance.totalAmountSignNeedToBeFixed.ToString();
+            Level1IsSetUp = true;
+        }
     }
 
     #region Add score
