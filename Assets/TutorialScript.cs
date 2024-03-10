@@ -23,6 +23,7 @@ public class TutorialScript : MonoBehaviour
     private Scene currentScene;
     [SerializeField]
     private GameObject tutorialObject;
+    [SerializeField]
     private bool close1;
 
     [Header("Tutorial_02")]
@@ -39,6 +40,7 @@ public class TutorialScript : MonoBehaviour
     private GameObject dialogue3_1;
     [SerializeField]
     private GameObject dialogue3_2;
+    [SerializeField]
     public bool close2;
     [SerializeField]
     private Transform cam1;
@@ -128,13 +130,17 @@ public class TutorialScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Alpha8))
             {
-                dialogue1.SetActive(false);
-                dialogue2.SetActive(false);
-                Timer.instance.stopTimer = false;
-                Timer.instance.inTutorial = false;
-                Destroy(tutorialObject);
-                //Timer.instance.StartTimerAction();
-                close1 = true;
+                if (startTutorial1 && !close1)
+                {
+                    dialogue1.SetActive(false);
+                    dialogue2.SetActive(false);
+                    Timer.instance.stopTimer = false;
+                    Timer.instance.inTutorial = false;
+                    Destroy(tutorialObject);
+                    //Timer.instance.StartTimerAction();
+                    close1 = true;
+                }
+
             }
         }
 
@@ -146,13 +152,17 @@ public class TutorialScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Alpha8))
             {
-                dialogue2_1.SetActive(false);
-                dialogue2_2.SetActive(false);
-                Timer.instance.stopTimer = false;
-                Timer.instance.inTutorial = false;
-                Destroy(tutorialObject2);
-                //Timer.instance.StartTimerAction();
-                close2 = true;
+                if (startTutorial2 && !close2)
+                {
+                    dialogue2_1.SetActive(false);
+                    dialogue2_2.SetActive(false);
+                    Timer.instance.stopTimer = false;
+                    Timer.instance.inTutorial = false;
+                    Destroy(tutorialObject2);
+                    Timer.instance.StartTimerAction();
+                    close2 = true;
+                }
+
             }
         }
     }
@@ -161,15 +171,19 @@ public class TutorialScript : MonoBehaviour
     {
         if (currentScene.name == "Level_Tutorial_01")
         {
-            if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Alpha8))
+            if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Alpha8) )
             {
-                dialogue3_1.SetActive(false);
-                dialogue3_2.SetActive(false);
-                Timer.instance.stopTimer = false;
-                Timer.instance.inTutorial = false;
-                Destroy(tutorialObject2);
-                Timer.instance.StartTimerAction();
-                close2 = true;
+                if (startTutorial2 && !close2)
+                {
+                    dialogue3_1.SetActive(false);
+                    dialogue3_2.SetActive(false);
+                    Timer.instance.stopTimer = false;
+                    Timer.instance.inTutorial = false;
+                    Destroy(tutorialObject2);
+                    Timer.instance.StartTimerAction();
+                    close2 = true;
+                }
+
             }
         }
     }
