@@ -51,3 +51,14 @@ MonoBehaviour:
   shopUI1: {fileID: 0}
   shopUI2: {fileID: 0}
   inShop: 0
+  currentScene:
+    m_Handle: 0
+  tutorial1: {fileID: 0}
+  tutorial2: {fileID: 0}
+  t_Anim1: {fileID: 0}
+  t_Anim2: {fileID: 0}
+  tutorialEnd: 0
+  closeTab1: {fileID: 0}
+  closeTab2: {fileID: 0}
+  skipButton1: {fileID: 0}
+  skipButton2: {fileID: 0}

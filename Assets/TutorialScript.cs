@@ -51,8 +51,13 @@ public class TutorialScript : MonoBehaviour
     void Start()
     {
         instance = this;
-        dialogue1.SetActive(false);
-        dialogue2.SetActive(false);
+        currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Level_Tutorial_01")
+        {
+            dialogue1.SetActive(false);
+            dialogue2.SetActive(false);
+        }
+
 
 
     }
@@ -124,7 +129,7 @@ public class TutorialScript : MonoBehaviour
 
     void CloseTab()
     {
-        currentScene = SceneManager.GetActiveScene();
+
         //print(currentScene.name);
         if(currentScene.name == "Level_Tutorial_01" && !close1)
         {

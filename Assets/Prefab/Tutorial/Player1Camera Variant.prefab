@@ -17,11 +17,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657105, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.37
+      value: 5.88
       objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657105, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.88
+      value: -7.79
       objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657105, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: m_LocalRotation.w
@@ -55,9 +55,17 @@ PrefabInstance:
       propertyPath: cameraMoveSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8909749094420657107, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909749094420657107, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657108, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: m_Name
-      value: Player1Camera
+      value: Player1Camera Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657108, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: m_IsActive
@@ -73,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657110, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 55
+      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657111, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: m_Enabled

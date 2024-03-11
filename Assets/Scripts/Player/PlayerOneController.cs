@@ -194,7 +194,7 @@ public class PlayerOneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Timer.instance.gameStart && !gameEnd && !Timer.instance.inTutorial)
+        if (Timer.instance.gameStart && !gameEnd && !Timer.instance.inTutorial && GameManager.instance.currentScene.name == "Level_Tutorial_01")
         {
             if (!isFreezed)
             {
@@ -218,13 +218,35 @@ public class PlayerOneController : MonoBehaviour
             ClimbUp();
         }
 
+        if(Timer.instance.gameStart && !gameEnd && GameManager.instance.currentScene.name != "Level_Tutorial_01")
+        {
+            if (!isFreezed)
+            {
+                SlideDown();
 
+            }
+            CheckLeftHand();
+            CheckRightHand();
+
+            CheckLeftRail();
+            CheckRightRail();
+
+            UpdateClosestSpot();
+            //FollowLadder();
+            DetectPlayerPosition();
+            //DetectReachMaxHeight();
+
+            ConfineLadderHeight();
+
+            Warn();
+            ClimbUp();
+        }
 
     }
 
     private void FixedUpdate()
     {
-        if (Timer.instance.gameStart && !gameEnd && !Timer.instance.inTutorial)
+        if (Timer.instance.gameStart && !gameEnd && !Timer.instance.inTutorial && GameManager.instance.currentScene.name == "Level_Tutorial_01")
         {
 
             if (!isFreezed)
@@ -252,6 +274,35 @@ public class PlayerOneController : MonoBehaviour
             }
 
         }
+
+        if(Timer.instance.gameStart && !gameEnd && GameManager.instance.currentScene.name != "Level_Tutorial_01")
+        {
+            if (!isFreezed)
+            {
+                var keyboard = Keyboard.current;
+                //check if there is a keyboard
+                if (keyboard == null)
+                {
+                    return;
+                }
+
+                if (!leftHandOffLadder && !rightHandOffLadder && gameStart1 && gameStart2)
+                {
+                    gameOver = false;
+
+                }
+                else if (leftHandOffLadder && rightHandOffLadder && gameStart1 && gameStart2)
+                {
+                    handsOff = true;
+                    anim.SetBool("isHanging", true);
+                    //SceneManager.LoadScene("GameOver");
+                }
+
+
+            }
+        }
+
+
 
     }
     #endregion

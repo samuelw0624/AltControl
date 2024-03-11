@@ -299,23 +299,30 @@ public class DrillController : MonoBehaviour
     #region Shop
     private void Enter()
     {
-        if (EnterShop.instance.withinShopRange && keyPressed)
+        if(GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03")
         {
-            shopUI.SetActive(true);
-            PlayerOneController.instance.isFreezed = true;
-            EnterShop.instance.firstEnter = true;
+            if (EnterShop.instance.withinShopRange && keyPressed)
+            {
+                shopUI.SetActive(true);
+                PlayerOneController.instance.isFreezed = true;
+                EnterShop.instance.firstEnter = true;
 
+            }
+            else
+            {
+                LeaveShop();
+            }
         }
-        else
-        {
-            LeaveShop();
-        }
+
     }
 
 
     public void LeaveShop()
     {
-        shopUI.SetActive(false);
+        if(shopUI != null)
+        {
+            shopUI.SetActive(false);
+        }
         PlayerOneController.instance.isFreezed = false;
         keyPressed = false;
         for (int i = 0; i < EnterShop.instance.shopItem.Length; i++)

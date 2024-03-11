@@ -432,7 +432,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cbbfe4c3a9140af4488faab10c599894, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4996f6c74dff00d40a80d1f2a7c0aa10, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 829752441}
   - component: {fileID: 829752442}
   - component: {fileID: 829752443}
+  - component: {fileID: 553180084}
   m_Layer: 0
   m_Name: PlayerColliderwithEnemy
   m_TagString: PlayerCollider
@@ -698,6 +699,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kiteAttackSound: {fileID: 829752442}
   kiteAttack: 0
+--- !u!114 &553180084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829752435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c630222c96c010343b787c04e3ce9ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue1: {fileID: 0}
+  dialogue2: {fileID: 0}
+  closeTab1: {fileID: 0}
+  closeTab2: {fileID: 0}
+  startTutorial1: 0
+  Tutorial1: {fileID: 0}
+  currentScene:
+    m_Handle: 0
+  tutorialObject: {fileID: 0}
+  close1: 0
+  dialogue2_1: {fileID: 0}
+  dialogue2_2: {fileID: 0}
+  startTutorial2: 0
+  tutorialObject2: {fileID: 0}
+  dialogue3_1: {fileID: 0}
+  dialogue3_2: {fileID: 0}
+  close2: 0
+  cam1: {fileID: 0}
+  dialogue3_1Transform: {fileID: 0}
 --- !u!1 &884266714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,7 +1126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1657879739
 Transform:
   m_ObjectHideFlags: 0
@@ -1572,15 +1604,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725018527636, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.004
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725018527636, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725018527636, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.5699997
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725018527636, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1612,7 +1644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725018527637, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: m_Name
-      value: Ladder
+      value: Ladder Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725140503584, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1696,7 +1728,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: ec4e1bf9b3798984daea7f52c7f883f1, type: 3}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: moveSpeed
-      value: 0.2
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: player2Pos
@@ -1704,7 +1736,7 @@ PrefabInstance:
       objectReference: {fileID: 1579534117}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: timerValue
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: moveOriSpeed
@@ -1716,7 +1748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: warningTimer
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: moveSlowSpeed
@@ -1761,6 +1793,10 @@ PrefabInstance:
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: leftPosUIArray.Array.data[4]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
+      propertyPath: totalAmountSignNeedToBeFixed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1861648725385446976, guid: 2fd8a544b6867c143869b520c4c9421a, type: 3}
       propertyPath: rightPoseUIArray.Array.data[0]

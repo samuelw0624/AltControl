@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private Material skyboxScene3;
     [SerializeField]
     private Material skyboxScene4;
+    [SerializeField]
+    private Material skyboxScene5;
 
     [SerializeField]
     private GameObject shopUI1;
@@ -111,6 +113,22 @@ public class GameManager : MonoBehaviour
                 shopUI1.SetActive(false);
                 shopUI2.SetActive(false);
             }
+        } 
+        else if(currentScene.name == "Level_01")
+        {
+            RenderSettings.skybox = skyboxScene2;
+        }
+        else if(currentScene.name == "Level_02")
+        {
+            RenderSettings.skybox = skyboxScene2;
+        }
+        else if (currentScene.name == "Level_03")
+        {
+            RenderSettings.skybox = skyboxScene4;
+        }
+        else if (currentScene.name == "Level_04")
+        {
+            RenderSettings.skybox = skyboxScene5;
         }
 
 

@@ -94,7 +94,7 @@ public class Timer : MonoBehaviour
 
         currentScene = SceneManager.GetActiveScene();
 
-        if (currentScene.name == "TestLevel_01")
+        if (currentScene.name == "TestLevel_01" || currentScene.name == "Level_01")
         {
             if (!gameStart)
             {
