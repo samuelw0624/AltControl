@@ -176,6 +176,8 @@ public class PlayerOneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+
         playerRb = this.GetComponent<Rigidbody>();
         ladder = GameObject.FindWithTag("Ladder");
         repairCollide = this.GetComponent<SphereCollider>();
@@ -195,6 +197,7 @@ public class PlayerOneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveSpeedControl();
         if (Timer.instance.gameStart && !gameEnd && !Timer.instance.inTutorial && GameManager.instance.currentScene.name == "Level_Tutorial_01")
         {
             if (!isFreezed)
@@ -709,23 +712,18 @@ public class PlayerOneController : MonoBehaviour
 
     void MoveSpeedControl()
     {
-        if (!SlowDown.instance.insideSteam)
+
+        if (EnterShop.instance.isPurchased3)
         {
-            if (EnterShop.instance.isPurchased3)
-            {
-                moveSpeed = moveBoostedSpeed;
-            }
-            else
-            {
-                moveSpeed = moveOriSpeed;
-            }
-            //Debug.Log("moveSpeed = " + moveSpeed);
+            moveSpeed = moveBoostedSpeed;
         }
-        else
-        {
-            moveSpeed = moveSlowSpeed;
             //Debug.Log("moveSpeed = " + moveSpeed);
-        }
+        
+        //else
+        //{
+        //    moveSpeed = moveSlowSpeed;
+        //    //Debug.Log("moveSpeed = " + moveSpeed);
+        //}
     }
     #endregion
 

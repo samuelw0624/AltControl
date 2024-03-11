@@ -8,18 +8,28 @@ public class SlowDown : MonoBehaviour
 
     [SerializeField]
     public bool insideSteam = false;
-
+    [SerializeField]
+    private GameObject smokeUI;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        if (smokeUI != null)
+        {
+            smokeUI.SetActive(false);
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "PlayerCollider")
         {
             insideSteam = true;
-            //Debug.Log("insideSteam = " + insideSteam);
+            smokeUI.SetActive(true);
+            Debug.Log("insideSteam = " + insideSteam);
         }
     }
 
@@ -28,6 +38,7 @@ public class SlowDown : MonoBehaviour
         if (collision.gameObject.tag == "PlayerCollider")
         {
             insideSteam = false;
+            smokeUI.SetActive(false);
             //Debug.Log("insideSteam = " + insideSteam);
         }
     }

@@ -2327,6 +2327,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1UI Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2340298005247594739, guid: c862af1d612de2343b53512c9e7d1bf1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c862af1d612de2343b53512c9e7d1bf1, type: 3}
 --- !u!1 &547685305 stripped
@@ -8430,7 +8434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 924403379038551488, guid: 595770d28d079a4479ee9896972ce035, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 924403379038551492, guid: 595770d28d079a4479ee9896972ce035, type: 3}
       propertyPath: m_Pivot.x
@@ -8914,6 +8918,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2097992987}
+    - target: {fileID: 6786949199392434163, guid: 19cb71a6036cb484e88774ef0396c618, type: 3}
+      propertyPath: orthographic size
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19cb71a6036cb484e88774ef0396c618, type: 3}
 --- !u!1001 &1926286437

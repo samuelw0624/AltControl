@@ -114,23 +114,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5582270618521809159, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
       propertyPath: m_Name
-      value: Steam
+      value: Smoke
       objectReference: {fileID: 0}
     - target: {fileID: 5582270618521809272, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5582270618521809272, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582270618521809272, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582270618521809272, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.4584
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582270618521809272, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.02
+      value: -32.06
       objectReference: {fileID: 0}
     - target: {fileID: 5582270618521809272, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.62
+      value: 10.95
       objectReference: {fileID: 0}
     - target: {fileID: 5582270618521809272, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.0434401
+      value: 1.74
       objectReference: {fileID: 0}
     - target: {fileID: 5582270618521809272, guid: 77c7a876716a5414fa602bb371d1ab96, type: 3}
       propertyPath: m_LocalRotation.w

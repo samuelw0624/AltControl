@@ -38,7 +38,20 @@ public class PlayerTwoController : MonoBehaviour
     private bool rotateNormal;
     [SerializeField]
     private bool gameStart;
-
+    [SerializeField]
+    private float oriRotationSpeed;
+    [SerializeField]
+    private float lowRotationSpeed1;
+    [SerializeField]
+    private float lowRotationSpeed2;
+    [SerializeField]
+    private float midRotationSpeed1;
+    [SerializeField]
+    private float midRotationSpeed2;
+    [SerializeField]
+    private float highRotationSpeed1;
+    [SerializeField]
+    private float highRotationSpeed2;
 
     //Ladder heights 
     public GameObject[] ladderObj;
@@ -475,12 +488,12 @@ public class PlayerTwoController : MonoBehaviour
         {
             if (value > 0 && value <= 5)
             {
-                currentSpeed = 3;
+                currentSpeed = oriRotationSpeed;
                 LadderTilt(currentSpeed);
             }
             else if (value <= 10 && value > 5)
             {
-                currentSpeed = 3;
+                currentSpeed = oriRotationSpeed;
                 LadderTilt(-currentSpeed);
             }
         }
@@ -503,27 +516,27 @@ public class PlayerTwoController : MonoBehaviour
             {
                 if (numOfLadder == 1)
                 {
-                    currentSpeed = 3;
+                    currentSpeed = oriRotationSpeed;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 2)
                 {
-                    currentSpeed = 4;
+                    currentSpeed = lowRotationSpeed1;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 3)
                 {
-                    currentSpeed = 5;
+                    currentSpeed = lowRotationSpeed1;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 4)
                 {
-                    currentSpeed = 7;
+                    currentSpeed = midRotationSpeed1;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 5)
                 {
-                    currentSpeed = 10;
+                    currentSpeed = midRotationSpeed2;
                     LadderTilt(currentSpeed);
                 }
             }
@@ -531,27 +544,27 @@ public class PlayerTwoController : MonoBehaviour
             {
                 if (numOfLadder == 1)
                 {
-                    currentSpeed = 3;
+                    currentSpeed = lowRotationSpeed1;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 2)
                 {
-                    currentSpeed = 4;
+                    currentSpeed = lowRotationSpeed2;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 3)
                 {
-                    currentSpeed = 5;
+                    currentSpeed = midRotationSpeed1;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 4)
                 {
-                    currentSpeed = 7;
+                    currentSpeed = midRotationSpeed2;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 5)
                 {
-                    currentSpeed = 10;
+                    currentSpeed = highRotationSpeed1;
                     LadderTilt(-currentSpeed);
                 }
             }
@@ -560,27 +573,27 @@ public class PlayerTwoController : MonoBehaviour
             {
                 if (numOfLadder == 1)
                 {
-                    currentSpeed = 5;
+                    currentSpeed = lowRotationSpeed2;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 2)
                 {
-                    currentSpeed = 7;
+                    currentSpeed = midRotationSpeed1;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 3)
                 {
-                    currentSpeed = 10;
+                    currentSpeed = midRotationSpeed2;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 4)
                 {
-                    currentSpeed = 12;
+                    currentSpeed = highRotationSpeed1;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 5)
                 {
-                    currentSpeed = 15;
+                    currentSpeed = highRotationSpeed2;
                     LadderTilt(currentSpeed);
                 }
             }
@@ -588,27 +601,27 @@ public class PlayerTwoController : MonoBehaviour
             {
                 if (numOfLadder == 1)
                 {
-                    currentSpeed = 3;
+                    currentSpeed = lowRotationSpeed1;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 2)
                 {
-                    currentSpeed = 5;
+                    currentSpeed = lowRotationSpeed2;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 3)
                 {
-                    currentSpeed = 7;
+                    currentSpeed = midRotationSpeed1;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 4)
                 {
-                    currentSpeed = 9;
+                    currentSpeed = midRotationSpeed2;
                     LadderTilt(currentSpeed);
                 }
                 else if (numOfLadder == 5)
                 {
-                    currentSpeed = 10;
+                    currentSpeed = highRotationSpeed1;
                     LadderTilt(currentSpeed);
                 }
             }
@@ -616,27 +629,27 @@ public class PlayerTwoController : MonoBehaviour
             {
                 if (numOfLadder == 1)
                 {
-                    currentSpeed = 5;
+                    currentSpeed = lowRotationSpeed2;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 2)
                 {
-                    currentSpeed = 7;
+                    currentSpeed = midRotationSpeed1;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 3)
                 {
-                    currentSpeed = 10;
+                    currentSpeed = midRotationSpeed2;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 4)
                 {
-                    currentSpeed = 12;
+                    currentSpeed = highRotationSpeed1;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 5)
                 {
-                    currentSpeed = 15;
+                    currentSpeed = highRotationSpeed2;
                     LadderTilt(-currentSpeed);
                 }
             }
@@ -644,39 +657,39 @@ public class PlayerTwoController : MonoBehaviour
             {
                 if (numOfLadder == 1)
                 {
-                    currentSpeed = 3;
+                    currentSpeed = lowRotationSpeed1;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 2)
                 {
-                    currentSpeed = 5;
+                    currentSpeed = lowRotationSpeed2;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 3)
                 {
-                    currentSpeed = 7;
+                    currentSpeed = midRotationSpeed1;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 4)
                 {
-                    currentSpeed = 9;
+                    currentSpeed = midRotationSpeed2;
                     LadderTilt(-currentSpeed);
                 }
                 else if (numOfLadder == 5)
                 {
-                    currentSpeed = 10;
+                    currentSpeed = highRotationSpeed1;
                     LadderTilt(-currentSpeed);
                 }
             }else if(rotateLeft && rotateRight)
             {
                 if (value > 0 && value <= 5)
                 {
-                    currentSpeed = 3;
+                    currentSpeed = oriRotationSpeed;
                     LadderTilt(currentSpeed);
                 }
                 else if (value <= 10 && value > 5)
                 {
-                    currentSpeed = 3;
+                    currentSpeed = oriRotationSpeed;
                     LadderTilt(-currentSpeed);
                 }
             }
