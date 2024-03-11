@@ -41,6 +41,7 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField] public float moveDist = 1.1f;
     [SerializeField] float moveSpeed;
     [SerializeField] float moveOriSpeed;
+    [SerializeField] float moveBoostedSpeed;
     [SerializeField] float moveSlowSpeed;
     [SerializeField] float gravityMod;
 
@@ -710,7 +711,14 @@ public class PlayerOneController : MonoBehaviour
     {
         if (!SlowDown.instance.insideSteam)
         {
-            moveSpeed = moveOriSpeed;
+            if (EnterShop.instance.isPurchased3)
+            {
+                moveSpeed = moveBoostedSpeed;
+            }
+            else
+            {
+                moveSpeed = moveOriSpeed;
+            }
             //Debug.Log("moveSpeed = " + moveSpeed);
         }
         else
@@ -1086,27 +1094,15 @@ public class PlayerOneController : MonoBehaviour
 
         if (handsOff)
         {
-            if (EnterShop.instance.isPurchased3)
-            {
-                timerBoosted -= Time.deltaTime;
-                p1Screen.SetActive(true);
-                p2Screen.SetActive(true);
-                audio.Play();
 
-                p1Text.text = (timerBoosted).ToString("0");
-                p2Text.text = (timerBoosted).ToString("0");
+            warningTimer -= Time.deltaTime;
+            p1Screen.SetActive(true);
+            p2Screen.SetActive(true);
+            audio.Play();
 
-            }
-            else
-            {
-                warningTimer -= Time.deltaTime;
-                p1Screen.SetActive(true);
-                p2Screen.SetActive(true);
-                audio.Play();
-
-                p1Text.text = (warningTimer).ToString("0");
-                p2Text.text = (warningTimer).ToString("0");
-            }
+            p1Text.text = (warningTimer).ToString("0");
+            p2Text.text = (warningTimer).ToString("0");
+            
 
             if (warningTimer <= 0 || timerBoosted <= 0)
             {

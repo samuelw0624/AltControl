@@ -100,7 +100,7 @@ public class Timer : MonoBehaviour
             {
                 StartCoroutine(StartTimer());
                 audio.Play();
-                print("Timer Alarm");
+               // print("Timer Alarm");
             }
         }
 
@@ -122,7 +122,7 @@ public class Timer : MonoBehaviour
         {
             StartCoroutine(StartTimer());
             audio.Play();
-            print("Timer Alarm");
+            //print("Timer Alarm");
             timerStart = true;
         }      
     }

@@ -35,6 +35,9 @@ public class EnterShop : MonoBehaviour
     [SerializeField]
     public AudioSource selectionSound;
 
+    [SerializeField]
+    public bool isRead;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +49,7 @@ public class EnterShop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        RecallPurchasingItems();
     }
 
     public void SelectItem()
@@ -89,10 +92,34 @@ public class EnterShop : MonoBehaviour
             pressedTimes = 1;
         }
 
+    }
 
+    void RecallPurchasingItems()
+    {
+        if(GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
+        {
+            if (!isRead)
+            {
+                isPurchased1 = ScoreBoard.instance.item1WasPurchased;
+                isPurchased2 = ScoreBoard.instance.item2WasPurchased;
+                isPurchased3 = ScoreBoard.instance.item3WasPurchased;
+                isRead = true;
+            }
+        } 
+        else if(GameManager.instance.currentScene.name == "Level_Tutorial_01")
+        {
+            if (!isRead)
+            {
+                ScoreBoard.instance.item1WasPurchased = false;
+                ScoreBoard.instance.item2WasPurchased = false;
+                ScoreBoard.instance.item3WasPurchased = false;
+                isPurchased1 = ScoreBoard.instance.item1WasPurchased;
+                isPurchased2 = ScoreBoard.instance.item2WasPurchased;
+                isPurchased3 = ScoreBoard.instance.item3WasPurchased;
+                isRead = true;
+            }
 
-
-
+        }
     }
 
     private void OnTriggerStay(Collider other)

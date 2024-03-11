@@ -3370,11 +3370,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5844501250972183436, guid: 108231a4107998746944739403a856c3, type: 3}
   m_PrefabInstance: {fileID: 1102148302}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1102148304 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5844501251100102444, guid: 108231a4107998746944739403a856c3, type: 3}
-  m_PrefabInstance: {fileID: 1102148302}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1102148305 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1065912024, guid: 108231a4107998746944739403a856c3, type: 3}
@@ -6146,7 +6141,7 @@ MonoBehaviour:
   skyboxScene4: {fileID: 2100000, guid: 6e2ad74a8660b09428b46b3f1a3d8b14, type: 2}
   skyboxScene5: {fileID: 2100000, guid: b9b6bf639cf3e764796caffc9b6a41e1, type: 2}
   shopUI1: {fileID: 416117651}
-  shopUI2: {fileID: 1102148304}
+  shopUI2: {fileID: 0}
   inShop: 0
   currentScene:
     m_Handle: 0
@@ -6802,7 +6797,7 @@ PrefabInstance:
     - target: {fileID: 3291930608849506963, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: shopUI2
       value: 
-      objectReference: {fileID: 1102148304}
+      objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506963, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: hexDrill
       value: 
@@ -6852,9 +6847,21 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: moveOriSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: scoreBoardUI
       value: 
       objectReference: {fileID: 1713791490}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: moveSlowSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: moveBoostedSpeed
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: leftPosUIArray.Array.size
       value: 5

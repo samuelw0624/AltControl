@@ -288,7 +288,7 @@ public class PlayerTwoController : MonoBehaviour
     {
         if (numOfLadder == 1)
         {
-            print("1");
+            //print("1");
             ladderObj[0].gameObject.SetActive(false);
             ladderObj[1].gameObject.SetActive(false);
             ladderObj[2].gameObject.SetActive(false);
@@ -298,7 +298,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 2)
         {
-            print("2");
+            //print("2");
             ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(false);
             ladderObj[2].gameObject.SetActive(false);
@@ -308,7 +308,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 3)
         {
-            print("3");
+            //print("3");
             ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(false);
@@ -318,7 +318,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 4)
         {
-            print("4");
+            //print("4");
             ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(true);
@@ -329,7 +329,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else if (numOfLadder == 5)
         {
-            print("5");
+            //print("5");
             ladderObj[0].gameObject.SetActive(true);
             ladderObj[1].gameObject.SetActive(true);
             ladderObj[2].gameObject.SetActive(true);
