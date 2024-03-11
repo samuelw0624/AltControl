@@ -94,7 +94,7 @@ public class Timer : MonoBehaviour
 
         currentScene = SceneManager.GetActiveScene();
 
-        if (currentScene.name == "TestLevel_01" || currentScene.name == "Level_01")
+        if (currentScene.name == "TestLevel_01" || currentScene.name == "Level_01" || currentScene.name == "Level_02" || currentScene.name == "Level_03" || currentScene.name == "Level_04")
         {
             if (!gameStart)
             {
@@ -163,7 +163,7 @@ public class Timer : MonoBehaviour
 
     IEnumerator StartTimerTicker()
     {
-        while(stopTimer == false)
+        while(stopTimer == false && !PlayerOneController.instance.gameEnd)
         {
 
             slideTimer += Time.deltaTime;

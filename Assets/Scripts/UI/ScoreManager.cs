@@ -14,7 +14,7 @@ public class ScoreManager : MonoBehaviour
     public AudioClip coinCollected;
     public AudioClip coinLosted;
 
-    public int score = 500;
+    public int score;
 
     [SerializeField]
     public Text progressionText1;
@@ -22,6 +22,8 @@ public class ScoreManager : MonoBehaviour
     public bool tutorialLevelIsSetUp;
     [SerializeField]
     public bool Level1IsSetUp;
+    [SerializeField]
+    public bool isRead;
 
     // Start is called before the first frame update
 
@@ -32,16 +34,48 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         //print original coin value
-        scorePlayer1.text = "Coin:" + score.ToString();
-        scorePlayer2.text = "Coin:" + score.ToString();
+        //scorePlayer1.text = "Coin:" + score.ToString();
+        //scorePlayer2.text = "Coin:" + score.ToString();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         ProgressionUI();
+        ReadScore();
     }
 
+    void ReadScore()
+    {
+        if (GameManager.instance.currentScene.name == "Level_01" || GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
+        {
+            if (!isRead)
+            {
+                score = ScoreBoard.instance.originalScore;
+                isRead = true;
+                print("Original Score");
+                scorePlayer1.text = "Coin:" + score.ToString();
+                scorePlayer2.text = "Coin:" + score.ToString();
+            }
+
+        }
+        else if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+        {
+            if (!isRead)
+            {
+                score = 0;
+                ScoreBoard.instance.originalScore = 0;
+                isRead = true;
+                print("zero score");
+                scorePlayer1.text = "Coin:" + score.ToString();
+                scorePlayer2.text = "Coin:" + score.ToString();
+            }
+
+        }
+
+    }
     void ProgressionUI()
     {
         if (GameManager.instance.currentScene.name == "Level_Tutorial_01" && !tutorialLevelIsSetUp)

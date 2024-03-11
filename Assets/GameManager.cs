@@ -61,11 +61,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (currentScene.name == "TestLevel_01")
+        if (currentScene.name == "Level_02" || currentScene.name == "Level_03" || currentScene.name == "Level_04" )
         {
             EnterShop();
         }
-        else
+        else if(currentScene.name == "Level_Tutorial_01")
         {
 
             Skip();

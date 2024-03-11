@@ -15,6 +15,8 @@ public class EnterShop : MonoBehaviour
     [SerializeField]
     public GameObject[] shopItem;
     [SerializeField]
+    public GameObject[] shopItem2;
+    [SerializeField]
     public int selectedItem;
     [SerializeField]
     public int previousItem;
@@ -24,6 +26,8 @@ public class EnterShop : MonoBehaviour
     public bool oriShop;
     [SerializeField]
     public GameObject[] soldOutItems;
+    [SerializeField]
+    public GameObject[] soldOutItems2;
     [SerializeField]
     public bool isPurchased1, isPurchased2, isPurchased3;
     [SerializeField]
@@ -58,6 +62,8 @@ public class EnterShop : MonoBehaviour
                 selectedItem = 0;
                 shopItem[0].SetActive(true);
                 shopItem[3].SetActive(false);
+                shopItem2[0].SetActive(true);
+                shopItem2[3].SetActive(false);
 
             }
             else
@@ -66,6 +72,9 @@ public class EnterShop : MonoBehaviour
                 {
                     shopItem[previousItem].SetActive(false);
                     shopItem[selectedItem].SetActive(true);
+                    shopItem2[previousItem].SetActive(false);
+                    shopItem2[selectedItem].SetActive(true);
+
                 }
             }
 
@@ -75,6 +84,7 @@ public class EnterShop : MonoBehaviour
         {
             selectedItem = 0;
             shopItem[selectedItem].SetActive(true);
+            shopItem2[selectedItem].SetActive(true);
             oriShop = true;
             pressedTimes = 1;
         }

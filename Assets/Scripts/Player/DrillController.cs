@@ -19,6 +19,8 @@ public class DrillController : MonoBehaviour
     [SerializeField]
     public GameObject shopUI;
     [SerializeField]
+    public GameObject shopUI2;
+    [SerializeField]
     private AudioSource insufficientFundSound;
     [SerializeField]
     private AudioSource purchaseSuccessfulSound;
@@ -64,19 +66,39 @@ public class DrillController : MonoBehaviour
             {
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
-                    //loading scene
-
-                    SceneManager.LoadScene("LoadingLevel_01");
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading01());
+                    //SceneManager.LoadScene("LoadingLevel_01");
+                    
                 }
+
+                if(GameManager.instance.currentScene.name == "Level_01")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading02());
+                }
+                
+                if(GameManager.instance.currentScene.name == "Level_02")
+                {
+                    print("Loading scene 03");
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading03());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_03")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading04());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_04")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(RestartGame());
+                }
+
             }
 
-            if (GameManager.instance.currentScene.name == "LoadingLevel_01")
-            {
-
-                SceneManager.LoadScene("Level_01");
-                PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-            }
 
             if (EnterShop.instance.isPurchased2)
             {
@@ -122,17 +144,35 @@ public class DrillController : MonoBehaviour
                 {
                     //loading scene
 
-                    SceneManager.LoadScene("LoadingLevel_01");
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading01());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_01")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading02());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_02")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading03());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_03")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading04());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_04")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(RestartGame());
                 }
             }
 
-            if (GameManager.instance.currentScene.name == "LoadingLevel_01")
-            {
-
-                SceneManager.LoadScene("Level_01");
-                PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-            }
 
             if (EnterShop.instance.isPurchased2)
             {
@@ -183,18 +223,36 @@ public class DrillController : MonoBehaviour
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
                     //loading scene
-                    SceneManager.LoadScene("LoadingLevel_01");
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading01());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_01")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading02());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_02")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading03());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_03")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(EnterLoading04());
+                }
+
+                if (GameManager.instance.currentScene.name == "Level_04")
+                {
+                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                    StartCoroutine(RestartGame());
                 }
 
             }
 
-            if (GameManager.instance.currentScene.name == "LoadingLevel_01")
-            {
-
-                SceneManager.LoadScene("Level_01");
-                PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-            }
 
             if (EnterShop.instance.isPurchased2)
             {
@@ -304,6 +362,7 @@ public class DrillController : MonoBehaviour
             if (EnterShop.instance.withinShopRange && keyPressed)
             {
                 shopUI.SetActive(true);
+                shopUI2.SetActive(true);
                 PlayerOneController.instance.isFreezed = true;
                 EnterShop.instance.firstEnter = true;
 
@@ -319,9 +378,10 @@ public class DrillController : MonoBehaviour
 
     public void LeaveShop()
     {
-        if(shopUI != null)
+        if(shopUI != null && shopUI2 != null)
         {
             shopUI.SetActive(false);
+            shopUI2.SetActive(false);
         }
         PlayerOneController.instance.isFreezed = false;
         keyPressed = false;
@@ -344,6 +404,7 @@ public class DrillController : MonoBehaviour
                 if (ScoreManager.instance.score >= 50)
                 {
                     EnterShop.instance.soldOutItems[0].SetActive(true);
+                    EnterShop.instance.soldOutItems2[0].SetActive(true);
                     EnterShop.instance.isPurchased1 = true;
                     ScoreManager.instance.ReducePoint(50);
                     purchaseSuccessfulSound.Play();
@@ -360,6 +421,7 @@ public class DrillController : MonoBehaviour
                 if (ScoreManager.instance.score >= 100)
                 {
                     EnterShop.instance.soldOutItems[1].SetActive(true);
+                    EnterShop.instance.soldOutItems2[1].SetActive(true);
                     EnterShop.instance.isPurchased2 = true;
                     ScoreManager.instance.ReducePoint(100);
                     purchaseSuccessfulSound.Play();
@@ -375,6 +437,7 @@ public class DrillController : MonoBehaviour
                 if (ScoreManager.instance.score >= 80)
                 {
                     EnterShop.instance.soldOutItems[2].SetActive(true);
+                    EnterShop.instance.soldOutItems2[2].SetActive(true);
                     EnterShop.instance.isPurchased3 = true;
                     ScoreManager.instance.ReducePoint(80);
                     purchaseSuccessfulSound.Play();
@@ -397,7 +460,32 @@ public class DrillController : MonoBehaviour
 
     IEnumerator RestartGame()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         SceneManager.LoadScene("TitlePage");
     }
+
+    IEnumerator EnterLoading01()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("LoadingLevel_01");
+    }
+
+    IEnumerator EnterLoading02()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("LoadingLevel_02");
+    }
+
+    IEnumerator EnterLoading03()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("LoadingLevel_03");
+    }
+
+    IEnumerator EnterLoading04()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("LoadingLevel_04");
+    }
+
 }

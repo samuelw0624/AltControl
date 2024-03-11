@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657106, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: cameraMoveSpeed
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8909749094420657107, guid: 77addf4bada75e441b5f1b100f795625, type: 3}
       propertyPath: Loop
