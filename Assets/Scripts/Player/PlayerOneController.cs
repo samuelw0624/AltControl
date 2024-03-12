@@ -94,6 +94,8 @@ public class PlayerOneController : MonoBehaviour
     float LateDis;
     [SerializeField]
     public bool handsOff = false;
+    [SerializeField]
+    public bool isClimbing;
 
     [SerializeField]
     GameObject p1Screen;
@@ -584,23 +586,29 @@ public class PlayerOneController : MonoBehaviour
             }
             else if (!leftBoolArray[0] || !rightBoolArray[4])
             {
-                isMoving = false;
-                anim.SetFloat("MoveSpeed1", 0);
-
+                if (!isClimbing)
+                {
+                    isMoving = false;
+                    anim.SetFloat("MoveSpeed", 0);
+                }
             }
         }
         else if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !FalconAttack.instance.isStunning)
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
-                MovePlayer1();
+                MovePlayer();
                 performed04 = false;
                 performed40 = true;
             }
             else if (!leftBoolArray[4] || !rightBoolArray[0])
             {
-                isMoving = false;
-                anim.SetFloat("MoveSpeed", 0);
+                if (!isClimbing)
+                {
+                    isMoving = false;
+                    anim.SetFloat("MoveSpeed", 0);
+                }
+
             }
         }
 
@@ -608,7 +616,6 @@ public class PlayerOneController : MonoBehaviour
         {
             isMoving = false;
             anim.SetFloat("MoveSpeed", 0);
-            anim.SetFloat("MoveSpeed1", 0);
         }
 
     }
@@ -695,38 +702,21 @@ public class PlayerOneController : MonoBehaviour
     void MovePlayer()
     {
         isMoving = true;
-        MoveSpeedControl();
+        isClimbing = true;
+        //MoveSpeedControl();
         anim.SetFloat("MoveSpeed", moveSpeed);
         StartCoroutine(DoClimb());
         StartCoroutine(StopClimbingAnimation());
-        //print("MoveSpeed" + moveSpeed);
-        print("LeftMoving");
+        //print("MoveSpeed" + moveSpeed)
 
-    }
-
-    void MovePlayer1()
-    {
-        isMoving = true;
-        MoveSpeedControl();
-        anim.SetFloat("MoveSpeed1", moveSpeed);
-        StartCoroutine(DoClimb());
-        StartCoroutine(StopClimbingAnimation1());
-        //print("MoveSpeed" + moveSpeed);
-        print("RightMoving");
     }
 
     IEnumerator StopClimbingAnimation()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
         anim.SetFloat("MoveSpeed", 0);
+        isClimbing = false;
         print("stop");
-    }
-
-    IEnumerator StopClimbingAnimation1()
-    {
-        yield return new WaitForSeconds(0.4f);
-        anim.SetFloat("MoveSpeed1", 0);
-        print("stop1");
     }
 
     IEnumerator DoClimb()
