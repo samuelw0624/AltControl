@@ -24,7 +24,9 @@ public class PlayerOneController : MonoBehaviour
 
     /*rail spot booleans, 5 spots on each side, 0 = uppper most position, 4 = lower most position 
     */
+    [SerializeField]
     bool[] leftBoolArray = new bool[5];
+    [SerializeField]
     bool[] rightBoolArray = new bool[5];
 
     public GameObject[] leftPosUIArray = new GameObject[5];
@@ -33,6 +35,7 @@ public class PlayerOneController : MonoBehaviour
     /*04 = left hand at top, right hand at bottom
     40 = left hand at bottom, right hand at top
     */
+    [SerializeField]
     bool performed04, performed40;
 
     /*movement variables, change in inspector, don't change here
@@ -574,11 +577,10 @@ public class PlayerOneController : MonoBehaviour
         {
             if (leftBoolArray[0] && rightBoolArray[4])
             {
-                //StartCoroutine(MoveToNewPos(NewPosition()));
                 MovePlayer();
-                performed04 = true;
+                // no animation execute
                 performed40 = false;
-                //anim.SetTrigger("Left");
+                performed04 = true;
             }
             else if (!leftBoolArray[0] || !rightBoolArray[4])
             {
@@ -587,13 +589,10 @@ public class PlayerOneController : MonoBehaviour
 
             }
         }
-
-
-        if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !FalconAttack.instance.isStunning)
+        else if (!performed40 && !leftHandOffLadder && !rightHandOffLadder && !gameOver && !FalconAttack.instance.isStunning)
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
-                //StartCoroutine(MoveToNewPos(NewPosition()));
                 MovePlayer();
                 performed04 = false;
                 performed40 = true;
@@ -612,6 +611,8 @@ public class PlayerOneController : MonoBehaviour
         }
 
     }
+
+
 
     void SlideDown()
     {
@@ -692,9 +693,7 @@ public class PlayerOneController : MonoBehaviour
 
     void MovePlayer()
     {
-        //anim.SetBool("isMoving", true);
         isMoving = true;
-        //print("isMoving" + isMoving);
         MoveSpeedControl();
         anim.SetFloat("MoveSpeed", moveSpeed);
         StartCoroutine(DoClimb());
