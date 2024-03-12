@@ -585,7 +585,7 @@ public class PlayerOneController : MonoBehaviour
             else if (!leftBoolArray[0] || !rightBoolArray[4])
             {
                 isMoving = false;
-                anim.SetFloat("MoveSpeed", 0);
+                anim.SetFloat("MoveSpeed1", 0);
 
             }
         }
@@ -593,7 +593,7 @@ public class PlayerOneController : MonoBehaviour
         {
             if (leftBoolArray[4] && rightBoolArray[0])
             {
-                MovePlayer();
+                MovePlayer1();
                 performed04 = false;
                 performed40 = true;
             }
@@ -608,6 +608,7 @@ public class PlayerOneController : MonoBehaviour
         {
             isMoving = false;
             anim.SetFloat("MoveSpeed", 0);
+            anim.SetFloat("MoveSpeed1", 0);
         }
 
     }
@@ -697,8 +698,35 @@ public class PlayerOneController : MonoBehaviour
         MoveSpeedControl();
         anim.SetFloat("MoveSpeed", moveSpeed);
         StartCoroutine(DoClimb());
+        StartCoroutine(StopClimbingAnimation());
         //print("MoveSpeed" + moveSpeed);
+        print("LeftMoving");
 
+    }
+
+    void MovePlayer1()
+    {
+        isMoving = true;
+        MoveSpeedControl();
+        anim.SetFloat("MoveSpeed1", moveSpeed);
+        StartCoroutine(DoClimb());
+        StartCoroutine(StopClimbingAnimation1());
+        //print("MoveSpeed" + moveSpeed);
+        print("RightMoving");
+    }
+
+    IEnumerator StopClimbingAnimation()
+    {
+        yield return new WaitForSeconds(0.4f);
+        anim.SetFloat("MoveSpeed", 0);
+        print("stop");
+    }
+
+    IEnumerator StopClimbingAnimation1()
+    {
+        yield return new WaitForSeconds(0.4f);
+        anim.SetFloat("MoveSpeed1", 0);
+        print("stop1");
     }
 
     IEnumerator DoClimb()
