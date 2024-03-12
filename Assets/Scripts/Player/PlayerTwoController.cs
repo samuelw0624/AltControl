@@ -20,6 +20,8 @@ public class PlayerTwoController : MonoBehaviour
     [SerializeField] float moveLadderDist;
     [SerializeField] bool moveLeft = false;
     [SerializeField] bool moveRight = false;
+    [SerializeField] float moveLadderNormalSpeed;
+    [SerializeField] float moveLadderFastSpeed;
     Rigidbody ladderRb;
 
     //public GameObject ladder;
@@ -356,17 +358,31 @@ public class PlayerTwoController : MonoBehaviour
 
     void SpeedAdjust()
     {
-        if (EnterShop.instance.isPurchased1 && !isBooted1)
+        if (Input.GetKey(KeyCode.RightControl))
         {
-            moveLadderSpeed *= speedMulti;
-            isBooted1 = true;
+            EnterShop.instance.isPurchased1 = true;
+            print("Speed is boosted");
         }
+        //if (EnterShop.instance.isPurchased1 && !isBooted1)
+        //{
+        //    moveLadderSpeed *= speedMulti;
+        //    isBooted1 = true;
+        //}
         // three levels of speed: slow, normal, fast
         //if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
         if (Input.GetKey(KeyCode.Alpha1))
         {
             moveLeft = true;
-            moveLadderSpeed = 3f;
+
+            if (EnterShop.instance.isPurchased1)
+            {
+                moveLadderSpeed = 5;
+            }
+            else
+            {
+                moveLadderSpeed = moveLadderFastSpeed;
+            }
+
 
             rotateFast = true;
             rotateNormal = false;
@@ -377,7 +393,10 @@ public class PlayerTwoController : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha2))
         {
             moveLeft = true;
-            moveLadderSpeed = 1f;
+
+
+            moveLadderSpeed = moveLadderNormalSpeed;
+
 
             rotateFast = false;
             rotateNormal = true;
@@ -404,7 +423,10 @@ public class PlayerTwoController : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha4))
         {
             moveRight = true;
-            moveLadderSpeed = 1f;
+
+
+            moveLadderSpeed = moveLadderNormalSpeed;
+
 
             rotateFast = false;
             rotateNormal = true;
@@ -415,7 +437,15 @@ public class PlayerTwoController : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha5))
         {
             moveRight = true;
-            moveLadderSpeed = 3f;
+
+            if (EnterShop.instance.isPurchased1)
+            {
+                moveLadderSpeed = 5;
+            }
+            else
+            {
+                moveLadderSpeed = moveLadderFastSpeed;
+            }
 
             rotateFast = true;
             rotateNormal = false;

@@ -5103,6 +5103,18 @@ PrefabInstance:
       propertyPath: rightRotation
       value: 
       objectReference: {fileID: 50278753}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: oriRotationSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: moveLadderFastSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: moveLadderNormalSpeed
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
 --- !u!4 &1330215751 stripped

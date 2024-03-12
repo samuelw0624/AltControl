@@ -47,7 +47,7 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField] float moveBoostedSpeed;
     [SerializeField] float moveSlowSpeed;
     [SerializeField] float gravityMod;
-
+    [SerializeField] float slideDownSpeed;
     //drill variables
     //public bool isInDrillSlot;
 
@@ -643,7 +643,7 @@ public class PlayerOneController : MonoBehaviour
         if (leftBoolArray[4] && rightBoolArray[4] && timer >= slideHoldTime)
         {
             Vector3 newLocalPos = this.transform.localPosition;
-            newLocalPos.y -= (moveSpeed * 0.1f) * Time.deltaTime;
+            newLocalPos.y -= (slideDownSpeed * 0.1f) * Time.deltaTime;
             this.transform.localPosition = newLocalPos;
             anim.SetBool("isSliding", true);
             if (newLocalPos.y <= 0.045f)
