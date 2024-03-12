@@ -40,18 +40,18 @@ public class PlayerTwoController : MonoBehaviour
     private bool gameStart;
     [SerializeField]
     private float oriRotationSpeed;
-    [SerializeField]
-    private float lowRotationSpeed1;
-    [SerializeField]
-    private float lowRotationSpeed2;
-    [SerializeField]
-    private float midRotationSpeed1;
-    [SerializeField]
-    private float midRotationSpeed2;
-    [SerializeField]
-    private float highRotationSpeed1;
-    [SerializeField]
-    private float highRotationSpeed2;
+    //[SerializeField]
+    //private float lowRotationSpeed1;
+    //[SerializeField]
+    //private float lowRotationSpeed2;
+    //[SerializeField]
+    //private float midRotationSpeed1;
+    //[SerializeField]
+    //private float midRotationSpeed2;
+    //[SerializeField]
+    //private float highRotationSpeed1;
+    //[SerializeField]
+    //private float highRotationSpeed2;
 
     //Ladder heights 
     public GameObject[] ladderObj;
@@ -499,188 +499,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else
         {
-            if (!rotateLeft && !rotateRight)
-            {
-                if (value > 0 && value <= 5)
-                {
-                    rotateRight = true;
-                    rotateLeft = false;
-                }
-                else if (value <= 10 && value > 5)
-                {
-                    rotateLeft = true;
-                    rotateRight = false;
-                }
-            }
-            if (rotateLeft && !rotateFast && !rotateNormal)
-            {
-                if (numOfLadder == 1)
-                {
-                    currentSpeed = oriRotationSpeed;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 2)
-                {
-                    currentSpeed = lowRotationSpeed1;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 3)
-                {
-                    currentSpeed = lowRotationSpeed1;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 4)
-                {
-                    currentSpeed = midRotationSpeed1;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 5)
-                {
-                    currentSpeed = midRotationSpeed2;
-                    LadderTilt(currentSpeed);
-                }
-            }
-            else if (rotateRight && !rotateFast && !rotateNormal)
-            {
-                if (numOfLadder == 1)
-                {
-                    currentSpeed = lowRotationSpeed1;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 2)
-                {
-                    currentSpeed = lowRotationSpeed2;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 3)
-                {
-                    currentSpeed = midRotationSpeed1;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 4)
-                {
-                    currentSpeed = midRotationSpeed2;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 5)
-                {
-                    currentSpeed = highRotationSpeed1;
-                    LadderTilt(-currentSpeed);
-                }
-            }
-
-            else if (rotateLeft && rotateFast)
-            {
-                if (numOfLadder == 1)
-                {
-                    currentSpeed = lowRotationSpeed2;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 2)
-                {
-                    currentSpeed = midRotationSpeed1;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 3)
-                {
-                    currentSpeed = midRotationSpeed2;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 4)
-                {
-                    currentSpeed = highRotationSpeed1;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 5)
-                {
-                    currentSpeed = highRotationSpeed2;
-                    LadderTilt(currentSpeed);
-                }
-            }
-            else if (rotateLeft && rotateNormal)
-            {
-                if (numOfLadder == 1)
-                {
-                    currentSpeed = lowRotationSpeed1;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 2)
-                {
-                    currentSpeed = lowRotationSpeed2;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 3)
-                {
-                    currentSpeed = midRotationSpeed1;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 4)
-                {
-                    currentSpeed = midRotationSpeed2;
-                    LadderTilt(currentSpeed);
-                }
-                else if (numOfLadder == 5)
-                {
-                    currentSpeed = highRotationSpeed1;
-                    LadderTilt(currentSpeed);
-                }
-            }
-            else if (rotateRight && rotateFast)
-            {
-                if (numOfLadder == 1)
-                {
-                    currentSpeed = lowRotationSpeed2;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 2)
-                {
-                    currentSpeed = midRotationSpeed1;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 3)
-                {
-                    currentSpeed = midRotationSpeed2;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 4)
-                {
-                    currentSpeed = highRotationSpeed1;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 5)
-                {
-                    currentSpeed = highRotationSpeed2;
-                    LadderTilt(-currentSpeed);
-                }
-            }
-            else if (rotateRight && rotateNormal)
-            {
-                if (numOfLadder == 1)
-                {
-                    currentSpeed = lowRotationSpeed1;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 2)
-                {
-                    currentSpeed = lowRotationSpeed2;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 3)
-                {
-                    currentSpeed = midRotationSpeed1;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 4)
-                {
-                    currentSpeed = midRotationSpeed2;
-                    LadderTilt(-currentSpeed);
-                }
-                else if (numOfLadder == 5)
-                {
-                    currentSpeed = highRotationSpeed1;
-                    LadderTilt(-currentSpeed);
-                }
-            }else if(rotateLeft && rotateRight)
+            if(!rotateLeft && !rotateRight)
             {
                 if (value > 0 && value <= 5)
                 {
@@ -692,11 +511,231 @@ public class PlayerTwoController : MonoBehaviour
                     currentSpeed = oriRotationSpeed;
                     LadderTilt(-currentSpeed);
                 }
+            } 
+            else if (rotateLeft)
+            {
+                currentSpeed = oriRotationSpeed;
+                LadderTilt(currentSpeed);
+            }
+            else if (rotateRight)
+            {
+                currentSpeed = oriRotationSpeed;
+                LadderTilt(-currentSpeed);
             }
         }
+        //if (gameStart)
+        //{
+        //    if (value > 0 && value <= 5)
+        //    {
+        //        currentSpeed = oriRotationSpeed;
+        //        LadderTilt(currentSpeed);
+        //    }
+        //    else if (value <= 10 && value > 5)
+        //    {
+        //        currentSpeed = oriRotationSpeed;
+        //        LadderTilt(-currentSpeed);
+        //    }
+        //}
+        //else
+        //{
+        //    if (!rotateLeft && !rotateRight)
+        //    {
+        //        if (value > 0 && value <= 5)
+        //        {
+        //            rotateRight = true;
+        //            rotateLeft = false;
+        //        }
+        //        else if (value <= 10 && value > 5)
+        //        {
+        //            rotateLeft = true;
+        //            rotateRight = false;
+        //        }
+        //    }
+        //    if (rotateLeft && !rotateFast && !rotateNormal)
+        //    {
+        //        if (numOfLadder == 1)
+        //        {
+        //            currentSpeed = oriRotationSpeed;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 2)
+        //        {
+        //            currentSpeed = lowRotationSpeed1;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 3)
+        //        {
+        //            currentSpeed = lowRotationSpeed1;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 4)
+        //        {
+        //            currentSpeed = midRotationSpeed1;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 5)
+        //        {
+        //            currentSpeed = midRotationSpeed2;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //    }
+        //    else if (rotateRight && !rotateFast && !rotateNormal)
+        //    {
+        //        if (numOfLadder == 1)
+        //        {
+        //            currentSpeed = lowRotationSpeed1;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 2)
+        //        {
+        //            currentSpeed = lowRotationSpeed2;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 3)
+        //        {
+        //            currentSpeed = midRotationSpeed1;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 4)
+        //        {
+        //            currentSpeed = midRotationSpeed2;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 5)
+        //        {
+        //            currentSpeed = highRotationSpeed1;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //    }
+
+            //    else if (rotateLeft && rotateFast)
+            //    {
+            //        if (numOfLadder == 1)
+            //        {
+            //            currentSpeed = lowRotationSpeed2;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (numOfLadder == 2)
+            //        {
+            //            currentSpeed = midRotationSpeed1;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (numOfLadder == 3)
+            //        {
+            //            currentSpeed = midRotationSpeed2;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (numOfLadder == 4)
+            //        {
+            //            currentSpeed = highRotationSpeed1;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (numOfLadder == 5)
+            //        {
+            //            currentSpeed = highRotationSpeed2;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //    }
+            //    else if (rotateLeft && rotateNormal)
+            //    {
+            //        if (numOfLadder == 1)
+            //        {
+            //            currentSpeed = lowRotationSpeed1;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (numOfLadder == 2)
+            //        {
+            //            currentSpeed = lowRotationSpeed2;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (numOfLadder == 3)
+            //        {
+            //            currentSpeed = midRotationSpeed1;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (numOfLadder == 4)
+            //        {
+            //            currentSpeed = midRotationSpeed2;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (numOfLadder == 5)
+            //        {
+            //            currentSpeed = highRotationSpeed1;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //    }
+            //    else if (rotateRight && rotateFast)
+            //    {
+            //        if (numOfLadder == 1)
+            //        {
+            //            currentSpeed = lowRotationSpeed2;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //        else if (numOfLadder == 2)
+            //        {
+            //            currentSpeed = midRotationSpeed1;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //        else if (numOfLadder == 3)
+            //        {
+            //            currentSpeed = midRotationSpeed2;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //        else if (numOfLadder == 4)
+            //        {
+            //            currentSpeed = highRotationSpeed1;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //        else if (numOfLadder == 5)
+            //        {
+            //            currentSpeed = highRotationSpeed2;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //    }
+            //    else if (rotateRight && rotateNormal)
+            //    {
+            //        if (numOfLadder == 1)
+            //        {
+            //            currentSpeed = lowRotationSpeed1;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //        else if (numOfLadder == 2)
+            //        {
+            //            currentSpeed = lowRotationSpeed2;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //        else if (numOfLadder == 3)
+            //        {
+            //            currentSpeed = midRotationSpeed1;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //        else if (numOfLadder == 4)
+            //        {
+            //            currentSpeed = midRotationSpeed2;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //        else if (numOfLadder == 5)
+            //        {
+            //            currentSpeed = highRotationSpeed1;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //    }else if(rotateLeft && rotateRight)
+            //    {
+            //        if (value > 0 && value <= 5)
+            //        {
+            //            currentSpeed = oriRotationSpeed;
+            //            LadderTilt(currentSpeed);
+            //        }
+            //        else if (value <= 10 && value > 5)
+            //        {
+            //            currentSpeed = oriRotationSpeed;
+            //            LadderTilt(-currentSpeed);
+            //        }
+            //    }
+            //}
 
 
-        
+
     }
 
     #endregion
