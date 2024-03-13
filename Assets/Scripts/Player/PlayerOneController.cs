@@ -150,7 +150,8 @@ public class PlayerOneController : MonoBehaviour
     public bool gameEnd;
     [SerializeField]
     public bool scoreBoardIsTurnnedOn;
-
+    [SerializeField]
+    private AudioSource winningSound;
 
 
     public enum ScrewType
@@ -917,6 +918,7 @@ public class PlayerOneController : MonoBehaviour
                  
                 if (numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed && !scoreBoardIsTurnnedOn)
                 {
+                    winningSound.Play();
                     StartCoroutine(ScoreBoard());
                     Timer.instance.AssignGrade();
                     if (Timer.instance.isGradeA)

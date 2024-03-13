@@ -159,6 +159,8 @@ public class PlayerTwoController : MonoBehaviour
             LadderHight();
             MoveHorizontally();
 
+            print("LadderHeight");
+
             if (GameManager.instance.currentScene.name != "Level_Tutorial_01")
             {
                 LadderRotate();
@@ -189,6 +191,7 @@ public class PlayerTwoController : MonoBehaviour
                 {
                     RandomTilt();
                     LadderHeightSwitch();
+                    print("HeighSwitch");
 
                 }
             }
