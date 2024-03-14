@@ -367,7 +367,7 @@ public class DrillController : MonoBehaviour
     #region Shop
     private void Enter()
     {
-        if(GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03")
+        if(GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
         {
             if (EnterShop.instance.withinShopRange && keyPressed)
             {
@@ -411,12 +411,12 @@ public class DrillController : MonoBehaviour
         {
             if (EnterShop.instance.selectedItem == 0 && EnterShop.instance.isPurchased1 == false && EnterShop.instance.pressedTimes > 1)
             {
-                if (ScoreManager.instance.score >= 50)
+                if (ScoreManager.instance.score >= 750)
                 {
                     EnterShop.instance.soldOutItems[0].SetActive(true);
                     EnterShop.instance.soldOutItems2[0].SetActive(true);
                     EnterShop.instance.isPurchased1 = true;
-                    ScoreManager.instance.ReducePoint(50);
+                    ScoreManager.instance.ReducePoint(750);
                     purchaseSuccessfulSound.Play();
                 }
                 else
@@ -428,12 +428,12 @@ public class DrillController : MonoBehaviour
 
             if (EnterShop.instance.selectedItem == 1 && EnterShop.instance.isPurchased2 == false && EnterShop.instance.pressedTimes > 1)
             {
-                if (ScoreManager.instance.score >= 100)
+                if (ScoreManager.instance.score >= 2000)
                 {
                     EnterShop.instance.soldOutItems[1].SetActive(true);
                     EnterShop.instance.soldOutItems2[1].SetActive(true);
                     EnterShop.instance.isPurchased2 = true;
-                    ScoreManager.instance.ReducePoint(100);
+                    ScoreManager.instance.ReducePoint(2000);
                     purchaseSuccessfulSound.Play();
                 }
                 else
@@ -444,12 +444,12 @@ public class DrillController : MonoBehaviour
 
             if (EnterShop.instance.selectedItem == 2 && EnterShop.instance.isPurchased3 == false && EnterShop.instance.pressedTimes > 1)
             {
-                if (ScoreManager.instance.score >= 80)
+                if (ScoreManager.instance.score >= 1000)
                 {
                     EnterShop.instance.soldOutItems[2].SetActive(true);
                     EnterShop.instance.soldOutItems2[2].SetActive(true);
                     EnterShop.instance.isPurchased3 = true;
-                    ScoreManager.instance.ReducePoint(80);
+                    ScoreManager.instance.ReducePoint(1000);
                     purchaseSuccessfulSound.Play();
 
                 }
