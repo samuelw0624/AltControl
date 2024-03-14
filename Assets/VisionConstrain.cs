@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlowDown : MonoBehaviour
+public class VisionConstrain : MonoBehaviour
 {
-    public static SlowDown instance;
 
     [SerializeField]
     public bool insideSteam = false;
@@ -13,7 +12,7 @@ public class SlowDown : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        
     }
 
     private void Start()
@@ -29,7 +28,7 @@ public class SlowDown : MonoBehaviour
         {
             insideSteam = true;
             smokeUI.SetActive(true);
-            Debug.Log("insideSteam = " + insideSteam);
+
         }
     }
 
@@ -39,9 +38,7 @@ public class SlowDown : MonoBehaviour
         {
             insideSteam = false;
             smokeUI.SetActive(false);
-            //Debug.Log("insideSteam = " + insideSteam);
+ 
         }
     }
-
-
 }

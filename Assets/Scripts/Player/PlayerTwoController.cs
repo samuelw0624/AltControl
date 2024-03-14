@@ -124,6 +124,8 @@ public class PlayerTwoController : MonoBehaviour
     public GameObject WarningTab2;
     [SerializeField]
     public bool isOutOfBoundary;
+    [SerializeField]
+    float degreeTilt;
 
     // Start is called before the first frame update
 
@@ -783,37 +785,109 @@ public class PlayerTwoController : MonoBehaviour
     #region Fail Condition
     void DetectLadderTile()
     {
-        if (this.transform.localRotation.z > 35 || this.transform.localRotation.z < -35)
+
+        print("z" + this.transform.localRotation.eulerAngles.z);
+
+        if (this.transform.localRotation.eulerAngles.z >= 180)
         {
-            if (!Timer.instance.inTutorial)
+            degreeTilt = Mathf.Abs(this.transform.localRotation.eulerAngles.z) - 180;
+
+            if (degreeTilt < 145 && degreeTilt >= 135)
             {
-                WarningTab1.SetActive(true);
-                WarningTab2.SetActive(true);
+                if (!Timer.instance.inTutorial)
+                {
+                    WarningTab1.SetActive(true);
+                    WarningTab2.SetActive(true);
+                }
+                else if (Timer.instance.inTutorial && !isOutOfBoundary)
+                {
+                    WarningTab1.SetActive(false);
+                    WarningTab2.SetActive(false);
+                }
             }
-            else if(Timer.instance.inTutorial && !isOutOfBoundary)
+            else if (degreeTilt >= 145)
             {
-                WarningTab1.SetActive(false);
-                WarningTab2.SetActive(false);
+                if (!isOutOfBoundary)
+                {
+                    WarningTab1.SetActive(false);
+                    WarningTab2.SetActive(false);
+                }
+            }
+            else if (degreeTilt < 135)
+            {
+                if (!Timer.instance.inTutorial)
+                {
+                    PlayerOneController.instance.isDead = true;
+                    print("isDead");
+                }
+            }
+        } else
+        {
+            degreeTilt = this.transform.localRotation.eulerAngles.z;
+            
+            if(degreeTilt > 35 && degreeTilt <= 45)
+            {
+                if (!Timer.instance.inTutorial)
+                {
+                    WarningTab1.SetActive(true);
+                    WarningTab2.SetActive(true);
+                }
+                else if (Timer.instance.inTutorial && !isOutOfBoundary)
+                {
+                    WarningTab1.SetActive(false);
+                    WarningTab2.SetActive(false);
+                }
+            }else if(degreeTilt <= 35)
+            {
+                if (!isOutOfBoundary)
+                {
+                    WarningTab1.SetActive(false);
+                    WarningTab2.SetActive(false);
+                }
+            }else if(degreeTilt > 45)
+            {
+                if (!Timer.instance.inTutorial)
+                {
+                    PlayerOneController.instance.isDead = true;
+                    print("isDead");
+                }
             }
         }
-        else if (this.transform.localRotation.z <= 35 && this.transform.localRotation.z >= -35)
-        {
-            if (!isOutOfBoundary)
-            {
-                WarningTab1.SetActive(false);
-                WarningTab2.SetActive(false);
-            }
 
-        }
-        else if (this.transform.localRotation.z > 50 || this.transform.localRotation.z < -50)
-        {
-            if (!Timer.instance.inTutorial)
-            {
-                PlayerOneController.instance.isDead = true;
+        //if (degreeTilt > 35 || degreeTilt < 145)
+        //{
+        //    print("too slutted");
+        //    if (!Timer.instance.inTutorial)
+        //    {
+        //        WarningTab1.SetActive(true);
+        //        WarningTab2.SetActive(true);
+        //    }
+        //    else if (Timer.instance.inTutorial && !isOutOfBoundary)
+        //    {
+        //        WarningTab1.SetActive(false);
+        //        WarningTab2.SetActive(false);
+        //    }
+        //}
+        //else if (degreeTilt <= 35 && degreeTilt > 145)
+        //{
+        //    print("normal slutted");
+        //    if (!isOutOfBoundary)
+        //    {
+        //        WarningTab1.SetActive(false);
+        //        WarningTab2.SetActive(false);
+        //    }
 
-            }
+        //}
+        //else if (degreeTilt > 45 || degreeTilt < 135)
+        //{
+        //    print("Dead by tilting");
+        //    if (!Timer.instance.inTutorial)
+        //    {
+        //        PlayerOneController.instance.isDead = true;
 
-        }
+        //    }
+
+        //}
     }
     #endregion
 

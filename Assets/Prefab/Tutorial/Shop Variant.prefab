@@ -106,7 +106,7 @@ Transform:
   m_GameObject: {fileID: 641860567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.00145, z: 0.006}
-  m_LocalScale: {x: 0.003, y: 0.003, z: 1}
+  m_LocalScale: {x: 0.008, y: 0.007, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7441824536081734358}
@@ -274,6 +274,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  shopItem2: []
   selectedItem: 0
   previousItem: 0
   firstEnter: 0
@@ -282,11 +283,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  soldOutItems2: []
   isPurchased1: 0
   isPurchased2: 0
   isPurchased3: 0
   pressedTimes: 0
   selectionSound: {fileID: 1389345504}
+  isRead: 0
 --- !u!82 &1389345504
 AudioSource:
   m_ObjectHideFlags: 0
@@ -837,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a875ffab251bdcf4c872548a1c46e071, type: 2}
     - target: {fileID: 919132149155446097, guid: 6b3fe4d77757b544fb003be16268fb25, type: 3}
       propertyPath: m_Name
-      value: Shop
+      value: Shop Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3fe4d77757b544fb003be16268fb25, type: 3}
