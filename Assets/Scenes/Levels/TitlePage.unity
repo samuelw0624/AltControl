@@ -3081,6 +3081,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalScore: 0
+  item1WasPurchased: 0
+  item2WasPurchased: 0
+  item3WasPurchased: 0
+  TutorialScore: 0
+  Level01Score: 0
+  Level02Score: 0
+  Level03Score: 0
+  isTutorialLevel: 0
+  isLevel01: 0
+  isLevel02: 0
+  isLevel03: 0
+  isLevel04: 0
 --- !u!4 &1224719870 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a57fbebb79404ed4582e3d5880be9f5b, type: 3}
