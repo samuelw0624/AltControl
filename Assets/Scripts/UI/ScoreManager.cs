@@ -14,7 +14,11 @@ public class ScoreManager : MonoBehaviour
     public AudioClip coinCollected;
     public AudioClip coinLosted;
 
-    public int score;
+    public float score;
+    public float score_levelTutorial;
+    public float score_level01;
+    public float score_level02;
+    public float score_level03;
 
     [SerializeField]
     public Text progressionText1;
@@ -24,6 +28,8 @@ public class ScoreManager : MonoBehaviour
     public bool Level1IsSetUp;
     [SerializeField]
     public bool isRead;
+    [SerializeField]
+    public bool restartGame;
 
     // Start is called before the first frame update
 
@@ -51,7 +57,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (GameManager.instance.currentScene.name == "Level_01" || GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
         {
-            if (!isRead)
+            if (!isRead && !restartGame)
             {
                 score = ScoreBoard.instance.originalScore;
                 isRead = true;
@@ -60,9 +66,72 @@ public class ScoreManager : MonoBehaviour
                 scorePlayer2.text = "Coin:" + score.ToString();
             }
 
+            if(GameManager.instance.currentScene.name == "Level_01")
+            {
+                if (PlayerOneController.instance.gameEnd)
+                {
+                    score_level01 = score;
+                }
+
+                if (!isRead && restartGame)
+                {
+                    score = ScoreBoard.instance.TutorialScore;
+                    isRead = true;
+                    scorePlayer1.text = "Coin:" + score.ToString();
+                    scorePlayer2.text = "Coin:" + score.ToString();
+                }
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_02")
+            {
+                if (PlayerOneController.instance.gameEnd)
+                {
+                    score_level02 = score;
+                }
+
+                if (!isRead && restartGame)
+                {
+                    score = ScoreBoard.instance.Level01Score;
+                    isRead = true;
+                    scorePlayer1.text = "Coin:" + score.ToString();
+                    scorePlayer2.text = "Coin:" + score.ToString();
+                }
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_03")
+            {
+                if (PlayerOneController.instance.gameEnd)
+                {
+                    score_level03 = score;
+                }
+
+                if (!isRead && restartGame)
+                {
+                    score = ScoreBoard.instance.Level02Score;
+                    isRead = true;
+                    scorePlayer1.text = "Coin:" + score.ToString();
+                    scorePlayer2.text = "Coin:" + score.ToString();
+                }
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_04")
+            {
+                if (!isRead && restartGame)
+                {
+                    score = ScoreBoard.instance.Level03Score;
+                    isRead = true;
+                    scorePlayer1.text = "Coin:" + score.ToString();
+                    scorePlayer2.text = "Coin:" + score.ToString();
+                }
+            }
         }
         else if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
         {
+            if (PlayerOneController.instance.gameEnd)
+            {
+                score_levelTutorial = score;
+            }
+
             if (!isRead)
             {
                 score = 0;
@@ -98,7 +167,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     #region Add score
-    public void AddPoint(int value)
+    public void AddPoint(float value)
     {
         //collect coin function
         score += value;

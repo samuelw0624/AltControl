@@ -67,7 +67,9 @@ public class DrillController : MonoBehaviour
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(EnterLoading01());
+                    ScoreManager.instance.restartGame = true;
+                    ScoreManager.instance.isRead = false;
+                    StartCoroutine(EnterTutorialLevel01());
                     //SceneManager.LoadScene("LoadingLevel_01");
                     
                 }
@@ -75,26 +77,34 @@ public class DrillController : MonoBehaviour
                 if(GameManager.instance.currentScene.name == "Level_01")
                 {
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(EnterLoading02());
+                    ScoreManager.instance.restartGame = true;
+                    ScoreManager.instance.isRead = false;
+                    StartCoroutine(EnterLevel01());
                 }
                 
                 if(GameManager.instance.currentScene.name == "Level_02")
                 {
                     print("Loading scene 03");
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(EnterLoading03());
+                    ScoreManager.instance.restartGame = true;
+                    ScoreManager.instance.isRead = false;
+                    StartCoroutine(EnterLevel02());
                 }
 
                 if (GameManager.instance.currentScene.name == "Level_03")
                 {
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(EnterLoading04());
+                    ScoreManager.instance.restartGame = true;
+                    ScoreManager.instance.isRead = false;
+                    StartCoroutine(EnterLevel03());
                 }
 
                 if (GameManager.instance.currentScene.name == "Level_04")
                 {
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(RestartGame());
+                    ScoreManager.instance.restartGame = true;
+                    ScoreManager.instance.isRead = false;
+                    StartCoroutine(EnterLevel04());
                 }
 
             }
@@ -224,25 +234,25 @@ public class DrillController : MonoBehaviour
                 {
                     //loading scene
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(EnterLoading01());
+                    StartCoroutine(RestartGame());
                 }
 
                 if (GameManager.instance.currentScene.name == "Level_01")
                 {
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(EnterLoading02());
+                    StartCoroutine(RestartGame());
                 }
 
                 if (GameManager.instance.currentScene.name == "Level_02")
                 {
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(EnterLoading03());
+                    StartCoroutine(RestartGame());
                 }
 
                 if (GameManager.instance.currentScene.name == "Level_03")
                 {
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(EnterLoading04());
+                    StartCoroutine(RestartGame());
                 }
 
                 if (GameManager.instance.currentScene.name == "Level_04")
@@ -464,10 +474,22 @@ public class DrillController : MonoBehaviour
         SceneManager.LoadScene("TitlePage");
     }
 
+    IEnumerator EnterTutorialLevel01()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("Level_Tutorial_01");
+    }
+
     IEnumerator EnterLoading01()
     {
         yield return new WaitForSeconds(0.7f);
         SceneManager.LoadScene("LoadingLevel_01");
+    }
+
+    IEnumerator EnterLevel01()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("Level_01");
     }
 
     IEnumerator EnterLoading02()
@@ -476,16 +498,34 @@ public class DrillController : MonoBehaviour
         SceneManager.LoadScene("LoadingLevel_02");
     }
 
+    IEnumerator EnterLevel02()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("Level_02");
+    }
+
     IEnumerator EnterLoading03()
     {
         yield return new WaitForSeconds(0.7f);
         SceneManager.LoadScene("LoadingLevel_03");
     }
 
+    IEnumerator EnterLevel03()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("Level_03");
+    }
+
     IEnumerator EnterLoading04()
     {
         yield return new WaitForSeconds(0.7f);
         SceneManager.LoadScene("LoadingLevel_04");
+    }
+
+    IEnumerator EnterLevel04()
+    {
+        yield return new WaitForSeconds(0.7f);
+        SceneManager.LoadScene("Level_04");
     }
 
 }

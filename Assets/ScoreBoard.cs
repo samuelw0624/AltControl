@@ -7,13 +7,24 @@ public class ScoreBoard : MonoBehaviour
     public static ScoreBoard instance;
 
     [SerializeField]
-    public int originalScore;
+    public float originalScore;
+
     [SerializeField]
     public bool item1WasPurchased;
     [SerializeField]
     public bool item2WasPurchased;
     [SerializeField]
     public bool item3WasPurchased;
+
+    [SerializeField]
+    public float TutorialScore;
+    [SerializeField]
+    public float Level01Score;
+    [SerializeField]
+    public float Level02Score;
+    [SerializeField]
+    public float Level03Score;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +46,38 @@ public class ScoreBoard : MonoBehaviour
             if (PlayerOneController.instance.gameEnd == true)
             {
                 originalScore = ScoreManager.instance.score;
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+            {
+                if (PlayerOneController.instance.gameEnd)
+                {
+                    TutorialScore = ScoreManager.instance.score_levelTutorial;
+                }
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_01")
+            {
+                if (PlayerOneController.instance.gameEnd)
+                {
+                    Level01Score = ScoreManager.instance.score_level01;
+                }
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_02")
+            {
+                if (PlayerOneController.instance.gameEnd)
+                {
+                    Level02Score = ScoreManager.instance.score_level02;
+                }
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_03")
+            {
+                if (PlayerOneController.instance.gameEnd)
+                {
+                    Level03Score = ScoreManager.instance.score_level03;
+                }
             }
         }
 

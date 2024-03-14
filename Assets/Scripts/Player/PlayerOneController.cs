@@ -143,16 +143,29 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField]
     private GameObject scoreBoardUI;
     [SerializeField]
+    private GameObject scoreBoardUI1;
+    [SerializeField]
     private Text gradeText;
     [SerializeField]
+    private Text gradeText1;
+    [SerializeField]
     private Text bonusText;
+    [SerializeField]
+    private Text bonusText1;
     [SerializeField]
     public bool gameEnd;
     [SerializeField]
     public bool scoreBoardIsTurnnedOn;
     [SerializeField]
     private AudioSource winningSound;
-
+    [SerializeField]
+    private float gradeAmulti;
+    [SerializeField]
+    private float gradeBmulti;
+    [SerializeField]
+    private float gradeCmulti;
+    [SerializeField]
+    private float finalScore;
 
     public enum ScrewType
     {
@@ -903,13 +916,13 @@ public class PlayerOneController : MonoBehaviour
                 lightcontrolRef.isFixed = true;
                 //removed the closest sign that was just fixed
                 spotsToFix.Remove(closestSpot);
-                closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
+                //closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
                 UpdateClosestSpot();
                 //Destroy(closestSign);
                 //add score function
                 StartCoroutine(FixingAnimation());
                 //print("11");
-                ScoreManager.instance.AddPoint(20);
+                ScoreManager.instance.AddPoint(100);
                 numberOfSignhasBeenFixed += 1;
                 //print("fixed");
 
@@ -917,44 +930,42 @@ public class PlayerOneController : MonoBehaviour
                  
                 if (numberOfSignhasBeenFixed >= totalAmountSignNeedToBeFixed && !scoreBoardIsTurnnedOn)
                 {
+
                     winningSound.Play();
                     StartCoroutine(ScoreBoard());
                     Timer.instance.AssignGrade();
                     if (Timer.instance.isGradeA)
                     {
+                        finalScore = ScoreManager.instance.score * gradeAmulti;
                         gradeText.text = "A";
-                        bonusText.text = "+500";
-                        ScoreManager.instance.AddPoint(500);
+                        gradeText1.text = "A";
+                        //bonusText.text = "+500";
+                        //bonusText1.text = "+500";
+                        bonusText.text = finalScore.ToString();
+                        bonusText1.text = finalScore.ToString();
+                        ScoreManager.instance.AddPoint(finalScore);
                     }
                     if (Timer.instance.isGradeB)
                     {
+                        finalScore = ScoreManager.instance.score * gradeBmulti;
                         gradeText.text = "B";
-                        bonusText.text = "+300";
-                        ScoreManager.instance.AddPoint(300);
+                        gradeText1.text = "B";
+                        //bonusText.text = "+300";
+                        //bonusText1.text = "+300";
+                        bonusText.text = finalScore.ToString();
+                        bonusText1.text = finalScore.ToString();
+                        ScoreManager.instance.AddPoint(finalScore);
                     }
                     if (Timer.instance.isGradeC)
                     {
+                        finalScore = ScoreManager.instance.score * gradeCmulti;
                         gradeText.text = "C";
-                        bonusText.text = "+200";
-                        ScoreManager.instance.AddPoint(200);
-                    }
-                    if (Timer.instance.isGradeD)
-                    {
-                        gradeText.text = "D";
-                        bonusText.text = "+100";
-                        ScoreManager.instance.AddPoint(100);
-                    }
-                    if (Timer.instance.isGradeE)
-                    {
-                        gradeText.text = "E";
-                        bonusText.text = "+50";
-                        ScoreManager.instance.AddPoint(50);
-                    }
-                    if (Timer.instance.isGradeF)
-                    {
-                        gradeText.text = "F";
-                        bonusText.text = "0";
-                        ScoreManager.instance.AddPoint(0);
+                        gradeText1.text = "C";
+                        //bonusText.text = "+200";
+                        //bonusText1.text = "+200";
+                        bonusText.text = finalScore.ToString();
+                        bonusText1.text = finalScore.ToString();
+                        ScoreManager.instance.AddPoint(finalScore);
                     }
 
                     gameEnd = true;
@@ -976,6 +987,7 @@ public class PlayerOneController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         scoreBoardUI.SetActive(true);
+        scoreBoardUI1.SetActive(true);
         scoreBoardIsTurnnedOn = true;
     }
 
