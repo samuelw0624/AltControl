@@ -786,7 +786,7 @@ public class PlayerTwoController : MonoBehaviour
     void DetectLadderTile()
     {
 
-        print("z" + this.transform.localRotation.eulerAngles.z);
+        //print("z" + this.transform.localRotation.eulerAngles.z);
 
         if (this.transform.localRotation.eulerAngles.z >= 180)
         {

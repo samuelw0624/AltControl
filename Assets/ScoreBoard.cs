@@ -25,6 +25,17 @@ public class ScoreBoard : MonoBehaviour
     [SerializeField]
     public float Level03Score;
 
+    [SerializeField]
+    public bool isTutorialLevel;
+    [SerializeField]
+    public bool isLevel01;
+    [SerializeField]
+    public bool isLevel02;
+    [SerializeField]
+    public bool isLevel03;
+    [SerializeField]
+    public bool isLevel04;
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +47,53 @@ public class ScoreBoard : MonoBehaviour
     void Update()
     {
         RecordScore();
+        DetectLevelScene();
+        ItemRecord();
+    }
+
+    void DetectLevelScene()
+    {
+        if(GameManager.instance.currentScene.name == "Level_Tutorial_01")
+        {
+            isTutorialLevel = true;
+            isLevel01 = false;
+            isLevel02 = false;
+            isLevel03 = false;
+            isLevel04 = false;
+        }
+        if (GameManager.instance.currentScene.name == "Level_01")
+        {
+            isTutorialLevel = false;
+            isLevel01 = true;
+            isLevel02 = false;
+            isLevel03 = false;
+            isLevel04 = false;
+        }
+        if (GameManager.instance.currentScene.name == "Level_02")
+        {
+            isTutorialLevel = false;
+            isLevel01 = false;
+            isLevel02 = true;
+            isLevel03 = false;
+            isLevel04 = false;
+        }
+        if (GameManager.instance.currentScene.name == "Level_03")
+        {
+            isTutorialLevel = false;
+            isLevel01 = false;
+            isLevel02 = false;
+            isLevel03 = true;
+            isLevel04 = false;
+        }
+        if (GameManager.instance.currentScene.name == "Level_04")
+        {
+            isTutorialLevel = false;
+            isLevel01 = false;
+            isLevel02 = false;
+            isLevel03 = false;
+            isLevel04 = true;
+        }
+
     }
 
 

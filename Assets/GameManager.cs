@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
         else if(currentScene.name == "Level_Tutorial_01")
         {
             RenderSettings.skybox = skyboxScene2;
+
             if (!tutorialEnd && closeTab1 != null && closeTab2 != null)
             {
                 //t_Anim1.SetTrigger("TutorialStart");

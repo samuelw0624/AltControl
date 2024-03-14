@@ -1158,6 +1158,8 @@ public class PlayerOneController : MonoBehaviour
                 anim.SetTrigger("GameOver");
                 //warningTimer = timerValue;
                 StartCoroutine(FallingAnim());
+                p1Text.text = "0";
+                p2Text.text = "0";
             }
             else if (!leftHandOffLadder || !rightHandOffLadder)
             {
