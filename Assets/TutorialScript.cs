@@ -150,10 +150,10 @@ public class TutorialScript : MonoBehaviour
             {
                 if (startTutorial1 && !close1)
                 {
-                    closeTip.SetActive(false);
-                    closeTip2.SetActive(false);
-                    //dialogue1.SetActive(false);
-                    //dialogue2.SetActive(false);
+                    //closeTip.SetActive(false);
+                    //closeTip2.SetActive(false);
+                    dialogue1.SetActive(false);
+                    dialogue2.SetActive(false);
                     Timer.instance.stopTimer = false;
                     Timer.instance.inTutorial = false;
                     Destroy(tutorialObject);
@@ -174,10 +174,13 @@ public class TutorialScript : MonoBehaviour
             {
                 if (startTutorial2 && !close2)
                 {
-                    closeTip2_1.SetActive(false);
-                    closeTip2_2.SetActive(false);
-                    //dialogue2_1.SetActive(false);
-                    //dialogue2_2.SetActive(false);
+                    print("closeTab 2-1");
+                    //closeTip2_1.SetActive(false);
+                    //closeTip2_2.SetActive(false);
+                    dialogue2_1.SetActive(false);
+                    dialogue2_2.SetActive(false);
+                    dialogue3_1.SetActive(false);
+                    dialogue3_2.SetActive(false);
                     Timer.instance.stopTimer = false;
                     Timer.instance.inTutorial = false;
                     Destroy(tutorialObject2);
@@ -197,10 +200,11 @@ public class TutorialScript : MonoBehaviour
             {
                 if (startTutorial2 && !close2)
                 {
-                    closeTip3_1.SetActive(false);
-                    closeTip3_2.SetActive(false);
-                    //dialogue3_1.SetActive(false);
-                    //dialogue3_2.SetActive(false);
+                    print("closeTab 2-2");
+                    //closeTip3_1.SetActive(false);
+                    //closeTip3_2.SetActive(false);
+                    dialogue3_1.SetActive(false);
+                    dialogue3_2.SetActive(false);
                     Timer.instance.stopTimer = false;
                     Timer.instance.inTutorial = false;
                     Destroy(tutorialObject2);

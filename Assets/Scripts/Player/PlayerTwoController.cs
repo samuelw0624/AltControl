@@ -132,7 +132,7 @@ public class PlayerTwoController : MonoBehaviour
     void Awake()
     {
         player1 = PlayerOneController.instance;
-
+        DetectInput();
     }
     void Start()
     {
@@ -161,6 +161,7 @@ public class PlayerTwoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !Timer.instance.inTutorial)
         {
             print("Ladder Function");
@@ -227,6 +228,27 @@ public class PlayerTwoController : MonoBehaviour
         }
 
         //WindStart();
+
+    }
+
+    void DetectInput()
+    {
+        //if (Input.GetKeyUp(KeyCode.E))
+        //{
+        //    print("Rotate E");
+        //}
+        //if (Input.GetKeyUp(KeyCode.Q))
+        //{
+        //    print("Rotate Q");
+        //}
+        if (Keyboard.current[Key.Q].wasPressedThisFrame)
+        {
+            Debug.Log("Q pressed");
+        }
+        if (Keyboard.current[Key.E].wasPressedThisFrame)
+        {
+            Debug.Log("E pressed");
+        }
 
     }
     #region Stun Resolved
@@ -490,7 +512,7 @@ public class PlayerTwoController : MonoBehaviour
     {
 
         //if (Keyboard.current[Key.E].wasPressedThisFrame)
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             rotateLeft = true;
             rotateRight = false;
@@ -502,7 +524,7 @@ public class PlayerTwoController : MonoBehaviour
         }
 
         //if (Keyboard.current[Key.Q].wasPressedThisFrame)
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             rotateRight = true;
             rotateLeft = false;

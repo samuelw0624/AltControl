@@ -3382,7 +3382,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: fan_tower_sign
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3966360423381103938, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
 --- !u!4 &205572704 stripped
 Transform:

@@ -8523,18 +8523,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2064140250}
     m_Modifications:
-    - target: {fileID: 244907395, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6203124705661920996, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
-      propertyPath: m_Name
-      value: OldSign
-      objectReference: {fileID: 0}
-    - target: {fileID: 6203124705661920996, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7242110477451277835, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -10388,6 +10376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreBoard (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 924403379038551488, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 924403379038551492, guid: 595770d28d079a4479ee9896972ce035, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -11190,6 +11182,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5844501251041646382, guid: 108231a4107998746944739403a856c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5844501251158775797, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -11213,6 +11209,10 @@ PrefabInstance:
     - target: {fileID: 5844501251623157595, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5844501251769691922, guid: 108231a4107998746944739403a856c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5844501252226826811, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: m_Name
@@ -18910,6 +18910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 924403379038551488, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 924403379038551492, guid: 595770d28d079a4479ee9896972ce035, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -23450,6 +23454,10 @@ PrefabInstance:
       propertyPath: leftPosUIArray.Array.data[4]
       value: 
       objectReference: {fileID: 706845780}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: totalAmountSignNeedToBeFixed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: rightPoseUIArray.Array.data[0]
       value: 
