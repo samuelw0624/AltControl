@@ -27,6 +27,8 @@ TagManager:
   - Tutorial1
   - Tutorial2
   - Tutorial3
+  - WarningLine
+  - Hazard
   layers:
   - Default
   - TransparentFX

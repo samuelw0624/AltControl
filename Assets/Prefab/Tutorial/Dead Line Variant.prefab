@@ -17,11 +17,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7693591829673343792, guid: 0b324bd749dc3334eac00cb2256582dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.07
+      value: 4.55
       objectReference: {fileID: 0}
     - target: {fileID: 7693591829673343792, guid: 0b324bd749dc3334eac00cb2256582dd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.6334476
+      value: -0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7693591829673343792, guid: 0b324bd749dc3334eac00cb2256582dd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7693591829673343796, guid: 0b324bd749dc3334eac00cb2256582dd, type: 3}
       propertyPath: m_Name
-      value: Dead Line
+      value: Dead Line Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7693591829673343798, guid: 0b324bd749dc3334eac00cb2256582dd, type: 3}
       propertyPath: m_Materials.Array.data[0]

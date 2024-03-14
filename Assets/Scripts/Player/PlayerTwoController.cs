@@ -117,6 +117,13 @@ public class PlayerTwoController : MonoBehaviour
     [SerializeField]
     private bool isBooted1;
 
+    [Header("Warning")]
+    [SerializeField]
+    public GameObject WarningTab1;
+    [SerializeField]
+    public GameObject WarningTab2;
+    [SerializeField]
+    public bool isOutOfBoundary;
 
     // Start is called before the first frame update
 
@@ -158,7 +165,7 @@ public class PlayerTwoController : MonoBehaviour
             SpeedAdjust();
             LadderHight();
             MoveHorizontally();
-
+            DetectLadderTile();
             print("LadderHeight");
 
             if (GameManager.instance.currentScene.name != "Level_Tutorial_01")
@@ -185,7 +192,7 @@ public class PlayerTwoController : MonoBehaviour
     {
         if (GameManager.instance.currentScene.name != "Level_Tutorial_01")
         {
-            if(Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
+            if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
             {
                 if (PlayerOneController.instance.isFreezed == false)
                 {
@@ -226,7 +233,7 @@ public class PlayerTwoController : MonoBehaviour
 
         if (FalconAttack.instance.isStunning)
         {
-            if(isInput1Active && isInput2Active)
+            if (isInput1Active && isInput2Active)
             {
                 isInput1Active = false;
                 isInput2Active = false;
@@ -235,7 +242,7 @@ public class PlayerTwoController : MonoBehaviour
             swapInterval = 1f / times;
             //print("swap rate" + swapInterval);
 
-            if(swapInterval <= 0.2)
+            if (swapInterval <= 0.2)
             {
                 FalconAttack.instance.StopStun();
                 //print("Rescue Player1");
@@ -276,7 +283,7 @@ public class PlayerTwoController : MonoBehaviour
         //{
         //    numOfLadder = 1;
         //}
-        if(Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z))
         {
             numOfLadder = 5;
         }
@@ -292,7 +299,7 @@ public class PlayerTwoController : MonoBehaviour
         {
             numOfLadder = 2;
         }
-        else if(Input.GetKey(KeyCode.Space))
+        else if (Input.GetKey(KeyCode.Space))
         {
             numOfLadder = 1;
         }
@@ -532,7 +539,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else
         {
-            if(!rotateLeft && !rotateRight)
+            if (!rotateLeft && !rotateRight)
             {
                 if (value > 0 && value <= 5)
                 {
@@ -544,7 +551,7 @@ public class PlayerTwoController : MonoBehaviour
                     currentSpeed = oriRotationSpeed;
                     LadderTilt(-currentSpeed);
                 }
-            } 
+            }
             else if (rotateLeft)
             {
                 currentSpeed = oriRotationSpeed;
@@ -641,131 +648,131 @@ public class PlayerTwoController : MonoBehaviour
         //        }
         //    }
 
-            //    else if (rotateLeft && rotateFast)
-            //    {
-            //        if (numOfLadder == 1)
-            //        {
-            //            currentSpeed = lowRotationSpeed2;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (numOfLadder == 2)
-            //        {
-            //            currentSpeed = midRotationSpeed1;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (numOfLadder == 3)
-            //        {
-            //            currentSpeed = midRotationSpeed2;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (numOfLadder == 4)
-            //        {
-            //            currentSpeed = highRotationSpeed1;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (numOfLadder == 5)
-            //        {
-            //            currentSpeed = highRotationSpeed2;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //    }
-            //    else if (rotateLeft && rotateNormal)
-            //    {
-            //        if (numOfLadder == 1)
-            //        {
-            //            currentSpeed = lowRotationSpeed1;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (numOfLadder == 2)
-            //        {
-            //            currentSpeed = lowRotationSpeed2;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (numOfLadder == 3)
-            //        {
-            //            currentSpeed = midRotationSpeed1;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (numOfLadder == 4)
-            //        {
-            //            currentSpeed = midRotationSpeed2;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (numOfLadder == 5)
-            //        {
-            //            currentSpeed = highRotationSpeed1;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //    }
-            //    else if (rotateRight && rotateFast)
-            //    {
-            //        if (numOfLadder == 1)
-            //        {
-            //            currentSpeed = lowRotationSpeed2;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //        else if (numOfLadder == 2)
-            //        {
-            //            currentSpeed = midRotationSpeed1;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //        else if (numOfLadder == 3)
-            //        {
-            //            currentSpeed = midRotationSpeed2;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //        else if (numOfLadder == 4)
-            //        {
-            //            currentSpeed = highRotationSpeed1;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //        else if (numOfLadder == 5)
-            //        {
-            //            currentSpeed = highRotationSpeed2;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //    }
-            //    else if (rotateRight && rotateNormal)
-            //    {
-            //        if (numOfLadder == 1)
-            //        {
-            //            currentSpeed = lowRotationSpeed1;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //        else if (numOfLadder == 2)
-            //        {
-            //            currentSpeed = lowRotationSpeed2;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //        else if (numOfLadder == 3)
-            //        {
-            //            currentSpeed = midRotationSpeed1;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //        else if (numOfLadder == 4)
-            //        {
-            //            currentSpeed = midRotationSpeed2;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //        else if (numOfLadder == 5)
-            //        {
-            //            currentSpeed = highRotationSpeed1;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //    }else if(rotateLeft && rotateRight)
-            //    {
-            //        if (value > 0 && value <= 5)
-            //        {
-            //            currentSpeed = oriRotationSpeed;
-            //            LadderTilt(currentSpeed);
-            //        }
-            //        else if (value <= 10 && value > 5)
-            //        {
-            //            currentSpeed = oriRotationSpeed;
-            //            LadderTilt(-currentSpeed);
-            //        }
-            //    }
-            //}
+        //    else if (rotateLeft && rotateFast)
+        //    {
+        //        if (numOfLadder == 1)
+        //        {
+        //            currentSpeed = lowRotationSpeed2;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 2)
+        //        {
+        //            currentSpeed = midRotationSpeed1;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 3)
+        //        {
+        //            currentSpeed = midRotationSpeed2;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 4)
+        //        {
+        //            currentSpeed = highRotationSpeed1;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 5)
+        //        {
+        //            currentSpeed = highRotationSpeed2;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //    }
+        //    else if (rotateLeft && rotateNormal)
+        //    {
+        //        if (numOfLadder == 1)
+        //        {
+        //            currentSpeed = lowRotationSpeed1;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 2)
+        //        {
+        //            currentSpeed = lowRotationSpeed2;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 3)
+        //        {
+        //            currentSpeed = midRotationSpeed1;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 4)
+        //        {
+        //            currentSpeed = midRotationSpeed2;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (numOfLadder == 5)
+        //        {
+        //            currentSpeed = highRotationSpeed1;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //    }
+        //    else if (rotateRight && rotateFast)
+        //    {
+        //        if (numOfLadder == 1)
+        //        {
+        //            currentSpeed = lowRotationSpeed2;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 2)
+        //        {
+        //            currentSpeed = midRotationSpeed1;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 3)
+        //        {
+        //            currentSpeed = midRotationSpeed2;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 4)
+        //        {
+        //            currentSpeed = highRotationSpeed1;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 5)
+        //        {
+        //            currentSpeed = highRotationSpeed2;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //    }
+        //    else if (rotateRight && rotateNormal)
+        //    {
+        //        if (numOfLadder == 1)
+        //        {
+        //            currentSpeed = lowRotationSpeed1;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 2)
+        //        {
+        //            currentSpeed = lowRotationSpeed2;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 3)
+        //        {
+        //            currentSpeed = midRotationSpeed1;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 4)
+        //        {
+        //            currentSpeed = midRotationSpeed2;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //        else if (numOfLadder == 5)
+        //        {
+        //            currentSpeed = highRotationSpeed1;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //    }else if(rotateLeft && rotateRight)
+        //    {
+        //        if (value > 0 && value <= 5)
+        //        {
+        //            currentSpeed = oriRotationSpeed;
+        //            LadderTilt(currentSpeed);
+        //        }
+        //        else if (value <= 10 && value > 5)
+        //        {
+        //            currentSpeed = oriRotationSpeed;
+        //            LadderTilt(-currentSpeed);
+        //        }
+        //    }
+        //}
 
 
 
@@ -773,6 +780,42 @@ public class PlayerTwoController : MonoBehaviour
 
     #endregion
 
+    #region Fail Condition
+    void DetectLadderTile()
+    {
+        if (this.transform.localRotation.z > 35 || this.transform.localRotation.z < -35)
+        {
+            if (!Timer.instance.inTutorial)
+            {
+                WarningTab1.SetActive(true);
+                WarningTab2.SetActive(true);
+            }
+            else if(Timer.instance.inTutorial && !isOutOfBoundary)
+            {
+                WarningTab1.SetActive(false);
+                WarningTab2.SetActive(false);
+            }
+        }
+        else if (this.transform.localRotation.z <= 35 && this.transform.localRotation.z >= -35)
+        {
+            if (!isOutOfBoundary)
+            {
+                WarningTab1.SetActive(false);
+                WarningTab2.SetActive(false);
+            }
+
+        }
+        else if (this.transform.localRotation.z > 50 || this.transform.localRotation.z < -50)
+        {
+            if (!Timer.instance.inTutorial)
+            {
+                PlayerOneController.instance.isDead = true;
+
+            }
+
+        }
+    }
+    #endregion
 
     #region Ladder UI Status
 
@@ -917,6 +960,7 @@ public class PlayerTwoController : MonoBehaviour
     }
 }
 
-    #endregion
+#endregion
+
 
 

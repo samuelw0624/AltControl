@@ -7,11 +7,12 @@ using UnityEngine;
 public class BoundaryController : MonoBehaviour
 {
     [SerializeField]
-    private PlayerOneController p1c;
+    private PlayerTwoController p2c;
+
     // Start is called before the first frame update
     void Start()
     {
-        p1c = PlayerOneController.instance;
+        
     }
 
     // Update is called once per frame
@@ -23,14 +24,19 @@ public class BoundaryController : MonoBehaviour
     {
         if (other.CompareTag("Ladder"))
         {
-            // If the player exits the boundary, reset its position to the origin
-            other.transform.position = Vector3.zero; // Reset player position to (0, 0, 0)
+            print("Ladder");
+            p2c.WarningTab1.SetActive(true);
+            p2c.WarningTab2.SetActive(true);
+            p2c.isOutOfBoundary = true;
         }
-        else
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
         {
-            // If other objects exit the boundary, destroy them
-            //Destroy(other.gameObject);
-            //p1c.Warn(3f);
+            p2c.isOutOfBoundary = false;
         }
     }
 }
