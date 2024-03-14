@@ -31,6 +31,8 @@ public class TutorialDialogue : MonoBehaviour
     private Text dialogueText5;
     [SerializeField]
     private Text dialogueText6;
+    [SerializeField]
+    private bool isTrigger;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +43,11 @@ public class TutorialDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameManager.instance.currentScene.name == "Level_01" && !isTrigger)
+        {
+            StartCoroutine(Type1());
+            isTrigger = true;
+        }
     }
 
 
