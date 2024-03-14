@@ -25,6 +25,10 @@ public class TutorialScript : MonoBehaviour
     private GameObject tutorialObject;
     [SerializeField]
     private bool close1;
+    [SerializeField]
+    private GameObject closeTip;
+    [SerializeField]
+    private GameObject closeTip2;
 
     [Header("Tutorial_02")]
     [SerializeField]
@@ -35,6 +39,10 @@ public class TutorialScript : MonoBehaviour
     public bool startTutorial2;
     [SerializeField]
     private GameObject tutorialObject2;
+    [SerializeField]
+    private GameObject closeTip2_1;
+    [SerializeField]
+    private GameObject closeTip2_2;
 
     [SerializeField]
     private GameObject dialogue3_1;
@@ -46,6 +54,11 @@ public class TutorialScript : MonoBehaviour
     private Transform cam1;
     [SerializeField]
     private Transform dialogue3_1Transform;
+    [SerializeField]
+    private GameObject closeTip3_1;
+    [SerializeField]
+    private GameObject closeTip3_2;
+
 
     // Start is called before the first frame update
     void Start()
@@ -137,8 +150,10 @@ public class TutorialScript : MonoBehaviour
             {
                 if (startTutorial1 && !close1)
                 {
-                    dialogue1.SetActive(false);
-                    dialogue2.SetActive(false);
+                    closeTip.SetActive(false);
+                    closeTip2.SetActive(false);
+                    //dialogue1.SetActive(false);
+                    //dialogue2.SetActive(false);
                     Timer.instance.stopTimer = false;
                     Timer.instance.inTutorial = false;
                     Destroy(tutorialObject);
@@ -159,8 +174,10 @@ public class TutorialScript : MonoBehaviour
             {
                 if (startTutorial2 && !close2)
                 {
-                    dialogue2_1.SetActive(false);
-                    dialogue2_2.SetActive(false);
+                    closeTip2_1.SetActive(false);
+                    closeTip2_2.SetActive(false);
+                    //dialogue2_1.SetActive(false);
+                    //dialogue2_2.SetActive(false);
                     Timer.instance.stopTimer = false;
                     Timer.instance.inTutorial = false;
                     Destroy(tutorialObject2);
@@ -180,8 +197,10 @@ public class TutorialScript : MonoBehaviour
             {
                 if (startTutorial2 && !close2)
                 {
-                    dialogue3_1.SetActive(false);
-                    dialogue3_2.SetActive(false);
+                    closeTip3_1.SetActive(false);
+                    closeTip3_2.SetActive(false);
+                    //dialogue3_1.SetActive(false);
+                    //dialogue3_2.SetActive(false);
                     Timer.instance.stopTimer = false;
                     Timer.instance.inTutorial = false;
                     Destroy(tutorialObject2);

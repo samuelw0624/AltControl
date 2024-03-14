@@ -899,12 +899,11 @@ public class PlayerOneController : MonoBehaviour
             if(minimapIcon != null )
             {
                 repairAudio.PlayOneShot(repairClip);
-                Destroy(minimapIcon);
                 //change fix status in light control ref
                 lightcontrolRef.isFixed = true;
                 //removed the closest sign that was just fixed
                 spotsToFix.Remove(closestSpot);
-
+                closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
                 UpdateClosestSpot();
                 //Destroy(closestSign);
                 //add score function
@@ -1111,10 +1110,28 @@ public class PlayerOneController : MonoBehaviour
 
         if (handsOff)
         {
+            if(GameManager.instance.currentScene.name == "Level_Tutorial_01")
+            {
+                if (Timer.instance.inTutorial)
+                {
+                    p1Screen.SetActive(false);
+                    p2Screen.SetActive(false);
+                }
+                else
+                {
+                    warningTimer -= Time.deltaTime;
+                    p1Screen.SetActive(true);
+                    p2Screen.SetActive(true);
+                }
+            }
+            else
+            {
+                warningTimer -= Time.deltaTime;
+                p1Screen.SetActive(true);
+                p2Screen.SetActive(true);
+            }
 
-            warningTimer -= Time.deltaTime;
-            p1Screen.SetActive(true);
-            p2Screen.SetActive(true);
+
             audio.Play();
 
             p1Text.text = (warningTimer).ToString("0");
