@@ -37,6 +37,8 @@ public class EnterShop : MonoBehaviour
 
     [SerializeField]
     public bool isRead;
+    [SerializeField]
+    public bool showShopUI;
 
     // Start is called before the first frame update
     void Start()
@@ -140,4 +142,7 @@ public class EnterShop : MonoBehaviour
             withinShopRange = false;
         }
     }
+
+
+
 }

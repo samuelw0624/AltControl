@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
             }
 
             tutorialEnd = true;
-            print("Skip");
+            //print("Skip");
         }
     }
 

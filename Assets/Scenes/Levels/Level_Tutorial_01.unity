@@ -6156,6 +6156,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1268323340}
     - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: inputAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 4f820ae4c68fd54498da3574afd256cc, type: 3}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: normaRight
       value: 
       objectReference: {fileID: 867977490}
@@ -6188,6 +6192,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: playerInput.m_Id
+      value: ae3343d5-2bec-463f-9958-6c819599fdb5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: lowRotationSpeed1
       value: 2
       objectReference: {fileID: 0}
@@ -6212,12 +6220,40 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: playerInput.m_Name
+      value: Player Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: moveLadderFastSpeed
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: playerInputMap.m_Id
+      value: 02af917e-c4fc-444e-bab8-0504c1f9684b
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: moveLadderNormalSpeed
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: playerInputMap.m_Name
+      value: Player Input Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: leftRotationInput.m_Id
+      value: 5a0d915c-df0a-42e1-a457-a5f823261f35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: rightRotationInput.m_Id
+      value: c64a3f35-7387-4df1-92eb-cbf06913cac9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: leftRotationInput.m_Name
+      value: Left Rotation Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: rightRotationInput.m_Name
+      value: Right Rotation Input
       objectReference: {fileID: 0}
     - target: {fileID: 3291930610205922205, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: m_IsTrigger
@@ -6230,17 +6266,52 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3291930608849506987, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
   m_PrefabInstance: {fileID: 553180082}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &553180084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2408898736381360532, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+  m_PrefabInstance: {fileID: 553180082}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &553180085 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3291930610205922199, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
   m_PrefabInstance: {fileID: 553180082}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 553180084}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4880c2f5053417b48b2b24d91f673250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &553180086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553180084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 4f820ae4c68fd54498da3574afd256cc, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &559506436
 GameObject:
   m_ObjectHideFlags: 0
@@ -7639,7 +7710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392304937946080950, guid: c862af1d612de2343b53512c9e7d1bf1, type: 3}
       propertyPath: m_FontData.m_FontStyle
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c862af1d612de2343b53512c9e7d1bf1, type: 3}
@@ -9019,7 +9090,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b2ea3b3f1765e544b9eb5bd1a93a91ce, type: 3}
-    m_FontSize: 191
+    m_FontSize: 104
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1

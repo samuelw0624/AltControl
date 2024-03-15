@@ -8,52 +8,74 @@ public class SceneSwitch : MonoBehaviour
     public Scene currentScene;
     [SerializeField]
     private AudioSource startSound;
+    [SerializeField]
+    public GameObject instructionText1;
+    [SerializeField]
+    public GameObject instructionText2;
+    [SerializeField]
+    private bool isShowed;
+
     // Start is called before the first frame update
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
+        if(!isShowed && instructionText1 != null && instructionText2 != null)
+        {
+            StartCoroutine(ShowInstructionText());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (isShowed)
         {
-            SceneManager.LoadScene("LoadingLevel_01");
-        }
-
-        if(currentScene.name == "LoadingLevel_01")
-        {
-            if(Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha7))
+            if (Input.GetKey(KeyCode.LeftControl))
             {
-                StartCoroutine(EnterLevel1());
+                SceneManager.LoadScene("LoadingLevel_01");
+            }
+
+            if (currentScene.name == "LoadingLevel_01")
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha7))
+                {
+                    StartCoroutine(EnterLevel1());
+                }
+            }
+
+            if (currentScene.name == "LoadingLevel_02")
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha7))
+                {
+                    StartCoroutine(EnterLevel2());
+                }
+            }
+
+            if (currentScene.name == "LoadingLevel_03")
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha7))
+                {
+                    StartCoroutine(EnterLevel3());
+                }
+            }
+
+            if (currentScene.name == "LoadingLevel_04")
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha7))
+                {
+                    StartCoroutine(EnterLevel4());
+                }
             }
         }
+        
 
-        if (currentScene.name == "LoadingLevel_02")
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                StartCoroutine(EnterLevel2());
-            }
-        }
-
-        if (currentScene.name == "LoadingLevel_03")
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                StartCoroutine(EnterLevel3());
-            }
-        }
-
-        if (currentScene.name == "LoadingLevel_04")
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Alpha7))
-            {
-                StartCoroutine(EnterLevel4());
-            }
-        }
-
+    }
+    IEnumerator ShowInstructionText()
+    {
+        yield return new WaitForSeconds(1.5f);
+        instructionText1.SetActive(true);
+        instructionText2.SetActive(true);
+        isShowed = true;
     }
 
     IEnumerator EnterLevel1()

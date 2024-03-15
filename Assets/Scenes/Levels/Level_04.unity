@@ -9198,6 +9198,10 @@ PrefabInstance:
       propertyPath: progressionText1
       value: 
       objectReference: {fileID: 1650189011}
+    - target: {fileID: 2340298004839959029, guid: c862af1d612de2343b53512c9e7d1bf1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2340298005170407904, guid: c862af1d612de2343b53512c9e7d1bf1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -34411,7 +34415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761561563764130766, guid: 19cb71a6036cb484e88774ef0396c618, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.7500007
+      value: 1.74
       objectReference: {fileID: 0}
     - target: {fileID: 1761561563764130766, guid: 19cb71a6036cb484e88774ef0396c618, type: 3}
       propertyPath: m_LocalPosition.z

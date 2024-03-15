@@ -397,6 +397,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartButton
       objectReference: {fileID: 0}
+    - target: {fileID: 4026114976032199444, guid: 8e8301f4321ab8249bdd1d385ed0d53e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4026114976032199445, guid: 8e8301f4321ab8249bdd1d385ed0d53e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -498,6 +502,11 @@ PrefabInstance:
 --- !u!224 &320701496 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4026114976032199445, guid: 8e8301f4321ab8249bdd1d385ed0d53e, type: 3}
+  m_PrefabInstance: {fileID: 320701495}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &320701497 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4026114976032199444, guid: 8e8301f4321ab8249bdd1d385ed0d53e, type: 3}
   m_PrefabInstance: {fileID: 320701495}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &725623282
@@ -1396,6 +1405,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartButton
       objectReference: {fileID: 0}
+    - target: {fileID: 4026114976032199444, guid: 8e8301f4321ab8249bdd1d385ed0d53e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4026114976032199445, guid: 8e8301f4321ab8249bdd1d385ed0d53e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1497,6 +1510,11 @@ PrefabInstance:
 --- !u!224 &1488599421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4026114976032199445, guid: 8e8301f4321ab8249bdd1d385ed0d53e, type: 3}
+  m_PrefabInstance: {fileID: 1488599420}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1488599422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4026114976032199444, guid: 8e8301f4321ab8249bdd1d385ed0d53e, type: 3}
   m_PrefabInstance: {fileID: 1488599420}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1613904957
@@ -2078,5 +2096,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3479833298594100639, guid: f31c92c60e1b074428f26537d2d64223, type: 3}
+      propertyPath: instructionText1
+      value: 
+      objectReference: {fileID: 1488599422}
+    - target: {fileID: 3479833298594100639, guid: f31c92c60e1b074428f26537d2d64223, type: 3}
+      propertyPath: instructionText2
+      value: 
+      objectReference: {fileID: 320701497}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f31c92c60e1b074428f26537d2d64223, type: 3}

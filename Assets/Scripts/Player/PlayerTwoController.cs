@@ -42,6 +42,7 @@ public class PlayerTwoController : MonoBehaviour
     private bool gameStart;
     [SerializeField]
     private float oriRotationSpeed;
+
     //[SerializeField]
     //private float lowRotationSpeed1;
     //[SerializeField]
@@ -127,13 +128,25 @@ public class PlayerTwoController : MonoBehaviour
     [SerializeField]
     float degreeTilt;
 
+    [Header("Tutorial_Rotation")]
+    [SerializeField]
+    public GameObject dialogue_Level01;
+    [SerializeField]
+    private bool dialogueIsTurnedOff;
+
     // Start is called before the first frame update
 
+    private void OnEnable()
+    {
+
+    }
     void Awake()
     {
+
         player1 = PlayerOneController.instance;
-        DetectInput();
+
     }
+
     void Start()
     {
         pressColor = Color.red;
@@ -156,33 +169,41 @@ public class PlayerTwoController : MonoBehaviour
 
         gameStart = true;
 
+        if (dialogue_Level01 != null && !dialogueIsTurnedOff)
+        {
+            StartCoroutine(TurnOffTutorial());
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        LadderRotate();
+        SpeedAdjust();
+        LadderHight();
 
         if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !Timer.instance.inTutorial)
         {
             if (PlayerOneController.instance.isFreezed == false)
             {
-                print("Ladder Function");
-                SpeedAdjust();
-                LadderHight();
+                //print("Ladder Function");
+
+
                 MoveHorizontally();
                 DetectLadderTile();
             }
 
 
-            if (GameManager.instance.currentScene.name != "Level_Tutorial_01" && PlayerOneController.instance.isFreezed == false)
-            {
-                LadderRotate();
+            //if (GameManager.instance.currentScene.name != "Level_Tutorial_01" && PlayerOneController.instance.isFreezed == false)
+            //{
+            //    LadderRotate();
 
-            }
+            //}
 
             if (GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
             {
-                if(PlayerOneController.instance.isFreezed == false)
+                if (PlayerOneController.instance.isFreezed == false)
                 {
                     RescuePlayer1();
                 }
@@ -209,7 +230,7 @@ public class PlayerTwoController : MonoBehaviour
                 {
                     RandomTilt();
                     LadderHeightSwitch();
-                    print("HeighSwitch");
+                    //print("HeighSwitch");
 
                 }
             }
@@ -238,27 +259,6 @@ public class PlayerTwoController : MonoBehaviour
         //WindStart();
 
     }
-
-    void DetectInput()
-    {
-        //if (Input.GetKeyUp(KeyCode.E))
-        //{
-        //    print("Rotate E");
-        //}
-        //if (Input.GetKeyUp(KeyCode.Q))
-        //{
-        //    print("Rotate Q");
-        //}
-        if (Keyboard.current[Key.Q].wasPressedThisFrame)
-        {
-            Debug.Log("Q pressed");
-        }
-        if (Keyboard.current[Key.E].wasPressedThisFrame)
-        {
-            Debug.Log("E pressed");
-        }
-
-    }
     #region Stun Resolved
     private void RescuePlayer1()
     {
@@ -279,7 +279,8 @@ public class PlayerTwoController : MonoBehaviour
                 FalconAttack.instance.StopStun();
                 //print("Rescue Player1");
             }
-        } else
+        }
+        else
         {
             times = 0;
         }
@@ -293,7 +294,7 @@ public class PlayerTwoController : MonoBehaviour
 
     void LadderHight()
     {
-        print("Change Ladder Height");
+        //print("Change Ladder Height");
         // five stages of ladder heitgh adjustment
         //if (Keyboard.current[Key.Z].wasPressedThisFrame)   
         //{
@@ -315,26 +316,30 @@ public class PlayerTwoController : MonoBehaviour
         //{
         //    numOfLadder = 1;
         //}
-        if (Input.GetKey(KeyCode.Z))
-        {
-            numOfLadder = 5;
-        }
-        else if (Input.GetKey(KeyCode.X))
-        {
-            numOfLadder = 4;
-        }
-        else if (Input.GetKey(KeyCode.C))
-        {
-            numOfLadder = 3;
-        }
-        else if (Input.GetKey(KeyCode.V))
-        {
-            numOfLadder = 2;
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            numOfLadder = 1;
-        }
+        //if (Input.GetKey(KeyCode.Z))
+        //{
+        //    numOfLadder = 5;
+        //}
+        //else if (Input.GetKey(KeyCode.X))
+        //{
+        //    numOfLadder = 4;
+        //}
+        //else if (Input.GetKey(KeyCode.C))
+        //{
+        //    numOfLadder = 3;
+        //}
+        //else if (Input.GetKey(KeyCode.V))
+        //{
+        //    numOfLadder = 2;
+        //}
+        //else if (Input.GetKey(KeyCode.Space))
+        //{
+        //    numOfLadder = 1;
+        //}
+
+        numOfLadder = InputManager.Instance.numOfLadder;
+        print("numOfLadder" + numOfLadder);
+
         //this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
         //ladderHeight = heightChanges;
     }
@@ -400,11 +405,11 @@ public class PlayerTwoController : MonoBehaviour
 
     void SpeedAdjust()
     {
-        if (Input.GetKey(KeyCode.RightControl))
-        {
-            EnterShop.instance.isPurchased1 = true;
-            print("Speed is boosted");
-        }
+        //if (Input.GetKey(KeyCode.RightControl))
+        //{
+        //    EnterShop.instance.isPurchased1 = true;
+        //    print("Speed is boosted");
+        //}
         //if (EnterShop.instance.isPurchased1 && !isBooted1)
         //{
         //    moveLadderSpeed *= speedMulti;
@@ -412,7 +417,8 @@ public class PlayerTwoController : MonoBehaviour
         //}
         // three levels of speed: slow, normal, fast
         //if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
-        if (Input.GetKey(KeyCode.Alpha1))
+        //if (Input.GetKey(KeyCode.Alpha1))
+        if (InputManager.Instance.leftFast)
         {
             moveLeft = true;
 
@@ -432,7 +438,8 @@ public class PlayerTwoController : MonoBehaviour
 
         }
         //if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
-        if (Input.GetKey(KeyCode.Alpha2))
+        //if (Input.GetKey(KeyCode.Alpha2))
+        if (InputManager.Instance.leftNormal)
         {
             moveLeft = true;
 
@@ -446,7 +453,8 @@ public class PlayerTwoController : MonoBehaviour
 
         }
         //if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
-        if (Input.GetKey(KeyCode.Alpha3))
+        //if (Input.GetKey(KeyCode.Alpha3))
+        if (InputManager.Instance.neutral)
         {
             moveLeft = false;
             moveRight = false;
@@ -458,11 +466,10 @@ public class PlayerTwoController : MonoBehaviour
             gameStart = false;
 
             //StopCoroutine(MoveToHorizontal(MoveToNewPos(0)));
-
-
         }
         //if (Keyboard.current[Key.Digit4].wasPressedThisFrame)
-        if (Input.GetKey(KeyCode.Alpha4))
+        //if (Input.GetKey(KeyCode.Alpha4))
+        if (InputManager.Instance.rightNormal)
         {
             moveRight = true;
 
@@ -476,7 +483,8 @@ public class PlayerTwoController : MonoBehaviour
 
         }
         //if (Keyboard.current[Key.Digit5].wasPressedThisFrame)
-        if (Input.GetKey(KeyCode.Alpha5))
+        //if (Input.GetKey(KeyCode.Alpha5))
+        if (InputManager.Instance.rightFast)
         {
             moveRight = true;
 
@@ -520,8 +528,10 @@ public class PlayerTwoController : MonoBehaviour
     {
 
         //if (Keyboard.current[Key.E].wasPressedThisFrame)
-        if (Input.GetKeyDown(KeyCode.E))
+        //if (Input.GetKeyDown(KeyCode.E))
+        if (InputManager.Instance.LeftRotate)
         {
+            print("Left");
             rotateLeft = true;
             rotateRight = false;
             leftRotation.color = pressColor;
@@ -532,8 +542,10 @@ public class PlayerTwoController : MonoBehaviour
         }
 
         //if (Keyboard.current[Key.Q].wasPressedThisFrame)
-        if (Input.GetKeyDown(KeyCode.Q))
+        //if (Input.GetKeyDown(KeyCode.Q))
+        if (InputManager.Instance.RightRotate)
         {
+            print("Right");
             rotateRight = true;
             rotateLeft = false;
             rightRotation.color = pressColor;
@@ -571,20 +583,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else
         {
-            if (!rotateLeft && !rotateRight)
-            {
-                if (value > 0 && value <= 5)
-                {
-                    currentSpeed = oriRotationSpeed;
-                    LadderTilt(currentSpeed);
-                }
-                else if (value <= 10 && value > 5)
-                {
-                    currentSpeed = oriRotationSpeed;
-                    LadderTilt(-currentSpeed);
-                }
-            }
-            else if (rotateLeft)
+            if (rotateLeft)
             {
                 currentSpeed = oriRotationSpeed;
                 LadderTilt(currentSpeed);
@@ -851,11 +850,12 @@ public class PlayerTwoController : MonoBehaviour
                     print("isDead");
                 }
             }
-        } else
+        }
+        else
         {
             degreeTilt = this.transform.localRotation.eulerAngles.z;
-            
-            if(degreeTilt > 35 && degreeTilt <= 45)
+
+            if (degreeTilt > 35 && degreeTilt <= 45)
             {
                 if (!Timer.instance.inTutorial)
                 {
@@ -867,14 +867,16 @@ public class PlayerTwoController : MonoBehaviour
                     WarningTab1.SetActive(false);
                     WarningTab2.SetActive(false);
                 }
-            }else if(degreeTilt <= 35)
+            }
+            else if (degreeTilt <= 35)
             {
                 if (!isOutOfBoundary)
                 {
                     WarningTab1.SetActive(false);
                     WarningTab2.SetActive(false);
                 }
-            }else if(degreeTilt > 45)
+            }
+            else if (degreeTilt > 45)
             {
                 if (!Timer.instance.inTutorial)
                 {
@@ -921,6 +923,12 @@ public class PlayerTwoController : MonoBehaviour
     }
     #endregion
 
+    IEnumerator TurnOffTutorial()
+    {
+        yield return new WaitForSeconds(10f);
+        dialogue_Level01.SetActive(false);
+        dialogueIsTurnedOff = true;
+    }
     #region Ladder UI Status
 
     public enum LadderStates
@@ -991,80 +999,5 @@ public class PlayerTwoController : MonoBehaviour
 
     }
     #endregion
-
-    #region Wind Event
-    private void EventTrigger()
-    {
-        if (!isTriggered)
-        {
-            StartCoroutine(RandomNumber(5, 100));
-        }
-
-
-
-        if (isTriggered)
-        {
-            if(windValue ==1)
-            {
-                isRight = true;
-                isLeft = false;
-            } else if(windValue == 2)
-            {
-                isLeft = true;
-                isRight = false;
-            }
-        }
-    }
-
-    IEnumerator RandomNumber(float min, float max)
-    {
-        yield return new WaitForSeconds(Random.Range(min, max));
-        randValue = Random.Range(1, 100);
-        if (randValue < 3)
-        {
-            isTriggered = true;
-            windValue = randValue;
-        }
-
-    }
-
-
-    void WindStart()
-    {
-        currentSpeed *= multipleValue;
-        if (isLeft)
-        {
-            startTime = Time.time;
-            if(Time.time - startTime < 5)
-            {
-                LadderTilt(-currentSpeed);
-                print("Wind!!!");
-            }
-            else
-            {
-                isTriggered = false;
-            }
-
-        }
-
-        if (isRight)
-        {
-            startTime = Time.time;
-            if (Time.time - startTime < 5)
-            {
-                LadderTilt(currentSpeed);
-                print("Wind!!!");
-            }
-            else
-            {
-                isTriggered = false;
-            }
-
-        }
-    }
 }
-
-#endregion
-
-
 

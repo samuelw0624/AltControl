@@ -61,7 +61,7 @@ public class ScoreManager : MonoBehaviour
             {
                 score = ScoreBoard.instance.originalScore;
                 isRead = true;
-                print("Original Score");
+                //print("Original Score");
                 scorePlayer1.text = "Coin:" + score.ToString();
                 scorePlayer2.text = "Coin:" + score.ToString();
             }
@@ -137,7 +137,7 @@ public class ScoreManager : MonoBehaviour
                 score = 0;
                 ScoreBoard.instance.originalScore = 0;
                 isRead = true;
-                print("zero score");
+                //print("zero score");
                 scorePlayer1.text = "Coin:" + score.ToString();
                 scorePlayer2.text = "Coin:" + score.ToString();
             }

@@ -24,8 +24,10 @@ public class DrillController : MonoBehaviour
     private AudioSource insufficientFundSound;
     [SerializeField]
     private AudioSource purchaseSuccessfulSound;
-
-
+    [SerializeField]
+    public bool shopUIisShowed;
+    [SerializeField]
+    public bool shopUIisClosed;
 
     public enum DrillType
     {
@@ -119,7 +121,10 @@ public class DrillController : MonoBehaviour
                 superDrill.SetActive(true);
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
                 {
-                    p1Script.FixSign();
+                    if (!PlayerOneController.instance.isFreezed && !PlayerOneController.instance.gameEnd)
+                    {
+                        p1Script.FixSign();
+                    }
                 }
             }
             else
@@ -133,7 +138,13 @@ public class DrillController : MonoBehaviour
 
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
                 {
-                    p1Script.FixSign();
+                    if(!PlayerOneController.instance.isFreezed && !PlayerOneController.instance.gameEnd)
+                    {
+
+                        p1Script.FixSign();
+
+                    }
+
                 }
 
             }
@@ -195,7 +206,12 @@ public class DrillController : MonoBehaviour
 
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
                 {
-                    p1Script.FixSign();
+                    if (!PlayerOneController.instance.isFreezed && !PlayerOneController.instance.gameEnd)
+                    {
+
+                        p1Script.FixSign();
+
+                    }
                 }
             }
             else
@@ -211,7 +227,12 @@ public class DrillController : MonoBehaviour
                 //print("currentScrew" + PlayerOneController.instance.currentScrew);
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
                 {
-                    p1Script.FixSign();
+                    if (!PlayerOneController.instance.isFreezed && !PlayerOneController.instance.gameEnd)
+                    {
+
+                        p1Script.FixSign();
+
+                    }
                 }
             }
 
@@ -273,7 +294,12 @@ public class DrillController : MonoBehaviour
                 superDrill.SetActive(true);
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.SuperDrill)
                 {
-                    p1Script.FixSign();
+                    if (!PlayerOneController.instance.isFreezed && !PlayerOneController.instance.gameEnd)
+                    {
+ 
+                        p1Script.FixSign();
+
+                    }
                 }
             }
             else
@@ -288,8 +314,13 @@ public class DrillController : MonoBehaviour
                 //print("currentScrew" + PlayerOneController.instance.currentScrew);
                 if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
                 {
-                    p1Script.FixSign();
-                    print("Repair");
+                    if (!PlayerOneController.instance.isFreezed && !PlayerOneController.instance.gameEnd)
+                    {
+
+                        p1Script.FixSign();
+
+                    }
+                    //print("Repair");
                 }
             }
 
@@ -368,12 +399,12 @@ public class DrillController : MonoBehaviour
     {
         if(GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
         {
-            if (EnterShop.instance.withinShopRange && keyPressed)
+            if (EnterShop.instance.withinShopRange && keyPressed && !shopUIisShowed)
             {
-                shopUI.SetActive(true);
-                shopUI2.SetActive(true);
-                PlayerOneController.instance.isFreezed = true;
-                EnterShop.instance.firstEnter = true;
+                //shopUI.SetActive(true);
+                //shopUI2.SetActive(true);
+                StartCoroutine(ShowShopUI());
+
 
             }
             else
@@ -384,15 +415,35 @@ public class DrillController : MonoBehaviour
 
     }
 
+    IEnumerator ShowShopUI()
+    {
+        yield return new WaitForSeconds(0.7f);
+        shopUI.SetActive(true);
+        shopUI2.SetActive(true);
+        PlayerOneController.instance.isFreezed = true;
+        EnterShop.instance.firstEnter = true;
+        shopUIisShowed = true;
+    }
+
+    IEnumerator CloseShopUI()
+    {
+        yield return new WaitForSeconds(0.5f);
+        shopUI.SetActive(false);
+        shopUI2.SetActive(false);
+        PlayerOneController.instance.isFreezed = false;
+    }
+
 
     public void LeaveShop()
     {
-        if(shopUI != null && shopUI2 != null)
+        if(shopUI != null && shopUI2 != null && shopUIisShowed)
         {
-            shopUI.SetActive(false);
-            shopUI2.SetActive(false);
+            //shopUI.SetActive(false);
+            //shopUI2.SetActive(false);
+            StartCoroutine(CloseShopUI());
+            shopUIisShowed = false;
+
         }
-        PlayerOneController.instance.isFreezed = false;
         keyPressed = false;
         for (int i = 0; i < EnterShop.instance.shopItem.Length; i++)
         {
