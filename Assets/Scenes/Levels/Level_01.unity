@@ -15097,6 +15097,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1Camera Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 699911745510291415, guid: 05c16119a5b6f92438aba76b2a444608, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05c16119a5b6f92438aba76b2a444608, type: 3}
 --- !u!114 &1414272745 stripped
@@ -25503,6 +25507,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2449208826516520724, guid: edff74e989975954c96833a5131206d4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449208826516520724, guid: edff74e989975954c96833a5131206d4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449208826516520724, guid: edff74e989975954c96833a5131206d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -25557,6 +25569,10 @@ PrefabInstance:
     - target: {fileID: 2449208826516520725, guid: edff74e989975954c96833a5131206d4, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449208826516520727, guid: edff74e989975954c96833a5131206d4, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edff74e989975954c96833a5131206d4, type: 3}

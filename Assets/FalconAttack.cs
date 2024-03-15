@@ -39,6 +39,8 @@ public class FalconAttack : MonoBehaviour
     private Animator anim;
     [SerializeField]
     private bool attackEnds;
+    [SerializeField]
+    private GameObject rotateText;
 
 
     private void Awake()
@@ -58,8 +60,17 @@ public class FalconAttack : MonoBehaviour
     {
         if(Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
         {
-            InitiateAttack();
-            DetectStun();
+            if (!PlayerOneController.instance.isFreezed)
+            {
+                InitiateAttack();
+                DetectStun();
+                if (rotateText != null)
+                {
+                    WarningText();
+                }
+
+            }
+
         }
 
     }
@@ -68,10 +79,26 @@ public class FalconAttack : MonoBehaviour
     {
         if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
         {
-            Attack();
+            if (!PlayerOneController.instance.isFreezed)
+            {
+                Attack();
+            }
+
         }
 
 
+    }
+
+    void WarningText()
+    {
+        if (isStunning)
+        {
+            rotateText.SetActive(true);
+        }
+        else
+        {
+            rotateText.SetActive(false);
+        }
     }
 
     void InitiateAttack()

@@ -930,7 +930,7 @@ public class PlayerOneController : MonoBehaviour
                 lightcontrolRef.isFixed = true;
                 //removed the closest sign that was just fixed
                 spotsToFix.Remove(closestSpot);
-                //closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
+                closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
                 minimapIcon.GetComponent<SpriteRenderer>().enabled = false;
                 UpdateClosestSpot();
                 //Destroy(closestSign);

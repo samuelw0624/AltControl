@@ -3590,7 +3590,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b2ea3b3f1765e544b9eb5bd1a93a91ce, type: 3}
-    m_FontSize: 117
+    m_FontSize: 104
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -22292,6 +22292,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 380029494222788685, guid: 394618388dcb5144dad34ae8d12a4c60, type: 3}
+      propertyPath: rotateText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 380029495185027530, guid: 394618388dcb5144dad34ae8d12a4c60, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -23420,7 +23424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1159269374925796844, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.35
+      value: 1.95
       objectReference: {fileID: 0}
     - target: {fileID: 1159269374925796844, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

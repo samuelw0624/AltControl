@@ -21,7 +21,7 @@ public class CircleMovement : MonoBehaviour
     void Update()
     {
 
-        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
+        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !PlayerOneController.instance.isFreezed)
         {
             posX = rotationCenter.position.x + Mathf.Cos(angle) * rotationRadius;
             posY = rotationCenter.position.y + Mathf.Sin(angle) * rotationRadius;

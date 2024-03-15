@@ -31,7 +31,7 @@ public class LinearMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd)
+        if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !PlayerOneController.instance.isFreezed)
         {
             if (this.transform.position == wayPoints[targetPoint].position)
             {
