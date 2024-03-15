@@ -24,10 +24,7 @@ public class DrillController : MonoBehaviour
     private AudioSource insufficientFundSound;
     [SerializeField]
     private AudioSource purchaseSuccessfulSound;
-    [SerializeField]
-    public bool shopUIisShowed;
-    [SerializeField]
-    public bool shopUIisClosed;
+
 
     public enum DrillType
     {
@@ -399,7 +396,7 @@ public class DrillController : MonoBehaviour
     {
         if(GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
         {
-            if (EnterShop.instance.withinShopRange && keyPressed && !shopUIisShowed)
+            if (EnterShop.instance.withinShopRange && keyPressed)
             {
                 //shopUI.SetActive(true);
                 //shopUI2.SetActive(true);
@@ -422,7 +419,7 @@ public class DrillController : MonoBehaviour
         shopUI2.SetActive(true);
         PlayerOneController.instance.isFreezed = true;
         EnterShop.instance.firstEnter = true;
-        shopUIisShowed = true;
+     
     }
 
     IEnumerator CloseShopUI()
@@ -436,12 +433,12 @@ public class DrillController : MonoBehaviour
 
     public void LeaveShop()
     {
-        if(shopUI != null && shopUI2 != null && shopUIisShowed)
+        if(shopUI != null && shopUI2 != null)
         {
             //shopUI.SetActive(false);
             //shopUI2.SetActive(false);
             StartCoroutine(CloseShopUI());
-            shopUIisShowed = false;
+           
 
         }
         keyPressed = false;

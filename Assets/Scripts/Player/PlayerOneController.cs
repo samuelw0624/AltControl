@@ -236,7 +236,7 @@ public class PlayerOneController : MonoBehaviour
             if (!isFreezed)
             {
                 SlideDown();
-
+                Warn();
             }
             CheckLeftHand();
             CheckRightHand();
@@ -251,7 +251,7 @@ public class PlayerOneController : MonoBehaviour
             
             ConfineLadderHeight();
 
-            Warn();
+            
             ClimbUp();
         }
 
@@ -260,6 +260,8 @@ public class PlayerOneController : MonoBehaviour
             if (!isFreezed)
             {
                 SlideDown();
+                Warn();
+                print("slide");
 
             }
             CheckLeftHand();
@@ -274,8 +276,6 @@ public class PlayerOneController : MonoBehaviour
             //DetectReachMaxHeight();
 
             ConfineLadderHeight();
-
-            Warn();
             ClimbUp();
         }
 
@@ -930,7 +930,7 @@ public class PlayerOneController : MonoBehaviour
                 lightcontrolRef.isFixed = true;
                 //removed the closest sign that was just fixed
                 spotsToFix.Remove(closestSpot);
-                //closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
+                closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
                 minimapIcon.GetComponent<SpriteRenderer>().enabled = false;
                 UpdateClosestSpot();
                 //Destroy(closestSign);
