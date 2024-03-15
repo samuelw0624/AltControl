@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9529412, g: 0.6594066, b: 0.23921566, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -274,7 +274,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  shopItem2: []
+  shopItem2:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   selectedItem: 0
   previousItem: 0
   firstEnter: 0
@@ -283,7 +287,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  soldOutItems2: []
+  soldOutItems2:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   isPurchased1: 0
   isPurchased2: 0
   isPurchased3: 0
@@ -796,15 +803,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b3fe4d77757b544fb003be16268fb25, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 36.170616
+      value: 52.56
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b3fe4d77757b544fb003be16268fb25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5434294
+      value: -15.13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b3fe4d77757b544fb003be16268fb25, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.197712
+      value: 4.91
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b3fe4d77757b544fb003be16268fb25, type: 3}
       propertyPath: m_LocalRotation.w

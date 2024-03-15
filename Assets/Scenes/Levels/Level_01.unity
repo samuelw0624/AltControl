@@ -10498,6 +10498,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 924403379038551488, guid: 595770d28d079a4479ee9896972ce035, type: 3}
   m_PrefabInstance: {fileID: 1043731065}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1043731069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2092555986, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 1043731065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1043731070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1031207459, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 1043731065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1043731071 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1326017646, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 1043731065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1046422164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19028,6 +19043,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1713791493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2092555986, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 1713791489}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1713791494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1031207459, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 1713791489}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1713791495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1326017646, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 1713791489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1716978768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23426,6 +23456,30 @@ PrefabInstance:
       propertyPath: moveBoostedSpeed
       value: 1.6
       objectReference: {fileID: 0}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: scoreBoardSelection1_1
+      value: 
+      objectReference: {fileID: 1713791495}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: scoreBoardSelection1_2
+      value: 
+      objectReference: {fileID: 1713791494}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: scoreBoardSelection1_3
+      value: 
+      objectReference: {fileID: 1713791493}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: scoreBoardSelection2_1
+      value: 
+      objectReference: {fileID: 1043731071}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: scoreBoardSelection2_2
+      value: 
+      objectReference: {fileID: 1043731070}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: scoreBoardSelection2_3
+      value: 
+      objectReference: {fileID: 1043731069}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: leftPosUIArray.Array.size
       value: 5

@@ -27,7 +27,6 @@ public class DrillController : MonoBehaviour
 
 
 
-
     public enum DrillType
     {
         CrossDrill,
@@ -62,7 +61,7 @@ public class DrillController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            if (PlayerOneController.instance.gameEnd)
+            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI)
             {
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
@@ -148,7 +147,7 @@ public class DrillController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            if (PlayerOneController.instance.gameEnd)
+            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI)
             {
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
@@ -228,7 +227,7 @@ public class DrillController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            if (PlayerOneController.instance.gameEnd)
+            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI)
             {
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
@@ -527,5 +526,7 @@ public class DrillController : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         SceneManager.LoadScene("Level_04");
     }
+
+
 
 }

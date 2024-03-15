@@ -145,6 +145,18 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField]
     private GameObject scoreBoardUI1;
     [SerializeField]
+    private GameObject scoreBoardSelection1_1;
+    [SerializeField]
+    private GameObject scoreBoardSelection1_2;
+    [SerializeField]
+    private GameObject scoreBoardSelection1_3;
+    [SerializeField]
+    private GameObject scoreBoardSelection2_1;
+    [SerializeField]
+    private GameObject scoreBoardSelection2_2;
+    [SerializeField]
+    private GameObject scoreBoardSelection2_3;
+    [SerializeField]
     private Text gradeText;
     [SerializeField]
     private Text gradeText1;
@@ -159,13 +171,15 @@ public class PlayerOneController : MonoBehaviour
     [SerializeField]
     private AudioSource winningSound;
     [SerializeField]
-    private float gradeAmulti;
-    [SerializeField]
-    private float gradeBmulti;
-    [SerializeField]
-    private float gradeCmulti;
+    private float bonusCoin;
     [SerializeField]
     private float finalScore;
+
+    [Header("Shop")]
+    [SerializeField]
+    public bool delayShopUI;
+    [SerializeField]
+    public bool delayScoreboardUI;
 
     public enum ScrewType
     {
@@ -916,7 +930,7 @@ public class PlayerOneController : MonoBehaviour
                 lightcontrolRef.isFixed = true;
                 //removed the closest sign that was just fixed
                 spotsToFix.Remove(closestSpot);
-                closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
+                //closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
                 minimapIcon.GetComponent<SpriteRenderer>().enabled = false;
                 UpdateClosestSpot();
                 //Destroy(closestSign);
@@ -935,41 +949,93 @@ public class PlayerOneController : MonoBehaviour
                     winningSound.Play();
                     StartCoroutine(ScoreBoard());
                     Timer.instance.AssignGrade();
+
                     if (Timer.instance.isGradeA)
                     {
-                        finalScore = ScoreManager.instance.score * gradeAmulti;
+                        if(GameManager.instance.currentScene.name == "Level_Tutorial_01")
+                        {
+                            bonusCoin = 300;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
+
+                        if (GameManager.instance.currentScene.name == "Level_01" || GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03")
+                        {
+                            bonusCoin = 400;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
+
+                        if(GameManager.instance.currentScene.name == "Level_04")
+                        {
+                            bonusCoin = 600;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
+
                         gradeText.text = "A";
                         gradeText1.text = "A";
                         //bonusText.text = "+500";
                         //bonusText1.text = "+500";
-                        bonusText.text = finalScore.ToString();
-                        bonusText1.text = finalScore.ToString();
+                        bonusText.text = bonusCoin.ToString();
+                        bonusText1.text = bonusCoin.ToString();
                         ScoreManager.instance.AddPoint(finalScore);
                     }
                     if (Timer.instance.isGradeB)
                     {
-                        finalScore = ScoreManager.instance.score * gradeBmulti;
+                        if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+                        {
+                            bonusCoin = 450;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
+
+                        if (GameManager.instance.currentScene.name == "Level_01" || GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03")
+                        {
+                            bonusCoin = 600;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
+
+                        if (GameManager.instance.currentScene.name == "Level_04")
+                        {
+                            bonusCoin = 900;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
                         gradeText.text = "B";
                         gradeText1.text = "B";
                         //bonusText.text = "+300";
                         //bonusText1.text = "+300";
-                        bonusText.text = finalScore.ToString();
-                        bonusText1.text = finalScore.ToString();
+                        bonusText.text = bonusCoin.ToString();
+                        bonusText1.text = bonusCoin.ToString();
                         ScoreManager.instance.AddPoint(finalScore);
                     }
                     if (Timer.instance.isGradeC)
                     {
-                        finalScore = ScoreManager.instance.score * gradeCmulti;
+                        if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
+                        {
+                            bonusCoin = 390;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
+
+                        if (GameManager.instance.currentScene.name == "Level_01" || GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03")
+                        {
+                            bonusCoin = 520;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
+
+                        if (GameManager.instance.currentScene.name == "Level_04")
+                        {
+                            bonusCoin = 780;
+                            finalScore = ScoreManager.instance.score + bonusCoin;
+                        }
+
                         gradeText.text = "C";
                         gradeText1.text = "C";
                         //bonusText.text = "+200";
                         //bonusText1.text = "+200";
-                        bonusText.text = finalScore.ToString();
-                        bonusText1.text = finalScore.ToString();
+                        bonusText.text = bonusCoin.ToString();
+                        bonusText1.text = bonusCoin.ToString();
                         ScoreManager.instance.AddPoint(finalScore);
                     }
 
                     gameEnd = true;
+                    StartCoroutine(DelayShopFunction());
                 }
             }
             //repair animation
@@ -1186,4 +1252,32 @@ public class PlayerOneController : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
     #endregion
+
+    IEnumerator DelayShopFunction()
+    {
+        yield return new WaitForSeconds(3f);
+        delayScoreboardUI = true;
+
+        if(GameManager.instance.currentScene.name != "Level_04")
+        {
+            scoreBoardSelection1_1.SetActive(true);
+            scoreBoardSelection1_2.SetActive(true);
+            scoreBoardSelection1_3.SetActive(true);
+
+            scoreBoardSelection2_1.SetActive(true);
+            scoreBoardSelection2_2.SetActive(true);
+            scoreBoardSelection2_3.SetActive(true);
+        }
+        else
+        {
+            //scoreBoardSelection1_1.SetActive(true);
+            scoreBoardSelection1_2.SetActive(true);
+            scoreBoardSelection1_3.SetActive(true);
+
+            //scoreBoardSelection2_1.SetActive(true);
+            scoreBoardSelection2_2.SetActive(true);
+            scoreBoardSelection2_3.SetActive(true);
+        }
+
+    }
 }

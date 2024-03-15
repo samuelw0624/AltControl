@@ -164,21 +164,29 @@ public class PlayerTwoController : MonoBehaviour
 
         if (Timer.instance.gameStart && !PlayerOneController.instance.gameEnd && !Timer.instance.inTutorial)
         {
-            print("Ladder Function");
-            SpeedAdjust();
-            LadderHight();
-            MoveHorizontally();
-            DetectLadderTile();
-            print("LadderHeight");
-
-            if (GameManager.instance.currentScene.name != "Level_Tutorial_01")
+            if (PlayerOneController.instance.isFreezed == false)
             {
-                LadderRotate();
+                print("Ladder Function");
+                SpeedAdjust();
+                LadderHight();
+                MoveHorizontally();
+                DetectLadderTile();
             }
 
-            if (GameManager.instance.currentScene.name == "TestLevel_01")
+
+            if (GameManager.instance.currentScene.name != "Level_Tutorial_01" && PlayerOneController.instance.isFreezed == false)
             {
-                RescuePlayer1();
+                LadderRotate();
+
+            }
+
+            if (GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
+            {
+                if(PlayerOneController.instance.isFreezed == false)
+                {
+                    RescuePlayer1();
+                }
+
             }
         }
 
