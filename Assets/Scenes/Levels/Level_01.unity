@@ -4872,6 +4872,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SteamHazard (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 787095006621638500, guid: bf2bda74c6aeb2e44aa8f18c7fd66825, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 787095006621638503, guid: bf2bda74c6aeb2e44aa8f18c7fd66825, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -11193,6 +11197,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5844501250546524278, guid: 108231a4107998746944739403a856c3, type: 3}
+      propertyPath: m_Text
+      value: NORMAL RiGHT
+      objectReference: {fileID: 0}
     - target: {fileID: 5844501250661089853, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11224,6 +11232,10 @@ PrefabInstance:
     - target: {fileID: 5844501251623157595, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5844501251759166335, guid: 108231a4107998746944739403a856c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5844501251769691922, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: m_IsActive
@@ -15771,26 +15783,26 @@ PrefabInstance:
     - target: {fileID: 1159269375877347365, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: b2ea3b3f1765e544b9eb5bd1a93a91ce, type: 3}
+      objectReference: {fileID: 12800000, guid: 1062c701058745940ae5dca6219c64c8, type: 3}
     - target: {fileID: 1159269375877347365, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
       propertyPath: m_FontData.m_FontStyle
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1159269375877347370, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -238.6
+      value: -118
       objectReference: {fileID: 0}
     - target: {fileID: 1159269375877347370, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -265.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1159269375877347370, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 17
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 1159269375877347370, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 6.200012
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1159269374031326938, guid: 86ab336ba2e0f674da126b33df97f94a, type: 3}
@@ -23492,7 +23504,7 @@ PrefabInstance:
       objectReference: {fileID: 1713791492}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: moveSpeed
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: bonusText1
@@ -23516,7 +23528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: moveOriSpeed
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: scoreBoardUI

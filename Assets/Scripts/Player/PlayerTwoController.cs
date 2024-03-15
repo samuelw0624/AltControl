@@ -230,7 +230,7 @@ public class PlayerTwoController : MonoBehaviour
                 {
                     RandomTilt();
                     LadderHeightSwitch();
-                    //print("HeighSwitch");
+
 
                 }
             }
@@ -277,7 +277,7 @@ public class PlayerTwoController : MonoBehaviour
             if (swapInterval <= 0.2)
             {
                 FalconAttack.instance.StopStun();
-                //print("Rescue Player1");
+                print("Rescue Player1");
             }
         }
         else
@@ -338,7 +338,7 @@ public class PlayerTwoController : MonoBehaviour
         //}
 
         numOfLadder = InputManager.Instance.numOfLadder;
-        print("numOfLadder" + numOfLadder);
+        //print("numOfLadder" + numOfLadder);
 
         //this.transform.localScale = new Vector3(transform.localScale.x, heightChanges, transform.localScale.z);
         //ladderHeight = heightChanges;
@@ -531,7 +531,7 @@ public class PlayerTwoController : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.E))
         if (InputManager.Instance.LeftRotate)
         {
-            print("Left");
+            //print("Left");
             rotateLeft = true;
             rotateRight = false;
             leftRotation.color = pressColor;
@@ -545,7 +545,7 @@ public class PlayerTwoController : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.Q))
         if (InputManager.Instance.RightRotate)
         {
-            print("Right");
+            //print("Right");
             rotateRight = true;
             rotateLeft = false;
             rightRotation.color = pressColor;

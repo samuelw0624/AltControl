@@ -9312,7 +9312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 656877485, guid: c862af1d612de2343b53512c9e7d1bf1, type: 3}
       propertyPath: m_text
-      value: 2000
+      value: 1750
       objectReference: {fileID: 0}
     - target: {fileID: 656877485, guid: c862af1d612de2343b53512c9e7d1bf1, type: 3}
       propertyPath: m_margin.z
@@ -10758,7 +10758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2976654114081695448, guid: 56b499bdb9b91a14f9592a80da708ad3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56b499bdb9b91a14f9592a80da708ad3, type: 3}
@@ -23340,7 +23340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2000
+  m_text: 1750
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -23802,7 +23802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1362052698
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23863,7 +23863,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1362052697}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.092000015, y: 4.710193, z: -0.63}
+  m_LocalPosition: {x: 0.092000015, y: 4.710193, z: -2.385}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27461,7 +27461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8642481822796872993, guid: a78e2240ec0903a49b6f056bf273cfed, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8642481822796872998, guid: a78e2240ec0903a49b6f056bf273cfed, type: 3}
       propertyPath: m_RootOrder
@@ -29312,6 +29312,10 @@ PrefabInstance:
     - target: {fileID: 2253692456155164258, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5844501250546524278, guid: 108231a4107998746944739403a856c3, type: 3}
+      propertyPath: m_Text
+      value: NORMAL RiGHT
       objectReference: {fileID: 0}
     - target: {fileID: 5844501251158775797, guid: 108231a4107998746944739403a856c3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -34880,6 +34884,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1326017646, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 924403379038551488, guid: 595770d28d079a4479ee9896972ce035, type: 3}
       propertyPath: m_Name
       value: ScoreBoard (1)
@@ -34979,6 +34987,10 @@ PrefabInstance:
     - target: {fileID: 4254636954266082964, guid: 595770d28d079a4479ee9896972ce035, type: 3}
       propertyPath: m_Text
       value: Use Drill to RESTART
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254636954762333617, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 595770d28d079a4479ee9896972ce035, type: 3}
@@ -37518,7 +37530,7 @@ PrefabInstance:
       objectReference: {fileID: 1810340586}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: moveSpeed
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: bonusText1
@@ -37542,7 +37554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: moveOriSpeed
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: scoreBoardUI
@@ -37561,12 +37573,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1930958713}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: restartOption1
+      value: 
+      objectReference: {fileID: 1810340589}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: restartOption2
+      value: 
+      objectReference: {fileID: 1930958718}
+    - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: slideDownSpeed
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: moveBoostedSpeed
-      value: 1.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: scoreBoardSelection1_1

@@ -126,6 +126,7 @@ public class FalconAttack : MonoBehaviour
         {
             isAttacking = true;
             direction = playerPos.position - transform.position;
+            print("ReadtoAttack");
         }
     }
 
@@ -138,6 +139,7 @@ public class FalconAttack : MonoBehaviour
             {
                 Stun();
                 StopCoroutine(BackHome());
+                print("stun");
             }
             else
             {
@@ -148,6 +150,7 @@ public class FalconAttack : MonoBehaviour
                 timer = 0;
 
                 StartCoroutine(BackHome());
+                print("backHome");
 
             }
         }
@@ -156,6 +159,8 @@ public class FalconAttack : MonoBehaviour
         if (attackEnds)
         {
             StartCoroutine(StopAttack());
+            print("EndAttacking");
+
         } 
 
 

@@ -117,6 +117,10 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (KiteEffect.instance.kiteAttack)
+        {
+            AddTimer();
+        }
 
         if (GameManager.instance.tutorialEnd && !gameStart && !timerStart)
         {
@@ -174,10 +178,7 @@ public class Timer : MonoBehaviour
             p2Slider.value = slideTimer;
             p2Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
 
-            if (KiteEffect.instance.kiteAttack)
-            {
-                AddTimer();
-            }
+
             p1Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
             p2Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
             //startTimer1.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
@@ -244,14 +245,20 @@ public class Timer : MonoBehaviour
         if(slideTimer <= 120)
         {
             isGradeA = true;
+            p1Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
+            p2Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
         } 
         else if(slideTimer > 120 && slideTimer <= 240)
         {
             isGradeB = true;
+            p1Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
+            p2Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
         }
         else if (slideTimer > 240)
         {
             isGradeC = true;
+            p1Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
+            p2Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
         }
 
     }

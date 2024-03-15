@@ -105,6 +105,7 @@ public class EnterShop : MonoBehaviour
                 isPurchased1 = ScoreBoard.instance.item1WasPurchased;
                 isPurchased2 = ScoreBoard.instance.item2WasPurchased;
                 isPurchased3 = ScoreBoard.instance.item3WasPurchased;
+                ResetItems();
                 isRead = true;
             }
         } 
@@ -121,6 +122,27 @@ public class EnterShop : MonoBehaviour
                 isRead = true;
             }
 
+        }
+    }
+
+    void ResetItems()
+    {
+        if (isPurchased1)
+        {
+            soldOutItems[0].SetActive(true);
+            soldOutItems2[0].SetActive(true);
+        }
+
+        if (isPurchased2)
+        {
+            soldOutItems[1].SetActive(true);
+            soldOutItems2[1].SetActive(true);
+        }
+
+        if (isPurchased3)
+        {
+            soldOutItems[2].SetActive(true);
+            soldOutItems2[2].SetActive(true);
         }
     }
 

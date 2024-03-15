@@ -6,7 +6,7 @@ using System;
 public class CameraFollowPlayer : MonoBehaviour
 {
     [SerializeField]
-    private float cameraMoveSpeed;
+    public float cameraMoveSpeed;
     private Func<Vector3> GetCameraFollowPositionFunc;
     public void Setup(Func<Vector3> GetCameraFollowPositionFunc)
     {
@@ -14,6 +14,11 @@ public class CameraFollowPlayer : MonoBehaviour
     }
     void Update()
     {
+        if(GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03" || GameManager.instance.currentScene.name == "Level_04")
+        {
+            SpeedControl();
+        }
+
         //camera follow with player in certain speed
         Vector3 cameraFollowPosition = GetCameraFollowPositionFunc();
         cameraFollowPosition.z = transform.position.z;
@@ -24,6 +29,18 @@ public class CameraFollowPlayer : MonoBehaviour
         transform.position = transform.position + cameraMoveDir * distance * cameraMoveSpeed * Time.deltaTime;
     }
 
+
+    void SpeedControl()
+    {
+        if (EnterShop.instance.isPurchased1)
+        {
+            cameraMoveSpeed = 5;
+        }
+        else
+        {
+            cameraMoveSpeed = 4;
+        }
+    }
 
 
 }

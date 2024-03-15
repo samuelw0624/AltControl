@@ -174,12 +174,18 @@ public class PlayerOneController : MonoBehaviour
     private float bonusCoin;
     [SerializeField]
     private float finalScore;
+    [SerializeField]
+    private GameObject restartOption1;
+    [SerializeField]
+    private GameObject restartOption2;
 
     [Header("Shop")]
     [SerializeField]
     public bool delayShopUI;
     [SerializeField]
     public bool delayScoreboardUI;
+    [SerializeField]
+    public bool getBonus;
 
     public enum ScrewType
     {
@@ -237,6 +243,10 @@ public class PlayerOneController : MonoBehaviour
             {
                 SlideDown();
                 Warn();
+                ConfineLadderHeight();
+                DetectPlayerPosition();
+                ClimbUp();
+                print("Climb1");
             }
             CheckLeftHand();
             CheckRightHand();
@@ -246,13 +256,13 @@ public class PlayerOneController : MonoBehaviour
 
             UpdateClosestSpot();
             //FollowLadder();
-            DetectPlayerPosition();
+
             //DetectReachMaxHeight();
             
-            ConfineLadderHeight();
+
 
             
-            ClimbUp();
+            
         }
 
         if(Timer.instance.gameStart && !gameEnd && GameManager.instance.currentScene.name != "Level_Tutorial_01")
@@ -261,7 +271,11 @@ public class PlayerOneController : MonoBehaviour
             {
                 SlideDown();
                 Warn();
-                print("slide");
+                DetectPlayerPosition();
+                ConfineLadderHeight();
+                //print("slide");
+                ClimbUp();
+                print("Climb2");
 
             }
             CheckLeftHand();
@@ -272,11 +286,11 @@ public class PlayerOneController : MonoBehaviour
 
             UpdateClosestSpot();
             //FollowLadder();
-            DetectPlayerPosition();
+
             //DetectReachMaxHeight();
 
-            ConfineLadderHeight();
-            ClimbUp();
+
+            
         }
 
     }
@@ -674,6 +688,7 @@ public class PlayerOneController : MonoBehaviour
             newLocalPos.y -= (slideDownSpeed * 0.1f) * Time.deltaTime;
             this.transform.localPosition = newLocalPos;
             anim.SetBool("isSliding", true);
+
             if (newLocalPos.y <= 0.045f)
             {
                 newLocalPos.y = 0.045f;
@@ -744,7 +759,7 @@ public class PlayerOneController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         anim.SetFloat("MoveSpeed", 0);
         isClimbing = false;
-        print("stop");
+        //print("stop");
     }
 
     IEnumerator DoClimb()
@@ -790,12 +805,12 @@ public class PlayerOneController : MonoBehaviour
             if (signLocalPos.x < 0)
             {
                 signOnLeft = true;
-                Debug.Log("left sign");
+                //Debug.Log("left sign");
             }
             else if (signLocalPos.x > 0)
             {
                 signOnRight = true;
-                Debug.Log("right sign");
+                //Debug.Log("right sign");
             }
         }
         else
@@ -928,9 +943,13 @@ public class PlayerOneController : MonoBehaviour
                 repairAudio.PlayOneShot(repairClip);
                 //change fix status in light control ref
                 lightcontrolRef.isFixed = true;
-                //removed the closest sign that was just fixed
+                //removed the closest sign that was just fixed           
                 spotsToFix.Remove(closestSpot);
-                closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
+               
+                
+                //closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
+                
+                
                 minimapIcon.GetComponent<SpriteRenderer>().enabled = false;
                 UpdateClosestSpot();
                 //Destroy(closestSign);
@@ -950,7 +969,7 @@ public class PlayerOneController : MonoBehaviour
                     StartCoroutine(ScoreBoard());
                     Timer.instance.AssignGrade();
 
-                    if (Timer.instance.isGradeA)
+                    if (Timer.instance.isGradeA )
                     {
                         if(GameManager.instance.currentScene.name == "Level_Tutorial_01")
                         {
@@ -976,7 +995,13 @@ public class PlayerOneController : MonoBehaviour
                         //bonusText1.text = "+500";
                         bonusText.text = bonusCoin.ToString();
                         bonusText1.text = bonusCoin.ToString();
-                        ScoreManager.instance.AddPoint(finalScore);
+
+
+                        ScoreManager.instance.AddPoint(bonusCoin);
+
+
+
+                  
                     }
                     if (Timer.instance.isGradeB)
                     {
@@ -984,18 +1009,21 @@ public class PlayerOneController : MonoBehaviour
                         {
                             bonusCoin = 450;
                             finalScore = ScoreManager.instance.score + bonusCoin;
+                      
                         }
 
                         if (GameManager.instance.currentScene.name == "Level_01" || GameManager.instance.currentScene.name == "Level_02" || GameManager.instance.currentScene.name == "Level_03")
                         {
                             bonusCoin = 600;
                             finalScore = ScoreManager.instance.score + bonusCoin;
+                            
                         }
 
                         if (GameManager.instance.currentScene.name == "Level_04")
                         {
                             bonusCoin = 900;
                             finalScore = ScoreManager.instance.score + bonusCoin;
+
                         }
                         gradeText.text = "B";
                         gradeText1.text = "B";
@@ -1003,7 +1031,9 @@ public class PlayerOneController : MonoBehaviour
                         //bonusText1.text = "+300";
                         bonusText.text = bonusCoin.ToString();
                         bonusText1.text = bonusCoin.ToString();
-                        ScoreManager.instance.AddPoint(finalScore);
+                        ScoreManager.instance.AddPoint(bonusCoin);
+
+
                     }
                     if (Timer.instance.isGradeC)
                     {
@@ -1031,7 +1061,9 @@ public class PlayerOneController : MonoBehaviour
                         //bonusText1.text = "+200";
                         bonusText.text = bonusCoin.ToString();
                         bonusText1.text = bonusCoin.ToString();
-                        ScoreManager.instance.AddPoint(finalScore);
+                        ScoreManager.instance.AddPoint(bonusCoin);
+
+               
                     }
 
                     gameEnd = true;
@@ -1055,6 +1087,11 @@ public class PlayerOneController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         scoreBoardUI.SetActive(true);
         scoreBoardUI1.SetActive(true);
+        if(GameManager.instance.currentScene.name == "Level_04" && restartOption1!= null && restartOption2 != null)
+        {
+            restartOption1.SetActive(false);
+            restartOption2.SetActive(false);
+        }
         scoreBoardIsTurnnedOn = true;
     }
 
@@ -1128,6 +1165,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[0].transform.position;
             charPos.x = target[0].transform.position.x;
             charPos.y = target[0].transform.position.y;
+            charPos.z = transform.position.z;
             //charPos.z = target[0].transform.position.z ;
             transform.position = charPos;
         }
@@ -1136,6 +1174,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[1].transform.position;
             charPos.x = target[1].transform.position.x;
             charPos.y = target[1].transform.position.y;
+            charPos.z = transform.position.z;
             //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
@@ -1144,6 +1183,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[2].transform.position;
             charPos.x = target[2].transform.position.x;
             charPos.y = target[2].transform.position.y;
+            charPos.z = transform.position.z;
             //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
@@ -1152,6 +1192,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[3].transform.position;
             charPos.x = target[3].transform.position.x;
             charPos.y = target[3].transform.position.y;
+            charPos.z = transform.position.z;
             //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
@@ -1160,6 +1201,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[4].transform.position;
             charPos.x = target[4].transform.position.x;
             charPos.y = target[4].transform.position.y;
+            charPos.z = transform.position.z;
             //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
         }
@@ -1169,6 +1211,7 @@ public class PlayerOneController : MonoBehaviour
             Vector3 charPos = target[5].transform.position;
             charPos.x = target[5].transform.position.x;
             charPos.y = target[5].transform.position.y;
+            charPos.z = transform.position.z;
             //charPos.z = target[0].transform.position.z;
             transform.position = charPos;
             canSlideDown = false;
@@ -1255,10 +1298,11 @@ public class PlayerOneController : MonoBehaviour
 
     IEnumerator DelayShopFunction()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         delayScoreboardUI = true;
 
-        if(GameManager.instance.currentScene.name != "Level_04")
+
+        if (GameManager.instance.currentScene.name != "Level_04")
         {
             scoreBoardSelection1_1.SetActive(true);
             scoreBoardSelection1_2.SetActive(true);

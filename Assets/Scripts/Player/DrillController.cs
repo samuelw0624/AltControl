@@ -25,6 +25,10 @@ public class DrillController : MonoBehaviour
     [SerializeField]
     private AudioSource purchaseSuccessfulSound;
 
+    [SerializeField]
+    private bool timerStart;
+    [SerializeField]
+    private bool inShop;
 
     public enum DrillType
     {
@@ -68,7 +72,9 @@ public class DrillController : MonoBehaviour
                     ScoreManager.instance.restartGame = true;
                     ScoreManager.instance.isRead = false;
                     StartCoroutine(EnterTutorialLevel01());
+                    ScoreManager.instance.score = 0;
                     //SceneManager.LoadScene("LoadingLevel_01");
+                    
                     
                 }
 
@@ -78,6 +84,7 @@ public class DrillController : MonoBehaviour
                     ScoreManager.instance.restartGame = true;
                     ScoreManager.instance.isRead = false;
                     StartCoroutine(EnterLevel01());
+                    ScoreManager.instance.score = ScoreBoard.instance.TutorialScore;
                 }
                 
                 if(GameManager.instance.currentScene.name == "Level_02")
@@ -87,6 +94,7 @@ public class DrillController : MonoBehaviour
                     ScoreManager.instance.restartGame = true;
                     ScoreManager.instance.isRead = false;
                     StartCoroutine(EnterLevel02());
+                    ScoreManager.instance.score = ScoreBoard.instance.Level01Score;
                 }
 
                 if (GameManager.instance.currentScene.name == "Level_03")
@@ -95,6 +103,7 @@ public class DrillController : MonoBehaviour
                     ScoreManager.instance.restartGame = true;
                     ScoreManager.instance.isRead = false;
                     StartCoroutine(EnterLevel03());
+                    ScoreManager.instance.score = ScoreBoard.instance.Level02Score;
                 }
 
                 if (GameManager.instance.currentScene.name == "Level_04")
@@ -103,6 +112,7 @@ public class DrillController : MonoBehaviour
                     ScoreManager.instance.restartGame = true;
                     ScoreManager.instance.isRead = false;
                     StartCoroutine(EnterLevel04());
+                    ScoreManager.instance.score = ScoreBoard.instance.Level03Score;
                 }
 
             }
@@ -183,11 +193,11 @@ public class DrillController : MonoBehaviour
                     StartCoroutine(EnterLoading04());
                 }
 
-                if (GameManager.instance.currentScene.name == "Level_04")
-                {
-                    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
-                    StartCoroutine(RestartGame());
-                }
+                //if (GameManager.instance.currentScene.name == "Level_04")
+                //{
+                //    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
+                //    StartCoroutine(RestartGame());
+                //}
             }
 
 
@@ -401,12 +411,29 @@ public class DrillController : MonoBehaviour
                 //shopUI.SetActive(true);
                 //shopUI2.SetActive(true);
                 StartCoroutine(ShowShopUI());
-
+                Timer.instance.stopTimer = true;
+                timerStart = false;
 
             }
             else
             {
                 LeaveShop();
+
+                if (Timer.instance.gameStart && inShop)
+                {
+                    Timer.instance.stopTimer = false;
+                    
+                    if (!timerStart)
+                    {
+                        Timer.instance.StartTimerAction();
+                        timerStart = true;
+                        inShop = false;
+                    }
+                }
+
+
+
+
             }
         }
 
@@ -419,16 +446,18 @@ public class DrillController : MonoBehaviour
         shopUI2.SetActive(true);
         PlayerOneController.instance.isFreezed = true;
         EnterShop.instance.firstEnter = true;
-     
+        inShop = true;
+
+
     }
 
-    IEnumerator CloseShopUI()
-    {
-        yield return new WaitForSeconds(0.5f);
-        shopUI.SetActive(false);
-        shopUI2.SetActive(false);
-        PlayerOneController.instance.isFreezed = false;
-    }
+    //IEnumerator CloseShopUI()
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    shopUI.SetActive(false);
+    //    shopUI2.SetActive(false);
+    //    PlayerOneController.instance.isFreezed = false;
+    //}
 
 
     public void LeaveShop()
@@ -437,8 +466,11 @@ public class DrillController : MonoBehaviour
         {
             //shopUI.SetActive(false);
             //shopUI2.SetActive(false);
-            StartCoroutine(CloseShopUI());
-           
+
+            shopUI.SetActive(false);
+            shopUI2.SetActive(false);
+            PlayerOneController.instance.isFreezed = false;
+            EnterShop.instance.shopItem2[3].SetActive(false);
 
         }
         keyPressed = false;
@@ -458,7 +490,7 @@ public class DrillController : MonoBehaviour
         {
             if (EnterShop.instance.selectedItem == 0 && EnterShop.instance.isPurchased1 == false && EnterShop.instance.pressedTimes > 1)
             {
-                if (ScoreManager.instance.score >= 750)
+                if (ScoreManager.instance.score >= 750 || ScoreBoard.instance.item1WasPurchased)
                 {
                     EnterShop.instance.soldOutItems[0].SetActive(true);
                     EnterShop.instance.soldOutItems2[0].SetActive(true);
@@ -475,12 +507,12 @@ public class DrillController : MonoBehaviour
 
             if (EnterShop.instance.selectedItem == 1 && EnterShop.instance.isPurchased2 == false && EnterShop.instance.pressedTimes > 1)
             {
-                if (ScoreManager.instance.score >= 2000)
+                if (ScoreManager.instance.score >= 1750 || ScoreBoard.instance.item2WasPurchased)
                 {
                     EnterShop.instance.soldOutItems[1].SetActive(true);
                     EnterShop.instance.soldOutItems2[1].SetActive(true);
                     EnterShop.instance.isPurchased2 = true;
-                    ScoreManager.instance.ReducePoint(2000);
+                    ScoreManager.instance.ReducePoint(1750);
                     purchaseSuccessfulSound.Play();
                 }
                 else
@@ -491,7 +523,7 @@ public class DrillController : MonoBehaviour
 
             if (EnterShop.instance.selectedItem == 2 && EnterShop.instance.isPurchased3 == false && EnterShop.instance.pressedTimes > 1)
             {
-                if (ScoreManager.instance.score >= 1000)
+                if (ScoreManager.instance.score >= 1000 || ScoreBoard.instance.item3WasPurchased)
                 {
                     EnterShop.instance.soldOutItems[2].SetActive(true);
                     EnterShop.instance.soldOutItems2[2].SetActive(true);
