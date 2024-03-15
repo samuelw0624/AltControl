@@ -241,11 +241,11 @@ public class Timer : MonoBehaviour
     #region Winning Grade
     public void AssignGrade()
     {
-        if(slideTimer <= 180)
+        if(slideTimer <= 120)
         {
             isGradeA = true;
         } 
-        else if(slideTimer > 180 && slideTimer <= 240)
+        else if(slideTimer > 120 && slideTimer <= 240)
         {
             isGradeB = true;
         }
