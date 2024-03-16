@@ -3249,6 +3249,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 314660915}
+    - target: {fileID: 1761561563764130763, guid: 19cb71a6036cb484e88774ef0396c618, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1761561563764130766, guid: 19cb71a6036cb484e88774ef0396c618, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -14436,6 +14440,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6898957153636724129, guid: 56b499bdb9b91a14f9592a80da708ad3, type: 3}
+      propertyPath: onIntensity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56b499bdb9b91a14f9592a80da708ad3, type: 3}
 --- !u!1001 &1379784564
@@ -14519,6 +14527,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3935007961089757639, guid: 6c4627cd9c570e342bbef7c5d24919e3, type: 3}
+      propertyPath: onIntensity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5139714515703276031, guid: 6c4627cd9c570e342bbef7c5d24919e3, type: 3}
       propertyPath: m_Name
       value: bubble_tea_sign
@@ -16157,6 +16169,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 38705530956266744, guid: 05c16119a5b6f92438aba76b2a444608, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 699911745510291408, guid: 05c16119a5b6f92438aba76b2a444608, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -22204,6 +22220,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3751614760982145921, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
+      propertyPath: onIntensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751614760982145921, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
+      propertyPath: offIntensity
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 3966360423381103938, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -22258,6 +22282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3966360423381103938, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
+    - {fileID: 2043537420, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 525a601e993aaa742a7c7ae461298a78, type: 3}
 --- !u!1001 &2055424744
 PrefabInstance:
