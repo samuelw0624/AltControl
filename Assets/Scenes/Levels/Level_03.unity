@@ -12020,6 +12020,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57b48044979c78d4a8e26810d52ce117, type: 3}
+--- !u!95 &1088159481 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1510295816990828752, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 542340753}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1098081514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14683,6 +14688,10 @@ PrefabInstance:
       propertyPath: superDrill
       value: 
       objectReference: {fileID: 474511478}
+    - target: {fileID: 3291930608849506963, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: anim_ScoreBoard
+      value: 
+      objectReference: {fileID: 1088159481}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: audio
       value: 

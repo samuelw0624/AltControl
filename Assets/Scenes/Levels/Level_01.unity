@@ -13829,6 +13829,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fadb55487df211040ae73ccda429008b, type: 3}
   m_PrefabInstance: {fileID: 1289793625}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1307179311 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1510295816990828752, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 1713791489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1330308564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21096,6 +21101,10 @@ MonoBehaviour:
   dialogueText5: {fileID: 0}
   dialogueText6: {fileID: 0}
   isTrigger: 0
+  text1_loadingScreen: {fileID: 0}
+  text2_loadingScreen: {fileID: 0}
+  sentences1_LoadingScreen: 
+  isTrigger1: 0
 --- !u!1001 &1893345182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23474,6 +23483,10 @@ PrefabInstance:
       propertyPath: superDrill
       value: 
       objectReference: {fileID: 505917836}
+    - target: {fileID: 3291930608849506963, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: anim_ScoreBoard
+      value: 
+      objectReference: {fileID: 1307179311}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: audio
       value: 

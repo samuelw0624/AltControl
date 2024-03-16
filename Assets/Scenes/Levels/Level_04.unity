@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!95 &3216138 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1510295816990828752, guid: 595770d28d079a4479ee9896972ce035, type: 3}
+  m_PrefabInstance: {fileID: 1810340583}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3668029
 GameObject:
   m_ObjectHideFlags: 0
@@ -37588,6 +37593,10 @@ PrefabInstance:
       propertyPath: superDrill
       value: 
       objectReference: {fileID: 721612057}
+    - target: {fileID: 3291930608849506963, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
+      propertyPath: anim_ScoreBoard
+      value: 
+      objectReference: {fileID: 3216138}
     - target: {fileID: 3291930608849506990, guid: 16fa035ef3e98fa4481598c1b926e5a3, type: 3}
       propertyPath: audio
       value: 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class ScoreBoard : MonoBehaviour
 {
@@ -49,6 +51,11 @@ public class ScoreBoard : MonoBehaviour
         RecordScore();
         DetectLevelScene();
         ItemRecord();
+
+        if (Input.GetKey(KeyCode.RightControl))
+        {
+            SceneManager.LoadScene("TitlePage");
+        }
     }
 
     void DetectLevelScene()
