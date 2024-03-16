@@ -349,56 +349,7 @@ public class DrillController : MonoBehaviour
             //Debug.Log("Deactivate screw");
         }
     }
-
-
-    //void HandleDrills()
-    //{
-    //    CheckDrillStatus();
-    //    if (p1Script.isInDrillSlot)
-    //    {
-    //        //each drill case checks whether the current screw matched the current drill
-    //        switch (currentDrill)
-    //        {
-    //            case DrillType.CrossDrill:
-    //                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.CrossScrew)
-    //                {
-    //                    p1Script.FixSign();
-    //                }
-    //                break;
-    //            case DrillType.FlatDrill:
-    //                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.FlatScrew)
-    //                {
-    //                    p1Script.FixSign();
-    //                }
-    //                break;
-    //            case DrillType.HexDrill:
-    //                if (PlayerOneController.instance.currentScrew == PlayerOneController.ScrewType.HexScrew)
-    //                {
-    //                    p1Script.FixSign();
-    //                }
-    //                break;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        //Debug.Log("drill is not in slot to repair");
-    //        //UX functions
-    //    }
-    //}
-
-    //void CheckDrillStatus()
-    //{
-    //    Debug.Log("drill in slot is " + p1Script.isInDrillSlot);
-
-    //    if (Keyboard.current[Key.P].wasPressedThisFrame && (p1Script.signOnLeft || p1Script.signOnRight))
-    //    {
-    //        p1Script.isInDrillSlot = true;
-    //    }
-    //    else if (Keyboard.current[Key.L].wasPressedThisFrame && (p1Script.signOnLeft || p1Script.signOnRight))
-    //    {
-    //        p1Script.isInDrillSlot = false;
-    //    }
-    //}
+ 
     #endregion
 
     #region Shop
@@ -451,33 +402,22 @@ public class DrillController : MonoBehaviour
 
     }
 
-    //IEnumerator CloseShopUI()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    shopUI.SetActive(false);
-    //    shopUI2.SetActive(false);
-    //    PlayerOneController.instance.isFreezed = false;
-    //}
-
-
     public void LeaveShop()
     {
         if(shopUI != null && shopUI2 != null)
         {
-            //shopUI.SetActive(false);
-            //shopUI2.SetActive(false);
-
             shopUI.SetActive(false);
             shopUI2.SetActive(false);
             PlayerOneController.instance.isFreezed = false;
             EnterShop.instance.shopItem2[3].SetActive(false);
-
         }
+
         keyPressed = false;
         for (int i = 0; i < EnterShop.instance.shopItem.Length; i++)
         {
             EnterShop.instance.shopItem[i].SetActive(false);
         }
+
         EnterShop.instance.selectedItem = 0;
         EnterShop.instance.firstEnter = false;
         EnterShop.instance.oriShop = false;
@@ -500,7 +440,7 @@ public class DrillController : MonoBehaviour
                 }
                 else
                 {
-
+                    insufficientFundSound.Play();
                 }
 
             }

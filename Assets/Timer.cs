@@ -171,7 +171,7 @@ public class Timer : MonoBehaviour
         {
 
             slideTimer += Time.deltaTime;
-            yield return new WaitForSeconds(0.001f);
+            
 
             p1Slider.value = slideTimer;
             p1Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
@@ -179,10 +179,16 @@ public class Timer : MonoBehaviour
             p2Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
 
 
-            p1Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
-            p2Text.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
-            //startTimer1.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
-            //startTimer2.text = $"{slideTimer / 60:00} : {slideTimer % 60:00}";
+            int minutes = Mathf.FloorToInt(slideTimer / 60f);
+            int seconds = Mathf.FloorToInt(slideTimer % 60f);
+
+            p1Text.text = $"{minutes:00} : {seconds:00}";
+            p2Text.text = $"{minutes:00} : {seconds:00}";
+
+            print("slideTimer: " + slideTimer);
+            print("p1text: " + p1Text.text);
+
+            yield return null;
         }
 
     }

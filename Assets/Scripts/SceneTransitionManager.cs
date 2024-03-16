@@ -214,8 +214,13 @@ public class SceneTransitionManager : MonoBehaviour
     IEnumerator ShowScoreBoard()
     {
         yield return new WaitForSeconds(3f);
-        scoreBoard1.SetActive(true);
-        scoreBoard2.SetActive(true);
+        
+        if(scoreBoard1!=null && scoreBoard2 != null)
+        {
+            scoreBoard1.SetActive(true);
+            scoreBoard2.SetActive(true);
+        }
+
         isShow = true;
     }
 

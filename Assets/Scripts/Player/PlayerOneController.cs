@@ -244,9 +244,8 @@ public class PlayerOneController : MonoBehaviour
                 SlideDown();
                 Warn();
                 ConfineLadderHeight();
-                DetectPlayerPosition();
-                ClimbUp();
-                print("Climb1");
+                DetectPlayerPosition();               
+               
             }
             CheckLeftHand();
             CheckRightHand();
@@ -255,14 +254,9 @@ public class PlayerOneController : MonoBehaviour
             CheckRightRail();
 
             UpdateClosestSpot();
-            //FollowLadder();
 
-            //DetectReachMaxHeight();
-            
+            ClimbUp();
 
-
-            
-            
         }
 
         if(Timer.instance.gameStart && !gameEnd && GameManager.instance.currentScene.name != "Level_Tutorial_01")
@@ -273,10 +267,6 @@ public class PlayerOneController : MonoBehaviour
                 Warn();
                 DetectPlayerPosition();
                 ConfineLadderHeight();
-                //print("slide");
-                ClimbUp();
-                print("Climb2");
-
             }
             CheckLeftHand();
             CheckRightHand();
@@ -289,8 +279,8 @@ public class PlayerOneController : MonoBehaviour
 
             //DetectReachMaxHeight();
 
+            ClimbUp();
 
-            
         }
 
     }
@@ -1298,7 +1288,7 @@ public class PlayerOneController : MonoBehaviour
 
     IEnumerator DelayShopFunction()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.7f);
         delayScoreboardUI = true;
 
 
