@@ -62,8 +62,12 @@ public class FalconAttack : MonoBehaviour
         {
             if (!PlayerOneController.instance.isFreezed)
             {
-                InitiateAttack();
-                DetectStun();
+                if (!isStunning)
+                {
+                    InitiateAttack();
+                    DetectStun();
+                }
+
                 if (rotateText != null)
                 {
                     WarningText();
@@ -110,7 +114,7 @@ public class FalconAttack : MonoBehaviour
             
             timer = 0;
             readyToAttack = true;
-            isStunning = false;
+           
 
             anim.SetBool("Attack", false);
 
@@ -194,24 +198,26 @@ public class FalconAttack : MonoBehaviour
         if (StunFunction.instance.isStuned)
         {
             isStunning = true;
-
+            print("isStuning" + isStunning);
         }
     }
 
     void Stun()
     {
         anim.SetBool("Attack", true);
-        this.transform.parent = playerPos;
+        this.transform.position = playerPos.position;
         
     }
 
     public void StopStun()
     {
-        this.transform.parent = oriParent;
+        //this.transform.parent = oriParent;
         isStunning = false;
         isAttacking = false;
         attackEnds = true;
-        
+
+        print("isStuning" + isStunning);
+
     }
 
 

@@ -111,6 +111,8 @@ public class PlayerTwoController : MonoBehaviour
     private bool isInput1Active;
     [SerializeField]
     private bool isInput2Active;
+    [SerializeField]
+    public FalconAttack falconAttack;
 
     [Header("Shop")]
     [SerializeField]
@@ -173,6 +175,7 @@ public class PlayerTwoController : MonoBehaviour
         {
             StartCoroutine(TurnOffTutorial());
         }
+
 
     }
 
@@ -265,6 +268,7 @@ public class PlayerTwoController : MonoBehaviour
 
         if (FalconAttack.instance.isStunning)
         {
+            print("isStuning" + FalconAttack.instance.isStunning);
             if (isInput1Active && isInput2Active)
             {
                 isInput1Active = false;
@@ -282,6 +286,7 @@ public class PlayerTwoController : MonoBehaviour
         }
         else
         {
+            print("isStuning" + FalconAttack.instance.isStunning);
             times = 0;
         }
     }
