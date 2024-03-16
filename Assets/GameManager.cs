@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void SkyboxControl()
+    public void SkyboxControl()
     {
         currentScene = SceneManager.GetActiveScene();
         // Change skybox based on the scene name

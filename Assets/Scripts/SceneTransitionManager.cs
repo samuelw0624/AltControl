@@ -33,6 +33,13 @@ public class SceneTransitionManager : MonoBehaviour
     [SerializeField]
     private bool isShow;
 
+    [SerializeField]
+    private Animator anim_coffee;
+    [SerializeField]
+    private GameObject illustration_Drill1;
+    [SerializeField]
+    private GameObject illustration_Drill2;
+
     private void Start()
     {
         startSound = this.GetComponent<AudioSource>();
@@ -52,6 +59,9 @@ public class SceneTransitionManager : MonoBehaviour
                 if (!readButton)
                 {
                     startSound.Play();
+                    anim_coffee.SetTrigger("Start");
+                    illustration_Drill1.SetActive(false);
+                    illustration_Drill2.SetActive(false);
                     StartCoroutine(StartLoading());
                 }
 
@@ -226,7 +236,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     IEnumerator StartLoading()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("Level_Tutorial_01");
         readButton = true;
     }

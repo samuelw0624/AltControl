@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class TutorialDialogue : MonoBehaviour
 {
     public static TutorialDialogue instance;
@@ -34,10 +35,30 @@ public class TutorialDialogue : MonoBehaviour
     [SerializeField]
     private bool isTrigger;
 
+
+    [Header("Loading Screen")]
+    [SerializeField]
+    private TMP_Text text1_loadingScreen;
+    [SerializeField]
+    private TMP_Text text2_loadingScreen;
+    [SerializeField]
+    private string sentences1_LoadingScreen;
+    [SerializeField]
+    private bool isTrigger1;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+
+        if (GameManager.instance.currentScene.name != "Level_01" && GameManager.instance.currentScene.name != "Level_Tutorial_01" && !isTrigger1)
+        {
+            StartCoroutine(TypeLoadingScreen());
+            isTrigger1 = true;
+        }
+
     }
 
     // Update is called once per frame
@@ -111,6 +132,17 @@ public class TutorialDialogue : MonoBehaviour
         {
             dialogueText6.text += letter;
 
+            yield return new WaitForSeconds(typingSpeed);
+
+        }
+    }
+
+    public IEnumerator TypeLoadingScreen()
+    {
+        foreach (char letter in sentences1_LoadingScreen.ToCharArray())
+        {
+            text1_loadingScreen.text += letter;
+            text2_loadingScreen.text += letter;
             yield return new WaitForSeconds(typingSpeed);
 
         }

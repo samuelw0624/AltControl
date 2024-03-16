@@ -12,6 +12,10 @@ public class FalconAttack : MonoBehaviour
     [SerializeField]
     private Transform oriPos;
     [SerializeField]
+    private Transform homePos;
+    [SerializeField]
+    private Transform headPosition;
+    [SerializeField]
     private float normalSpeed;
     [SerializeField]
     private float attackSpeed;
@@ -41,11 +45,18 @@ public class FalconAttack : MonoBehaviour
     private bool attackEnds;
     [SerializeField]
     private GameObject rotateText;
-
+    [SerializeField]
+    private float seekingTargetTimer;
+    [SerializeField]
+    private bool wasHome;
+    [SerializeField]
+    private bool goingHome;
+    [SerializeField]
+    private float homeTimer;
 
     private void Awake()
     {
-        transform.position = oriPos.position;
+        
     }
 
     // Start is called before the first frame update
@@ -62,11 +73,12 @@ public class FalconAttack : MonoBehaviour
         {
             if (!PlayerOneController.instance.isFreezed)
             {
-                if (!isStunning)
-                {
-                    InitiateAttack();
-                    DetectStun();
-                }
+                InitiateAttack();
+                //if (!isStunning)
+                //{
+                //    InitiateAttack();
+                //    DetectStun();
+                //}
 
                 if (rotateText != null)
                 {
@@ -85,7 +97,11 @@ public class FalconAttack : MonoBehaviour
         {
             if (!PlayerOneController.instance.isFreezed)
             {
-                Attack();
+                if (isAttacking)
+                {
+                    Attack();
+                }
+
             }
 
         }
@@ -113,110 +129,103 @@ public class FalconAttack : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, oriPos.position, normalSpeed * Time.deltaTime);
             
             timer = 0;
-            readyToAttack = true;
-           
+            seekingTargetTimer = 0;
 
+            readyToAttack = true;
+       
             anim.SetBool("Attack", false);
+
+            print("1");
 
         }
 
+        if (goingHome)
+        {
+            GoBackHome();
+            print("GoingHome");
+        }
 
-        if (readyToAttack)
+
+        if (readyToAttack && !goingHome)
         {
             timer += Time.deltaTime;
+            
+            //if(homePos.position == oriPos.position)
+            //{
+            //    wasHome = true;
+            //}
+            //else
+            //{
+            //    wasHome = false;
+            //}
+            print("2");
         }
 
         if (timer >= attackTimer)
         {
             isAttacking = true;
             direction = playerPos.position - transform.position;
-            print("ReadtoAttack");
+            print("ReadytoAttack");
         }
+
     }
 
     void Attack()
     {      
-        if(isAttacking)
+        if (seekingTargetTimer >= 5)
         {
-
-            if (isStunning)
+            //attackEnds = true;
+            goingHome = true;
+            homeTimer = 0;
+            readyToAttack = false;
+            isAttacking = false;
+            print("BackHome");
+        }
+        else
+        {
+            falconAudio.Play();
+            timer = 0;
+            if (StunFunction.instance.isStuned)
             {
-                Stun();
-                StopCoroutine(BackHome());
-                print("stun");
+                anim.SetBool("Attack", true);
+                transform.position = Vector2.MoveTowards(transform.position, headPosition.position, attackSpeed * Time.deltaTime);
+                isStunning = true;
             }
             else
             {
                 falconAudio.Play();
-
                 transform.Translate(direction.normalized * attackSpeed * Time.deltaTime);
-
-                timer = 0;
-
-                StartCoroutine(BackHome());
-                print("backHome");
-
+                
+                seekingTargetTimer += Time.deltaTime;
+                print("SeekingTarget");
             }
-        }
 
-
-        if (attackEnds)
-        {
-            StartCoroutine(StopAttack());
-            print("EndAttacking");
-
-        } 
-
-
-    }
-
-    IEnumerator BackHome()
-    {
-        yield return new WaitForSeconds(waitingTime);
-        isAttacking = false;
-        attackEnds = true;
-        this.transform.parent = oriParent;
-        transform.position = Vector2.MoveTowards(transform.position, oriPos.position, normalSpeed * Time.deltaTime);
-    }
-
-    IEnumerator StopAttack()
-    {
-
-        readyToAttack = false;
-
-
-        this.transform.parent = oriParent;
-        transform.position = Vector2.MoveTowards(transform.position, oriPos.position, normalSpeed * Time.deltaTime);
-
-        yield return new WaitForSeconds(3f);
-
-        attackEnds = false;
-    }
-
-    private void DetectStun()
-    {
-        if (StunFunction.instance.isStuned)
-        {
-            isStunning = true;
-            print("isStuning" + isStunning);
         }
     }
 
-    void Stun()
+    void GoBackHome()
     {
-        anim.SetBool("Attack", true);
-        this.transform.position = playerPos.position;
-        
+        if(homeTimer >= 5)
+        {
+            goingHome = false;
+        }
+        else
+        {
+            homeTimer += Time.deltaTime;
+        }
+
+        transform.position = Vector2.MoveTowards(transform.position, oriPos.position, normalSpeed * Time.deltaTime);
     }
 
     public void StopStun()
     {
         //this.transform.parent = oriParent;
         isStunning = false;
+        goingHome = true;
+        homeTimer = 0;
+        readyToAttack = false;
         isAttacking = false;
-        attackEnds = true;
-
-        print("isStuning" + isStunning);
+        print("StopStun");
 
     }
 

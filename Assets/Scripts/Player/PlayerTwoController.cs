@@ -113,6 +113,8 @@ public class PlayerTwoController : MonoBehaviour
     private bool isInput2Active;
     [SerializeField]
     public FalconAttack falconAttack;
+    [SerializeField]
+    public bool isSaved;
 
     [Header("Shop")]
     [SerializeField]
@@ -195,6 +197,10 @@ public class PlayerTwoController : MonoBehaviour
 
                 MoveHorizontally();
                 DetectLadderTile();
+                if (!FalconAttack.instance.isStunning)
+                {
+                    LadderHeightSwitch();
+                }
             }
 
 
@@ -232,8 +238,6 @@ public class PlayerTwoController : MonoBehaviour
                 if (PlayerOneController.instance.isFreezed == false)
                 {
                     RandomTilt();
-                    LadderHeightSwitch();
-
 
                 }
             }
@@ -266,9 +270,9 @@ public class PlayerTwoController : MonoBehaviour
     private void RescuePlayer1()
     {
 
-        if (FalconAttack.instance.isStunning)
+        if (FalconAttack.instance.isStunning && !isSaved)
         {
-            print("isStuning" + FalconAttack.instance.isStunning);
+            //print("isStuning" + FalconAttack.instance.isStunning);
             if (isInput1Active && isInput2Active)
             {
                 isInput1Active = false;
@@ -276,18 +280,22 @@ public class PlayerTwoController : MonoBehaviour
                 times += 1;
             }
             swapInterval = 1f / times;
-            //print("swap rate" + swapInterval);
+            print("swap rate" + swapInterval);
 
-            if (swapInterval <= 0.2)
+            if (swapInterval <= 0.05)
             {
+                isSaved = true;
+                times = 0;
                 FalconAttack.instance.StopStun();
                 print("Rescue Player1");
             }
         }
-        else
+        else if (!FalconAttack.instance.isStunning)
         {
-            print("isStuning" + FalconAttack.instance.isStunning);
+            //print("isStuning" + FalconAttack.instance.isStunning);
             times = 0;
+            isSaved = false;
+            swapInterval = 0;
         }
     }
 

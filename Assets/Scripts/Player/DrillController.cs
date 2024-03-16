@@ -30,6 +30,9 @@ public class DrillController : MonoBehaviour
     [SerializeField]
     private bool inShop;
 
+    [SerializeField]
+    private Animator anim_ScoreBoard;
+
     public enum DrillType
     {
         CrossDrill,
@@ -115,6 +118,7 @@ public class DrillController : MonoBehaviour
                     ScoreManager.instance.score = ScoreBoard.instance.Level03Score;
                 }
 
+                anim_ScoreBoard.SetTrigger("Yellow");
             }
 
 
@@ -193,6 +197,7 @@ public class DrillController : MonoBehaviour
                     StartCoroutine(EnterLoading04());
                 }
 
+                anim_ScoreBoard.SetTrigger("Green");
                 //if (GameManager.instance.currentScene.name == "Level_04")
                 //{
                 //    PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
@@ -287,7 +292,7 @@ public class DrillController : MonoBehaviour
                     PlayerOneController.instance.repairAudio.PlayOneShot(PlayerOneController.instance.repairClip);
                     StartCoroutine(RestartGame());
                 }
-
+                anim_ScoreBoard.SetTrigger("Red");
             }
 
 

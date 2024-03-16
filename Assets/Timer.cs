@@ -128,6 +128,7 @@ public class Timer : MonoBehaviour
             audio.Play();
             //print("Timer Alarm");
             timerStart = true;
+            GameManager.instance.SkyboxControl();
         }      
     }
 

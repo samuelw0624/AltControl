@@ -111,6 +111,9 @@ public class ScoreBoard : MonoBehaviour
                 if (PlayerOneController.instance.gameEnd)
                 {
                     TutorialScore = ScoreManager.instance.score_levelTutorial;
+                    item1WasPurchased = false;
+                    item2WasPurchased = false;
+                    item3WasPurchased = false;
                 }
             }
 

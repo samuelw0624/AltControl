@@ -266,7 +266,11 @@ public class PlayerOneController : MonoBehaviour
                 SlideDown();
                 Warn();
                 DetectPlayerPosition();
-                ConfineLadderHeight();
+                if (!FalconAttack.instance.isStunning)
+                {
+                    ConfineLadderHeight();
+                }
+
             }
             CheckLeftHand();
             CheckRightHand();
