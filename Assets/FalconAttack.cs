@@ -63,7 +63,6 @@ public class FalconAttack : MonoBehaviour
     void Start()
     {
         instance = this;
-        anim = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame

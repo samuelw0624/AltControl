@@ -17778,6 +17778,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2449208826516520724, guid: edff74e989975954c96833a5131206d4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449208826516520724, guid: edff74e989975954c96833a5131206d4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449208826516520724, guid: edff74e989975954c96833a5131206d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -28503,6 +28511,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 159829107}
     m_Modifications:
+    - target: {fileID: 641860569, guid: bd4514b304697764eb1b8030d361a5e4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1389345501, guid: bd4514b304697764eb1b8030d361a5e4, type: 3}
       propertyPath: shopItem.Array.data[0]
       value: 
