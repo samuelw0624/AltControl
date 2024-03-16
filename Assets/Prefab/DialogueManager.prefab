@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1648343020306887128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648343020306887130}
+  - component: {fileID: 1648343020306887131}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1648343020306887130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648343020306887128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 985.5112, y: 576.7876, z: 45.678406}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1648343020306887131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648343020306887128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bfd23ee1fca35469a13bba7205cc00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueText2: {fileID: 0}
+  dialogueText1: {fileID: 0}
+  sentences1: 
+  sentences2: 
+  typingSpeed: 0
+  dialogueText3: {fileID: 0}
+  dialogueText4: {fileID: 0}
+  sentences3: 
+  sentences4: 
+  dialogueText5: {fileID: 0}
+  dialogueText6: {fileID: 0}
+  isTrigger: 0
+  text1_loadingScreen: {fileID: 0}
+  text2_loadingScreen: {fileID: 0}
+  sentences1_LoadingScreen: Entering steam will slow you down and obstruct vision
+  isTrigger1: 0
