@@ -169,24 +169,17 @@ public class Timer : MonoBehaviour
     {
         while(stopTimer == false && !PlayerOneController.instance.gameEnd)
         {
-
             slideTimer += Time.deltaTime;
-            
-
             p1Slider.value = slideTimer;
             p1Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
             p2Slider.value = slideTimer;
             p2Fill.color = grandient.Evaluate(p1Slider.normalizedValue);
-
 
             int minutes = Mathf.FloorToInt(slideTimer / 60f);
             int seconds = Mathf.FloorToInt(slideTimer % 60f);
 
             p1Text.text = $"{minutes:00} : {seconds:00}";
             p2Text.text = $"{minutes:00} : {seconds:00}";
-
-            print("slideTimer: " + slideTimer);
-            print("p1text: " + p1Text.text);
 
             yield return null;
         }
