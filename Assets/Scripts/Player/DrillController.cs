@@ -32,6 +32,10 @@ public class DrillController : MonoBehaviour
 
     [SerializeField]
     private Animator anim_ScoreBoard;
+    [SerializeField]
+    private float delayTimer;
+    [SerializeField]
+    private bool isDelayed;
 
     public enum DrillType
     {
@@ -67,7 +71,7 @@ public class DrillController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI)
+            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI && isDelayed)
             {
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
@@ -169,7 +173,7 @@ public class DrillController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI)
+            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI && isDelayed)
             {
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
@@ -260,7 +264,7 @@ public class DrillController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI)
+            if (PlayerOneController.instance.gameEnd && PlayerOneController.instance.delayScoreboardUI && isDelayed)
             {
                 if (GameManager.instance.currentScene.name == "Level_Tutorial_01")
                 {
@@ -354,9 +358,27 @@ public class DrillController : MonoBehaviour
             //Debug.Log("Deactivate screw");
         }
     }
- 
+
     #endregion
 
+
+    #region Delay Timer
+    void Delay()
+    {
+        if (PlayerOneController.instance.gameEnd)
+        {
+            delayTimer += Time.deltaTime;
+
+            if(delayTimer >= 1f)
+            {
+                isDelayed = true;
+            }
+        }
+        
+
+    }
+
+    #endregion
     #region Shop
     private void Enter()
     {

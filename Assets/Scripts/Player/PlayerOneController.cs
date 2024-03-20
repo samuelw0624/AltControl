@@ -941,7 +941,7 @@ public class PlayerOneController : MonoBehaviour
                 spotsToFix.Remove(closestSpot);
                
                 
-                closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
+                //closestSpot.gameObject.GetComponent<BoxCollider>().enabled = false;
                 
                 
                 minimapIcon.GetComponent<SpriteRenderer>().enabled = false;
