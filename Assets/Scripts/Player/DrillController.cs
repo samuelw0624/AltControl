@@ -64,6 +64,7 @@ public class DrillController : MonoBehaviour
         Enter();
         SwitchDrill();
         //HandleDrills();
+        Delay();
     }
 
     #region Drill Methods
@@ -369,7 +370,7 @@ public class DrillController : MonoBehaviour
         {
             delayTimer += Time.deltaTime;
 
-            if(delayTimer >= 1f)
+            if(delayTimer >= 3f)
             {
                 isDelayed = true;
             }
